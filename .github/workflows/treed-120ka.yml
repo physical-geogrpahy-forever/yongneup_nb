@@ -55,8 +55,47 @@ jobs:
 
       - uses: julia-actions/cache@v3
 
-      - name: Instantiate Julia environment
-        run: julia --project=treed120 -e 'using Pkg; Pkg.instantiate(); Pkg.precompile()'
+      - name: Instantiate official TREED Julia environment
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            Pkg.instantiate()
+            pins = [
+              PackageSpec(name="Optimization", version="5.5.0"),
+              PackageSpec(name="OptimizationBase", version="5.0.0"),
+              PackageSpec(name="OptimizationMetaheuristics", version="0.3.5"),
+              PackageSpec(name="Metaheuristics", version="3.4.2"),
+              PackageSpec(name="SciMLBase", version="2.139.0"),
+              PackageSpec(name="SciMLLogging", version="1.9.0")
+            ]
+            Pkg.add(pins)
+            foreach(Pkg.pin, pins)
+            Pkg.resolve()
+            Pkg.precompile()
+          '
+
+      - name: Verify official TREED version pins
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            deps = Pkg.dependencies()
+            expected = Dict(
+              "Optimization" => v"5.5.0",
+              "OptimizationBase" => v"5.0.0",
+              "OptimizationMetaheuristics" => v"0.3.5",
+              "Metaheuristics" => v"3.4.2",
+              "SciMLBase" => v"2.139.0",
+              "SciMLLogging" => v"1.9.0"
+            )
+            for (name, version) in expected
+              found = [x.version for x in values(deps) if x.name == name]
+              @assert length(found) == 1 "Missing $name"
+              @assert found[1] == version "$name resolved to $(found[1]), expected $version"
+              println("PIN_OK ", name, " ", version)
+            end
+          '
 
       - name: Run 120 ka scenario
         run: julia --project=treed120 treed120/julia/run_120ka.jl ${{ matrix.scenario }}
