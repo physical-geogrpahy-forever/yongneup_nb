@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/treed-120ka.yml'
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
