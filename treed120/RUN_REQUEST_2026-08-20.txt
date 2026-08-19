@@ -2,3 +2,4 @@ Run the verified TREED–Pelletier 120–0 ka dynamic-vs-frozen trait comparison
 Retry after canonical payload repair: 2026-08-20T01:20+09:00.
 Retry 2 after exact chunk_013a Git blob repair.
 Retry 3 with official TREED Manifest dependency versions pinned exactly.
+Retry 4 with OptimizationSolution.u compatibility patch.
