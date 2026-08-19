@@ -97,6 +97,21 @@ jobs:
             end
           '
 
+      - name: Apply OptimizationSolution compatibility patch
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('treed120/src/TREED_physiological_functions.jl')
+          s = p.read_text()
+          old = '    a_ll_optimized, C_leaf_optimized, H_optimized = Optimization.solve(prob, ECA(), maxiters = iters, abstol = 50)'
+          new = '    opt_solution = Optimization.solve(prob, ECA(), maxiters = iters, abstol = 50)\n    a_ll_optimized, C_leaf_optimized, H_optimized = opt_solution.u'
+          assert s.count(old) == 1, 'Expected exactly one TREED optimizer return line'
+          p.write_text(s.replace(old, new))
+          print('TREED_OPT_SOLUTION_PATCH_OK')
+          PY
+          grep -n 'opt_solution\|a_ll_optimized, C_leaf_optimized, H_optimized' treed120/src/TREED_physiological_functions.jl
+
       - name: Run 120 ka scenario
         run: julia --project=treed120 treed120/julia/run_120ka.jl ${{ matrix.scenario }}
 
