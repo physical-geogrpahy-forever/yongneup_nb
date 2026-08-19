@@ -1,0 +1,131 @@
+name: TREED Pelletier 120ka comparison
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/treed-120ka.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+  JULIA_NUM_THREADS: '1'
+
+jobs:
+  model:
+    name: 120ka ${{ matrix.scenario }}
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [dynamic, frozen]
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Reconstruct and verify model package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+          test -f treed120/julia/run_120ka.jl
+          test -f treed120/Project.toml
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install Python runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy rasterio matplotlib
+
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: '1.11.6'
+
+      - uses: julia-actions/cache@v3
+
+      - name: Instantiate Julia environment
+        run: julia --project=treed120 -e 'using Pkg; Pkg.instantiate(); Pkg.precompile()'
+
+      - name: Run 120 ka scenario
+        run: julia --project=treed120 treed120/julia/run_120ka.jl ${{ matrix.scenario }}
+
+      - name: Validate scenario outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f treed120/results/${{ matrix.scenario }}/timeseries.csv
+          test "$(($(wc -l < treed120/results/${{ matrix.scenario }}/timeseries.csv)-1))" -eq 121
+          for age in 120 100 80 60 40 20 10 5 0; do
+            f=$(printf 'treed120/results/${{ matrix.scenario }}/snapshots/snapshot_%03dka.csv' "$age")
+            test -f "$f"
+            test "$(($(wc -l < "$f")-1))" -eq 298
+          done
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed120-${{ matrix.scenario }}
+          path: treed120/results/${{ matrix.scenario }}/
+          retention-days: 30
+
+  compare:
+    name: Maps and spatial means
+    needs: model
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Reconstruct and verify plotting package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install plotting runtime
+        run: python -m pip install numpy pandas matplotlib
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: treed120-dynamic
+          path: collected/dynamic
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: treed120-frozen
+          path: collected/frozen
+
+      - name: Build comparison maps and graphs
+        run: python treed120/scripts/make_comparison_plots.py --dynamic collected/dynamic --frozen collected/frozen --out comparison
+
+      - name: Validate comparison outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f comparison/mean_timeseries_120ka.png
+          test -f comparison/comparison_timeseries.csv
+          test -f comparison/final_0ka_cell_comparison.csv
+          test -f comparison/comparison_summary.json
+          test "$(($(wc -l < comparison/comparison_timeseries.csv)-1))" -eq 121
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed120-comparison
+          path: comparison/
+          retention-days: 30
