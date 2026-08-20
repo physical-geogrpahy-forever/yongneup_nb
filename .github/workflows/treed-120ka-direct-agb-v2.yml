@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/workflows/treed-120ka-direct-agb-v2.yml'
       - 'scripts/patch_direct_agb_v2.py'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
