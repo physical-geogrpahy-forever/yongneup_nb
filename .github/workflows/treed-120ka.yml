@@ -120,10 +120,11 @@ jobs:
           import re
           p = Path('treed120/julia/run_120ka.jl')
           s = p.read_text()
-          s2, n = re.subn(r'(\.\*|\./|\.\+|\.\-)(?=[0-9])', r'\1 ', s)
+          s2, n = re.subn(r'[ \t]*(\.\*|\./|\.\+|\.\-)[ \t]*', r' \1 ', s)
           p.write_text(s2)
           print('JULIA_DOTTED_OPERATOR_WHITESPACE_FIXES', n)
           PY
+          grep -nE '\.\*|\./|\.\+|\.\-' treed120/julia/run_120ka.jl || true
           julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl", String)); println("RUN_120KA_PARSE_OK")'
 
       - name: Run 120 ka scenario
