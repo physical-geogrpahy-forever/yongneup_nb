@@ -29,12 +29,18 @@ jobs:
           mkdir -p diagnostics
           cp /tmp/treed120/julia/run_120ka.jl diagnostics/run_120ka_extracted.jl
           cp /tmp/treed120/scripts/make_comparison_plots.py diagnostics/make_comparison_plots_extracted.py
+          cp /tmp/treed120/python/run_geomorph_step.py diagnostics/run_geomorph_step_extracted.py
+          cp /tmp/treed120/python/prepare_age_input.py diagnostics/prepare_age_input_extracted.py
       - name: Commit extracted sources
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add diagnostics/run_120ka_extracted.jl diagnostics/make_comparison_plots_extracted.py
-          git commit -m 'Extract exact 120 ka production driver for audit'
-          git push
+          git add diagnostics/run_120ka_extracted.jl diagnostics/make_comparison_plots_extracted.py diagnostics/run_geomorph_step_extracted.py diagnostics/prepare_age_input_extracted.py
+          if git diff --cached --quiet; then
+            echo 'No extraction changes.'
+          else
+            git commit -m 'Extract exact 120 ka production drivers for audit'
+            git push
+          fi
