@@ -1,0 +1,245 @@
+name: TREED Pelletier 120ka direct AGB
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/treed-120ka-direct-agb.yml'
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+  JULIA_NUM_THREADS: '1'
+  AGB_CARBON_FRACTION: '0.47'
+
+jobs:
+  model:
+    name: directAGB 120ka ${{ matrix.scenario }}
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [dynamic, frozen]
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Reconstruct and verify model package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+          test -f treed120/julia/run_120ka.jl
+          test -f treed120/python/run_geomorph_step.py
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install Python runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy rasterio matplotlib
+
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: '1.11.6'
+
+      - uses: julia-actions/cache@v3
+
+      - name: Instantiate official TREED Julia environment
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            Pkg.instantiate()
+            pins = [
+              PackageSpec(name="Optimization", version="5.5.0"),
+              PackageSpec(name="OptimizationBase", version="5.0.0"),
+              PackageSpec(name="OptimizationMetaheuristics", version="0.3.5"),
+              PackageSpec(name="Metaheuristics", version="3.4.2"),
+              PackageSpec(name="SciMLBase", version="2.139.0"),
+              PackageSpec(name="SciMLLogging", version="1.9.0")
+            ]
+            Pkg.add(pins)
+            foreach(Pkg.pin, pins)
+            Pkg.resolve()
+            Pkg.precompile()
+          '
+
+      - name: Verify official TREED version pins
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            deps = Pkg.dependencies()
+            expected = Dict(
+              "Optimization" => v"5.5.0",
+              "OptimizationBase" => v"5.0.0",
+              "OptimizationMetaheuristics" => v"0.3.5",
+              "Metaheuristics" => v"3.4.2",
+              "SciMLBase" => v"2.139.0",
+              "SciMLLogging" => v"1.9.0"
+            )
+            for (name, version) in expected
+              found = [x.version for x in values(deps) if x.name == name]
+              @assert length(found) == 1 "Missing $name"
+              @assert found[1] == version "$name resolved to $(found[1]), expected $version"
+            end
+            println("TREED_VERSION_PINS_OK")
+          '
+
+      - name: Apply TREED compatibility patches
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('treed120/src/TREED_physiological_functions.jl')
+          s=p.read_text()
+          old='    a_ll_optimized, C_leaf_optimized, H_optimized = Optimization.solve(prob, ECA(), maxiters = iters, abstol = 50)'
+          new='    opt_solution = Optimization.solve(prob, ECA(), maxiters = iters, abstol = 50)\n    a_ll_optimized, C_leaf_optimized, H_optimized = opt_solution.u'
+          assert s.count(old)==1
+          p.write_text(s.replace(old,new))
+          p=Path('treed120/julia/run_120ka.jl')
+          s=p.read_text()
+          s,n=re.subn(r'[ \t]*(\.\*|\./|\.\+|\.\-)[ \t]*',r' \1 ',s)
+          p.write_text(s)
+          print('COMPAT_PATCH_OK dotted_fixes=',n)
+          PY
+
+      - name: Enforce zero-soil bare boundary
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('treed120/julia/run_120ka.jl')
+          s=p.read_text()
+          needle='''        ev,rows,conv=coupled_cell(df;mode=mode,fixed_primary=fixed_primary,es_init=es0,jan_init=jan0,seed=seed)\n'''
+          replacement='''        # BARE_SOIL_BOUNDARY_H_ZERO: no soil storage means no terrestrial vegetation.\n        if Float64(df.soil_depth_m[1]) <= 0.0\n            cap=0.0; precip=Float64.(df.precip_mm_month); days=Float64.(df.days)\n            rows,jan_final=simulate_bucket(cap,0.0,precip,days,zeros(Float64,12))\n            new_es[cell]=zeros(Float64,12); new_jan[cell]=0.0\n            push!(summary,(cell_id=cell,row=Int(df.row[1]),col=Int(df.col[1]),soil_depth_m=0.0,awc_capacity_mm=0.0,\n                converged=true,iterations=0,convergence_error=0.0,H_m=0.0,a_ll_yr=0.0,C_leaf_gC_individual=0.0,\n                seasonality=0.0,r_s_r=0.0,LAI=0.0,FPC=0.0,GPP_gC_m2_yr=0.0,NPP_gC_m2_yr=0.0,AET_mm_yr=0.0,\n                Net_C_gain_gC_m2_yr=0.0,AGB_C_g_m2_component_sum=0.0,BGB_C_g_m2_component_sum=0.0))\n            md=DataFrame(rows); md[!,:cell_id]=fill(cell,nrow(md)); md[!,:row]=fill(Int(df.row[1]),nrow(md)); md[!,:col]=fill(Int(df.col[1]),nrow(md)); append!(monthly,md;cols=:union)\n            continue\n        end\n        ev,rows,conv=coupled_cell(df;mode=mode,fixed_primary=fixed_primary,es_init=es0,jan_init=jan0,seed=seed)\n'''
+          assert s.count(needle)==1
+          p.write_text(s.replace(needle,replacement))
+          print('BARE_BOUNDARY_PATCH_OK')
+          PY
+          julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl", String)); println("RUN_120KA_PARSE_OK")'
+
+      - name: Replace NPP proxy with direct TREED AGB
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('treed120/python/run_geomorph_step.py')
+          s=p.read_text()
+          replacements=[
+            ("npp=np.full(shape,np.nan,float); aet=np.full((12,)+shape,np.nan,float); lai=np.full(shape,np.nan,float); htrait=np.full(shape,np.nan,float); all_yr=np.full(shape,np.nan,float); cleaf=np.full(shape,np.nan,float)",
+             "npp=np.full(shape,np.nan,float); aet=np.full((12,)+shape,np.nan,float); lai=np.full(shape,np.nan,float); htrait=np.full(shape,np.nan,float); all_yr=np.full(shape,np.nan,float); cleaf=np.full(shape,np.nan,float); agb_c=np.full(shape,np.nan,float)"),
+            ("        if 'C_leaf_gC_individual' in cols: cleaf[rr,cc]=float(x.C_leaf_gC_individual)",
+             "        if 'C_leaf_gC_individual' in cols: cleaf[rr,cc]=float(x.C_leaf_gC_individual)\n        if 'AGB_C_g_m2_component_sum' in cols: agb_c[rr,cc]=float(x.AGB_C_g_m2_component_sum)"),
+            ("    return npp,aet,lai,htrait,all_yr,cleaf",
+             "    return npp,aet,lai,htrait,all_yr,cleaf,agb_c"),
+            ("    npp,aet,lai,htrait,all_yr,cleaf=assemble(summary,monthly,z.shape)",
+             "    npp,aet,lai,htrait,all_yr,cleaf,agb_c=assemble(summary,monthly,z.shape)"),
+            ("    agb=np.where(land,np.maximum(npp,0.0)*0.010,np.nan)",
+             "    # Pelletier (2013) AGB is live dry above-ground biomass (kg m^-2).\n    # TREED exports AGB carbon (gC m^-2); IPCC default biomass carbon fraction CF=0.47.\n    agb_carbon_fraction=0.47\n    agb=np.where(land & np.isfinite(agb_c),np.maximum(agb_c,0.0)/(1000.0*agb_carbon_fraction),np.nan)\n    bad_agb=land & ~np.isfinite(agb)\n    if np.any(bad_agb):\n        rr,cc=np.argwhere(bad_agb)[0]\n        raise ValueError(f'Non-finite direct TREED AGB at row={rr}, col={cc}')"),
+            ("'mean_eemt_MJ_m2_yr':float(np.nanmean(eemt[land])),'mean_LAI':",
+             "'mean_eemt_MJ_m2_yr':float(np.nanmean(eemt[land])),'mean_agb_C_g_m2':float(np.nanmean(agb_c[land])),'mean_agb_dry_kg_m2':float(np.nanmean(agb[land])),'mean_LAI':"),
+            ("'EEMT_MJ_m2_yr':eemt[rr,cc],'LAI':lai[rr,cc]",
+             "'EEMT_MJ_m2_yr':eemt[rr,cc],'AGB_C_g_m2_component_sum':agb_c[rr,cc],'Pelletier_AGB_dry_kg_m2':agb[rr,cc],'LAI':lai[rr,cc]")
+          ]
+          for old,new in replacements:
+              n=s.count(old)
+              assert n==1, (old[:80],n)
+              s=s.replace(old,new)
+          p.write_text(s)
+          assert 'np.maximum(npp,0.0)*0.010' not in s
+          assert 'AGB_C_g_m2_component_sum' in s
+          assert '/(1000.0*agb_carbon_fraction)' in s
+          print('DIRECT_TREED_AGB_PATCH_OK CF=0.47')
+          PY
+          python -m py_compile treed120/python/run_geomorph_step.py
+          grep -n -A10 -B4 'agb_carbon_fraction' treed120/python/run_geomorph_step.py
+
+      - name: Run direct-AGB 120 ka scenario
+        run: julia --project=treed120 treed120/julia/run_120ka.jl ${{ matrix.scenario }}
+
+      - name: Validate direct-AGB outputs
+        shell: bash
+        env:
+          MATRIX_SCENARIO: ${{ matrix.scenario }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import os, numpy as np, pandas as pd
+          mode=os.environ['MATRIX_SCENARIO']
+          root=Path('treed120/results')/mode
+          t=pd.read_csv(root/'timeseries.csv')
+          assert len(t)==121
+          for c in ['mean_agb_C_g_m2','mean_agb_dry_kg_m2']:
+              assert c in t.columns
+              assert np.all(np.isfinite(t[c]))
+              assert np.all(t[c]>=0)
+          ratio=t['mean_agb_C_g_m2']/(1000.0*0.47)
+          assert np.max(np.abs(ratio-t['mean_agb_dry_kg_m2'])) < 1e-8
+          for age in [120,100,80,60,40,20,10,5,0]:
+              f=root/'snapshots'/f'snapshot_{age:03d}ka.csv'
+              d=pd.read_csv(f)
+              assert len(d)==298
+              for c in ['AGB_C_g_m2_component_sum','Pelletier_AGB_dry_kg_m2']:
+                  assert c in d.columns
+                  assert np.all(np.isfinite(d[c]))
+                  assert np.all(d[c]>=0)
+              b=d[d['soil_depth_m']<=0.0]
+              if len(b):
+                  for c in ['NPP_gC_m2_yr','AET_mm_yr','LAI','trait_H_m','a_ll_yr','C_leaf_gC_individual','AGB_C_g_m2_component_sum','Pelletier_AGB_dry_kg_m2']:
+                      assert np.max(np.abs(b[c].to_numpy(float))) <= 1e-12, (age,c,b[c].abs().max())
+          print('DIRECT_AGB_VALIDATION_OK',mode,'AGB_dry_120ka_mean=',t.iloc[0]['mean_agb_dry_kg_m2'],'AGB_dry_0ka_mean=',t.iloc[-1]['mean_agb_dry_kg_m2'])
+          PY
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed120-directagb-${{ matrix.scenario }}
+          path: treed120/results/${{ matrix.scenario }}/
+          retention-days: 30
+
+  compare:
+    name: directAGB maps and means
+    needs: model
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconstruct plotting package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install numpy pandas matplotlib
+      - uses: actions/download-artifact@v8
+        with:
+          name: treed120-directagb-dynamic
+          path: collected/dynamic
+      - uses: actions/download-artifact@v8
+        with:
+          name: treed120-directagb-frozen
+          path: collected/frozen
+      - name: Build direct-AGB comparison
+        run: python treed120/scripts/make_comparison_plots.py --dynamic collected/dynamic --frozen collected/frozen --out comparison
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed120-directagb-comparison
+          path: comparison/
+          retention-days: 30
