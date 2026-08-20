@@ -1,6 +1,6 @@
 {
-  "run_id": 32340558041,
-  "head_sha": "4d0aa45d914463d7c9ca0a8a4d883c3fb2e8616b",
+  "run_id": 32340707461,
+  "head_sha": "d7a7eca9300f6278f366f2f8a4d6c7b5bacf4fbf",
   "agb_carbon_fraction": 0.47,
   "agb_source": "TREED AGB_C_g_m2_component_sum",
   "models": {
@@ -17,11 +17,11 @@
       "agb_dry_120ka": 5.343297502518497
     },
     "frozen": {
-      "mean_z_m": 1166.3448015948868,
-      "mean_h_m": 1.496857244980447,
-      "mean_npp_gC_m2_yr": 396.91203362314246,
-      "mean_aet_mm_yr": 391.414255282583,
-      "mean_eemt_MJ_m2_yr": 43.14258064048348,
+      "mean_z_m": 1166.3457267110523,
+      "mean_h_m": 1.497239673571301,
+      "mean_npp_gC_m2_yr": 396.9117385662331,
+      "mean_aet_mm_yr": 391.41410086088734,
+      "mean_eemt_MJ_m2_yr": 43.14256215079199,
       "mean_agb_C_g_m2": 2412.0640621948933,
       "mean_agb_dry_kg_m2": 5.132051196159347,
       "mean_LAI": 2.2527089692245417,
