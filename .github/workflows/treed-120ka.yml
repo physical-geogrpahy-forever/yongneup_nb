@@ -110,7 +110,6 @@ jobs:
           p.write_text(s.replace(old, new))
           print('TREED_OPT_SOLUTION_PATCH_OK')
           PY
-          grep -n 'opt_solution\|a_ll_optimized, C_leaf_optimized, H_optimized' treed120/src/TREED_physiological_functions.jl
 
       - name: Normalize Julia 1.11 dotted-operator whitespace
         shell: bash
@@ -124,13 +123,27 @@ jobs:
           p.write_text(s2)
           print('JULIA_DOTTED_OPERATOR_WHITESPACE_FIXES', n)
           PY
-          grep -nE '\.\*|\./|\.\+|\.\-' treed120/julia/run_120ka.jl || true
+
+      - name: Enforce zero-soil bare boundary
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('treed120/julia/run_120ka.jl')
+          s = p.read_text()
+          needle = '''        ev,rows,conv=coupled_cell(df;mode=mode,fixed_primary=fixed_primary,es_init=es0,jan_init=jan0,seed=seed)\n'''
+          replacement = '''        # BARE_SOIL_BOUNDARY_H_ZERO: no soil storage means no terrestrial vegetation.\n        if Float64(df.soil_depth_m[1]) <= 0.0\n            cap=0.0; precip=Float64.(df.precip_mm_month); days=Float64.(df.days)\n            rows,jan_final=simulate_bucket(cap,0.0,precip,days,zeros(Float64,12))\n            new_es[cell]=zeros(Float64,12); new_jan[cell]=0.0\n            push!(summary,(cell_id=cell,row=Int(df.row[1]),col=Int(df.col[1]),soil_depth_m=0.0,awc_capacity_mm=0.0,\n                converged=true,iterations=0,convergence_error=0.0,H_m=0.0,a_ll_yr=0.0,C_leaf_gC_individual=0.0,\n                seasonality=0.0,r_s_r=0.0,LAI=0.0,FPC=0.0,GPP_gC_m2_yr=0.0,NPP_gC_m2_yr=0.0,AET_mm_yr=0.0,\n                Net_C_gain_gC_m2_yr=0.0,AGB_C_g_m2_component_sum=0.0,BGB_C_g_m2_component_sum=0.0))\n            md=DataFrame(rows); md[!,:cell_id]=fill(cell,nrow(md)); md[!,:row]=fill(Int(df.row[1]),nrow(md)); md[!,:col]=fill(Int(df.col[1]),nrow(md)); append!(monthly,md;cols=:union)\n            continue\n        end\n        ev,rows,conv=coupled_cell(df;mode=mode,fixed_primary=fixed_primary,es_init=es0,jan_init=jan0,seed=seed)\n'''
+          assert s.count(needle) == 1, 'Expected exactly one coupled_cell call in write_age_outputs'
+          p.write_text(s.replace(needle, replacement))
+          print('BARE_SOIL_BOUNDARY_PATCH_OK')
+          PY
+          grep -n -A18 -B3 'BARE_SOIL_BOUNDARY_H_ZERO' treed120/julia/run_120ka.jl
           julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl", String)); println("RUN_120KA_PARSE_OK")'
 
       - name: Run 120 ka scenario
         run: julia --project=treed120 treed120/julia/run_120ka.jl ${{ matrix.scenario }}
 
-      - name: Validate scenario outputs
+      - name: Validate scenario outputs and bare boundary
         shell: bash
         run: |
           set -euo pipefail
@@ -141,6 +154,24 @@ jobs:
             test -f "$f"
             test "$(($(wc -l < "$f")-1))" -eq 298
           done
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd, numpy as np, os
+          mode=os.environ['MATRIX_SCENARIO']
+          snapdir=Path('treed120/results')/mode/'snapshots'
+          checked=0; bare_total=0
+          for f in sorted(snapdir.glob('snapshot_*ka.csv')):
+              d=pd.read_csv(f)
+              b=d[d['soil_depth_m'] <= 0.0]
+              if b.empty: continue
+              bare_total += len(b); checked += 1
+              for c in ['NPP_gC_m2_yr','AET_mm_yr','LAI','trait_H_m','a_ll_yr','C_leaf_gC_individual']:
+                  assert np.all(np.isfinite(b[c])), (f,c,'nonfinite')
+                  assert np.max(np.abs(b[c].to_numpy(float))) <= 1e-12, (f,c,b[c].abs().max())
+          print('BARE_BOUNDARY_VALIDATION_OK', mode, 'snapshots_with_bare=',checked,'bare_rows=',bare_total)
+          PY
+        env:
+          MATRIX_SCENARIO: ${{ matrix.scenario }}
 
       - uses: actions/upload-artifact@v7
         with:
