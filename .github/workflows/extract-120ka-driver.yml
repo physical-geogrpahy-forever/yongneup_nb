@@ -44,3 +44,4 @@ jobs:
             git commit -m 'Extract exact 120 ka production drivers for audit'
             git push
           fi
+          echo 'EXTRACT_DRIVER_V2'
