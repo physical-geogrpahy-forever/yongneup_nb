@@ -1,0 +1,40 @@
+name: Extract TREED 120ka driver
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/extract-120ka-driver.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconstruct payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C /tmp/treed120
+      - name: Export exact production driver sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p diagnostics
+          cp /tmp/treed120/julia/run_120ka.jl diagnostics/run_120ka_extracted.jl
+          cp /tmp/treed120/scripts/make_comparison_plots.py diagnostics/make_comparison_plots_extracted.py
+      - name: Commit extracted sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add diagnostics/run_120ka_extracted.jl diagnostics/make_comparison_plots_extracted.py
+          git commit -m 'Extract exact 120 ka production driver for audit'
+          git push
