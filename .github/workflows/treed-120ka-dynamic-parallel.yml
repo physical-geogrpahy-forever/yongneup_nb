@@ -1,0 +1,125 @@
+name: TREED 120ka dynamic parallel
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+  JULIA_NUM_THREADS: '4'
+  AGE120_REFERENCE_SHA256: 8f342f040948026d84903f428a2e5cb771bf309a63cd9afb3801a2090c4dbf0e
+
+jobs:
+  dynamic:
+    name: 120ka dynamic 4-thread
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconstruct and verify model package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install numpy pandas scipy rasterio matplotlib
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: '1.11.6'
+      - uses: julia-actions/cache@v3
+      - name: Instantiate pinned TREED environment
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            Pkg.instantiate()
+            pins = [
+              PackageSpec(name="Optimization", version="5.5.0"),
+              PackageSpec(name="OptimizationBase", version="5.0.0"),
+              PackageSpec(name="OptimizationMetaheuristics", version="0.3.5"),
+              PackageSpec(name="Metaheuristics", version="3.4.2"),
+              PackageSpec(name="SciMLBase", version="2.139.0"),
+              PackageSpec(name="SciMLLogging", version="1.9.0")
+            ]
+            Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.precompile()
+          '
+      - name: Apply runtime compatibility patches
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('treed120/src/TREED_physiological_functions.jl'); s=p.read_text()
+          old='    a_ll_optimized, C_leaf_optimized, H_optimized = Optimization.solve(prob, ECA(), maxiters = iters, abstol = 50)'
+          new='    opt_solution = Optimization.solve(prob, ECA(), maxiters = iters, abstol = 50)\n    a_ll_optimized, C_leaf_optimized, H_optimized = opt_solution.u'
+          assert s.count(old)==1; p.write_text(s.replace(old,new))
+          p=Path('treed120/julia/run_120ka.jl'); s=p.read_text(); s=re.sub(r'[ \t]*(\.\*|\./|\.\+|\.\-)[ \t]*',r' \1 ',s); p.write_text(s)
+          PY
+      - name: Parallelize independent cell evaluations and enforce bare boundary
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('treed120/julia/run_120ka.jl'); s=p.read_text(); a=s.index('function write_age_outputs('); b=s.index('\nfunction initialize_frozen_traits',a)
+          fn=r'''function write_age_outputs(inp,mode,fixed_traits,prev_es,prev_jan,summary_path,monthly_path)
+    summary=NamedTuple[]; monthly=DataFrame(); new_es=Dict{Int,Vector{Float64}}(); new_jan=Dict{Int,Float64}()
+    groups=[begin d=DataFrame(g); sort!(d,:month); d end for g in groupby(inp,:cell_id)]
+    tasks=map(groups) do df
+        Threads.@spawn begin
+            cell=Int(df.cell_id[1]); seed=240819+cell
+            if Float64(df.soil_depth_m[1]) <= 0.0
+                cap=0.0; precip=Float64.(df.precip_mm_month); days=Float64.(df.days); rows,jan_final=simulate_bucket(cap,0.0,precip,days,zeros(Float64,12))
+                sumrow=(cell_id=cell,row=Int(df.row[1]),col=Int(df.col[1]),soil_depth_m=0.0,awc_capacity_mm=0.0,converged=true,iterations=0,convergence_error=0.0,H_m=0.0,a_ll_yr=0.0,C_leaf_gC_individual=0.0,seasonality=0.0,r_s_r=0.0,LAI=0.0,FPC=0.0,GPP_gC_m2_yr=0.0,NPP_gC_m2_yr=0.0,AET_mm_yr=0.0,Net_C_gain_gC_m2_yr=0.0,AGB_C_g_m2_component_sum=0.0,BGB_C_g_m2_component_sum=0.0)
+                md=DataFrame(rows); md[!,:cell_id]=fill(cell,nrow(md)); md[!,:row]=fill(Int(df.row[1]),nrow(md)); md[!,:col]=fill(Int(df.col[1]),nrow(md)); return (cell=cell,sumrow=sumrow,monthly=md,es=zeros(Float64,12),jan=0.0)
+            end
+            fixed_primary=mode=="frozen" ? fixed_traits[cell] : nothing; es0=haskey(prev_es,cell) ? prev_es[cell] : nothing; jan0=haskey(prev_jan,cell) ? prev_jan[cell] : nothing
+            ev,rows,conv=coupled_cell(df;mode=mode,fixed_primary=fixed_primary,es_init=es0,jan_init=jan0,seed=seed); conv.converged || error("Soil-water/TREED fixed point failed: mode=$mode cell=$cell err=$(conv.error)")
+            tr=ev.tr; sumrow=(cell_id=cell,row=Int(df.row[1]),col=Int(df.col[1]),soil_depth_m=Float64(df.soil_depth_m[1]),awc_capacity_mm=conv.capacity,converged=conv.converged,iterations=conv.iterations,convergence_error=conv.error,H_m=tr.H,a_ll_yr=tr.a_ll,C_leaf_gC_individual=tr.C_leaf,seasonality=tr.seasonality,r_s_r=tr.r_s_r,LAI=tr.LAI,FPC=tr.FPC,GPP_gC_m2_yr=ev.gpp.GPP,NPP_gC_m2_yr=ev.npp,AET_mm_yr=ev.gpp.AET,Net_C_gain_gC_m2_yr=ev.net,AGB_C_g_m2_component_sum=ev.agb,BGB_C_g_m2_component_sum=ev.bgb)
+            md=DataFrame(rows); md[!,:cell_id]=fill(cell,nrow(md)); md[!,:row]=fill(Int(df.row[1]),nrow(md)); md[!,:col]=fill(Int(df.col[1]),nrow(md)); return (cell=cell,sumrow=sumrow,monthly=md,es=Float64.(conv.es),jan=Float64(conv.jan))
+        end
+    end
+    for task in tasks
+        r=fetch(task); new_es[r.cell]=r.es; new_jan[r.cell]=r.jan; push!(summary,r.sumrow); append!(monthly,r.monthly;cols=:union)
+    end
+    sort!(summary,by=x->x.cell_id); sort!(monthly,[:cell_id,:month]); CSV.write(summary_path,DataFrame(summary)); CSV.write(monthly_path,monthly); return new_es,new_jan,summary
+end
+'''
+          s=s[:a]+fn+s[b:]
+          needle='        run(cmd)\n        m=CSV.read(metric_path,DataFrame);'
+          repl='''        run(cmd)\n        if age==120 && mode=="dynamic"\n            got=split(read(`sha256sum $snapshot`,String))[1]; ref=get(ENV,"AGE120_REFERENCE_SHA256",""); got==ref || error("Parallel age-120 regression mismatch: got=$got expected=$ref"); println("PARALLEL_AGE120_SHA_OK ",got," threads=",Threads.nthreads())\n        end\n        m=CSV.read(metric_path,DataFrame);'''
+          assert s.count(needle)==1; p.write_text(s.replace(needle,repl))
+          PY
+          julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl",String)); println("PARALLEL_DRIVER_PARSE_OK threads=",Threads.nthreads())'
+      - name: Run parallel dynamic 120 ka
+        run: julia --project=treed120 treed120/julia/run_120ka.jl dynamic
+      - name: Validate outputs and bare boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(($(wc -l < treed120/results/dynamic/timeseries.csv)-1))" -eq 121
+          echo "${AGE120_REFERENCE_SHA256}  treed120/results/dynamic/snapshots/snapshot_120ka.csv" | sha256sum -c -
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd, numpy as np
+          for f in Path('treed120/results/dynamic/snapshots').glob('snapshot_*ka.csv'):
+              d=pd.read_csv(f); b=d[d.soil_depth_m<=0]
+              if len(b):
+                  for c in ['NPP_gC_m2_yr','AET_mm_yr','LAI','trait_H_m','a_ll_yr','C_leaf_gC_individual']:
+                      assert np.max(np.abs(b[c].to_numpy(float))) <= 1e-12,(f,c)
+          print('PARALLEL_BARE_VALIDATION_OK')
+          PY
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed120-dynamic-parallel
+          path: treed120/results/dynamic/
+          retention-days: 30
