@@ -63,15 +63,17 @@ jobs:
               PackageSpec(name="SciMLLogging",version="1.9.0")]
             Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.precompile()
           '
-      - name: Patch bare boundary and direct TREED AGB
+      - name: Patch bare boundary, selective pathology filter, and direct TREED AGB
         run: |
           python scripts/patch_direct_agb_v2.py
           python -m py_compile treed120/python/run_geomorph_step.py
           julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl",String)); println("RUN120_PARSE_OK")'
           ! grep -q 'np.maximum(npp,0.0)\*0.010' treed120/python/run_geomorph_step.py
+          grep -q 'dynamic_optimizer_pathological' treed120/julia/run_120ka.jl
+          grep -q 'frozen_maladapted' treed120/julia/run_120ka.jl
       - name: Run 120 ka direct-AGB scenario
         run: julia --project=treed120 treed120/julia/run_120ka.jl ${{ matrix.scenario }}
-      - name: Validate direct AGB and outputs
+      - name: Validate direct AGB and selective pathology semantics
         shell: bash
         env:
           MODE: ${{ matrix.scenario }}
@@ -81,19 +83,63 @@ jobs:
           import os, numpy as np, pandas as pd
           mode=os.environ['MODE']; root=Path('treed120/results')/mode
           t=pd.read_csv(root/'timeseries.csv'); assert len(t)==121
+          for c in ['mean_agb_C_g_m2','mean_agb_dry_kg_m2','optimizer_pathological_cells','maladapted_frozen_cells','unproductive_woody_cells']:
+              assert c in t
           for c in ['mean_agb_C_g_m2','mean_agb_dry_kg_m2']:
-              assert c in t and np.all(np.isfinite(t[c])) and np.all(t[c]>=0)
+              assert np.all(np.isfinite(t[c])) and np.all(t[c]>=0)
           assert np.max(np.abs(t.mean_agb_C_g_m2/(1000*0.47)-t.mean_agb_dry_kg_m2)) < 1e-8
+
+          if mode == 'dynamic':
+              # Every positive-soil unproductive dynamic state must be one of the
+              # audited optimizer-lower-bound pathologies; no new class is silently filtered.
+              assert np.all(t.maladapted_frozen_cells.to_numpy(int) == 0)
+              assert np.array_equal(t.unproductive_woody_cells.to_numpy(int), t.optimizer_pathological_cells.to_numpy(int))
+          else:
+              # Frozen negative-NPP states are maladaptation diagnostics, not bare states.
+              assert np.all(t.optimizer_pathological_cells.to_numpy(int) == 0)
+              assert np.array_equal(t.unproductive_woody_cells.to_numpy(int), t.maladapted_frozen_cells.to_numpy(int))
+              for age,minimum in [(60,200),(40,200),(20,20)]:
+                  r=t.loc[t.age_ka_bp==age]
+                  assert len(r)==1 and int(r.iloc[0].maladapted_frozen_cells) >= minimum
+
           for age in [120,100,80,60,40,20,10,5,0]:
               d=pd.read_csv(root/'snapshots'/f'snapshot_{age:03d}ka.csv'); assert len(d)==298
-              assert 'AGB_C_g_m2_component_sum' in d and 'Pelletier_AGB_dry_kg_m2' in d
+              required=['AGB_C_g_m2_component_sum','Pelletier_AGB_dry_kg_m2','raw_NPP_gC_m2_yr','optimizer_pathological','maladapted_frozen','woody_productive']
+              assert all(c in d for c in required)
               assert np.all(np.isfinite(d.AGB_C_g_m2_component_sum)) and np.all(d.AGB_C_g_m2_component_sum>=0)
               assert np.all(np.isfinite(d.Pelletier_AGB_dry_kg_m2)) and np.all(d.Pelletier_AGB_dry_kg_m2>=0)
+
               b=d[d.soil_depth_m<=0]
               if len(b):
                   for c in ['NPP_gC_m2_yr','AET_mm_yr','LAI','trait_H_m','a_ll_yr','C_leaf_gC_individual','AGB_C_g_m2_component_sum','Pelletier_AGB_dry_kg_m2']:
                       assert np.max(np.abs(b[c].to_numpy(float))) <= 1e-12
-          print('DIRECT_AGB_V2_VALIDATION_OK',mode,'AGB120=',t.iloc[0].mean_agb_dry_kg_m2,'AGB0=',t.iloc[-1].mean_agb_dry_kg_m2)
+
+              if mode == 'dynamic':
+                  assert not d.maladapted_frozen.astype(bool).any()
+                  p=d[d.optimizer_pathological.astype(bool)]
+                  if len(p):
+                      assert np.all(p.raw_NPP_gC_m2_yr.to_numpy(float) <= 0)
+                      assert np.all(p.latent_H_m.to_numpy(float) <= 1.001)
+                      assert np.all(p.latent_H_m.to_numpy(float) > 0)
+                      for c in ['NPP_gC_m2_yr','AET_mm_yr','LAI','trait_H_m','a_ll_yr','C_leaf_gC_individual','AGB_C_g_m2_component_sum','Pelletier_AGB_dry_kg_m2']:
+                          assert np.max(np.abs(p[c].to_numpy(float))) <= 1e-12
+                  unclassified=d[(d.soil_depth_m>0) & (d.raw_NPP_gC_m2_yr<=0) & (~d.optimizer_pathological.astype(bool))]
+                  assert len(unclassified)==0
+              else:
+                  assert not d.optimizer_pathological.astype(bool).any()
+                  m=d[d.maladapted_frozen.astype(bool)]
+                  if len(m):
+                      assert np.all(m.raw_NPP_gC_m2_yr.to_numpy(float) <= 0)
+                      # Critical regression: maladapted frozen standing structure is retained.
+                      assert np.all(m.trait_H_m.to_numpy(float) > 0)
+                      assert np.all(m.AGB_C_g_m2_component_sum.to_numpy(float) > 0)
+                      assert np.all(m.Pelletier_AGB_dry_kg_m2.to_numpy(float) > 0)
+
+          print('DIRECT_AGB_V2_SELECTIVE_FILTER_VALIDATION_OK',mode,
+                'AGB120=',t.iloc[0].mean_agb_dry_kg_m2,
+                'AGB0=',t.iloc[-1].mean_agb_dry_kg_m2,
+                'pathologies=',int(t.optimizer_pathological_cells.sum()),
+                'frozen_maladaptation=',int(t.maladapted_frozen_cells.sum()))
           PY
       - uses: actions/upload-artifact@v7
         with:
@@ -133,8 +179,11 @@ jobs:
           for mode in ['dynamic','frozen']:
               t=pd.read_csv(Path('collected')/mode/'timeseries.csv')
               r=t.iloc[-1]
-              out['models'][mode]={k:float(r[k]) for k in ['mean_z_m','mean_h_m','mean_npp_gC_m2_yr','mean_aet_mm_yr','mean_eemt_MJ_m2_yr','mean_agb_C_g_m2','mean_agb_dry_kg_m2','mean_LAI','mean_trait_H_m']}
+              keys=['mean_z_m','mean_h_m','mean_npp_gC_m2_yr','mean_aet_mm_yr','mean_eemt_MJ_m2_yr','mean_agb_C_g_m2','mean_agb_dry_kg_m2','mean_LAI','mean_trait_H_m','optimizer_pathological_cells','maladapted_frozen_cells']
+              out['models'][mode]={k:float(r[k]) for k in keys}
               out['models'][mode]['agb_dry_120ka']=float(t.iloc[0]['mean_agb_dry_kg_m2'])
+              out['models'][mode]['pathology_cells_sum']=int(t.optimizer_pathological_cells.sum())
+              out['models'][mode]['maladapted_frozen_cells_sum']=int(t.maladapted_frozen_cells.sum())
           p=Path('diagnostics/direct_agb_v2_latest.json'); p.parent.mkdir(exist_ok=True); p.write_text(json.dumps(out,indent=2)+'\n')
           print(json.dumps(out,indent=2))
           PY
