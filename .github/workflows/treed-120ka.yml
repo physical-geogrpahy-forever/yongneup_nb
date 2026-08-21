@@ -140,6 +140,21 @@ jobs:
           grep -n -A18 -B3 'BARE_SOIL_BOUNDARY_H_ZERO' treed120/julia/run_120ka.jl
           julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl", String)); println("RUN_120KA_PARSE_OK")'
 
+      - name: Normalize Julia 1.11 dotted-operator whitespace
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('treed120/julia/run_120ka.jl')
+          s = p.read_text()
+          s2, n = re.subn(r'[ \t]*(\.\*|\./|\.\+|\.\-)[ \t]*', r' \1 ', s)
+          p.write_text(s2)
+          print('JULIA_DOTTED_OPERATOR_WHITESPACE_FIXES', n)
+          PY
+          grep -nE '\.\*|\./|\.\+|\.\-' treed120/julia/run_120ka.jl || true
+          julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl", String)); println("RUN_120KA_PARSE_OK")'
+
       - name: Run 120 ka scenario
         run: julia --project=treed120 treed120/julia/run_120ka.jl ${{ matrix.scenario }}
 
