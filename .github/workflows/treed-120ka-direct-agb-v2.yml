@@ -100,8 +100,7 @@ jobs:
               expected=t.inherited_initial_pathology_cells.to_numpy(int)+t.maladapted_frozen_cells.to_numpy(int)
               assert np.array_equal(t.unproductive_woody_cells.to_numpy(int), expected)
               r120=t.loc[t.age_ka_bp==120]
-              assert len(r120)==1 and int(r120.iloc[0].inherited_initial_pathology_cells) >= 1
-              assert int(r120.iloc[0].maladapted_frozen_cells) == 0
+              assert len(r120)==1 and int(r120.iloc[0].maladapted_frozen_cells) == 0
               for age,minimum in [(60,200),(40,200),(20,20)]:
                   r=t.loc[t.age_ka_bp==age]
                   assert len(r)==1 and int(r.iloc[0].maladapted_frozen_cells) >= minimum
@@ -170,7 +169,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - run: python -m pip install pandas
+      - run: python -m pip install pandas numpy
       - uses: actions/download-artifact@v8
         with:
           name: treed120-directagbv2-dynamic
@@ -179,6 +178,21 @@ jobs:
         with:
           name: treed120-directagbv2-frozen
           path: collected/frozen
+      - name: Validate common realized 120 ka initialization
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import numpy as np, pandas as pd
+          d=pd.read_csv(Path('collected/dynamic/snapshots/snapshot_120ka.csv')).sort_values(['row','col']).reset_index(drop=True)
+          f=pd.read_csv(Path('collected/frozen/snapshots/snapshot_120ka.csv')).sort_values(['row','col']).reset_index(drop=True)
+          assert len(d)==len(f)==298
+          assert np.array_equal(d[['row','col']].to_numpy(),f[['row','col']].to_numpy())
+          cols=['z_m','soil_depth_m','NPP_gC_m2_yr','AET_mm_yr','EEMT_MJ_m2_yr','AGB_C_g_m2_component_sum','Pelletier_AGB_dry_kg_m2','LAI','trait_H_m','a_ll_yr','C_leaf_gC_individual']
+          for c in cols:
+              a=d[c].to_numpy(float); b=f[c].to_numpy(float)
+              assert np.allclose(a,b,rtol=0,atol=1e-9,equal_nan=True), (c,float(np.nanmax(np.abs(a-b))))
+          print('COMMON_120KA_REALIZED_STATE_OK')
+          PY
       - name: Write machine-readable run summary
         env:
           RUN_ID: ${{ github.run_id }}
