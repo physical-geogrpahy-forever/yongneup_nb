@@ -116,7 +116,7 @@ function sensitivity_main()
                 push!(cell_rows,(
                     evorate=evorate,dispersal_label=scale.label,dispersal_km=radius,
                     cell_id=cell,row=Int(r.row),col=Int(r.col),soil_depth_m=Float64(r.soil_depth_m),neighbor_count=neighbor_counts[cell],
-                    H_120=start.H,H_optimized_119=opt.H,H_evolved_pre_ecology=evo.H,H_119=final.H,dH=final.H-start.H,
+                    H_120=start.H,H_optimized_119=opt.H,H_119=final.H,dH=final.H-start.H,
                     a_ll_120=start.a_ll,a_ll_optimized_119=opt.a_ll,a_ll_evolved_pre_ecology=evo.a_ll,a_ll_119=final.a_ll,da_ll=final.a_ll-start.a_ll,donor_a_ll=da,
                     C_leaf_120=start.C_leaf,C_leaf_optimized_119=opt.C_leaf,C_leaf_evolved_pre_ecology=evo.C_leaf,C_leaf_119=final.C_leaf,dC_leaf=final.C_leaf-start.C_leaf,donor_C_leaf=dc,
                     Tave_optim_120=start.Tave_optim,Tave_optim_119=final.Tave_optim,
@@ -128,7 +128,6 @@ function sensitivity_main()
             soilpos=(s.soil_depth_m .> 0)
             unprod_soilpos=sum(soilpos .& .!Bool.(s.woody_productive))
             maxbal=maximum(abs.(Float64.(m.balance_residual_mm)))
-            maxiter=maximum(Int.(s.iterations))
             all(Float64.(s.r_s_r) .== 1.0) || error("r_s_r drift in evorate=$evorate scale=$(scale.label)")
             all(isfinite,Float64.(s.NPP_gC_m2_yr)) || error("nonfinite NPP")
             all(isfinite,Float64.(s.AET_mm_yr)) || error("nonfinite AET")
