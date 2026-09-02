@@ -4,7 +4,7 @@ p = Path('diagnostics/run_transient_smoke.jl')
 s = p.read_text(encoding='utf-8')
 
 # Julia include() resolves relative paths against the including source file, not
-# necessarily the process working directory.  Make CLI paths absolute before
+# necessarily the process working directory. Make CLI paths absolute before
 # the runner includes the reconstructed production TREED core.
 old_root = 'const ROOT = normpath(ARGS[1])\n'
 new_root = 'const ROOT = abspath(ARGS[1])\n'
@@ -34,5 +34,12 @@ new_call = 'e=treed_v1_trait_evolution(optimized_traits=optimized_traits,env=env
 assert s.count(old_call) == 1, 'unexpected trait-evolution call site'
 s = s.replace(old_call, new_call)
 
+# Julia 1.11 rejects several compact dotted binary expressions as ambiguous
+# when a numeric literal immediately follows the operator (for example
+# `).*86400.*1e-6`). Normalize only dotted binary operator spacing; do not alter
+# dotted function calls such as Float64.(...).
+for op in ('.*', './', '.+', '.-', '.^'):
+    s = s.replace(op, f' {op} ')
+
 p.write_text(s, encoding='utf-8')
-print('TREED_V1_TRANSIENT_ADAPTER_INJECTED_ABSOLUTE_PATHS')
+print('TREED_V1_TRANSIENT_ADAPTER_INJECTED_ABSOLUTE_PATHS_DOTOPS_NORMALIZED')
