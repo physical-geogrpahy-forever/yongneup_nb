@@ -207,7 +207,7 @@ jobs:
           for p in snaps:
               s=pd.read_csv(p)
               assert len(s)==298, (p,len(s))
-              for c in ['elevation_m','soil_depth_m','NPP_gC_m2_yr','AET_mm_yr','Pelletier_AGB_dry_kg_m2','LAI','trait_H_m']:
+              for c in ['z_m','soil_depth_m','NPP_gC_m2_yr','AET_mm_yr','Pelletier_AGB_dry_kg_m2','LAI','trait_H_m']:
                   assert c in s.columns, (p,c)
                   assert np.all(np.isfinite(s[c].to_numpy(float))), (p,c)
               b=s[s['soil_depth_m']<=0.0]
