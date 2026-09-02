@@ -1,0 +1,113 @@
+name: TREED3D one-cell demographic growth
+
+on:
+  push:
+    branches: [feature/treed3d-live-engine-20260902]
+    paths:
+      - '.github/workflows/treed3d-one-cell-growth.yml'
+      - 'treed3d/demography_experimental.jl'
+      - 'treed3d/run_one_cell_growth.jl'
+      - 'treed3d/DEMOGRAPHY_EXPERIMENT_CONTRACT.md'
+      - 'scripts/patch_treed3d_live_include.py'
+      - 'scripts/patch_direct_agb_v2.py'
+  workflow_dispatch:
+
+concurrency:
+  group: treed3d-one-cell-growth-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+  JULIA_NUM_THREADS: '1'
+
+jobs:
+  one-cell:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconstruct audited model
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install Python runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy rasterio matplotlib
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: '1.11.6'
+      - uses: julia-actions/cache@v3
+      - name: Instantiate pinned TREED environment
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            Pkg.instantiate()
+            pins=[
+              PackageSpec(name="Optimization",version="5.5.0"),
+              PackageSpec(name="OptimizationBase",version="5.0.0"),
+              PackageSpec(name="OptimizationMetaheuristics",version="0.3.5"),
+              PackageSpec(name="Metaheuristics",version="3.4.2"),
+              PackageSpec(name="SciMLBase",version="2.139.0"),
+              PackageSpec(name="SciMLLogging",version="1.9.0")]
+            Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.precompile()
+          '
+      - name: Apply audited production patches
+        run: |
+          python scripts/patch_direct_agb_v2.py
+          python scripts/patch_treed3d_live_include.py
+          julia --project=treed120 -e 'Meta.parseall(read("treed3d/demography_experimental.jl",String)); Meta.parseall(read("treed3d/run_one_cell_growth.jl",String)); println("DEMOGRAPHY_PARSE_OK")'
+      - name: Prepare actual 120 ka forcing
+        shell: bash
+        run: |
+          mkdir -p one_cell
+          cp treed120/inputs/init_grid.npz one_cell/state_120.npz
+          python treed120/python/prepare_age_input.py --age 120 --state one_cell/state_120.npz --out one_cell/forcing_120.csv
+      - name: Run parameter-free one-cell carbon-to-height growth
+        run: julia --project=treed120 treed3d/run_one_cell_growth.jl one_cell/forcing_120.csv one_cell/growth.csv 1 500
+      - name: Validate carbon balance and TREED-target recovery
+        shell: bash
+        run: |
+          python - <<'PY'
+          import numpy as np, pandas as pd
+          g=pd.read_csv('one_cell/growth.csv')
+          s=pd.read_csv('one_cell/growth_summary.csv').iloc[0]
+          assert len(g)>=1
+          assert bool(s.reached_optimum), s.to_dict()
+          assert np.all(np.diff(g.H_end_m.to_numpy(float)) >= -1e-10)
+          assert np.all(g.H_end_m.to_numpy(float) <= g.H_opt_m.to_numpy(float)+1e-8)
+          assert np.all(np.diff(g.occupied_fraction_end.to_numpy(float)) >= -1e-10)
+          assert np.all((g.occupied_fraction_end>=0)&(g.occupied_fraction_end<=1+1e-12))
+          assert float(s.max_abs_carbon_residual_g_ind) < 1e-6
+          assert abs(float(s.final_H_m)-float(s.target_H_m)) < 1e-8
+          assert abs(float(s.final_occupied_fraction)-1.0) < 1e-8
+          assert abs(float(s.final_FPC)-float(s.target_TREED_FPC)) < 1e-8
+          assert abs(float(s.final_AGB_C_g_m2)-float(s.target_TREED_AGB_C_g_m2)) < 1e-6
+          assert abs(float(s.final_BGB_C_g_m2)-float(s.target_TREED_BGB_C_g_m2)) < 1e-6
+          assert float(g.iloc[0].H_start_m)==0.5
+          assert float(g.iloc[0].H_end_m)>0.5
+          print('TREED3D_ONE_CELL_CARBON_GROWTH_OK')
+          print(s.to_dict())
+          print(g[['year','H_start_m','H_end_m','occupied_fraction_end','FPC_end','NCG_local_gC_m2_yr','requested_growth_C_g_ind','carbon_balance_residual_g_ind']].head(12).to_string(index=False))
+          print('...')
+          print(g[['year','H_start_m','H_end_m','occupied_fraction_end','FPC_end','NCG_local_gC_m2_yr','requested_growth_C_g_ind','carbon_balance_residual_g_ind']].tail(12).to_string(index=False))
+          PY
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed3d-one-cell-growth
+          path: |
+            one_cell/growth.csv
+            one_cell/growth_summary.csv
+          retention-days: 30
