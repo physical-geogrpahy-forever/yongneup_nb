@@ -54,6 +54,9 @@ end
 
 # Exact fixed-trait soil-water coupling, analogous to production coupled_cell,
 # except that no optimizer is called because this is one explicit cohort state.
+# TREED's AET is local to the representative crown ground area. A sparse cohort
+# therefore feeds back only occupied_fraction * local_AET to the whole-cell soil
+# bucket. This makes the hydrologic feedback evolve with actual cohort closure.
 function coupled_cohort_cell(df::DataFrame, c::CohortState;
     es_init=nothing, jan_init=nothing, tol=1e-4, maxiter=100)
 
@@ -70,18 +73,22 @@ function coupled_cohort_cell(df::DataFrame, c::CohortState;
         # No selective optimizer-pathology filter is applied here: the cohort is
         # not an optimizer solution. Its positive/negative carbon balance is an
         # actual demographic diagnostic for this explicit state.
-        rows,jan_new=simulate_bucket(cap,jan,precip,days,Float64.(ev.gpp.AET_monthly_mm))
+        cover=cohort_occupied_fraction(c,ev.tr)
+        aet_req=Float64.(ev.gpp.AET_monthly_mm) .* cover
+        rows,jan_new=simulate_bucket(cap,jan,precip,days,aet_req)
         es_new=[r.esupply_mm_day for r in rows]
         err=max(maximum(abs.(es_new .- es)),abs(jan_new-jan))
         final=ev; finalrows=rows; es=es_new; jan=jan_new
         if err<tol
             env2=base_env(df;esupply=es)
             final=evaluate_traits(env2,primary_from_cohort(c))
-            finalrows,jan_final=simulate_bucket(cap,jan,precip,days,Float64.(final.gpp.AET_monthly_mm))
-            return final,finalrows,(converged=true,iterations=k,error=err,capacity=cap,jan=jan_final,es=[r.esupply_mm_day for r in finalrows])
+            cover_final=cohort_occupied_fraction(c,final.tr)
+            aet_req_final=Float64.(final.gpp.AET_monthly_mm) .* cover_final
+            finalrows,jan_final=simulate_bucket(cap,jan,precip,days,aet_req_final)
+            return final,finalrows,(converged=true,iterations=k,error=err,capacity=cap,jan=jan_final,es=[r.esupply_mm_day for r in finalrows],cover=cover_final)
         end
     end
-    return final,finalrows,(converged=false,iterations=maxiter,error=err,capacity=cap,jan=jan,es=es)
+    return final,finalrows,(converged=false,iterations=maxiter,error=err,capacity=cap,jan=jan,es=es,cover=cohort_occupied_fraction(c,final.tr))
 end
 
 function solve_height_for_individual_C(c::CohortState, target_C::Float64;
@@ -118,6 +125,8 @@ end
 function initialize_cohort_from_optimum(opt_ev; initial_H::Float64=0.5)
     tr=opt_ev.tr
     primary=opt_ev.primary
+    # TREED's full-occupation assumption implies one representative individual
+    # per crown area. This is used directly, not fitted, as adult cohort density.
     density=1.0/tr.CA
     CohortState(
         initial_H,
@@ -143,6 +152,8 @@ function step_cohort_year!(c::CohortState, df::DataFrame; es_init=nothing, jan_i
     tr0=ev.tr
     C0=individual_standing_C(tr0)
     NCG_local=Float64(ev.net) # TREED area-normalized NCG under this crown
+    # Multiplication by CA converts the TREED area-normalized carbon surplus back
+    # to the carbon available to one representative individual.
     dC_ind=max(NCG_local,0.0)*tr0.CA
     requested_C=C0+dC_ind
 
@@ -188,6 +199,7 @@ function step_cohort_year!(c::CohortState, df::DataFrame; es_init=nothing, jan_i
         BGB_C_start_g_m2=cohort_BGB_C_g_m2(c,tr0),
         BGB_C_end_g_m2=cohort_BGB_C_g_m2(c,tr1),
         AET_local_mm_yr=Float64(ev.gpp.AET),
+        AET_cell_mm_yr=Float64(ev.gpp.AET)*cover0,
         water_iterations=conv.iterations,
         water_error=conv.error,
         es=Float64.(conv.es),
