@@ -5,6 +5,8 @@ on:
     branches: [feature/treed-transient-yongneup-20260902]
     paths:
       - 'diagnostics/run_transient_smoke.jl'
+      - 'diagnostics/treed_v1_transient_adapter.jl'
+      - 'scripts/patch_transient_smoke_adapter.py'
       - '.github/workflows/treed-transient-smoke.yml'
   workflow_dispatch:
 
@@ -30,6 +32,8 @@ jobs:
           cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
           echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
           tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+          sha256sum treed120/src/TREED_core.jl
+          test "$(sha256sum treed120/src/TREED_core.jl | awk '{print $1}')" = "a7e9658069bed0a21593213bf9d91a07176b63e95dfc03f66cc7c98bb86d2525"
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -56,12 +60,16 @@ jobs:
               PackageSpec(name="SciMLLogging",version="1.9.0")]
             Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.precompile()
           '
-      - name: Apply production direct-AGB compatibility patch
+      - name: Apply production compatibility and transient adapter patches
         run: |
           python scripts/patch_direct_agb_v2.py
+          python scripts/patch_transient_smoke_adapter.py
           python -m py_compile treed120/python/run_geomorph_step.py
-      - name: Parse transient runner
-        run: julia --project=treed120 -e 'Meta.parseall(read("diagnostics/run_transient_smoke.jl",String)); println("TRANSIENT_SMOKE_PARSE_OK")'
+          grep -q 'treed_v1_trait_evolution' diagnostics/run_transient_smoke.jl
+          grep -q '03ac7834178c40b3b9d90e0e2689a218d10bd545' diagnostics/treed_v1_transient_adapter.jl
+      - name: Parse transient runner and adapter
+        run: |
+          julia --project=treed120 -e 'Meta.parseall(read("diagnostics/treed_v1_transient_adapter.jl",String)); Meta.parseall(read("diagnostics/run_transient_smoke.jl",String)); println("TRANSIENT_SMOKE_PARSE_OK")'
       - name: Run 120 to 119 ka coupled transient smoke
         run: |
           julia --project=treed120 diagnostics/run_transient_smoke.jl treed120 1.0 0.0 transient_smoke_out | tee transient_smoke.log
@@ -91,10 +99,8 @@ jobs:
               assert c in s.columns, c
               assert np.all(np.isfinite(s[c].to_numpy(float))), c
           assert np.all(s.AGB_C_g_m2_component_sum.to_numpy(float)>=0)
-          # The coupled 119-ka state must be an actual model evaluation, not a copied frame.
           changed=(np.abs(tr.dH.to_numpy(float))>1e-12)|(np.abs(tr.da_ll.to_numpy(float))>1e-12)|(np.abs(tr.dC_leaf.to_numpy(float))>1e-9)
           assert changed.any(), 'all transient traits were unchanged'
-          # No dispersal test means each cell may only draw from itself; this isolates evolution/coupling plumbing.
           log=Path('transient_smoke.log').read_text()
           assert 'neighbor_count_min=1' in log and 'max=1' in log, log[-2000:]
           assert 'TRANSIENT_SMOKE_OK' in log
