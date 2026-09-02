@@ -71,7 +71,9 @@ jobs:
         run: |
           julia --project=treed120 -e 'Meta.parseall(read("diagnostics/treed_v1_transient_adapter.jl",String)); Meta.parseall(read("diagnostics/run_transient_smoke.jl",String)); println("TRANSIENT_SMOKE_PARSE_OK")'
       - name: Run 120 to 119 ka coupled transient smoke
+        shell: bash
         run: |
+          set -euo pipefail
           julia --project=treed120 diagnostics/run_transient_smoke.jl treed120 1.0 0.0 transient_smoke_out | tee transient_smoke.log
       - name: Validate transient outputs
         shell: bash
