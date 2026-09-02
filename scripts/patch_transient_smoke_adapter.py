@@ -41,5 +41,12 @@ s = s.replace(old_call, new_call)
 for op in ('.*', './', '.+', '.-', '.^'):
     s = s.replace(op, f' {op} ')
 
+# Allow the same audited runner functions to be included by sensitivity and
+# short-transient drivers without executing the smoke main() as a side effect.
+old_main = '\nmain()\n'
+new_main = '\nif abspath(PROGRAM_FILE) == @__FILE__\n    main()\nend\n'
+assert s.count(old_main) == 1, 'unexpected smoke-runner terminal main call'
+s = s.replace(old_main, new_main)
+
 p.write_text(s, encoding='utf-8')
-print('TREED_V1_TRANSIENT_ADAPTER_INJECTED_ABSOLUTE_PATHS_DOTOPS_NORMALIZED')
+print('TREED_V1_TRANSIENT_ADAPTER_INJECTED_ABSOLUTE_PATHS_DOTOPS_NORMALIZED_MAIN_GUARD')
