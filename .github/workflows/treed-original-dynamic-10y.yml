@@ -18,6 +18,7 @@ env:
   BASELINE_FINAL_STATE_SHA256: ea5c6c9fc3af7b25558b52b98dbf862730573677cf5077e4e6e5219444a21b9b
   JULIA_NUM_THREADS: '1'
   JULIA_PKG_PRECOMPILE_AUTO: '0'
+  AGB_CARBON_FRACTION: '0.47'
 
 jobs:
   run10y:
@@ -78,23 +79,100 @@ jobs:
         run: |
           julia --project=treed120 -e '
             using Pkg
-            pins=[
-              PackageSpec(name="Optimization",version="5.5.0"),
-              PackageSpec(name="OptimizationBase",version="5.0.0"),
-              PackageSpec(name="OptimizationMetaheuristics",version="0.3.5"),
-              PackageSpec(name="Metaheuristics",version="3.4.2"),
-              PackageSpec(name="SciMLBase",version="2.139.0"),
-              PackageSpec(name="SciMLLogging",version="1.9.0")]
-            Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.instantiate(); Pkg.precompile()
+            Pkg.instantiate()
+            pins = [
+              PackageSpec(name="Optimization", version="5.5.0"),
+              PackageSpec(name="OptimizationBase", version="5.0.0"),
+              PackageSpec(name="OptimizationMetaheuristics", version="0.3.5"),
+              PackageSpec(name="Metaheuristics", version="3.4.2"),
+              PackageSpec(name="SciMLBase", version="2.139.0"),
+              PackageSpec(name="SciMLLogging", version="1.9.0")
+            ]
+            Pkg.add(pins)
+            foreach(Pkg.pin, pins)
+            Pkg.resolve()
+            Pkg.precompile()
           '
+
+      - name: Apply original production TREED compatibility patches
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('treed120/src/TREED_physiological_functions.jl')
+          s=p.read_text()
+          old='    a_ll_optimized, C_leaf_optimized, H_optimized = Optimization.solve(prob, ECA(), maxiters = iters, abstol = 50)'
+          new='    opt_solution = Optimization.solve(prob, ECA(), maxiters = iters, abstol = 50)\n    a_ll_optimized, C_leaf_optimized, H_optimized = opt_solution.u'
+          assert s.count(old)==1
+          p.write_text(s.replace(old,new))
+          p=Path('treed120/julia/run_120ka.jl')
+          s=p.read_text()
+          s,n=re.subn(r'[ \t]*(\.\*|\./|\.\+|\.\-)[ \t]*',r' \1 ',s)
+          p.write_text(s)
+          print('COMPAT_PATCH_OK dotted_fixes=',n)
+          PY
+
+      - name: Apply original production zero-soil bare boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('treed120/julia/run_120ka.jl')
+          s=p.read_text()
+          needle='''        ev,rows,conv=coupled_cell(df;mode=mode,fixed_primary=fixed_primary,es_init=es0,jan_init=jan0,seed=seed)\n'''
+          replacement='''        # BARE_SOIL_BOUNDARY_H_ZERO: no soil storage means no terrestrial vegetation.\n        if Float64(df.soil_depth_m[1]) <= 0.0\n            cap=0.0; precip=Float64.(df.precip_mm_month); days=Float64.(df.days)\n            rows,jan_final=simulate_bucket(cap,0.0,precip,days,zeros(Float64,12))\n            new_es[cell]=zeros(Float64,12); new_jan[cell]=0.0\n            push!(summary,(cell_id=cell,row=Int(df.row[1]),col=Int(df.col[1]),soil_depth_m=0.0,awc_capacity_mm=0.0,\n                converged=true,iterations=0,convergence_error=0.0,H_m=0.0,a_ll_yr=0.0,C_leaf_gC_individual=0.0,\n                seasonality=0.0,r_s_r=0.0,LAI=0.0,FPC=0.0,GPP_gC_m2_yr=0.0,NPP_gC_m2_yr=0.0,AET_mm_yr=0.0,\n                Net_C_gain_gC_m2_yr=0.0,AGB_C_g_m2_component_sum=0.0,BGB_C_g_m2_component_sum=0.0))\n            md=DataFrame(rows); md[!,:cell_id]=fill(cell,nrow(md)); md[!,:row]=fill(Int(df.row[1]),nrow(md)); md[!,:col]=fill(Int(df.col[1]),nrow(md)); append!(monthly,md;cols=:union)\n            continue\n        end\n        ev,rows,conv=coupled_cell(df;mode=mode,fixed_primary=fixed_primary,es_init=es0,jan_init=jan0,seed=seed)\n'''
+          assert s.count(needle)==1
+          p.write_text(s.replace(needle,replacement))
+          print('BARE_BOUNDARY_PATCH_OK')
+          PY
+          julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl", String)); println("RUN_120KA_PARSE_OK")'
+
+      - name: Apply original production Direct-TREED-AGB geomorph patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('treed120/python/run_geomorph_step.py')
+          s=p.read_text()
+          replacements=[
+            ("npp=np.full(shape,np.nan,float); aet=np.full((12,)+shape,np.nan,float); lai=np.full(shape,np.nan,float); htrait=np.full(shape,np.nan,float); all_yr=np.full(shape,np.nan,float); cleaf=np.full(shape,np.nan,float)",
+             "npp=np.full(shape,np.nan,float); aet=np.full((12,)+shape,np.nan,float); lai=np.full(shape,np.nan,float); htrait=np.full(shape,np.nan,float); all_yr=np.full(shape,np.nan,float); cleaf=np.full(shape,np.nan,float); agb_c=np.full(shape,np.nan,float)"),
+            ("        if 'C_leaf_gC_individual' in cols: cleaf[rr,cc]=float(x.C_leaf_gC_individual)",
+             "        if 'C_leaf_gC_individual' in cols: cleaf[rr,cc]=float(x.C_leaf_gC_individual)\n        if 'AGB_C_g_m2_component_sum' in cols: agb_c[rr,cc]=float(x.AGB_C_g_m2_component_sum)"),
+            ("    return npp,aet,lai,htrait,all_yr,cleaf",
+             "    return npp,aet,lai,htrait,all_yr,cleaf,agb_c"),
+            ("    npp,aet,lai,htrait,all_yr,cleaf=assemble(summary,monthly,z.shape)",
+             "    npp,aet,lai,htrait,all_yr,cleaf,agb_c=assemble(summary,monthly,z.shape)"),
+            ("    agb=np.where(land,np.maximum(npp,0.0)*0.010,np.nan)",
+             "    # Pelletier (2013) AGB is live dry above-ground biomass (kg m^-2).\n    # TREED exports AGB carbon (gC m^-2); IPCC default biomass carbon fraction CF=0.47.\n    agb_carbon_fraction=0.47\n    agb=np.where(land & np.isfinite(agb_c),np.maximum(agb_c,0.0)/(1000.0*agb_carbon_fraction),np.nan)\n    bad_agb=land & ~np.isfinite(agb)\n    if np.any(bad_agb):\n        rr,cc=np.argwhere(bad_agb)[0]\n        raise ValueError(f'Non-finite direct TREED AGB at row={rr}, col={cc}')"),
+            ("'mean_eemt_MJ_m2_yr':float(np.nanmean(eemt[land])),'mean_LAI':",
+             "'mean_eemt_MJ_m2_yr':float(np.nanmean(eemt[land])),'mean_agb_C_g_m2':float(np.nanmean(agb_c[land])),'mean_agb_dry_kg_m2':float(np.nanmean(agb[land])),'mean_LAI':"),
+            ("'EEMT_MJ_m2_yr':eemt[rr,cc],'LAI':lai[rr,cc]",
+             "'EEMT_MJ_m2_yr':eemt[rr,cc],'AGB_C_g_m2_component_sum':agb_c[rr,cc],'Pelletier_AGB_dry_kg_m2':agb[rr,cc],'LAI':lai[rr,cc]")
+          ]
+          for old,new in replacements:
+              n=s.count(old)
+              assert n==1, (old[:80],n)
+              s=s.replace(old,new)
+          p.write_text(s)
+          assert 'np.maximum(npp,0.0)*0.010' not in s
+          assert 'AGB_C_g_m2_component_sum' in s
+          assert '/(1000.0*agb_carbon_fraction)' in s
+          print('DIRECT_TREED_AGB_PATCH_OK CF=0.47')
+          PY
+          python -m py_compile treed120/python/run_geomorph_step.py
 
       - name: Generate 10-year orchestration from original production driver
         shell: bash
         run: |
           set -euo pipefail
           python scripts/make_original_dynamic_10y_driver.py
-          # This workflow intentionally does NOT call patch_direct_agb_v2.py or any transient adapter.
-          git hash-object treed120/julia/run_120ka.jl
+          # Deliberately exclude later selective-pathology and transient/evolution adapters.
+          grep -q 'interval_kyr = 0.001' treed120/julia/run_original_dynamic_10y.jl
           julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_original_dynamic_10y.jl",String)); println("ORIGINAL_10Y_PARSE_OK")'
 
       - name: Run original Dynamic model for ten one-year intervals
@@ -129,9 +207,13 @@ jobs:
           for p in snaps:
               s=pd.read_csv(p)
               assert len(s)==298, (p,len(s))
-              for c in ['elevation_m','soil_depth_m','NPP_gC_m2_yr','AET_mm_yr','AGB_dry_kg_m2','LAI','trait_H_m']:
+              for c in ['elevation_m','soil_depth_m','NPP_gC_m2_yr','AET_mm_yr','Pelletier_AGB_dry_kg_m2','LAI','trait_H_m']:
                   assert c in s.columns, (p,c)
                   assert np.all(np.isfinite(s[c].to_numpy(float))), (p,c)
+              b=s[s['soil_depth_m']<=0.0]
+              if len(b):
+                  for c in ['NPP_gC_m2_yr','AET_mm_yr','Pelletier_AGB_dry_kg_m2','LAI','trait_H_m']:
+                      assert np.max(np.abs(b[c].to_numpy(float))) <= 1e-12, (p,c)
 
           monthly=sorted((root/'work').glob('monthly_year_*.csv'))
           assert len(monthly)==10, len(monthly)
@@ -148,7 +230,7 @@ jobs:
           print('ORIGINAL_DYNAMIC_10Y_VALIDATION_OK')
           print('start_year1',ts.iloc[0][['mean_z_m','mean_h_m','mean_trait_H_m','mean_npp_gC_m2_yr','mean_agb_dry_kg_m2']].to_dict())
           print('end_year10',ts.iloc[-1][['mean_z_m','mean_h_m','mean_trait_H_m','mean_npp_gC_m2_yr','mean_agb_dry_kg_m2']].to_dict())
-          print('delta_10y',{
+          print('delta_year10_minus_year1',{
               'z_m':float(ts.mean_z_m.iloc[-1]-ts.mean_z_m.iloc[0]),
               'soil_m':float(ts.mean_h_m.iloc[-1]-ts.mean_h_m.iloc[0]),
               'trait_H_m':float(ts.mean_trait_H_m.iloc[-1]-ts.mean_trait_H_m.iloc[0]),
