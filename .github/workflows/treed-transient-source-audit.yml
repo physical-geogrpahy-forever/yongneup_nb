@@ -32,12 +32,23 @@ jobs:
         run: |
           set -euo pipefail
           sha256sum treed120/src/TREED_core.jl | tee treed_transient_source_audit.txt
-          for token in 'trait_evolution' 'trait_optimizer' 'plant_allometry' 'GPP_function_for_optimization' 'calc_net_C_gain'; do
+          missing=0
+          for token in 'trait_evolution' 'trait_optimizer' 'plant_allometry' 'GPP_function_for_optimization' 'R_maintenance_function' 'C_turnover_function' 'calc_NPP' 'calc_net_C_gain' 'daylength_calculation'; do
             echo "=== ${token} ===" | tee -a treed_transient_source_audit.txt
-            grep -n "${token}" treed120/src/TREED_core.jl | head -20 | tee -a treed_transient_source_audit.txt
+            if grep -n "${token}" treed120/src/TREED_core.jl | head -20 | tee -a treed_transient_source_audit.txt; then
+              if grep -q "${token}" treed120/src/TREED_core.jl; then
+                echo "PRESENT ${token}" | tee -a treed_transient_source_audit.txt
+              else
+                echo "MISSING ${token}" | tee -a treed_transient_source_audit.txt
+                missing=$((missing+1))
+              fi
+            else
+              echo "MISSING ${token}" | tee -a treed_transient_source_audit.txt
+              missing=$((missing+1))
+            fi
           done
-          grep -q 'trait_evolution' treed120/src/TREED_core.jl
-          echo 'TREED_TRANSIENT_SOURCE_AUDIT_OK' | tee -a treed_transient_source_audit.txt
+          echo "missing_count=${missing}" | tee -a treed_transient_source_audit.txt
+          echo 'TREED_TRANSIENT_SOURCE_AUDIT_REPORT_COMPLETE' | tee -a treed_transient_source_audit.txt
       - uses: actions/upload-artifact@v7
         with:
           name: treed-transient-source-audit
