@@ -1,0 +1,63 @@
+name: TREED3D audited source extraction
+
+on:
+  push:
+    branches: [feature/treed3d-live-engine-20260902]
+    paths:
+      - '.github/workflows/treed3d-source-audit.yml'
+      - 'scripts/patch_direct_agb_v2.py'
+      - 'treed3d/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconstruct audited production package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+      - name: Apply current Direct-AGB selective patch
+        run: python scripts/patch_direct_agb_v2.py
+      - name: Collect exact engine sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audited_source/julia audited_source/python audited_source/src
+          cp treed120/julia/run_120ka.jl audited_source/julia/
+          cp treed120/python/run_geomorph_step.py audited_source/python/
+          cp treed120/src/TREED_physiological_functions.jl audited_source/src/
+          cp treed120/src/TREED_model_functions.jl audited_source/src/
+          cp treed120/src/TREED_pars.jl audited_source/src/
+          cp treed120/Project.toml audited_source/ || true
+          cp treed120/Manifest.toml audited_source/ || true
+          sha256sum audited_source/julia/run_120ka.jl audited_source/python/run_geomorph_step.py > audited_source/SHA256.txt
+      - name: Extract driver function inventory
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('audited_source/julia/run_120ka.jl')
+          s=p.read_text()
+          funcs=re.findall(r'^function\s+([^\n]+)',s,flags=re.M)
+          Path('audited_source/FUNCTIONS.txt').write_text('\n'.join(funcs)+'\n')
+          print('\n'.join(funcs))
+          PY
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed3d-audited-engine-source
+          path: audited_source/
+          retention-days: 30
