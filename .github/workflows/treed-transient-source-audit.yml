@@ -1,0 +1,45 @@
+name: TREED transient source audit
+
+on:
+  push:
+    branches: [feature/treed-transient-yongneup-20260902]
+    paths:
+      - '.github/workflows/treed-transient-source-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+
+jobs:
+  source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconstruct audited production model
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+      - name: Audit exact TREED core source
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha256sum treed120/src/TREED_core.jl | tee treed_transient_source_audit.txt
+          for token in 'trait_evolution' 'trait_optimizer' 'plant_allometry' 'GPP_function_for_optimization' 'calc_net_C_gain'; do
+            echo "=== ${token} ===" | tee -a treed_transient_source_audit.txt
+            grep -n "${token}" treed120/src/TREED_core.jl | head -20 | tee -a treed_transient_source_audit.txt
+          done
+          grep -q 'trait_evolution' treed120/src/TREED_core.jl
+          echo 'TREED_TRANSIENT_SOURCE_AUDIT_OK' | tee -a treed_transient_source_audit.txt
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed-transient-source-audit
+          path: treed_transient_source_audit.txt
+          retention-days: 30
