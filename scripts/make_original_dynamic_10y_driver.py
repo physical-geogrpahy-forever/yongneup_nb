@@ -8,7 +8,7 @@ marker = 'function main()'
 assert s.count(marker) == 1, 'unexpected production main() count'
 prefix = s.split(marker, 1)[0]
 
-# Keep every production function byte-for-byte above main().  Only the orchestration
+# Keep every production function byte-for-byte above main(). Only the orchestration
 # is replaced so the already-audited Dynamic model can be advanced for ten 1-year
 # intervals from its archived 0 ka final state.
 main = r'''
@@ -35,11 +35,9 @@ function original_dynamic_10y_main()
     prev_jan = Dict{Int,Float64}()
     metrics = DataFrame()
 
-    # The original pre-selective Direct-AGB v2 write_age_outputs has seven
-    # positional arguments.  A later diagnostic source variant has an eighth
-    # pathology-set argument.  This 10-y runner accepts either without changing
-    # the model equations; the production payload used here should take the
-    # seven-argument path.
+    # Original Direct-AGB v2 has the seven-argument write_age_outputs call.
+    # A later diagnostic source has one extra Set argument. Accept either without
+    # changing any model equation or parameter.
     nargs_set = Set(m.nargs for m in methods(write_age_outputs))
 
     for year in 1:years
@@ -72,7 +70,7 @@ function original_dynamic_10y_main()
         CSV.write(joinpath(outdir,"timeseries_10y.csv"),metrics)
 
         mv(nextstate,state;force=true)
-        println("YEAR_DONE year=$year meanH=$(metrics.mean_h_m[end]) meanNPP=$(metrics.mean_npp_gC_m2_yr[end]) meanZ=$(metrics.mean_z_m[end]) meanSoil=$(metrics.mean_soil_depth_m[end])")
+        println("YEAR_DONE year=$year meanTraitH=$(metrics.mean_trait_H_m[end]) meanNPP=$(metrics.mean_npp_gC_m2_yr[end]) meanZ=$(metrics.mean_z_m[end]) meanSoil=$(metrics.mean_h_m[end])")
         flush(stdout)
     end
 
