@@ -17,6 +17,7 @@ permissions:
 env:
   PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
   JULIA_NUM_THREADS: '1'
+  JULIA_PKG_PRECOMPILE_AUTO: '0'
 
 jobs:
   smoke:
@@ -50,7 +51,6 @@ jobs:
         run: |
           julia --project=treed120 -e '
             using Pkg
-            Pkg.instantiate()
             pins=[
               PackageSpec(name="Optimization",version="5.5.0"),
               PackageSpec(name="OptimizationBase",version="5.0.0"),
@@ -58,7 +58,7 @@ jobs:
               PackageSpec(name="Metaheuristics",version="3.4.2"),
               PackageSpec(name="SciMLBase",version="2.139.0"),
               PackageSpec(name="SciMLLogging",version="1.9.0")]
-            Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.precompile()
+            Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.instantiate(); Pkg.precompile()
           '
       - name: Apply production compatibility and transient adapter patches
         run: |
