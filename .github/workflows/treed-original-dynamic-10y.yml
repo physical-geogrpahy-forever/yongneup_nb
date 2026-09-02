@@ -1,0 +1,168 @@
+name: TREED original Dynamic 10-year extension
+
+on:
+  push:
+    branches: [feature/treed-monthly-live-100y-20260902]
+    paths:
+      - 'scripts/make_original_dynamic_10y_driver.py'
+      - '.github/workflows/treed-original-dynamic-10y.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+  BASELINE_DYNAMIC_ARTIFACT_ID: '9396977568'
+  BASELINE_FINAL_STATE_SHA256: ea5c6c9fc3af7b25558b52b98dbf862730573677cf5077e4e6e5219444a21b9b
+  JULIA_NUM_THREADS: '1'
+  JULIA_PKG_PRECOMPILE_AUTO: '0'
+
+jobs:
+  run10y:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Reconstruct exact original Direct-AGB v2 production payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+          test "$(git hash-object treed120/julia/run_120ka.jl)" = "eabbc7f0e3b356593eb90e8563a16b00db5af828"
+          test "$(git hash-object treed120/python/prepare_age_input.py)" = "fdf5dd0a4c341a6af630c3f071433e740d4d0c9a"
+          test "$(git hash-object treed120/python/run_geomorph_step.py)" = "e6838076058a6891791c0b1a475978c824b016ea"
+          echo ORIGINAL_PRODUCTION_SOURCE_VERIFIED
+
+      - name: Download archived original Dynamic 0 ka final state
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p baseline_dynamic
+          curl -fL \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${BASELINE_DYNAMIC_ARTIFACT_ID}/zip" \
+            -o /tmp/baseline_dynamic.zip
+          unzip -q /tmp/baseline_dynamic.zip -d baseline_dynamic
+          test -f baseline_dynamic/final_state.npz
+          echo "${BASELINE_FINAL_STATE_SHA256}  baseline_dynamic/final_state.npz" | sha256sum -c -
+          test -f baseline_dynamic/snapshots/snapshot_000ka.csv
+          echo BASELINE_0KA_STATE_VERIFIED
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install Python runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy rasterio matplotlib
+
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: '1.11.6'
+
+      - uses: julia-actions/cache@v3
+
+      - name: Instantiate original pinned TREED environment
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            pins=[
+              PackageSpec(name="Optimization",version="5.5.0"),
+              PackageSpec(name="OptimizationBase",version="5.0.0"),
+              PackageSpec(name="OptimizationMetaheuristics",version="0.3.5"),
+              PackageSpec(name="Metaheuristics",version="3.4.2"),
+              PackageSpec(name="SciMLBase",version="2.139.0"),
+              PackageSpec(name="SciMLLogging",version="1.9.0")]
+            Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.instantiate(); Pkg.precompile()
+          '
+
+      - name: Generate 10-year orchestration from original production driver
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/make_original_dynamic_10y_driver.py
+          # This workflow intentionally does NOT call patch_direct_agb_v2.py or any transient adapter.
+          git hash-object treed120/julia/run_120ka.jl
+          julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_original_dynamic_10y.jl",String)); println("ORIGINAL_10Y_PARSE_OK")'
+
+      - name: Run original Dynamic model for ten one-year intervals
+        shell: bash
+        run: |
+          set -euo pipefail
+          julia --project=treed120 treed120/julia/run_original_dynamic_10y.jl baseline_dynamic/final_state.npz original_dynamic_10y | tee original_dynamic_10y.log
+
+      - name: Validate 10-year outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import numpy as np
+          import pandas as pd
+
+          root=Path('original_dynamic_10y')
+          ts=pd.read_csv(root/'timeseries_10y.csv')
+          assert len(ts)==10, len(ts)
+          assert ts['sim_year'].tolist()==list(range(1,11))
+          assert np.allclose(ts['interval_kyr'].to_numpy(float),0.001)
+          assert np.allclose(ts['interval_years'].to_numpy(float),1.0)
+          assert np.allclose(ts['climate_age_ka'].to_numpy(float),0.0)
+          for c in ['mean_z_m','mean_h_m','mean_npp_gC_m2_yr','mean_aet_mm_yr','mean_eemt_MJ_m2_yr','mean_agb_C_g_m2','mean_agb_dry_kg_m2','mean_LAI','mean_trait_H_m']:
+              assert np.all(np.isfinite(ts[c].to_numpy(float))), c
+          assert np.max(np.abs(ts['mean_agb_dry_kg_m2'].to_numpy(float)-ts['mean_agb_C_g_m2'].to_numpy(float)/(1000*0.47))) < 1e-10
+          assert (root/'final_state_10y.npz').is_file()
+
+          snaps=sorted((root/'snapshots').glob('year_*.csv'))
+          assert len(snaps)==10, len(snaps)
+          for p in snaps:
+              s=pd.read_csv(p)
+              assert len(s)==298, (p,len(s))
+              for c in ['elevation_m','soil_depth_m','NPP_gC_m2_yr','AET_mm_yr','AGB_dry_kg_m2','LAI','trait_H_m']:
+                  assert c in s.columns, (p,c)
+                  assert np.all(np.isfinite(s[c].to_numpy(float))), (p,c)
+
+          monthly=sorted((root/'work').glob('monthly_year_*.csv'))
+          assert len(monthly)==10, len(monthly)
+          maxbal=0.0
+          for p in monthly:
+              m=pd.read_csv(p)
+              assert len(m)==298*12, (p,len(m))
+              maxbal=max(maxbal,float(np.abs(m['balance_residual_mm'].to_numpy(float)).max()))
+          assert maxbal < 1e-9, maxbal
+
+          log=Path('original_dynamic_10y.log').read_text()
+          assert log.count('YEAR_DONE year=')==10
+          assert 'ORIGINAL_DYNAMIC_10Y_COMPLETE' in log
+          print('ORIGINAL_DYNAMIC_10Y_VALIDATION_OK')
+          print('start_year1',ts.iloc[0][['mean_z_m','mean_h_m','mean_trait_H_m','mean_npp_gC_m2_yr','mean_agb_dry_kg_m2']].to_dict())
+          print('end_year10',ts.iloc[-1][['mean_z_m','mean_h_m','mean_trait_H_m','mean_npp_gC_m2_yr','mean_agb_dry_kg_m2']].to_dict())
+          print('delta_10y',{
+              'z_m':float(ts.mean_z_m.iloc[-1]-ts.mean_z_m.iloc[0]),
+              'soil_m':float(ts.mean_h_m.iloc[-1]-ts.mean_h_m.iloc[0]),
+              'trait_H_m':float(ts.mean_trait_H_m.iloc[-1]-ts.mean_trait_H_m.iloc[0]),
+              'NPP':float(ts.mean_npp_gC_m2_yr.iloc[-1]-ts.mean_npp_gC_m2_yr.iloc[0]),
+              'AGB_dry':float(ts.mean_agb_dry_kg_m2.iloc[-1]-ts.mean_agb_dry_kg_m2.iloc[0]),
+              'max_water_balance_residual_mm':maxbal,
+          })
+          PY
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: treed-original-dynamic-10y
+          path: |
+            original_dynamic_10y/
+            original_dynamic_10y.log
+          retention-days: 30
