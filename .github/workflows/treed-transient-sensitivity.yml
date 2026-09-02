@@ -1,0 +1,120 @@
+name: TREED Yongneup transient one-step sensitivity
+
+on:
+  push:
+    branches: [feature/treed-transient-yongneup-20260902]
+    paths:
+      - 'diagnostics/run_transient_smoke.jl'
+      - 'diagnostics/run_transient_sensitivity.jl'
+      - 'diagnostics/treed_v1_transient_adapter.jl'
+      - 'scripts/patch_transient_smoke_adapter.py'
+      - 'scripts/patch_direct_agb_v2.py'
+      - '.github/workflows/treed-transient-sensitivity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+  JULIA_NUM_THREADS: '1'
+  JULIA_PKG_PRECOMPILE_AUTO: '0'
+
+jobs:
+  sensitivity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconstruct audited production model
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+          test "$(sha256sum treed120/src/TREED_core.jl | awk '{print $1}')" = "a7e9658069bed0a21593213bf9d91a07176b63e95dfc03f66cc7c98bb86d2525"
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install Python runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy rasterio matplotlib
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: '1.11.6'
+      - uses: julia-actions/cache@v3
+        with:
+          delete-old-caches: false
+      - name: Instantiate pinned TREED environment
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            pins=[
+              PackageSpec(name="Optimization",version="5.5.0"),
+              PackageSpec(name="OptimizationBase",version="5.0.0"),
+              PackageSpec(name="OptimizationMetaheuristics",version="0.3.5"),
+              PackageSpec(name="Metaheuristics",version="3.4.2"),
+              PackageSpec(name="SciMLBase",version="2.139.0"),
+              PackageSpec(name="SciMLLogging",version="1.9.0")]
+            Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.instantiate(); Pkg.precompile()
+          '
+      - name: Apply production compatibility and transient adapter patches
+        run: |
+          python scripts/patch_direct_agb_v2.py
+          python scripts/patch_transient_smoke_adapter.py
+          python -m py_compile treed120/python/run_geomorph_step.py
+          grep -q 'treed_v1_trait_evolution' diagnostics/run_transient_smoke.jl
+          grep -q 'PROGRAM_FILE' diagnostics/run_transient_smoke.jl
+          grep -q '03ac7834178c40b3b9d90e0e2689a218d10bd545' diagnostics/treed_v1_transient_adapter.jl
+      - name: Parse transient sources
+        run: |
+          julia --project=treed120 -e 'Meta.parseall(read("diagnostics/treed_v1_transient_adapter.jl",String)); Meta.parseall(read("diagnostics/run_transient_smoke.jl",String)); Meta.parseall(read("diagnostics/run_transient_sensitivity.jl",String)); println("TRANSIENT_SENSITIVITY_PARSE_OK")'
+      - name: Run source-backed one-step sensitivity matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          julia --project=treed120 diagnostics/run_transient_sensitivity.jl treed120 0.01 0.0 transient_sensitivity_out | tee transient_sensitivity.log
+      - name: Validate sensitivity matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import numpy as np, pandas as pd
+          root=Path('transient_sensitivity_out')
+          matrix=pd.read_csv(root/'transient_sensitivity_matrix.csv')
+          cells=pd.read_csv(root/'transient_sensitivity_cells.csv')
+          assert len(matrix)==16, len(matrix)
+          assert len(cells)==16*298, len(cells)
+          assert set(np.round(matrix.evorate,8))=={0.01,0.1,0.75,1.0}
+          assert set(matrix.dispersal_label)=={'self','1cell','5cell','domain'}
+          assert np.all(np.isfinite(matrix.select_dtypes(include=[np.number]).to_numpy()))
+          assert np.all(np.isfinite(cells.select_dtypes(include=[np.number]).to_numpy()))
+          assert np.allclose(cells.r_s_r.to_numpy(float),1.0,rtol=0,atol=0)
+          assert matrix.max_monthly_water_balance_residual_mm.max() < 1e-9
+          self_rows=matrix[matrix.dispersal_label=='self']
+          dom_rows=matrix[matrix.dispersal_label=='domain']
+          assert (self_rows.neighbor_min==1).all() and (self_rows.neighbor_max==1).all()
+          assert (dom_rows.neighbor_min==298).all() and (dom_rows.neighbor_max==298).all()
+          for ev,g in matrix.groupby('evorate'):
+              order=g.set_index('dispersal_label').loc[['self','1cell','5cell','domain']]
+              assert np.all(np.diff(order.dispersal_km.to_numpy(float))>0)
+              assert np.all(np.diff(order.neighbor_median.to_numpy(float))>=0)
+          assert (cells.AGB_C_g_m2>=0).all()
+          assert (cells.H_119>=0).all()
+          assert 'TREED_TRANSIENT_SENSITIVITY_OK' in Path('transient_sensitivity.log').read_text()
+          print('TRANSIENT_SENSITIVITY_VALIDATION_OK')
+          print(matrix[['evorate','dispersal_label','dispersal_km','neighbor_median','productive_cells','donor_a_ll_nonself_fraction','donor_C_leaf_nonself_fraction','mean_H_m','mean_NPP_gC_m2_yr','mean_AET_mm_yr','mean_AGB_C_g_m2']].to_string(index=False))
+          PY
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed-transient-one-step-sensitivity
+          path: |
+            transient_sensitivity_out/
+            transient_sensitivity.log
+          retention-days: 30
