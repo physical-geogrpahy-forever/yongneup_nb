@@ -1,0 +1,131 @@
+name: TREED3D live engine smoke
+
+on:
+  push:
+    branches: [feature/treed3d-live-engine-20260902]
+    paths:
+      - '.github/workflows/treed3d-live-engine-smoke.yml'
+      - 'treed3d/**'
+      - 'scripts/patch_treed3d_live_include.py'
+      - 'scripts/patch_direct_agb_v2.py'
+  workflow_dispatch:
+
+concurrency:
+  group: treed3d-live-engine-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  PAYLOAD_SHA256: 555d2c7abcea6a8d0b6192fee47b6f421af170313a6043b11c8bf978659cddc8
+  JULIA_NUM_THREADS: '1'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v6
+      - name: Reconstruct audited model
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p treed120
+          cat treed120_payload_v2/chunk_*.b64 | base64 -d > /tmp/treed120_pkg.tar.gz
+          echo "${PAYLOAD_SHA256}  /tmp/treed120_pkg.tar.gz" | sha256sum -c -
+          tar xzf /tmp/treed120_pkg.tar.gz -C treed120
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install Python runtime
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy rasterio matplotlib
+      - uses: julia-actions/setup-julia@v3
+        with:
+          version: '1.11.6'
+      - uses: julia-actions/cache@v3
+      - name: Instantiate pinned TREED environment
+        shell: bash
+        run: |
+          julia --project=treed120 -e '
+            using Pkg
+            Pkg.instantiate()
+            pins=[
+              PackageSpec(name="Optimization",version="5.5.0"),
+              PackageSpec(name="OptimizationBase",version="5.0.0"),
+              PackageSpec(name="OptimizationMetaheuristics",version="0.3.5"),
+              PackageSpec(name="Metaheuristics",version="3.4.2"),
+              PackageSpec(name="SciMLBase",version="2.139.0"),
+              PackageSpec(name="SciMLLogging",version="1.9.0")]
+            Pkg.add(pins); foreach(Pkg.pin,pins); Pkg.resolve(); Pkg.precompile()
+          '
+      - name: Apply production and live-engine patches
+        run: |
+          python scripts/patch_direct_agb_v2.py
+          python scripts/patch_treed3d_live_include.py
+          python -m py_compile treed3d/live_bridge.py
+          julia --project=treed120 -e 'Meta.parseall(read("treed3d/live_engine.jl",String)); println("LIVE_ENGINE_PARSE_OK")'
+          julia --project=treed120 -e 'Meta.parseall(read("treed120/julia/run_120ka.jl",String)); println("AUDITED_DRIVER_PARSE_OK")'
+      - name: Run real model through live process bridge
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import numpy as np
+          import pandas as pd
+          from treed3d.live_bridge import LiveEngineProcess, load_render_state
+
+          root=Path('.').resolve()
+          base=Path('treed3d_smoke').resolve()
+
+          dynamic=LiveEngineProcess(root,'dynamic',base/'dynamic')
+          ready=dynamic.start()
+          assert ready.kind=='LIVE_READY' and ready.fields['next_age']=='120'
+          e120=dynamic.step(); d120=load_render_state(e120)
+          e119=dynamic.step(); d119=load_render_state(e119)
+          status=dynamic.status(); dynamic.close()
+
+          assert e120.age==120 and e119.age==119
+          assert len(d120)==len(d119)==298
+          assert int(status.fields['steps'])==2
+          required={'z_m','soil_depth_m','NPP_gC_m2_yr','AET_mm_yr','EEMT_MJ_m2_yr','Pelletier_AGB_dry_kg_m2','LAI','trait_H_m','FPC'}
+          assert required.issubset(d120.columns), sorted(required-set(d120.columns))
+          m120=pd.read_csv(e120.fields['monthly']); m119=pd.read_csv(e119.fields['monthly'])
+          assert len(m120)==len(m119)==298*12
+          assert set(m120.month.unique())==set(range(1,13))
+          assert np.all(np.isfinite(d120.z_m)) and np.all(np.isfinite(d119.z_m))
+          # 119 ka uses the geomorphically updated state produced by the 120 ka step.
+          dz=np.abs(d119.sort_values(['row','col']).z_m.to_numpy()-d120.sort_values(['row','col']).z_m.to_numpy())
+          assert float(dz.max())>0.0
+
+          frozen=LiveEngineProcess(root,'frozen',base/'frozen')
+          frozen.start(); f120_event=frozen.step(); f120=load_render_state(f120_event); frozen.close()
+          assert f120_event.age==120 and len(f120)==298
+
+          d=d120.sort_values(['row','col']).reset_index(drop=True)
+          f=f120.sort_values(['row','col']).reset_index(drop=True)
+          assert np.array_equal(d[['row','col']].to_numpy(),f[['row','col']].to_numpy())
+          for c in ['z_m','soil_depth_m','NPP_gC_m2_yr','AET_mm_yr','EEMT_MJ_m2_yr','Pelletier_AGB_dry_kg_m2','LAI','trait_H_m','FPC']:
+              a=d[c].to_numpy(float); b=f[c].to_numpy(float)
+              assert np.allclose(a,b,rtol=0,atol=1e-9,equal_nan=True), (c,float(np.nanmax(np.abs(a-b))))
+
+          summary={
+              'dynamic_120_mean_z_m':float(d120.z_m.mean()),
+              'dynamic_119_mean_z_m':float(d119.z_m.mean()),
+              'max_abs_z_change_120_to_119_m':float(dz.max()),
+              'dynamic_120_mean_H_m':float(d120.trait_H_m.mean()),
+              'dynamic_119_mean_H_m':float(d119.trait_H_m.mean()),
+              'dynamic_120_mean_AGB_dry_kg_m2':float(d120.Pelletier_AGB_dry_kg_m2.mean()),
+              'dynamic_119_mean_AGB_dry_kg_m2':float(d119.Pelletier_AGB_dry_kg_m2.mean()),
+          }
+          pd.DataFrame([summary]).to_csv(base/'smoke_summary.csv',index=False)
+          print('TREED3D_REAL_MODEL_LIVE_SMOKE_OK',summary)
+          PY
+      - uses: actions/upload-artifact@v7
+        with:
+          name: treed3d-live-engine-smoke
+          path: treed3d_smoke/
+          retention-days: 30
