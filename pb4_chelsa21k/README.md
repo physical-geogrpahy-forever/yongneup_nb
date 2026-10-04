@@ -15,6 +15,6 @@
 
 ## 2026-10-04 four-way CHELSA21K run
 
-The new original-BIOME4/static, original-BIOME4/dynamic, modified/static, and modified/dynamic comparison is complete. Primary validation uses the Jang et al. (2011) original vegetation-zone descriptions, 62 100-year output-time items, and the project 5% basin-presence criterion.
+The new original-BIOME4/static, original-BIOME4/dynamic, modified/static, and modified/dynamic comparison is complete. Primary validation uses the Jang et al. (2011) original vegetation-zone descriptions, 62 100-year output-time items, and the project **1% basin-presence criterion**.
 
 See [results/fourway_20261004/PB4_CHELSA21K_FOURWAY_RESULTS_KO.md](results/fourway_20261004/PB4_CHELSA21K_FOURWAY_RESULTS_KO.md).
