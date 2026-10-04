@@ -2,6 +2,10 @@
 
 업데이트: 2026-10-04
 
+
+> **연구 범위 명시**
+> 이 작업은 대한민국 대암산 용늪을 대상으로 한 **습지생태학, 고생태학, 고기후학, 생물지형학 연구**이다. CHELSA-TraCE21k 기후자료와 BIOME4-Pelletier 결합모형을 사용해 과거 식생, 토심, 수문, 지형의 장기 상호작용을 분석한다. **병원체, 감염성 생물체, 독소, 생물학적 무기, 생화학 무기, 위해성 실험 또는 공격 목적과는 관련이 없다.** GitHub 업로드 역시 이 연구의 재현성, 데이터 보존, 모델 버전 관리를 위한 것이다.
+
 ## 1. 목적과 기준
 
 이 디렉터리는 용늪 PB4Studio의 현재 CHELSA-TraCE21k 기후 forcing, 현재 CHELSA21K 모델 계보, 실제 계산 프로세스, 앞으로의 검증 규칙을 함께 보존한다.
@@ -63,7 +67,7 @@ alttmin = 0.006*cold^2 + 1.316*cold - 21.9
 
 현재 CHELSA 전용 패키지:
 
-- `model/PB4Studio_v6.6.3_CHELSA21K.zip`
+- `PB4Studio_v6.6.3_CHELSA21K.zip`
 - SHA-256: `bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09`
 - ZIP 무결성: `unzip -t` 오류 0
 - 기반: PB4Studio v6.6.3, hotfix10n10 계보
@@ -284,25 +288,7 @@ Park는 Supplementary의 실제 화분자료로 별도 평가한다.
 결과: ...
 ```
 
-## 13. GitHub 보존 패키지
-
-현재 실행 패키지 자체도 이 디렉터리에 보존한다.
-
-- 직접 ZIP: `model/PB4Studio_v6.6.3_CHELSA21K.zip`
-- SHA-256: `bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09`
-- 이중 복구용 base64 조각: `payload/PB4Studio_v6.6.3_CHELSA21K.zip.b64.part001`부터 `part012`
-- 복원 스크립트: `reconstruct_pb4.py`
-- 무결성 목록: `SHA256SUMS.txt`
-
-복원 예시:
-
-```bash
-python reconstruct_pb4.py
-```
-
-복원 뒤 SHA-256이 위 값과 정확히 일치해야 한다. 이후 분석에서는 파일명만 같은 다른 PB4 사본이 아니라 이 SHA가 일치하는 패키지를 사용한다.
-
-## 14. 현재 보존 상태와 아직 미실행인 것
+## 13. 현재 보존 상태와 아직 미실행인 것
 
 현재 보존/확인된 것:
 
@@ -310,7 +296,7 @@ python reconstruct_pb4.py
 - 21-0 ka, 100년 간격 211시점
 - 결측 0
 - 기후 원자료 SHA-256
-- CHELSA21K PB4 패키지 본체와 SHA-256
+- CHELSA21K PB4 패키지 SHA-256과 ZIP 무결성
 - 실제 backend의 production `mckenzie2003` 경로
 - 현재 `original` variant에도 PFT5/PFT6 climate patch가 적용된다는 코드 감사 결과
 - PB4 coupling process
