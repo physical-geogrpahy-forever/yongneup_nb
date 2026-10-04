@@ -14,6 +14,18 @@
   "dynamic_period_ka_bp": "21.0-0.0",
   "static_validation_period_ka_bp": "5.9-0.0",
   "dynamic_restart_regression": "continuous vs chunked: array_equal z,b,h = true; max_abs_diff = 0.0",
-  "primary_validation": "Jang et al. 2011 original zone descriptions, 62 record x 100-year output-time items, 5% basin-presence threshold",
-  "legacy_validation_retained": "yes, audit/comparability only"
+  "primary_validation": "Jang et al. 2011 original zone descriptions, 62 record x 100-year output-time items, 1% basin-presence threshold",
+  "legacy_validation_retained": "yes, audit/comparability only",
+  "primary_threshold_fraction": 0.01,
+  "primary_threshold_percent": 1,
+  "primary_result": {
+    "original_static": "19/62 = 30.65%",
+    "original_dynamic": "19/62 = 30.65%",
+    "mckenzie2003_static": "24/62 = 38.71%",
+    "mckenzie2003_dynamic": "55/62 = 88.71%"
+  },
+  "sensitivity_thresholds_percent": [
+    5,
+    10
+  ]
 }
