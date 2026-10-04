@@ -64,6 +64,7 @@ alttmin = 0.006*cold^2 + 1.316*cold - 21.9
 현재 CHELSA 전용 패키지:
 
 - `PB4Studio_v6.6.3_CHELSA21K.zip`
+- GitHub 보존 경로: `model/PB4Studio_v6.6.3_CHELSA21K.zip`
 - SHA-256: `bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09`
 - ZIP 무결성: `unzip -t` 오류 0
 - 기반: PB4Studio v6.6.3, hotfix10n10 계보

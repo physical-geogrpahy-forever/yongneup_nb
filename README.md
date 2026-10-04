@@ -11,4 +11,4 @@ Scientific equations and inputs are kept inside the versioned payload ZIP. The w
 
 Current Yongneup CHELSA-TraCE21k forcing, raw climate archive, and the PB4Studio model-process/validation note are stored in [`pb4_chelsa21k/`](./pb4_chelsa21k/README.md).
 
-The CHELSA21K work is kept separate from older Beyer-based PB4 results. New validation numbers must identify the exact forcing, model version, execution status, and validation sample.
+The exact CHELSA21K model archive is stored at [`pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip`](./pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip).\n\nThe CHELSA21K work is kept separate from older Beyer-based PB4 results. New validation numbers must identify the exact forcing, model version, execution status, and validation sample.
