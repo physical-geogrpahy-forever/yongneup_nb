@@ -1,0 +1,19 @@
+{
+  "execution_date": "2026-10-04",
+  "execution_status": "new_execution",
+  "climate_file": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+  "climate_sha256": "3f5d249bb59f4163bb0f78f5cb4759972575931bf977b8b2791db497805b0ec9",
+  "package_zip": "PB4Studio_v6.6.3_CHELSA21K.zip",
+  "package_sha256": "bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09",
+  "original_biome4_source_sha256": "23b5194b7b2ca25439f9a97e4f55c147c78ee9198c5f953ca2fac8c4ce689968",
+  "patched_backend_sha256": "6aa1dd83140be9e80de6473e5668cd64090ab98d46673bb1d632ba5e03f4f4f9",
+  "patched_climate_sha256": "53ec4a786813b32a8838a978ac43aff33d1025c44431ccf52c8c1340106412a2",
+  "patched_runner_sha256": "a43049dba01fe563176f7e663984ad903402c2b0e4a21cd9ebfeba167cc2da45",
+  "resolution_m": 20,
+  "time_step_kyr": 0.1,
+  "dynamic_period_ka_bp": "21.0-0.0",
+  "static_validation_period_ka_bp": "5.9-0.0",
+  "dynamic_restart_regression": "continuous vs chunked: array_equal z,b,h = true; max_abs_diff = 0.0",
+  "primary_validation": "Jang et al. 2011 original zone descriptions, 62 record x 100-year output-time items, 5% basin-presence threshold",
+  "legacy_validation_retained": "yes, audit/comparability only"
+}

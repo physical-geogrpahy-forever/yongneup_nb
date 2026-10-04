@@ -1,0 +1,5 @@
+﻿record_id,age_range_ka_bp,legacy_pb4_label,jang_original_description,corrected_reduced_label,corrected_code
+95_01,5.9-4.8,혼효림,cool-temperate central/montane deciduous broad-leaved forest,낙엽활엽수림,1
+95_02,4.8-3.4,침엽수림,cool-temperate northern/alti-montane mixed coniferous and deciduous broad-leaved forest,혼효림,2
+95_03,3.4-0.39,낙엽활엽수림,cool-temperate central/montane deciduous broad-leaved forest,낙엽활엽수림,1
+95_04,0.39-0,침엽수림,cool-temperate central/montane mixed deciduous broad-leaved and coniferous forest,혼효림,2

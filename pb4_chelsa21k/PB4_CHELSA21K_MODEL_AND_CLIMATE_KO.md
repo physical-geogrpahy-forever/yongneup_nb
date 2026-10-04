@@ -288,25 +288,38 @@ Park는 Supplementary의 실제 화분자료로 별도 평가한다.
 결과: ...
 ```
 
-## 13. 현재 보존 상태와 아직 미실행인 것
+## 13. 2026-10-04 4-way 새 실행 완료
 
-현재 보존/확인된 것:
+CHELSA21K 기준 4개 실험을 실제 새 실행했다.
 
-- 최신 CHELSA-TraCE21k/EnviCloud RAW WIDE 원자료
-- 21-0 ka, 100년 간격 211시점
-- 결측 0
-- 기후 원자료 SHA-256
-- CHELSA21K PB4 패키지 SHA-256과 ZIP 무결성
-- 실제 backend의 production `mckenzie2003` 경로
-- 현재 `original` variant에도 PFT5/PFT6 climate patch가 적용된다는 코드 감사 결과
-- PB4 coupling process
-- Jang/Park 검증 분리 규칙
+- 순수 BIOME4 v4.2b2 control, static
+- 순수 BIOME4 v4.2b2 control, dynamic
+- production mckenzie2003, static
+- production mckenzie2003, dynamic
 
-아직 새 결과로 주장하지 않는 것:
+코드 감사에서 기존 `variant="original"`에도 hotfix10n10의 PFT5/PFT6 climate-sieve 수정이 들어가는 문제가 확인되었다. 이번 원본 대조군에서는 해당 수정과 51% mixed 재분류를 제거했고, 원본 BIOME4의 native PFT 기후한계와 native mixed biome identity를 유지했다.
 
-- CHELSA21K static/dynamic 정확도
-- 순수 native-v4.2b2 static/dynamic 정확도
-- production mckenzie2003 static/dynamic 정확도
-- 과거 Beyer/hotfix 정확도가 CHELSA에서도 유지된다는 주장
+동적 실행은 21-0 ka 전체를 0.1 kyr 간격으로 수행했다. 실행시간 제한 때문에 exact restart chunk를 사용했지만, 연속 실행과 분할 실행의 `z`, `b`, `H` 최종 배열이 `array_equal=True`, 최대 절대차 0.0임을 회귀검증했다.
 
-이 값들은 위 2 x 2 구성을 실제 새 실행한 뒤에만 기록한다.
+Jang et al. (2011)의 원문 식생대와 기존 PB4 축약 라벨이 일부 불일치한다는 기존 감사 결과를 반영해, 원문 서술에 맞춘 reduced class를 주 검증으로 사용한다. 주 기준은 프로젝트의 5% 유역 출현 기준이며 총 62개 record x 100년 output-time 평가항목이다.
+
+| BIOME4 | 지형 | Jang 원문 기준 5% 정확도 |
+|---|---|---:|
+| 원본 v4.2b2 | static | 19/62 = 30.65% |
+| 원본 v4.2b2 | dynamic | 19/62 = 30.65% |
+| hotfix10n10 수정형 | static | 23/62 = 37.10% |
+| hotfix10n10 수정형 | dynamic | 23/62 = 37.10% |
+
+1% 임계값에서는 수정형 dynamic이 55/62 = 88.71%까지 올라가지만, 3.4-0.39 ka의 낙엽활엽수림이 유역의 약 1.3-3.4%에 그치므로 5% 기준에서는 통과하지 못한다. 따라서 1% 값만으로 dynamic 성능이 크게 향상됐다고 해석하지 않는다.
+
+상세 결과, 임계값 민감도, Jang 분류 교정, 실행 provenance, 원본-control 패치는 다음 경로에 보존한다.
+
+- `results/fourway_20261004/PB4_CHELSA21K_FOURWAY_RESULTS_KO.md`
+- `results/fourway_20261004/PRIMARY_JANG2011_5PCT_FOURWAY.csv`
+- `results/fourway_20261004/FOURWAY_JANG_ACCURACY_1_5_10PCT.csv`
+- `results/fourway_20261004/FOURWAY_JANG_ZONE_BREAKDOWN.csv`
+- `results/fourway_20261004/JANG2011_CORRECTED_REDUCED_MAPPING.csv`
+- `results/fourway_20261004/EXECUTION_PROVENANCE.json`
+- `results/fourway_20261004/TRUE_ORIGINAL_AND_EXACT_RESTART.patch`
+
+Park et al. (2021)은 이 62개 categorical 총점에 포함하지 않고 Supplementary 실측 화분자료로 별도 평가한다.

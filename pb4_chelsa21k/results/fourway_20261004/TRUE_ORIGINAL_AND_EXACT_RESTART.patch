@@ -1,0 +1,129 @@
+--- a/pb4studio/biome4_backend.py
++++ b/pb4studio/biome4_backend.py
+@@ -381,12 +381,11 @@
+     """Create the compilable batch source without changing ecological equations.
+ 
+     All variants receive output-only instrumentation required by the Python
+-    coupling: monthly AET and PFT diagnostics. The climate-sieve patches retain
+-    the reference-based PFT5 TCM/GDD5 limits and the Sitch-2003 PFT6 BoNE
+-    limits.  The Yongneup production variant (mckenzie2003) additionally limits
+-    the native BIOME4 PFT competition set (PFT2--13; PFT1 remains disabled by
+-    the original BIOME4 v4.2b2 source itself). No soil-depth NPP/LAI/FVC
+-    multiplier is added.
++    coupling: monthly AET and PFT diagnostics. The original variant retains
++    BIOME4 v4.2b2 native ecological equations and native PFT climate limits.
++    The Yongneup production variant (mckenzie2003) applies the hotfix10n10
++    PFT5 reference sieve and PFT6 Sitch-2003 BoNE sieve, plus the finite-depth
++    McKenzie/Jackson root adapter. No soil-depth NPP/LAI/FVC multiplier is added.
+     """
+     variant = normalize_biome4_variant(biome4_variant)
+     text = src.read_bytes().decode("latin-1")
+@@ -399,7 +398,10 @@
+     # (2003) BoNE climatic occurrence sieve used by LPJ:
+     #   TCM -32.5 <= TCM < -2 C; GDD5 >= 600; TWM <= 23 C.
+     # No soil-depth response, PFT override, or palaeovegetation-fitted coefficient.
+-    if variant in {BIOME4_VARIANT_ORIGINAL, BIOME4_VARIANT_MCKENZIE2003}:
++    # True BIOME4 v4.2b2 control: do NOT alter native PFT5/PFT6 climate limits.
++    # The hotfix10n10 conifer climate-sieve changes belong only to the
++    # McKenzie2003 production branch.
++    if variant == BIOME4_VARIANT_MCKENZIE2003:
+         old5 = "     + -2.0,-99.9, -99.9, 10.0, 900.0,-99.9, -99.9,-99.9,  10.0,-99.9,   !5"
+         new5 = "     +-19.0,-99.9, -99.9, 10.0, 900.0,-99.9, -99.9,-99.9,  10.0,-99.9,   !5  PFT5_REF_M19_GDD900"
+         old6 = "     +-32.5, -2.0, -99.9,-99.9, -99.9,-99.9, -99.9,-99.9, -99.9, 21.0,   !6"
+--- a/pb4studio/climate.py
++++ b/pb4studio/climate.py
+@@ -880,7 +880,27 @@
+     npp = np.asarray(veg.get("npp_node", np.full(shape, np.nan)), dtype="float64")
+     lai = np.asarray(veg.get("lai_node", np.full(shape, np.nan)), dtype="float64")
+ 
+-    # Closed-forest physiognomies.
++    variant = str(veg.get("biome4_variant", "mckenzie2003")).strip().lower()
++
++    # True BIOME4 v4.2b2 control: preserve native biome identity in the
++    # reduced validation map. Native mixed biomes 6/7/9 remain mixed and are
++    # not reclassified by the hotfix10n10 51% PFT dominance rule.
++    if variant == "original":
++        out[np.isin(full, [5, 8, 10, 11]) & land] = 0
++        out[np.isin(full, [1, 2, 3, 4]) & land] = 1
++        out[np.isin(full, [6, 7, 9]) & land] = 2
++        out[np.isin(full, [12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26]) & land] = 3
++        desert = (full == 21) & land
++        desert_vegetated = desert & (optpft > 0) & (
++            (np.isfinite(npp) & (npp > 0.0)) | (np.isfinite(lai) & (lai > 0.0))
++        )
++        out[desert_vegetated] = 3
++        out[desert & ~desert_vegetated] = 4
++        out[np.isin(full, [27, 28]) & land] = 4
++        out[bare_bedrock] = 4
++        return out
++
++    # hotfix10n10 production reduced classification.
+     out[np.isin(full, [5, 8, 10, 11]) & land] = 0  # conifer/taiga forest
+     out[np.isin(full, [1, 2, 3, 4]) & land] = 1   # broadleaf forest
+ 
+--- a/pb4studio/runner.py
++++ b/pb4studio/runner.py
+@@ -15,6 +15,7 @@
+ from __future__ import annotations
+ 
+ from pathlib import Path
++import os
+ from typing import Dict, List, Optional, Tuple
+ import json
+ 
+@@ -524,6 +525,24 @@
+     h = np.where(igrid.land, igrid.soil0, np.nan).astype("float32")
+     z = np.where(igrid.land, b + h, np.nan).astype("float32")
+ 
++    # Exact chunk restart for long dynamic runs. BIOME4 is equilibrium at each
++    # climate slice; the geomorphic state passed between slices is z, b, h.
++    # This hook changes no process equation or timestep.
++    _restart_path = os.environ.get("PB4_INITIAL_STATE_NPZ", "").strip()
++    if _restart_path:
++        _rs = np.load(_restart_path)
++        for _name in ("z", "b", "h"):
++            if _name not in _rs:
++                raise ValueError(f"Restart file missing {_name}: {_restart_path}")
++            if _rs[_name].shape != igrid.shape:
++                raise ValueError(f"Restart shape mismatch for {_name}: {_rs[_name].shape} != {igrid.shape}")
++        z = np.asarray(_rs["z"]).copy()
++        b = np.asarray(_rs["b"]).copy()
++        h = np.asarray(_rs["h"]).copy()
++        z = np.where(igrid.land, z, np.nan)
++        b = np.where(igrid.land, b, np.nan)
++        h = np.where(igrid.land, h, np.nan)
++
+     summary_rows: List[Dict[str, object]] = []
+     snapshot_rows: List[Dict[str, object]] = []
+ 
+@@ -615,6 +634,16 @@
+             row["geomorph_max_dt_kyr_to_next"] = geomorph_stats["max_dt_kyr"]
+             row["geomorph_fluvial_tolerance_m"] = geomorph_stats["fluvial_max_change_tolerance_m"]
+             row["geomorph_max_accepted_fluvial_change_m_to_next"] = geomorph_stats["max_accepted_fluvial_change_m"]
++
++            # Optional exact checkpoint after each completed geomorphic interval.
++            # state_ka is the age represented by z/b/h after the update.
++            _checkpoint_path = os.environ.get("PB4_CHECKPOINT_NPZ", "").strip()
++            if _checkpoint_path:
++                _cp = Path(_checkpoint_path)
++                _cp.parent.mkdir(parents=True, exist_ok=True)
++                _tmp = _cp.with_name(_cp.name + ".tmp.npz")
++                np.savez_compressed(_tmp, z=np.asarray(z), b=np.asarray(b), h=np.asarray(h), state_ka=np.asarray(next_ka))
++                os.replace(_tmp, _cp)
+         # 정적 케이스는 z, b, h를 의도적으로 고정한다.
+ 
+     # Primary validation: every model output inside each palaeovegetation interval.
+@@ -651,6 +680,13 @@
+         pd.DataFrame(validation_interval_rows).to_csv(
+             res_dir / "validation_interval_area_fraction.csv", index=False, encoding="utf-8-sig"
+         )
++
++    np.savez_compressed(
++        res_dir / "final_state.npz",
++        z=np.asarray(z),
++        b=np.asarray(b),
++        h=np.asarray(h),
++    )
+ 
+     return {
+         "output_dir": str(res_dir), "geomorph_dynamic": dynamic_on,
