@@ -139,3 +139,15 @@ Jang 원문 기준에서 유역 출현 임계값을 1%, 5%, 10%로 바꾸면 다
 - `TRUE_ORIGINAL_AND_EXACT_RESTART.patch`: 진짜 원본 대조군 및 exact restart 패치
 
 Park et al. (2021)은 이 62개 categorical 정확도에 넣지 않는다. Supplementary 실측 화분자료를 별도 평가한다.
+
+
+## 10. 수정형 성능 향상 원인 진단
+
+추가 PFT/토심 진단 결과, 성능 향상은 두 단계로 구분된다.
+
+- 원본 static 19/62 -> 수정형 static 24/62: 주로 native mixed forest에 대한 hotfix10n10의 51% reduced-class dominance 판정 효과
+- 수정형 static 24/62 -> 수정형 dynamic 55/62: 동적 지형발달이 만든 극천부 토양 포켓과 McKenzie/Jackson finite-depth root-water coupling의 결합 효과
+
+특히 3.4-0.4 ka에는 native BIOME4 broadleaf cell 자체가 매 시점 3-4/298셀, 즉 1.0067-1.3423% 존재하므로 1% 기준을 31/31 통과한다. 이 부분은 51% post-classification만으로 생긴 것이 아니다.
+
+상세 진단은 `cause_diagnostics/CAUSE_DIAGNOSIS_KO.md`와 동 디렉터리의 CSV를 참조한다.
