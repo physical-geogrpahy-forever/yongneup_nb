@@ -301,21 +301,21 @@ CHELSA21K 기준 4개 실험을 실제 새 실행했다.
 
 동적 실행은 21-0 ka 전체를 0.1 kyr 간격으로 수행했다. 실행시간 제한 때문에 exact restart chunk를 사용했지만, 연속 실행과 분할 실행의 `z`, `b`, `H` 최종 배열이 `array_equal=True`, 최대 절대차 0.0임을 회귀검증했다.
 
-Jang et al. (2011)의 원문 식생대와 기존 PB4 축약 라벨이 일부 불일치한다는 기존 감사 결과를 반영해, 원문 서술에 맞춘 reduced class를 주 검증으로 사용한다. 주 기준은 프로젝트의 5% 유역 출현 기준이며 총 62개 record x 100년 output-time 평가항목이다.
+Jang et al. (2011)의 원문 식생대와 기존 PB4 축약 라벨이 일부 불일치한다는 기존 감사 결과를 반영해, 원문 서술에 맞춘 reduced class를 주 검증으로 사용한다. 주 기준은 프로젝트의 **1% 유역 출현 기준**이며 총 62개 record x 100년 output-time 평가항목이다.
 
-| BIOME4 | 지형 | Jang 원문 기준 5% 정확도 |
+| BIOME4 | 지형 | Jang 원문 기준 1% 정확도 |
 |---|---|---:|
 | 원본 v4.2b2 | static | 19/62 = 30.65% |
 | 원본 v4.2b2 | dynamic | 19/62 = 30.65% |
-| hotfix10n10 수정형 | static | 23/62 = 37.10% |
-| hotfix10n10 수정형 | dynamic | 23/62 = 37.10% |
+| hotfix10n10 수정형 | static | 24/62 = 38.71% |
+| hotfix10n10 수정형 | dynamic | 55/62 = 88.71% |
 
-1% 임계값에서는 수정형 dynamic이 55/62 = 88.71%까지 올라가지만, 3.4-0.39 ka의 낙엽활엽수림이 유역의 약 1.3-3.4%에 그치므로 5% 기준에서는 통과하지 못한다. 따라서 1% 값만으로 dynamic 성능이 크게 향상됐다고 해석하지 않는다.
+사용자가 지정한 주 기준인 1%에서는 수정형 dynamic이 **55/62 = 88.71%**로 가장 높다. 5%와 10%에서 23/62 = 37.10%로 낮아지는 값은 임계값 민감도 분석으로 별도 보존한다.
 
 상세 결과, 임계값 민감도, Jang 분류 교정, 실행 provenance, 원본-control 패치는 다음 경로에 보존한다.
 
 - `results/fourway_20261004/PB4_CHELSA21K_FOURWAY_RESULTS_KO.md`
-- `results/fourway_20261004/PRIMARY_JANG2011_5PCT_FOURWAY.csv`
+- `results/fourway_20261004/PRIMARY_JANG2011_1PCT_FOURWAY.csv`
 - `results/fourway_20261004/FOURWAY_JANG_ACCURACY_1_5_10PCT.csv`
 - `results/fourway_20261004/FOURWAY_JANG_ZONE_BREAKDOWN.csv`
 - `results/fourway_20261004/JANG2011_CORRECTED_REDUCED_MAPPING.csv`
