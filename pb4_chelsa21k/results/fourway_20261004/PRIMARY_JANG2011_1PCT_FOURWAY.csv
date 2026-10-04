@@ -1,0 +1,5 @@
+﻿validation_scheme,presence_threshold_fraction,presence_threshold_percent,biome4_variant,mode,n,correct_n,accuracy_pct,case,ord
+jang_original_description,0.01,1.0,original,static,62,19,30.64516129032258,original_static,0
+jang_original_description,0.01,1.0,original,dynamic,62,19,30.64516129032258,original_dynamic,1
+jang_original_description,0.01,1.0,mckenzie2003,static,62,24,38.70967741935484,mckenzie2003_static,2
+jang_original_description,0.01,1.0,mckenzie2003,dynamic,62,55,88.70967741935483,mckenzie2003_dynamic,3
