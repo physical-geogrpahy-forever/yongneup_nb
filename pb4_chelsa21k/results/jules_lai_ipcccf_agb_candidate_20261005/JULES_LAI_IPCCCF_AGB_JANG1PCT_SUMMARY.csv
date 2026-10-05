@@ -1,0 +1,5 @@
+﻿model,mode,n,correct_n,accuracy_pct,threshold_fraction,scenario
+PB4-McKenzie-nativeClimate-JULES-LAI-IPCCCF-AGB-PFT7-BDT,static,62,24,38.70967741935484,0.01,BDT
+PB4-McKenzie-nativeClimate-JULES-LAI-IPCCCF-AGB-PFT7-BDT,dynamic,62,55,88.70967741935483,0.01,BDT
+PB4-McKenzie-nativeClimate-JULES-LAI-IPCCCF-AGB-PFT7-NDT,static,62,24,38.70967741935484,0.01,NDT
+PB4-McKenzie-nativeClimate-JULES-LAI-IPCCCF-AGB-PFT7-NDT,dynamic,62,55,88.70967741935483,0.01,NDT

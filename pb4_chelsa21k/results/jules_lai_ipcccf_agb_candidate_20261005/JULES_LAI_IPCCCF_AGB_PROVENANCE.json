@@ -1,0 +1,37 @@
+{
+  "execution_status": "new_full_21ka_two_scenario_candidate_run",
+  "baseline_model": "PB4-McKenzie-nativeClimate",
+  "baseline_canonical_sha256": "eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d",
+  "climate": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+  "period_ka_bp": "21.0-0.0",
+  "interval_kyr": 0.1,
+  "agb_units": "kg dry biomass m^-2",
+  "formula": "AGBdry = LMA*LAI + 0.75*(awl*LAI^(5/3))/fCwood(PFT)",
+  "bwl": 1.6666666666666667,
+  "wood_above_fraction": 0.75,
+  "wood_carbon_fraction_common": {
+    "4": 0.48,
+    "5": 0.51,
+    "6": 0.51,
+    "10": 0.47
+  },
+  "wood_carbon_fraction_pft7": {
+    "BDT": 0.48,
+    "NDT": 0.51
+  },
+  "wood_carbon_fraction_source": "IPCC 2006 Guidelines Vol.4 Ch.4 Table 4.3",
+  "pft7_scenarios": [
+    "BDT",
+    "NDT"
+  ],
+  "pft10_note": "BIOME4 woody desert evergreen mapped to JULES evergreen shrub; 75:25 woody split is explicit sensitivity extrapolation",
+  "references": [
+    "Harper et al. 2016 GMD 9:2415-2440",
+    "Harper et al. 2018 GMD 11:2857-2873",
+    "Wolf et al. 2011 GBC 25 GB2009"
+  ],
+  "BDT_candidate_zip": "pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_IPCCCF_AGB_PFT7_BDT.zip",
+  "BDT_candidate_sha256": "afeb3dcb68dd906fe9fcf6ced3e358f3e30d6079931e3e61dae3f386ce2b7692",
+  "NDT_candidate_zip": "pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_IPCCCF_AGB_PFT7_NDT.zip",
+  "NDT_candidate_sha256": "ec4e65aa6225baf17a401b75bd3e3ac5ccba9dc7dfe8f364f7703ec204253de3"
+}

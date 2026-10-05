@@ -1,0 +1,141 @@
+--- pb4studio/climate.py.baseline
++++ pb4studio/climate.py.jules_bdt
+@@ -823,8 +823,50 @@
+     eemt = eppt_mj + ebio_mj
+     eemt = np.where(land & np.isfinite(eemt), eemt, np.nan)
+ 
+-    # NPP->AGB is the intentional coupling proxy; remove hidden min/max clipping.
+-    agb = np.maximum(npp_gC, 0.0) * float(cfg.agb_from_npp_scale)
++    # Experimental BIOME4 optLAI -> JULES/TRIFFID dry AGB bridge
++    # with IPCC PFT-specific carbon fractions (2026-10-05).
++    # leaf dry biomass = LMA * Lbal
++    # Cwood = awl * Lbal^(5/3)
++    # dry aboveground wood = 0.75*Cwood/fCwood(PFT)
++    # PFT7 scenario: BDT. PFT10 uses IPCC default 0.47 as fallback;
++    # the 75:25 above/below woody split for shrub is an explicit sensitivity extrapolation.
++    optpft = np.asarray(veg.get("optpft_node", np.full(shape, np.nan)), dtype="float64")
++    lai_bal = np.asarray(veg.get("lai_node", np.full(shape, np.nan)), dtype="float64")
++    pft_round = np.rint(np.where(np.isfinite(optpft), optpft, -999.0)).astype("int16")
++    active = land & (~bare_bedrock) & np.isfinite(lai_bal) & (lai_bal > 0.0)
++    supported = np.isin(pft_round, [0, 4, 5, 6, 7, 10])
++    unsupported = active & (~supported)
++    if np.any(unsupported):
++        vals, counts = np.unique(pft_round[unsupported], return_counts=True)
++        detail = {int(v): int(n) for v, n in zip(vals, counts)}
++        raise RuntimeError("JULES-LAI AGB candidate encountered unsupported PFT(s): " + repr(detail))
++
++    lma = np.zeros(shape, dtype="float64")
++    awl = np.zeros(shape, dtype="float64")
++    lma[pft_round == 4] = 0.0823
++    awl[pft_round == 4] = 0.78
++    lma[pft_round == 5] = 0.2263
++    awl[pft_round == 5] = 0.65
++    lma[pft_round == 6] = 0.2263
++    awl[pft_round == 6] = 0.65
++    lma[pft_round == 7] = 0.0823
++    awl[pft_round == 7] = 0.78
++    lma[pft_round == 10] = 0.1515
++    awl[pft_round == 10] = 0.13
++
++    f_c_wood = np.ones(shape, dtype="float64")
++    f_c_wood[pft_round == 4] = 0.48
++    f_c_wood[pft_round == 5] = 0.51
++    f_c_wood[pft_round == 6] = 0.51
++    f_c_wood[pft_round == 7] = 0.48
++    f_c_wood[pft_round == 10] = 0.47
++
++    L = np.maximum(lai_bal, 0.0)
++    leaf_dry = lma * L
++    wood_c = awl * np.power(L, 5.0 / 3.0)
++    agb_jules = leaf_dry + 0.75 * wood_c / f_c_wood
++    agb = np.where(pft_round == 0, 0.0, agb_jules)
++    agb = np.where(bare_bedrock, 0.0, np.where(land & np.isfinite(agb), agb, np.nan))
+     agb = np.where(bare_bedrock, 0.0, agb)
+     agb = np.where(land & np.isfinite(agb), agb, np.nan)
+     return eemt.astype("float32"), agb.astype("float32")
+
+--- pb4studio/runner.py.baseline
++++ pb4studio/runner.py.jules_bdt
+@@ -555,6 +555,32 @@
+         eemt = np.where(igrid.land & np.isfinite(eemt), eemt, np.nan).astype("float32")
+         veg_code = vegetation_array(veg, igrid.shape, igrid.land, bare_bedrock=bare_bedrock).astype("float32")
+ 
++        # JULES-LAI candidate diagnostics.
++        optpft_j = np.asarray(veg.get("optpft_node", np.full(igrid.shape, np.nan)), dtype="float64")
++        lai_j = np.asarray(veg.get("lai_node", np.full(igrid.shape, np.nan)), dtype="float64")
++        pft_j = np.rint(np.where(np.isfinite(optpft_j), optpft_j, -999.0)).astype("int16")
++        agb_jules_lai = np.where(igrid.land & np.isfinite(agb), np.asarray(agb, dtype="float64"), np.nan)
++        agb_legacy_0010 = np.maximum(np.asarray(npp, dtype="float64"), 0.0) * 0.010
++        agb_legacy_0010 = np.where(
++            bare_bedrock, 0.0,
++            np.where(igrid.land & np.isfinite(agb_legacy_0010), agb_legacy_0010, np.nan)
++        )
++        # fCwood=0.40 sensitivity diagnostic only; does not feed geomorphology.
++        _lma = np.zeros(igrid.shape, dtype="float64")
++        _awl = np.zeros(igrid.shape, dtype="float64")
++        _lma[pft_j == 4] = 0.0823; _awl[pft_j == 4] = 0.78
++        _lma[pft_j == 5] = 0.2263; _awl[pft_j == 5] = 0.65
++        _lma[pft_j == 6] = 0.2263; _awl[pft_j == 6] = 0.65
++        _lma[pft_j == 7] = 0.0823; _awl[pft_j == 7] = 0.78
++        _lma[pft_j == 10] = 0.1515; _awl[pft_j == 10] = 0.13
++        _L = np.maximum(lai_j, 0.0)
++        agb_jules_fc04 = _lma * _L + 0.75 * (_awl * np.power(_L, 5.0/3.0)) / 0.40
++        agb_jules_fc04 = np.where(pft_j == 0, 0.0, agb_jules_fc04)
++        agb_jules_fc04 = np.where(
++            bare_bedrock, 0.0,
++            np.where(igrid.land & np.isfinite(agb_jules_fc04), agb_jules_fc04, np.nan)
++        )
++
+         if validation_records:
+             step_val = validation_mod._sample_validation_records_for_step(
+                 validation_records, int(round(igrid.resolution_m)), float(ka), veg_code, igrid.transform,
+@@ -571,12 +597,40 @@
+             "geomorph_dynamic": dynamic_on,
+             "biome4_variant": str(run_config.science.biome4_variant),
+         })
++        _m = igrid.land & np.isfinite(agb_jules_lai)
++        _new = agb_jules_lai[_m]
++        _old = agb_legacy_0010[_m]
++        _fc04 = agb_jules_fc04[_m]
++        _lm = igrid.land & np.isfinite(lai_j)
++        row.update({
++            "jules_pft7_mode": "BDT",
++            "jules_lai_agb_mean_kg_m2": float(np.mean(_new)) if _new.size else float("nan"),
++            "jules_lai_agb_median_kg_m2": float(np.median(_new)) if _new.size else float("nan"),
++            "jules_lai_agb_p05_kg_m2": float(np.percentile(_new, 5)) if _new.size else float("nan"),
++            "jules_lai_agb_p95_kg_m2": float(np.percentile(_new, 95)) if _new.size else float("nan"),
++            "jules_lai_agb_max_kg_m2": float(np.max(_new)) if _new.size else float("nan"),
++            "jules_lai_agb_fc04_mean_kg_m2": float(np.mean(_fc04)) if _fc04.size else float("nan"),
++            "legacy_0010_agb_mean_kg_m2": float(np.mean(_old)) if _old.size else float("nan"),
++            "jules_balance_lai_mean": float(np.mean(lai_j[_lm])) if np.any(_lm) else float("nan"),
++            "jules_balance_lai_p95": float(np.percentile(lai_j[_lm], 95)) if np.any(_lm) else float("nan"),
++            "jules_balance_lai_max": float(np.max(lai_j[_lm])) if np.any(_lm) else float("nan"),
++        })
++        for _p in [0, 4, 5, 6, 7, 10]:
++            _pm = igrid.land & (pft_j == _p) & np.isfinite(agb_jules_lai)
++            row[f"jules_pft{_p:02d}_count"] = int(np.count_nonzero(_pm))
++            row[f"jules_pft{_p:02d}_agb_sum_kg_m2_cells"] = float(np.nansum(agb_jules_lai[_pm])) if np.any(_pm) else 0.0
++            row[f"jules_pft{_p:02d}_lai_sum"] = float(np.nansum(lai_j[_pm])) if np.any(_pm) else 0.0
+         summary_rows.append(row)
+ 
+         if i in snapshot_index_to_labels:
+             snapshot_fields = {
+                 "elevation_m": z, "soil_depth_m": h, "soil_texture_class": igrid.texture0,
+                 "vegetation_code": veg_code, "npp": npp, "eemt": eemt,
++                "agb_jules_lai": agb_jules_lai.astype("float32"),
++                "agb_jules_fc04": agb_jules_fc04.astype("float32"),
++                "agb_legacy_0010": agb_legacy_0010.astype("float32"),
++                "optpft": optpft_j.astype("float32"),
++                "lai_bal": lai_j.astype("float32"),
+                 "bare_bedrock": bare_bedrock.astype("float32"),
+             }
+             if "lai_node" in veg:
+
+--- pb4studio/__init__.py.baseline
++++ pb4studio/__init__.py.jules_bdt
+@@ -1,4 +1,4 @@
+ # -*- coding: utf-8 -*-
+ """PB4Studio engine layer (GUI-independent, CLI-compatible)."""
+ 
+-__version__ = '6.6.3-CHELSA21K-envicloud-nolapse-nativeclimate'
++__version__ = '6.6.3-CHELSA21K-nativeclimate-julesLAIIPCCCFAGB-bdt'
