@@ -38,6 +38,9 @@ jobs:
           echo "ROOT=$root"
           echo '=== embedded inputs all ==='
           find "$root/embedded_inputs" -maxdepth 4 -type f | sed "s#^$root/##" | sort || true
+          echo '=== fortran tree and backend compile block ==='
+          find "$root/fortran" -maxdepth 3 -type f -print || true
+          sed -n '1,360p' "$root/pb4studio/biome4_backend.py" || true
           echo '=== finite-depth root and WHC implementation ==='
           grep -nE 'root|McKenzie|mckenzie|depth_m|soil_depth|whc|water holding|r30|finite' "$root/pb4studio/climate.py" | head -n 500 || true
           echo '=== climate helper top ==='
