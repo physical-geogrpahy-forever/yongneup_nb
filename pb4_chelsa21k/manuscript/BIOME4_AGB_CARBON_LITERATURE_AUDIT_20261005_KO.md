@@ -570,3 +570,149 @@ dry\ AGB
 - Xue, B.-L. et al. (2017). Evaluation of modeled global vegetation carbon dynamics: Analysis based on global carbon flux and above-ground biomass data. Ecological Modelling, 355, 84-96. https://doi.org/10.1016/j.ecolmodel.2017.04.012
 - Wu, H., Guiot, J., Peng, C., & Guo, Z. (2009). New coupled model used inversely for reconstructing past terrestrial carbon storage from pollen data: validation of model using modern data. Global Change Biology, 15, 82-96. https://doi.org/10.1111/j.1365-2486.2008.01712.x
 - Ma, R. et al. (2024). Stepwise Calibration of Age-Dependent Biomass in the Integrated Biosphere Simulator (IBIS) Model. Journal of Advances in Modeling Earth Systems. https://doi.org/10.1029/2023MS004048
+
+
+# 11. 21–0 ka 전체 PFT coverage audit와 PFT10 처리
+
+## 11.1 실행 정보
+
+Section 10의 PFT-specific AGB bridge를 실제 candidate로 실행하기 전에 최종 production 모델의 PFT coverage를 추측하지 않고 전수 확인했다.
+
+- 실행일: 2026-10-05
+- 실행 상태: 새 전체 실행
+- 모델: PB4-McKenzie-nativeClimate
+- canonical SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
+- 기후: `YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv`
+- 기간: 21.0-0.0 ka BP
+- 간격: 0.1 kyr
+- 시점 수: static 211 + dynamic 211
+- 과학모델 수정: 없음
+- 추가 사항: `optpft_node`와 full BIOME4 biome의 셀별 count만 기록
+
+결과 파일:
+`pb4_chelsa21k/results/pft_coverage_audit_20261005/`
+
+결과 커밋:
+`be862634bbc7040f3d4fa76b9869645d43a8d672`
+
+## 11.2 실제 선택된 PFT
+
+| mode | BIOME4 PFT | 출현 시점/211 | 누적 cell-observations | 시점 최대 셀 | cell-weighted mean NPP g C m^-2 yr^-1 |
+|---|---:|---:|---:|---:|---:|
+| static | 4 | 47 | 11,242 | 298 | 535.60 |
+| static | 6 | 186 | 51,636 | 298 | 385.53 |
+| dynamic | 0 | 145 | 1,231 | 26 | 0 |
+| dynamic | 4 | 47 | 11,099 | 295 | 535.53 |
+| dynamic | 6 | 186 | 48,107 | 298 | 386.14 |
+| dynamic | 7 | 201 | 2,241 | 31 | 307.94 |
+| dynamic | 10 | 90 | 200 | 8 | 6.08 |
+
+따라서 식생이 실제로 선택된 PFT는 **4, 6, 7, 10**뿐이다. PFT5는 forest bridge에는 정의해 두지만 이번 canonical 21-0 ka 실행에서는 실제 dominant PFT로 선택되지 않았다.
+
+PFT0은 dynamic 지형에서 BIOME4 식생이 없는 셀로, NPP=0이므로 AGB=0으로 처리한다.
+
+## 11.3 PFT10의 문헌 대응
+
+BIOME4 v4.2b2 원 코드에서 PFT10은 `C3/C4 woody desert plant type`이며 `pftdata`에서 phenological type=1, 즉 evergreen으로 정의된다.
+
+Xue et al. (2016/2017)의 IBIS PFT 중 가장 직접적인 구조 analogue는 **PFT9 evergreen shrub**이다.
+
+Xue Table 1의 IBIS evergreen shrub 값:
+
+[
+\tau_L=1.5,quad
+\tau_W=5,quad
+a_L=0.45,quad
+a_W=0.15
+]
+
+따라서 Section 10과 동일한 equilibrium dry-AGB 식을 사용하면
+
+[
+a_L\tau_L+a_W\tau_W
+=
+0.45(1.5)+0.15(5)
+=
+1.425
+]
+
+[
+\boxed{
+AGB_{dry,PFT10}
+=
+\frac{2}{1000}(1.425)NPP
+=
+0.00285NPP
+}
+]
+
+이다.
+
+이것은 BIOME4 PFT10과 IBIS PFT9가 같은 모델 PFT라는 뜻이 아니라, **woody shrub physiognomy와 evergreen leaf habit을 기준으로 한 명시적 cross-model PFT correspondence**이다.
+
+이번 canonical coverage에서 PFT10의 mean NPP는 6.08 g C m^-2 yr^-1이므로 대표적인 AGB는
+
+[
+0.00285\times6.08
+\approx0.0173 {m kg dry m^{-2}}
+]
+
+수준이다. 또한 전체 211시점에서 누적 200 cell-observations, 한 시점 최대 8셀에 불과하므로 전체 용늪 AGB 및 지형계수에 대한 기여는 매우 작을 것으로 예상된다. 단, 이 영향은 candidate 실행 결과로 확인한다.
+
+## 11.4 실제 candidate에 사용할 lookup
+
+[
+\boxed{
+AGB_{dry}(NPP,PFT)=
+\begin{cases}
+0 & PFT=0\\
+0.0286NPP & PFT=4\\
+0.0222NPP & PFT=5\\
+0.0327NPP & PFT=6\\
+0.0422NPP & PFT=7\\
+0.00285NPP & PFT=10
+\end{cases}
+}
+]
+
+단위:
+
+- 입력 NPP: g C m^-2 yr^-1
+- 출력 AGB: kg dry biomass m^-2
+
+PFT5는 현재 전기간 audit에서 선택되지 않았지만 temperate evergreen conifer에 대한 완전한 forest lookup을 위해 유지한다.
+
+## 11.5 candidate 안전장치
+
+새 candidate는 다음 원칙으로 실행한다.
+
+1. 기존 canonical ZIP은 덮어쓰지 않는다.
+2. AGB bridge 이외의 production 설정은 변경하지 않는다.
+3. `optpft_node`와 `npp_node`를 직접 사용한다.
+4. PFT0은 AGB=0.
+5. PFT4/5/6/7/10은 위 문헌 기반 식 사용.
+6. candidate의 지형 feedback 때문에 실행 도중 **새로운 PFT1-3, 8-9, 11-14가 실제 출현하면 조용히 근사하지 않고 즉시 실패시킨다.**
+7. 새 PFT가 나오면 해당 PFT의 문헌 대응을 별도로 확정한 뒤 다시 실행한다.
+8. 기존 `0.010*NPP` baseline AGB도 같은 실행에서 diagnostic으로 계산하여 새 AGB의 규모와 비율을 비교한다.
+
+## 11.6 현재 판정
+
+전기간 coverage audit 결과, 용늪 canonical 상태에서 필요한 실질적인 AGB bridge는 다음 네 식으로 거의 완결된다.
+
+[
+PFT4: 0.0286NPP
+]
+
+[
+PFT6: 0.0327NPP
+]
+
+[
+PFT7: 0.0422NPP
+]
+
+[
+PFT10: 0.00285NPP
+]
+
+따라서 이제 문헌 검색 단계에서 실제 **21-0 ka PFT-specific NPP-to-AGB candidate 실행 단계**로 진행한다.
