@@ -87,6 +87,10 @@ jobs:
           fi
           echo '=== finite-depth root implementation ==='
           grep -n -A220 -B40 -E 'root.*fraction|root.*depth|r30|mckenzie|finite.*depth|root_access' "$root/pb4studio/climate.py" | head -n 700 || true
+          echo '=== mckenzie wrapper full ==='
+          sed -n '1,520p' "$root/fortran_src/biome4_batch_wrapper_mckenzie2003.f90" || true
+          echo '=== original source constraints and competition ==='
+          grep -n -A260 -B30 'subroutine competition2' "$root/fortran_src/biome4_original_4_2b2.f" | head -n 420 || true
           echo '=== backend key defs ==='
           grep -nE '^(class|def) |pftpar|climate|mckenzie|root|depth|run_biome|evaluate' "$root/pb4studio/biome4_backend.py" | head -n 260 || true
           echo '=== climate key defs ==='
