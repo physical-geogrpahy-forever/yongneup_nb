@@ -33,13 +33,17 @@ Park 검증은 논문 본문의 세 구간을 다시 범주화하여 사용하�
 
 사용 자료는 Park et al. (2021)의 Supplementary에 제시된 sample-level pollen composition이어야 한다.
 
-현재 저장소에는 Supplementary의 machine-readable raw table이 아직 보존되어 있지 않다. 논문은 DOI에서 Supplementary data가 제공된다고 명시한다.
+사용자가 제공한 Park et al. (2021) Supplementary Excel 파일 `1-s2.0-S0031018221004909-mmc1(1).xlsx`를 2026-10-06 재확인하였다. 이 파일에는 YN-C core의 pollen counts, pollen percents, geochemistry, macrocharcoal, temperature reconstruction, PCA가 포함되어 있으며, pollen 자료는 16-88 cm의 72개 시료와 각 시료의 calibrated age를 제공한다.
 
-원자료 확보 후 다음 파일로 고정한다.
+따라서 Park 검증에 필요한 sample-level pollen 원자료는 이미 확보된 상태로 판정한다. 별도의 Supplementary 파일을 다시 요구하지 않는다.
 
-    pb4_chelsa21k/validation/park2021/PARK2021_YNC_POLLEN_RAW.csv
+재현용 파생자료는 다음 경로에 보존한다.
 
-원자료를 수작업으로 그림에서 역산하지 않는다. Supplementary의 원 수치만 사용한다.
+`pb4_chelsa21k/validation/park2021/PARK2021_YNC_100YR_WINDOWS.csv`
+
+`pb4_chelsa21k/validation/park2021/PARK2021_TAXON_MAPPING.csv`
+
+Supplementary의 pollen counts sheet와 pollen percents sheet 사이에는 Quercus code 표기가 서로 뒤바뀐 부분이 있다. counts sheet에서는 `QueL = Quercus (deciduous)`, `QueC = Quercus (evergreen)`인데, percents sheet에서는 반대로 `QueC = Quercus (deciduous)`, `QueL = Quercus (evergreen)`로 표시된다. 따라서 검증 mapping은 code가 아니라 taxon Name을 우선 기준으로 사용한다. 원자료를 수작업으로 그림에서 역산하지 않는다. Supplementary의 원 수치만 사용한다.
 
 ## 4. 시간 정렬
 
