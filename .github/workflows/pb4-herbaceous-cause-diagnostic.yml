@@ -1,0 +1,181 @@
+name: Diagnose herbaceous PFT loss
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-herbaceous-cause-diagnostic.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy
+
+      - name: Extract current native and prior tuned CHELSA packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4herb
+          mkdir -p /tmp/pb4herb/native /tmp/pb4herb/tuned
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4herb/native
+          git show 9afe8ce985bd76b14dd102aee0a2c40c4d68b74d:pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip > /tmp/pb4herb/tuned.zip
+          unzip -q /tmp/pb4herb/tuned.zip -d /tmp/pb4herb/tuned
+          find /tmp/pb4herb/native -maxdepth 1 -type d -name 'PB4Studio*' -print
+          find /tmp/pb4herb/tuned -maxdepth 1 -type d -name 'PB4Studio*' -print
+
+      - name: Run controlled depth sweeps
+        shell: bash
+        run: |
+          set -euo pipefail
+          native=$(find /tmp/pb4herb/native -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          tuned=$(find /tmp/pb4herb/tuned -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          depths="0.01 0.02 0.03 0.04 0.05 0.06 0.08 0.10 0.12 0.15 0.20 0.30 0.50 1.50"
+          ages="5.0 4.0 3.0 2.7 2.5 2.3 2.2 2.0"
+          (
+            cd "$native"
+            python tools/mckenzie2003_depth_sensitivity.py               --climate embedded_inputs/yongneup_exact20m/YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv               --elevation-m 1162.08               --depths $depths --ages $ages --threads 2               --output /tmp/pb4herb/native_chelsa_depth.csv
+          )
+          (
+            cd "$tuned"
+            python tools/mckenzie2003_depth_sensitivity.py               --climate embedded_inputs/yongneup_exact20m/YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv               --elevation-m 1162.08               --depths $depths --ages $ages --threads 2               --output /tmp/pb4herb/tuned_chelsa_depth.csv
+          )
+
+      - name: Summarize native vs tuned vs historical Beyer
+        shell: bash
+        run: |
+          set -euo pipefail
+          native=$(find /tmp/pb4herb/native -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          mkdir -p pb4_chelsa21k/results/herbaceous_cause_20261006
+          cp /tmp/pb4herb/native_chelsa_depth.csv pb4_chelsa21k/results/herbaceous_cause_20261006/CHELSA_NATIVE_DEPTH_SWEEP.csv
+          cp /tmp/pb4herb/tuned_chelsa_depth.csv pb4_chelsa21k/results/herbaceous_cause_20261006/CHELSA_TUNED_DEPTH_SWEEP.csv
+          cp "$native/YONGNEUP_MCKENZIE2003_DEPTH_SENSITIVITY.csv" pb4_chelsa21k/results/herbaceous_cause_20261006/HISTORICAL_BEYER_DEPTH_SENSITIVITY.csv
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd, numpy as np, json
+
+          out=Path('pb4_chelsa21k/results/herbaceous_cause_20261006')
+          native=pd.read_csv(out/'CHELSA_NATIVE_DEPTH_SWEEP.csv')
+          tuned=pd.read_csv(out/'CHELSA_TUNED_DEPTH_SWEEP.csv')
+          beyer=pd.read_csv(out/'HISTORICAL_BEYER_DEPTH_SENSITIVITY.csv')
+
+          def clean(df):
+              if 'variant' in df.columns:
+                  df=df[df['variant'].astype(str).eq('mckenzie2003')].copy()
+              return df
+
+          native=clean(native); tuned=clean(tuned); beyer=clean(beyer)
+
+          def summarize(label, df):
+              rows=[]
+              for age,g in df.groupby('target_age_ka'):
+                  herb_opt=g[g['optpft'].between(8,13)]
+                  p8pos=g[pd.to_numeric(g.get('pft08_npp',0),errors='coerce').fillna(0)>0]
+                  rows.append({
+                      'scenario':label,
+                      'age_ka':age,
+                      'n_depths':len(g),
+                      'min_depth_m':g['depth_m'].min(),
+                      'max_depth_m':g['depth_m'].max(),
+                      'n_herb_open_opt_depths':len(herb_opt),
+                      'herb_open_opt_pfts':';'.join(map(str,sorted(set(herb_opt['optpft'].astype(int))))) if len(herb_opt) else '',
+                      'herb_open_opt_depth_min_m':herb_opt['depth_m'].min() if len(herb_opt) else np.nan,
+                      'herb_open_opt_depth_max_m':herb_opt['depth_m'].max() if len(herb_opt) else np.nan,
+                      'n_pft8_positive_depths':len(p8pos),
+                      'pft8_max_npp':pd.to_numeric(g.get('pft08_npp',np.nan),errors='coerce').max(),
+                      'pft4_max_npp':pd.to_numeric(g.get('pft04_npp',np.nan),errors='coerce').max(),
+                      'pft6_max_npp':pd.to_numeric(g.get('pft06_npp',np.nan),errors='coerce').max(),
+                  })
+              return rows
+
+          rows=summarize('CHELSA_native',native)+summarize('CHELSA_tuned',tuned)+summarize('historical_Beyer',beyer)
+          summary=pd.DataFrame(rows)
+          summary.to_csv(out/'HERBACEOUS_CAUSE_SUMMARY.csv',index=False)
+
+          keyages=[5.0,4.0,3.0,2.0]
+          keydepths=[0.05,0.10,0.20,0.30,0.50,1.50]
+          detail=[]
+          for label,df in [('CHELSA_native',native),('CHELSA_tuned',tuned),('historical_Beyer',beyer)]:
+              sub=df[df['target_age_ka'].isin(keyages) & df['depth_m'].round(6).isin([round(x,6) for x in keydepths])].copy()
+              for _,r in sub.iterrows():
+                  detail.append({
+                      'scenario':label,'age_ka':r['target_age_ka'],'depth_m':r['depth_m'],
+                      'biome_id':r['biome_id'],'optpft':r['optpft'],
+                      'pft4_npp':r.get('pft04_npp',np.nan),
+                      'pft6_npp':r.get('pft06_npp',np.nan),
+                      'pft7_npp':r.get('pft07_npp',np.nan),
+                      'pft8_npp':r.get('pft08_npp',np.nan),
+                      'pft10_npp':r.get('pft10_npp',np.nan),
+                      'pft12_npp':r.get('pft12_npp',np.nan),
+                      'pft13_npp':r.get('pft13_npp',np.nan),
+                  })
+          pd.DataFrame(detail).to_csv(out/'KEY_DEPTH_COMPARISON.csv',index=False)
+
+          # Strict causal flags over common ages/depths available in all scenarios
+          common_ages=sorted(set(native.target_age_ka)&set(tuned.target_age_ka)&set(beyer.target_age_ka))
+          comparisons=[]
+          for age in common_ages:
+              for depth in sorted(set(native[native.target_age_ka==age].depth_m)&set(tuned[tuned.target_age_ka==age].depth_m)&set(beyer[beyer.target_age_ka==age].depth_m)):
+                  rr={}
+                  for label,df in [('native',native),('tuned',tuned),('beyer',beyer)]:
+                      row=df[(df.target_age_ka==age)&np.isclose(df.depth_m,depth)].iloc[0]
+                      rr[label]=row
+                  comparisons.append({
+                      'age_ka':age,'depth_m':depth,
+                      'beyer_optpft':int(rr['beyer'].optpft),
+                      'chelsa_tuned_optpft':int(rr['tuned'].optpft),
+                      'chelsa_native_optpft':int(rr['native'].optpft),
+                      'beyer_pft8_npp':rr['beyer'].get('pft08_npp',np.nan),
+                      'chelsa_tuned_pft8_npp':rr['tuned'].get('pft08_npp',np.nan),
+                      'chelsa_native_pft8_npp':rr['native'].get('pft08_npp',np.nan),
+                  })
+          comp=pd.DataFrame(comparisons)
+          comp.to_csv(out/'COMMON_GRID_CAUSAL_COMPARISON.csv',index=False)
+
+          md=['# Herbaceous PFT disappearance diagnostic','',
+              'Controlled model checks using the PB4 depth-sensitivity runner.',
+              '',
+              'Scenarios:',
+              '- historical Beyer sensitivity table preserved inside the final package',
+              '- CHELSA with the earlier tuned PFT5/PFT6 climate sieve package from commit 9afe8ce',
+              '- CHELSA with the final native BIOME4 PFT climate limits',
+              '',
+              '## Summary','',
+              summary.to_markdown(index=False),'',
+              '## Common-grid direct comparison','',
+              comp.to_markdown(index=False),'']
+          (out/'HERBACEOUS_CAUSE_DIAGNOSTIC_KO.md').write_text('\n'.join(md),encoding='utf-8')
+          print(summary.to_string(index=False))
+          print('\nCOMMON GRID\n',comp.to_string(index=False))
+          PY
+
+      - name: Commit diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/herbaceous_cause_20261006
+          git commit -m 'Diagnose herbaceous PFT loss across Beyer and CHELSA [skip ci]' || exit 0
+          git push origin HEAD:main
