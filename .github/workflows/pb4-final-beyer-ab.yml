@@ -1,0 +1,120 @@
+name: Run final PB4 with Beyer climate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-final-beyer-ab.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  beyer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+      - name: Extract final canonical
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4beyer
+          mkdir -p /tmp/pb4beyer
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4beyer
+      - name: Run current final code on embedded Beyer forcing
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(find /tmp/pb4beyer -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          mkdir -p pb4_chelsa21k/results/beyer_final_ab_20261006
+          (
+            cd "$root"
+            python tools/mckenzie2003_depth_sensitivity.py \
+              --climate embedded_inputs/yongneup_exact20m/climate_yongneup_128.25E_38.25N.csv \
+              --elevation-m 1162.08 \
+              --depths 0.01 0.02 0.03 0.04 0.05 0.06 0.08 0.10 0.12 0.15 0.20 0.30 0.50 1.50 \
+              --ages 6.0 5.0 4.0 3.0 2.0 1.0 0.0 \
+              --threads 2 \
+              --output /tmp/BEYER_FINAL_NATIVE_DEPTH_SWEEP.csv
+          )
+          cp /tmp/BEYER_FINAL_NATIVE_DEPTH_SWEEP.csv pb4_chelsa21k/results/beyer_final_ab_20261006/
+          cp pb4_chelsa21k/results/herbaceous_cause_20261006/CHELSA_NATIVE_DEPTH_SWEEP.csv pb4_chelsa21k/results/beyer_final_ab_20261006/CHELSA_FINAL_NATIVE_DEPTH_SWEEP.csv
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd, numpy as np
+          out=Path('pb4_chelsa21k/results/beyer_final_ab_20261006')
+          b=pd.read_csv(out/'BEYER_FINAL_NATIVE_DEPTH_SWEEP.csv')
+          c=pd.read_csv(out/'CHELSA_FINAL_NATIVE_DEPTH_SWEEP.csv')
+          if 'variant' in b.columns: b=b[b.variant.astype(str).eq('mckenzie2003')].copy()
+          if 'variant' in c.columns: c=c[c.variant.astype(str).eq('mckenzie2003')].copy()
+          ages=sorted(set(b.target_age_ka)&set(c.target_age_ka))
+          depths=sorted(set(b.depth_m)&set(c.depth_m))
+          rows=[]
+          for age in ages:
+              for depth in depths:
+                  rb=b[(np.isclose(b.target_age_ka,age))&(np.isclose(b.depth_m,depth))]
+                  rc=c[(np.isclose(c.target_age_ka,age))&(np.isclose(c.depth_m,depth))]
+                  if len(rb)!=1 or len(rc)!=1: continue
+                  rb,rc=rb.iloc[0],rc.iloc[0]
+                  rows.append({
+                    'age_ka':age,'depth_m':depth,
+                    'beyer_optpft':int(rb.optpft),'chelsa_optpft':int(rc.optpft),
+                    'beyer_biome_id':int(rb.biome_id),'chelsa_biome_id':int(rc.biome_id),
+                    'beyer_pft7_npp':rb.get('pft07_npp',np.nan),
+                    'chelsa_pft7_npp':rc.get('pft07_npp',np.nan),
+                    'beyer_pft8_npp':rb.get('pft08_npp',np.nan),
+                    'chelsa_pft8_npp':rc.get('pft08_npp',np.nan),
+                    'beyer_pft7_lai':rb.get('pft07_lai',np.nan),
+                    'chelsa_pft7_lai':rc.get('pft07_lai',np.nan),
+                    'beyer_pft8_lai':rb.get('pft08_lai',np.nan),
+                    'chelsa_pft8_lai':rc.get('pft08_lai',np.nan),
+                  })
+          comp=pd.DataFrame(rows)
+          comp.to_csv(out/'BEYER_VS_CHELSA_CURRENT_CODE_COMMON_GRID.csv',index=False)
+          summary=[]
+          for lab,df in [('Beyer_final_code',b),('CHELSA_final_code',c)]:
+              for age,g in df.groupby('target_age_ka'):
+                  p8=g[g.optpft.astype(float).eq(8)]
+                  summary.append({
+                    'scenario':lab,'age_ka':age,'n_depths':len(g),
+                    'n_pft8_opt':len(p8),
+                    'pft8_depth_min_m':p8.depth_m.min() if len(p8) else np.nan,
+                    'pft8_depth_max_m':p8.depth_m.max() if len(p8) else np.nan,
+                  })
+          s=pd.DataFrame(summary)
+          s.to_csv(out/'BEYER_VS_CHELSA_PFT8_SUMMARY.csv',index=False)
+          key=comp[np.isclose(comp.depth_m,0.05)].copy()
+          key.to_csv(out/'KEY_5CM_COMPARISON.csv',index=False)
+          md=['# Current final PB4: Beyer vs CHELSA controlled climate A/B','',
+              'Same final PB4 code, same McKenzie coupling, same elevation, same soil-depth grid. Only climate forcing differs.','',
+              '## PFT8 summary','',s.to_markdown(index=False),'',
+              '## 5 cm comparison','',key.to_markdown(index=False),'']
+          (out/'BEYER_VS_CHELSA_FINAL_CODE_RESULT_KO.md').write_text('\n'.join(md),encoding='utf-8')
+          print(s.to_string(index=False))
+          print(key.to_string(index=False))
+          PY
+      - name: Commit result
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/beyer_final_ab_20261006
+          git commit -m 'Run current final PB4 with Beyer climate [skip ci]' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
