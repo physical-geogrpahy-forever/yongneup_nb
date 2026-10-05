@@ -43,15 +43,17 @@
 | \(LAI_p\) | PFT \(p\)의 optimal LAI | 무차원 |
 | \(AGB^*\) | BIOME4-derived aboveground living biomass proxy | kg dry biomass m\(^{-2}\) |
 
-Pelletier et al. (2013)의 원식에서는 기반암고도를 \(b\), 토심을 \(h\), 시간을 \(t\)로 표기한다. 원문식을 인용할 때는 이 기호를 그대로 유지한다. 실제 PB4 설명에서는 다음과 같이 대응한다.
+Pelletier et al. (2013)의 원 논문에서는 기반암고도 \(b\), 토심 \(h\), 시간 \(t\)를 사용하지만, 본 논문에서는 전체 방법론의 변수 일원화를 위해 상태변수를 \(z_b\), \(H\), \(\tau\)로 통일한다. 식의 구조와 각 계수는 Pelletier의 원식을 유지하고, 기호만 다음과 같이 대응시킨다.
 
 \[
-b\rightarrow z_b,\qquad
+b_{\mathrm{source}}\rightarrow z_b,\qquad
 h\rightarrow H,\qquad
 t\rightarrow\tau
 \]
 
-따라서 Pelletier의 경험계수 \(b\)와 기반암고도 \(b\)가 같은 문단에서 혼동되지 않도록, 본 연구 상태변수의 기반암고도는 항상 \(z_b\)로 쓴다.
+여기서 \(b_{\mathrm{source}}\)는 Pelletier 원문의 기반암고도 기호를 뜻한다. 토양생산 경험계수 \(b\)는 Pelletier의 계수명 그대로 유지한다.
+
+중요하게, 각 Pelletier 식은 서로 대입하여 하나의 통합식으로 만들지 않는다. \(P_0\), \(P\), \(k_d\), \(\mathbf q\), \(K\), \(w\), \(E_f\)를 각각 독립식으로 제시한다.
 
 ## 3. 기후입력과 BIOME4
 
@@ -373,23 +375,25 @@ BIOME4 source에서 sapwood respiration을 제거하는 PFT에는 sapwood term�
 
 ## 8. Pelletier 지형발달
 
-이 절에서는 Pelletier et al. (2013)의 원식을 그대로 제시한다. 실제 PB4에서는 \(b\rightarrow z_b\), \(h\rightarrow H\), \(t\rightarrow\tau\), \(AGB\rightarrow AGB^*\)로 대응한다.
+Pelletier et al. (2013)의 식 구조를 그대로 사용하되, 본 논문의 상태변수는 전체 방법론과 일치하도록 \(z_b\), \(H\), \(\tau\)로 통일한다. 각 과정식은 서로 대입해 합치지 않고 독립적으로 제시한다.
 
-### 8.1 상태변수와 토양생산
+### 8.1 상태변수
 
-Pelletier Eq. (6):
+Pelletier Eq. (6)의 구조를 본 연구 표기로 쓰면
 
 \[
 \boxed{
-z=b+h
+z=z_b+H
 }
 \]
 
-Eq. (7):
+이다.
+
+Pelletier Eq. (7)은
 
 \[
 \boxed{
-\frac{\partial b}{\partial t}
+\frac{\partial z_b}{\partial \tau}
 =
 U
 -
@@ -397,11 +401,13 @@ U
 }
 \]
 
-Eq. (8):
+로 쓴다.
+
+Pelletier Eq. (8)은
 
 \[
 \boxed{
-\frac{\partial h}{\partial t}
+\frac{\partial H}{\partial \tau}
 =
 \frac{\rho_b}{\rho_s}
 \frac{P}{\cos\theta}
@@ -410,7 +416,13 @@ E
 }
 \]
 
-Eq. (9):
+로 쓴다.
+
+이 세 식은 상태변수 관계와 질량수지만 나타내며, 아래 과정식을 여기에 대입해 하나의 전개식으로 만들지 않는다.
+
+### 8.2 토양생산
+
+Pelletier Eq. (9)의 구조는
 
 \[
 \boxed{
@@ -419,12 +431,14 @@ P
 P_0
 \exp
 \left(
--\frac{h\cos\theta}{h_0}
+-\frac{H\cos\theta}{H_0}
 \right)
 }
 \]
 
-Eq. (10):
+로 쓴다.
+
+Pelletier Eq. (10)은 별도 식으로
 
 \[
 \boxed{
@@ -434,11 +448,13 @@ a\exp(b\,EEMT)
 }
 \]
 
-여기서 \(a\), \(b\), \(h_0\)는 Pelletier 원문의 기호를 그대로 유지한다. 별도의 \(a_P\), \(b_P\)로 다시 이름 붙이지 않는다.
+를 제시한다.
 
-### 8.2 사면수송
+즉 \(P_0\)를 Eq. (9)에 대입하여 하나의 토양생산식으로 합치지 않는다.
 
-Pelletier Eq. (11):
+### 8.3 사면수송
+
+Pelletier Eq. (11)의 침식 또는 퇴적항은
 
 \[
 \boxed{
@@ -448,7 +464,9 @@ E_c
 }
 \]
 
-본 연구에서 실제 사용하는 depth-dependent nonlinear transport는 Pelletier Eq. (14)이다.
+로 둔다.
+
+본 연구에서 사용하는 depth-dependent nonlinear transport는 Pelletier Eq. (14)의 구조를 그대로 사용한다.
 
 \[
 \boxed{
@@ -456,26 +474,14 @@ E_c
 =
 -
 \frac{
-k_dh\cos\theta\,\nabla z
+k_dH\cos\theta\,\nabla z
 }{
 1-(|\nabla z|/S_c)^2
 }
 }
 \]
 
-기후와 식생에 따른 수송계수는 Eq. (15)를 그대로 사용한다.
-
-\[
-\boxed{
-k_d
-=
-c\,EEMT
-+
-d\,AGB
-}
-\]
-
-PB4에서는 마지막 항의 \(AGB\)만 \(AGB^*\)로 대체한다.
+기후와 식생에 따른 transport coefficient는 Pelletier Eq. (15)를 별도 식으로 둔다.
 
 \[
 \boxed{
@@ -487,11 +493,13 @@ d\,AGB^*
 }
 \]
 
-이는 Pelletier Eq. (15)의 결합구조를 유지하면서 biomass 상태변수만 BIOME4-derived \(AGB^*\)로 바꾼 것이다. \(k_d\), \(c\), \(d\)를 다른 기호로 다시 정의하지 않는다.
+여기서 Pelletier 원식의 \(AGB\) 입력만 본 연구의 BIOME4-derived \(AGB^*\)로 대체한다.
 
-### 8.3 유수침식
+\(k_d\)를 \(\mathbf q\) 식에 대입하여 전개하지 않는다.
 
-Pelletier Eq. (16):
+### 8.4 유수침식
+
+Pelletier Eq. (16)의 구조는
 
 \[
 \boxed{
@@ -503,7 +511,9 @@ K
 }
 \]
 
-Eq. (17):
+로 유지한다.
+
+유로폭은 Pelletier Eq. (17)을 별도로
 
 \[
 \boxed{
@@ -511,7 +521,9 @@ w=gA^i
 }
 \]
 
-Eq. (18):
+로 둔다.
+
+erodibility는 Pelletier Eq. (18)을 별도로
 
 \[
 \boxed{
@@ -521,9 +533,11 @@ K
 }
 \]
 
-따라서 논문 본문에서는 \(K_f\), \(A_c\), \(w_c\)와 같은 새 기호로 원식을 다시 쓰지 않는다.
+로 둔다.
 
-PB4 수치구현에서는 \(|\nabla z|\)을 flow-routing 방향 경사로 평가하고, 한 substep에서 실제 가용 레골리스보다 많은 물질을 제거하지 못하도록 finite-supply constraint를 적용한다. 이 부분은 Pelletier Eq. (16)-(18)의 원식이 아니라 **PB4 수치구현 확장**으로 별도 기술한다.
+따라서 \(w\)와 \(K\)를 \(E_f\) 식 안에 대입하여 하나의 전개식으로 만들지 않는다.
+
+PB4 수치구현에서는 \(|\nabla z|\)을 flow-routing 방향 경사로 평가하고, 한 substep에서 실제 가용 레골리스보다 많은 물질을 제거하지 못하도록 finite-supply constraint를 적용한다. 이 부분은 Pelletier Eq. (16)-(18) 자체가 아니라 PB4의 수치구현 확장으로 별도 설명한다.
 
 ## 9. Pelletier 원 연구값과 용늪 production 값의 구분
 
@@ -613,7 +627,7 @@ Park et al. (2021)의 holdout, PC2 상관, Herbs 비교는 최종 Methods와 최
 4. Reich SLA-life-span 원식과 \(B_{\mathrm{leaf}}=LAI/SLA\)
 5. Haxeltine and Prentice \(C_s=LAI\,C_n\)
 6. \(AGB^*=B_{\mathrm{leaf}}+B_{\mathrm{sapwood}}\)
-7. Pelletier Eq. (6)-(10), Eq. (14)-(18)
+7. Pelletier Eq. (6)-(10), Eq. (14)-(18)을 각각 독립식으로 제시하고 상호 대입하지 않음
 8. 수치구현은 별도 서술하고 Eq. (20)-(22)는 보충자료에 제시
 
 검증의 51% 재분류와 1% 출현 기준은 검증 절에서 문장으로 설명한다.
