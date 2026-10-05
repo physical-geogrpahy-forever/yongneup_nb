@@ -15,14 +15,16 @@
 
 ## 현재 최종 과학모형
 
-AGB 검토는 종료되었으며 최종 과학모형은 **PB4-McKenzie-nativeClimate + BIOME4-derived AGB***로 고정한다. 기존 nativeClimate canonical ZIP은 AGB 변경 전 비교 baseline으로 보존하고, AGB*가 반영된 별도 candidate package를 최종 AGB 구현 기준으로 사용한다.
+AGB 검토와 통합 재실행을 완료했으며 최종 과학모형은 **PB4-McKenzie-nativeClimate + BIOME4-derived AGB***로 고정한다. AGB* 구현은 이제 candidate가 아니라 canonical production package에 통합되었다. AGB 변경 전 nativeClimate 패키지는 archive에 보존한다.
 
-- 모델: `PB4-McKenzie-nativeClimate`
+- 모델: `PB4-FINAL-nativeClimate-BIOME4AGB`
 - canonical: `model/PB4Studio_v6.6.3_CHELSA21K.zip`
-- explicit alias: `model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`
-- SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
-- production commit: `cfd220b2be2b9d166aa0d5e220c3dc1d9c78634a`
-- 결과/provenance: `results/native_climate_final_20261005/`
+- explicit final alias: `model/PB4Studio_v6.6.3_CHELSA21K_FINAL_INTEGRATED.zip`
+- compatibility alias: `model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`
+- canonical SHA-256: `a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34`
+- final integration commit: `2e0df5606e5c23d35b1b4ad421a4adf2d3031e08`
+- 최종 결과/provenance: `results/final_integrated_20261006/`
+- pre-AGB archive SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
 
 **식생 코어는 BIOME4 v4.2b2로 고정한다.** AGB*의 변재-LAI 관계는 BIOME 계보의 Haxeltine and Prentice (1996) Eq. (34)를 사용하고, 실제 계수와 PFT 적용은 BIOME4 v4.2b2 source code를 따른다. 잎 건조생체량은 Reich et al. (1992)의 SLA-life-span 회귀식을 사용한다. AGB* candidate는 21-0 ka 전체 재실행 및 Jang 검증을 완료했다.
 
@@ -42,9 +44,9 @@ PFT5/PFT6 climate tuning only was removed and the full 21-0 ka CHELSA21K run was
 The canonical package is now `PB4-McKenzie-nativeClimate`: McKenzie AWC, finite-depth PFT root coupling, the symmetric 51% majority reduced-class rule, and dynamic Pelletier coupling are retained, while PFT5/PFT6 climate limits are the native BIOME4 v4.2b2 limits.
 
 - Final package: `model/PB4Studio_v6.6.3_CHELSA21K.zip`
-- Explicit final alias: `model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`
-- Final decision/results: `results/native_climate_final_20261005/`
-- Canonical SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
+- Explicit final alias: `model/PB4Studio_v6.6.3_CHELSA21K_FINAL_INTEGRATED.zip`
+- Final decision/results: `results/final_integrated_20261006/`
+- Canonical SHA-256: `a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34`
 
 
 ### 2026-10-05 final AGB* decision
@@ -71,9 +73,23 @@ The direct Pelletier exponential EEMT-to-AGB equation is not used for Yongneup.
 - authoritative method: `manuscript/BIOME4_REICH_LAI_SAPWOOD_AGB_FINAL_METHOD_20261005_KO.md`
 - final decision: `results/agb_bridge_comparison_20261005/AGB_BRIDGE_PROMOTION_DECISION_KO.md`
 - full-run results: `results/reich_lai_sapwood_agb_candidate_20261005/`
-- selected AGB* package: `model_candidates/PB4Studio_v6.6.3_CHELSA21K_REICH_LAI_SAPWOOD_AGB.zip`
-- selected AGB* package SHA-256: `1a4a7e07b9387c38f21019e9bc781a499b7c5864f949abf7075ea779e435a05c`
+- AGB* candidate used for final integration: `model_candidates/PB4Studio_v6.6.3_CHELSA21K_REICH_LAI_SAPWOOD_AGB.zip`
+- AGB* candidate SHA-256: `1a4a7e07b9387c38f21019e9bc781a499b7c5864f949abf7075ea779e435a05c`
+- final integrated canonical SHA-256: `a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34`
 - dynamic 21 ka mean AGB*: 3.11600 kg m^-2
 - dynamic 0 ka AGB*: 3.46620 kg m^-2 = 34.662 t ha^-1
 - Jang dynamic validation: 55/62 = 88.71%
 
+
+
+### Park et al. (2021) validation policy
+
+Park et al. (2021)은 Jang et al. (2011)의 62개 categorical score에 합산하지 않는다. Jang 검증으로 최종모형을 고정한 뒤 수행하는 **독립 holdout validation**으로만 사용하며, Park 결과를 이용해 파라미터를 다시 보정하지 않는다.
+
+- 주 검증: Jang et al. (2011), n=62, 유역 내 목표 식생군 1% 출현 기준
+- Park: Supplementary sample-level pollen composition 기반 독립 보조검증
+- 100년 window 집계, 시료 간 보간 없음
+- 완전히 발달한 peatland 이후 69-16 cm 구간을 주 정량 비교구간으로 사용
+- conifer vs deciduous broadleaf 상대조성, arboreal/non-arboreal 변화방향, open-vegetation event 재현을 평가
+- pollen percentage와 model area fraction을 같은 물리량으로 보지 않으므로 Spearman 상관과 변화방향 일치도를 중심으로 평가
+- 세부 정책: `manuscript/PARK2021_INDEPENDENT_VALIDATION_POLICY_20261006_KO.md`
