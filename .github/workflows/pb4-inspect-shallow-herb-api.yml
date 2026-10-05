@@ -40,17 +40,20 @@ jobs:
           find "$root/embedded_inputs" -maxdepth 4 -type f | sed "s#^$root/##" | sort || true
           echo '=== embedded Beyer climate sample ==='
           python - <<'PY'
-          import pandas as pd, pathlib, glob
+          import csv, pathlib, glob
           root=pathlib.Path(glob.glob('/tmp/pb4inspect/PB4Studio*')[0])
           for rel in ['embedded_inputs/yongneup/yongneup_climate_128.25E_38.25N.csv','embedded_inputs/yongneup_exact20m/climate_yongneup_128.25E_38.25N.csv']:
               p=root/rel
-              d=pd.read_csv(p)
+              with p.open(encoding='utf-8-sig',newline='') as f:
+                  rows=list(csv.DictReader(f))
               print(rel)
-              print('shape',d.shape)
-              print('columns',list(d.columns))
-              print('ka coverage',d['ka_bp'].min(),d['ka_bp'].max(),'unique',d['ka_bp'].nunique())
-              print(d.head(15).to_string(index=False))
-              print(d.tail(15).to_string(index=False))
+              print('shape',len(rows),len(rows[0]) if rows else 0)
+              print('columns',list(rows[0]) if rows else [])
+              kas=[float(x['ka_bp']) for x in rows]
+              print('ka coverage',min(kas),max(kas),'unique',len(set(kas)))
+              for x in rows[:15]: print(x)
+              print('TAIL')
+              for x in rows[-15:]: print(x)
           PY
           echo '=== climate arrays block ==='
           sed -n '469,603p' "$root/pb4studio/climate.py" || true
