@@ -135,20 +135,26 @@ jobs:
           valid=pd.DataFrame(rows)
           valid.to_csv(dst/'BEYER_JANG1PCT_SUMMARY.csv',index=False)
 
-          # locate the time series with PFT counts
-          tsfiles=[]
-          for p in out.rglob('*.csv'):
-              try:
-                  h=pd.read_csv(p,nrows=1,encoding='utf-8-sig')
-              except Exception:
-                  continue
-              cols=set(h.columns)
-              if 'ka_bp' in cols and any(c.startswith('reich_lai_sapwood_pft08_count') for c in cols):
-                  tsfiles.append(p)
-          if not tsfiles:
-              raise SystemExit('PFT count timeseries not found')
-          ts=max(tsfiles,key=lambda p:len(pd.read_csv(p,encoding='utf-8-sig')))
-          df=pd.read_csv(ts,encoding='utf-8-sig')
+          # locate one PFT-count timeseries per mode
+          frames=[]
+          for mode in ('static','dynamic'):
+              tsfiles=[]
+              for p in (out/f'model_{mode}').rglob('*.csv'):
+                  try:
+                      h=pd.read_csv(p,nrows=1,encoding='utf-8-sig')
+                  except Exception:
+                      continue
+                  cols=set(h.columns)
+                  if 'ka_bp' in cols and 'reich_lai_sapwood_pft08_count' in cols:
+                      tsfiles.append(p)
+              if not tsfiles:
+                  raise SystemExit(f'PFT count timeseries not found for {mode}')
+              ts=max(tsfiles,key=lambda p:len(pd.read_csv(p,encoding='utf-8-sig')))
+              g=pd.read_csv(ts,encoding='utf-8-sig')
+              if 'mode' not in g.columns:
+                  g.insert(0,'mode',mode)
+              frames.append(g)
+          df=pd.concat(frames,ignore_index=True)
           df.to_csv(dst/'BEYER_FINALCODE_21KA_TIMESERIES.csv',index=False,encoding='utf-8-sig')
 
           pftcols=[c for c in df.columns if c.startswith('reich_lai_sapwood_pft') and c.endswith('_count')]
@@ -167,7 +173,7 @@ jobs:
           pd.DataFrame(summaries).to_csv(dst/'BEYER_PFT_OCCURRENCE_SUMMARY.csv',index=False)
 
           # key late-Holocene rows
-          key=df[(df['ka_bp']>=0.0)&(df['ka_bp']<=5.0)].copy()
+          key=df[(pd.to_numeric(df['ka_bp'])>=0.0)&(pd.to_numeric(df['ka_bp'])<=5.0)].copy()
           key.to_csv(dst/'BEYER_0TO5KA_TIMESERIES.csv',index=False,encoding='utf-8-sig')
 
           # PFT8 concise table
