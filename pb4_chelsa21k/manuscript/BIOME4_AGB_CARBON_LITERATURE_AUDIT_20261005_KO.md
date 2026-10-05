@@ -1,3 +1,5 @@
+> **2026-10-05 LAI 경로 추가 확인(Section 18): JULES/TRIFFID에 정적 LAI→목질부 생체량 식이 존재함.** 굵은뿌리 분리와 full-leaf 정의를 명시한 전이식은 구성 가능하지만, 용늪 최종 계수의 검증/채택은 아직 아니다.
+
 > **2026-10-05 최신 적용 판정(Section 17): Ise 원계수 채택 보류.** 식 재현은 확인했지만 관측연도 중첩 성숙림의 예측/관측 AGB 중앙값은 PFT5=0.489(n=15), PFT6=2.247(n=8), PFT7=1.810(n=1)이다. Section 16의 코드와 숫자는 진단 후보이며 검증된 최종 bridge가 아니다. 아래의 이전 상태 기록보다 이 판정을 우선한다.
 
 > 2026-10-05 최신 판정: Section 16에서 Ise et al. (2010)의 VISIT 식과 공통 계수로 실행 가능한 총 NPP→평형 dry AGB 2군 모델을 제공한다. PFT4/5는 온대, PFT6/7은 아한대의 같은 계수이며, 네 PFT 독립 보정이나 native BIOME4 출력이 아니다. 이전의 모든 정적 모델이 없다는 표현은 철회한다.
@@ -1240,3 +1242,76 @@ PFT7 strict sample은 Aheden broadleaf 1곳이다. Tura/Larix는 AGB 관측연�
 Section 16은 실행 가능한 **계산 후보의 존재**를 증명한 것이며, 실제 적용 검증 통과 선언이 아니다. 원계수 계산기는 진단용으로 보존하고 출력에 project application status를 명시했다. 새 적용성 검사 및 관측별 provenance를 audit_ise2010_applicability.py와 BIOME4_ISE2010_APPLICABILITY_20261005.json으로 기록한다. 상세 문서의 첫머리에도 이 적용 보류 판정을 반영했다.
 
 Production의 기존 NPP→AGB proxy를 이 후보로 교체하지 않았다. 기존 0.010 proxy가 이 후보보다 검증되었다는 뜻도 아니며, 최종 NPP/PFT→AGB bridge 확보 과제는 미완료다.
+
+
+## 18. LAI 기반 모델 경로: JULES/TRIFFID allometry 확인 (2026-10-05)
+
+**판정: LAI와 PFT를 이용한 정적 생체량 진단식은 실제 식생모델에 존재한다. BIOME4에 옮겨 쓰는 것은 모델 간 allometry 전이이며, 용늪의 검증된 최종 AGB 모형이라는 뜻은 아니다.**
+
+### 18.1 원문에서 확인한 식과 입력
+
+Harper et al. (2018), JULES4.6/JULES-C2, DOI 10.5194/gmd-11-2857-2018, Section 2.3.1 Eq. (4):
+Cwood = awl * Lbal^(5/3), 단위 kg C m^-2.
+Lbal은 계절 최대/잠재 LAI이다. 수고는 Eq. (5)로 이 탄소량에서 다시 계산되므로, 이 진단식을 이용할 때 수고나 임령을 독립 입력으로 요구하지 않는다. JULES 전체 시뮬레이션은 동적 탄소수지 모형이다. 여기서 추출하는 것은 그 안의 정적 allometry이며 JULES 전체를 실행한 결과와 동일하다고 주장하지 않는다.
+
+Wiltshire et al. (2021), JULES-CN, DOI 10.5194/gmd-14-2161-2021, Section 3.1.1 Eq. (2)-(4), Section 3.1.2 Eq. (9)도 같은 구조를 명시한다:
+- Cleaf = sigma_l * Lbal
+- Cfine_root = Cleaf
+- W = awl * Lbal^bwl
+- 실제 계절 LAI = p * Lbal
+- W는 지상 stem과 굵은뿌리를 합친 풀이다. 이를 AGB로 그대로 쓰지 않는다.
+- full leaf out에서는 labile leaf reserve가 0이다. 따라서 잎 항을 더한 아래 식은 full-leaf AGB를 뜻한다.
+
+### 18.2 지상부와 건물량으로의 명시적 변환
+
+Wolf et al. (2011), DOI 10.1029/2010GB003917, paragraph [14]는 Luyssaert 자료의 coarse-root/wood 관계(n=40, r=0.972)를 조사하고, TRIFFID 등 모델 비교에서 stem:coarse-root = 75:25를 적용했다. Table 1의 stem은 trunk + branch이며 질량은 건물량이다.
+이는 TRIFFID 원모형이 굵은뿌리를 별도 예측한다는 뜻이 아니라, 통합 woody pool을 관측 정의에 맞추는 공통 분리 가정이다. 모든 PFT에 같은 가정을 적용하며 PFT별로 다른 수종 논문을 붙이지 않는다. 지상과 지하 목질부의 탄소분율이 같다는 가정하에 탄소 풀에도 0.75를 적용할 수 있다.
+
+조건부 변환식:
+AGB_full_leaf_dry = LMA * Lbal + 0.75 * awl * Lbal^(5/3) / fC_wood
+단위 kg dry matter m^-2.
+
+LMA는 잎 건물량/잎면적, fC_wood는 목질부 건물량의 탄소분율이다. 잎 건물량을 LMA로 직접 계산하므로 잎 탄소분율과 목질부 탄소분율을 혼동하지 않는다. fC_wood=0.5를 쓴 수치 예시는 별도 명시 가정이며 2018 논문의 목질부 탄소분율로 확인된 값이라고 하지 않는다. 2016 논문은 잎 Cmass=0.5, 2018 논문은 Cm=0.4를 명시하므로 버전 사이의 탄소 변환 설정을 조용히 섞지 않는다.
+
+Harper2016 Table2의 잎 trait과 Harper2018 Table2의 수정된 allometry는 같은 JULES 9PFT 계열의 공통 매개변수 체계이다. 2018 Section2.3은 2016 구성과 달라지는 항목을 명시한다. 아래는 모델 간 대응 후보이며 BIOME4가 공식 제공한 대응표가 아니다.
+
+| BIOME4 PFT | JULES 기능형 대응 | LMA (kg dry leaf m^-2 leaf) | awl, 2018 (kg C m^-2) |
+|---|---|---:|---:|
+|4 온대 낙엽수|BDT 낙엽활엽수|0.0823|0.78|
+|5 온대 상록침엽수|NET 상록침엽수|0.2263|0.65|
+|6 한대 상록수|침엽 상록수로 해석할 때 NET|0.2263|0.65|
+|7 한대 낙엽수|활엽 성분 BDT / 침엽 성분 NDT 두 시나리오|0.0823 / 0.1006|0.78 / 0.80|
+
+PFT5와6은 동일 NET 매개변수를 사용한다. 따라서 네 PFT별 독립 보정 계수라고 표현하지 않는다.
+BIOME4의 boreal deciduous 범주는 broadleaf와 needleleaf를 함께 포함할 수 있다(Bigelow et al. 2003, DOI 10.1029/2002JD002558, cold deciduous forest 정의). PFT7을 무조건 Larix 또는 무조건 BDT로 고정하지 않는다. 추가 구성 정보가 없다면 같은 JULES 매개변수 체계의 BDT/NDT 시나리오를 함께 계산할 수 있다. 이 두 결과는 선택한 기능형에 따른 시나리오 차이이지 통계적 신뢰구간이나 모든 실제 산림의 AGB 상하한이 아니다.
+
+fC_wood=0.5 공통 가정에서 LAI=3일 때 산술 예시는 BDT 7.5479942189, NET 6.7631451824, NDT 7.7901017630 kg dry matter m^-2이다. 이 계산은 산술 확인이며 관측 검증이 아니다.
+
+### 18.3 BIOME4 LAI 정의를 소스에서 확인
+
+검사 파일: PB4Studio_v6.6.3_CHELSA21K/fortran_src/biome4_original_4_2b2.f.
+ZIP SHA256: eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d.
+- findnpp: LAI를 바꾸며 NPP가 최대인 optlai를 선택한다.
+- growth: maxfvc = 1 - exp(-k * maxlai).
+- hydrology: evergreen은 fvc=maxfvc, cold-deciduous는 fvc=maxfvc*dphen.
+- 계절 monthlylai는 월별 fPAR에서 별도로 환산한다.
+- output(2)는 dominant PFT의 optlai*100을 출력한다.
+- backend는 out[1]/100을 lai_node로 읽으며, PFT별 optlai는 pftXX_raw_lai_node/mod_lai_node로 제공한다.
+
+따라서 optlai는 연평균 계절 LAI가 아니라 phenology 적용 전의 최적 최대 canopy LAI이다. JULES Lbal과 계절 의미가 가까운 입력 후보이나, BIOME4의 생산 최적화가 JULES의 탄소수지로 결정된 상태와 동등함을 증명한 것은 아니다. 반드시 선택한 같은 PFT의 optlai를 사용한다. 여러 잠재 PFT의 LAI를 합산하지 않는다. 추가 피복률 자료가 없는 단일 PFT 계산은 해당 canopy의 면적 기준이며, 서로 다른 실제 피복률을 가진 grid-cell 평균과 자동으로 같다고 하지 않는다.
+
+### 18.4 적용성 검증 범위와 남은 제한
+
+Harper2018은 Carvalhais2014 및 Ruesch/Gibbs2008 자료와 vegetation carbon/biomass를 전지구 및 biome 수준에서 비교했다(Section2.4,4.2). 그러나 온대/한대 산림의 vegetation carbon 과대추정을 보고했고, allometric parameters의 추가 평가와 감소 가능성도 논의했다(Section5). 이는 원 JULES 전체 구성의 평가이며, BIOME4 optlai만 대입한 전이식의 독립 검증이 아니다.
+
+ForC 동일 snapshot의 LAI와 biomass_ag_C를 탐색했다. 양의 값, suspicious!=1, precedence!=0, 알려진 site/plot, dominant.veg 일치, FAO Temperate/Boreal 및 대응 식생형 필터에서 84 pair rows/69 plots를 찾았다. 그러나 LAI 주석에 maximum/peak/full-leaf가 명시된 paired 행은 0이고, 날짜 미상도 포함한다. 연평균/순간값/최대값과 침엽 LAI의 면적 관례를 확인하지 않은 채 이 자료로 전이식을 검증했다고 선언하지 않는다. 이 탐색은 raw database의 LAI 관측을 가리키며 BIOME4 optlai와 동일 정의라는 뜻은 아니다. 수치 적합도나 새 계수는 산출하지 않았다.
+
+현재 확보한 것은 **PFT 공통 체계에서 LAI로 잎+지상목질 생체량을 정적으로 진단할 수 있는 출판된 모델 구조와 명시적 변환 절차**다. 최종 채택에는 PFT7 처리, LAI 정의/단위, 공간 면적 기준, 목질 탄소분율, 용늪 또는 적합한 같은 정의의 관측 비교가 필요하다. 이 연구 확인으로 production AGB proxy를 바꾸거나 용늪 예측을 실행하지 않았다.
+
+원문:
+- https://gmd.copernicus.org/articles/9/2415/2016/
+- https://gmd.copernicus.org/articles/11/2857/2018/
+- https://gmd.copernicus.org/articles/14/2161/2021/
+- https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2010GB003917
+- https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2002JD002558
+- https://jules-lsm.github.io/vn4.4/namelists/pft_params.nml.html
