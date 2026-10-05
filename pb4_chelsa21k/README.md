@@ -10,6 +10,8 @@
 - `payload/`: `PB4Studio_v6.6.3_CHELSA21K.zip`의 base64 분할 보존본
 - `reconstruct_pb4.py`: PB4 ZIP 재구성 및 SHA-256 검증
 - `SHA256SUMS.txt`: 원자료와 모델 패키지 무결성 값
+- `manuscript/VESLEM_PB4_HWP_EQUATION_GUIDE_KO.md`: Pelletier/McKenzie 원문 대조, PB4 수식, HWP 입력 가이드
+- `manuscript/WORKLOG_20261005_HWP_AGB_LITERATURE_AUDIT_KO.md`: 2026-10-05까지의 AGB coupling 문헌감사, BIOME3/BIOME4 source audit, 미해결 과제 및 다음 실행 계획
 
 과거 Beyer 실행 정확도나 이전 hotfix 정확도는 현재 CHELSA21K 결과로 간주하지 않는다. 새 결과는 동일 CHELSA21K forcing으로 다시 실행한 뒤 별도로 기록한다.
 
