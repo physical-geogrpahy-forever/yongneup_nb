@@ -1,3 +1,5 @@
+> **최종 판정 2026-10-05:** AGB 방식은 **BIOME4-derived aboveground living biomass proxy (AGB*)**로 확정했다. 최종식은 \(AGB^*_{dry,p}=LAI_p[S_p+0.03630780547701014L_{m,p}^{0.43}]\)이며, 잎 항은 Reich et al. (1992)의 SLA-life-span 회귀식, 변재 항은 Haxeltine and Prentice (1996) Eq. (34)와 BIOME4 v4.2b2 source parameter \(stemcarbon=0.5\)를 사용한다. Pelletier coupling은 \(k_d=0.033EEMT+0.05AGB^*\)로 유지하되 Pelletier Eq. (5)의 직접 EEMT-to-AGB 지수식은 사용하지 않는다. 이 판정이 아래의 Xue/IBIS, JULES, Wang, Pelletier 후보 검토 기록보다 우선한다. 권위 문서: `BIOME4_REICH_LAI_SAPWOOD_AGB_FINAL_METHOD_20261005_KO.md`.
+
 > **최신 재검증(Section 25): 사용자가 첨부한 Xue 2017 Ecological Modelling 최종 PDF와 GBC 최종 PDF를 직접 대조했다. 최종 Table 1에 35/52 yr 및 allocation 값이 실제 존재하며, 992 calibration + 982 independent validation AGB samples가 확인됐다. Section 10/14/15의 preprint-only 및 2,101-sample 표현은 Section 25로 정정한다. IBIS wood pool의 coarse-root 구조 불확실성은 유지한다.**
 
 > 최신 정정(Section 21): 역사적 평형 생체량 모델은 존재하며 BIOME-BGC는 줄기와 굵은뿌리를 분리한다. 모델의 존재와 BIOME4용 최종 변환계수의 검증을 구분한다.
