@@ -16,7 +16,6 @@ with the Xue/IBIS equilibrium coefficients:
 |---:|---|---:|
 |0|nonvegetated|0|
 |4|used|0.0286|
-|5|not selected|0.0222|
 |6|used, dominant over much of 21 ka|0.0327|
 |7|used, minor|0.0422|
 |10|used, negligible|0.00285|
@@ -27,13 +26,24 @@ The JULES/TRIFFID optLAI bridge with IPCC carbon fractions is retained as the **
 
 The canonical production package is not overwritten by this decision file.
 
+## PFT5 domain status
+
+The retained Yongneup evidence distinguishes potential PFT5 activity from actual dominance.
+
+- canonical 21-0 ka static: 0/211 timesteps, 0 dominant cell-observations
+- canonical 21-0 ka dynamic: 0/211 timesteps, 0 dominant cell-observations
+- earlier hotfix diagnostics: relaxed climate constraints sometimes gave PFT5 positive NPP, but PFT6 remained the stronger conifer/taiga competitor
+- no retained Yongneup diagnostic currently shows PFT5 becoming selected dominant optPFT
+
+Therefore PFT5 is not used to argue for or against the Xue/IBIS bridge in this domain.
+
 ## Evidence hierarchy
 
 ### 1. Model lineage and required state
 
 BIOME4 is an equilibrium potential-vegetation model and directly provides PFT, NPP, and optLAI but no standing AGB stock.
 
-Xue/IBIS provides an explicit carbon-pool balance:
+Xue/IBIS provides an explicit carbon-pool mass balance:
 
 dC/dt = a*NPP - C/tau
 
@@ -41,7 +51,11 @@ At equilibrium:
 
 C = a*tau*NPP
 
-For aboveground dry biomass, the leaf and wood pools yield a PFT-specific NPP-to-stock conversion. This is a cross-model transfer, but it is structurally consistent with the equilibrium interpretation of BIOME4.
+For aboveground carbon, the leaf and wood pools give:
+
+AGB_C = NPP * (a_leaf*tau_leaf + a_wood*tau_wood)
+
+Xue then converts modeled carbon density to dry AGB by multiplying by 2.0. This is a cross-model PFT-parameter transfer, but the equilibrium stock-from-NPP structure is not foreign to BIOME4: Wang et al. (2011) independently used Cveg=NPP*tau_veg specifically because BIOME4 assumes steady state. Hoogakker et al. later reused that BIOME4 turnover formulation over a glacial cycle, and Wu et al. (2009) provides an independent precedent for coupling BIOME4 output to a process-based carbon-storage model.
 
 JULES provides a published LAI-to-wood allometry:
 
@@ -85,7 +99,8 @@ Korean observations:
 - Mt. Worak Quercus mongolica aboveground C = 81.94 t C ha-1, equivalent to about 171 Mg dry ha-1 at fC=0.48.
 - Mt. Worak annual NPP C fixation = 6.74 t C ha-1 yr-1 = 674 g C m-2 yr-1.
 - observed AGB_C/NPP_C ratio = 12.16 yr.
-- Xue PFT4 implies 13.73 yr.
+- Xue/IBIS model-native equilibrium factor = 14.30 yr.
+- Xue/observed ratio = 1.18.
 - Mt. Gariwang mature Q. mongolica gives still larger AGB.
 - observed Korean Q. mongolica peak/maximum LAI values are commonly above the BIOME4 modern optLAI.
 
@@ -107,7 +122,8 @@ Observations and diagnostics:
 - Taewha class-V Korean pine: 126.53 Mg ha-1.
 - older Korean pine stands can exceed 300 Mg ha-1.
 - ForC >=100 yr boreal-evergreen analogue plots: median AGB_C/NPP_C = 19.66 yr.
-- Xue PFT6 implies 16.68 yr.
+- Xue/IBIS model-native equilibrium factor = 16.35 yr.
+- Xue/observed-median ratio = 0.83.
 
 JULES is reasonable for young/low-biomass stands, while Xue is more representative of mature/equilibrium stock.
 
@@ -158,7 +174,7 @@ The major source-domain extrapolation is therefore EEMT, not AGB. This limitatio
 |PFT6 Xue coefficient|supported for this domain|
 |PFT7 Xue coefficient|usable with uncertainty|
 |PFT10 Xue coefficient|usable only as negligible-contribution structural analogue|
-|PFT5 Xue coefficient|not supported by mature ForC ratio, but unused in this run|
+|PFT5|excluded from Yongneup domain justification: 0 retained dominant-PFT occurrences|
 |JULES-LAI-IPCCCF|retain as sensitivity|
 |legacy 0.010*NPP|superseded scientifically; retain only as historical reference|
 |canonical package replacement|not performed in this decision commit|
@@ -167,12 +183,14 @@ The major source-domain extrapolation is therefore EEMT, not AGB. This limitatio
 
 If the AGB bridge is promoted to the production package, the only scientific change should be the standing-AGB calculation. NPP, EEMT, BIOME4 competition, climate, soil-depth response, geomorphic equations, and validation mapping must remain unchanged.
 
-Safety rule:
+Safety rule for a future production promotion:
 - PFT0 -> AGB=0
-- PFT4/5/6/7/10 -> explicit table above
-- any newly realized positive-NPP dominant PFT outside this set -> abort rather than silently approximate
+- PFT4/6/7 -> Xue/IBIS coefficients supported above
+- PFT10 -> explicitly labelled negligible-contribution evergreen-shrub structural analogue
+- PFT5 -> abort and require a new review if it ever becomes a realized dominant PFT
+- any other newly realized positive-NPP dominant PFT -> abort rather than silently approximate
 
-The full 21-ka PFT-specific candidate already implements this fail-closed behavior and has completed successfully.
+The already executed 21-ka candidate included a dormant PFT5 lookup, but PFT5 occurred zero times, so removing that dormant branch would not change any value in the completed trajectory.
 
 ## Files supporting this decision
 
@@ -180,6 +198,8 @@ The full 21-ka PFT-specific candidate already implements this fail-closed behavi
 - results/jules_lai_bdt_agb_candidate_20261005/
 - results/jules_lai_ndt_agb_candidate_20261005/
 - results/jules_lai_ipcccf_agb_candidate_20261005/
+- results/agb_bridge_comparison_20261005/XUE_IBIS_SCIENTIFIC_BASIS_KO.md
+- results/agb_bridge_comparison_20261005/XUE_IBIS_REALIZED_PFT_SCIENTIFIC_BASIS.csv
 - results/agb_bridge_comparison_20261005/AGB_BRIDGE_KOREA_MAGNITUDE_AUDIT_KO.md
 - results/agb_bridge_comparison_20261005/AGB_BRIDGE_EFFECTIVE_RESIDENCE_AUDIT_KO.md
 - results/agb_bridge_comparison_20261005/PELLETIER_AGB_RANGE_AUDIT_KO.md
