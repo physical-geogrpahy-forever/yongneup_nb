@@ -52,18 +52,15 @@ jobs:
 
           p=root/'pb4studio'/'climate.py'
           s=p.read_text(encoding='utf-8')
-          import re
-          pat=r'(    if "tasmin_raw_01" in columns and "tasmax_raw_01" in columns and "pr_raw_01" in columns:\\n        return _load_chelsa21k_raw_wide_csv\\(path\\)\\n)(    raise ValueError\\()'
-          repl=r'''\\1    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):
+          start=s.index('def load_climate')
+          anchor='        return _load_chelsa21k_raw_wide_csv(path)\\n'
+          pos=s.index(anchor,start)+len(anchor)
+          insert='''    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):
               df = pd.read_csv(path)
               return _apply_yongneup_panel590_temperature_downscaling(df)
-          \\2'''
-          s2,n=re.subn(pat,repl,s,count=1)
-          if n!=1:
-              start=s.index('def load_climate')
-              print(s[start:start+1200])
-              raise SystemExit(f'load_climate regex patch count={n}')
-          p.write_text(s2,encoding='utf-8')
+          '''
+          s=s[:pos]+insert+s[pos:]
+          p.write_text(s,encoding='utf-8')
 
           r=root/'tools'/'run_yongneup_21ka_chelsa_selfcontained.py'
           x=r.read_text(encoding='utf-8')
