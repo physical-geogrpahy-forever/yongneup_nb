@@ -1,0 +1,26 @@
+{
+  "execution_status": "new_full_21ka_candidate_run",
+  "baseline_model": "PB4-McKenzie-nativeClimate",
+  "baseline_canonical_sha256": "eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d",
+  "candidate_model": "PB4-McKenzie-nativeClimate-PFT-IBIS-AGB",
+  "candidate_zip": "pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_PFT_IBIS_AGB.zip",
+  "candidate_sha256": "e263789ba8a41e274e001c778295dd1b1b47ae96148be37b077c526a7b72d216",
+  "climate": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+  "period_ka_bp": "21.0-0.0",
+  "interval_kyr": 0.1,
+  "only_scientific_change_for_geomorphology": "AGB bridge: legacy 0.010*NPP -> PFT-specific IBIS/Xue equilibrium dry AGB",
+  "agb_units": "kg dry biomass m^-2",
+  "npp_units": "g C m^-2 yr^-1",
+  "coefficients": {
+    "0": 0.0,
+    "4": 0.0286,
+    "5": 0.0222,
+    "6": 0.0327,
+    "7": 0.0422,
+    "10": 0.00285
+  },
+  "pft10_correspondence": "BIOME4 woody desert evergreen -> Xue/IBIS evergreen shrub analogue",
+  "unsupported_pft_policy": "abort on any positive-NPP vegetated unsupported dominant PFT",
+  "legacy_0010": "diagnostic only; does not feed candidate geomorphology",
+  "validation": "Jang 2011 corrected reduced mapping, n=62, 1% basin presence"
+}
