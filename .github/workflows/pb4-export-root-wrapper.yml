@@ -1,0 +1,37 @@
+name: Export PB4 root wrapper source
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-export-root-wrapper.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Export source
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4src
+          mkdir -p /tmp/pb4src
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4src
+          root=$(find /tmp/pb4src -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          mkdir -p pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot
+          cp "$root/fortran_src/biome4_batch_wrapper_mckenzie2003.f90" pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/
+          cp "$root/fortran_src/biome4_original_4_2b2.f" pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/
+          cp "$root/pb4studio/climate.py" pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/
+      - name: Commit
+        shell: bash
+        run: |
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot
+          git commit -m 'Archive PB4 root coupling source snapshot [skip ci]' || exit 0
+          git push origin HEAD:main
