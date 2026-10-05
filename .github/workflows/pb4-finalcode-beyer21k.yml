@@ -53,8 +53,7 @@ jobs:
           p=root/'pb4studio'/'climate.py'
           s=p.read_text(encoding='utf-8')
           start=s.index('def load_climate')
-          anchor='        return _load_chelsa21k_raw_wide_csv(path)\\n'
-          pos=s.index(anchor,start)+len(anchor)
+          pos=s.index('    raise ValueError(',start)
           insert='''    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):
               df = pd.read_csv(path)
               return _apply_yongneup_panel590_temperature_downscaling(df)
