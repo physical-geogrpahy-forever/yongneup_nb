@@ -1,5 +1,7 @@
 # AGB bridge promotion decision — RETRACTED
 
+> **추가 정정:** Xue et al. (2017, GBC)의 명시적 AGB 식도 용늪 전체 production bridge로 사용할 수 없다. BIOME4의 실제 출현 PFT7에 대해 직접 대응하는 explicit-AGB parameterization이 없고, BoB 또는 BoC를 nearest-class로 대입하는 것은 금지한다. PFT10도 직접 지원되지 않는다. 따라서 Xue GBC는 부분적 구조 근거로만 남긴다.
+
 Date: 2026-10-05
 
 > **최종 정정:** 이 문서의 기존 Xue/IBIS primary-promotion 결론은 철회한다. Xue et al. (2017)의 Eq. (3)에서 \(C_{i,j}\)는 leaf, stem, root biomass pool의 **carbon stock**이며 AGB 자체가 아니다. 같은 논문은 IBIS가 global AGB를 직접 계산하지 않고 carbon density를 계산한다고 명시하고, Table 3에서 model-derived carbon density를 above- and below-ground biomass를 포함한 forest carbon density와 비교한다. 따라서 \(0.0286/0.0327/0.0422\times NPP\)를 해부학적으로 검증된 dry AGB로 승격한 기존 판단은 근거가 부족하다. candidate 실행 결과는 sensitivity 기록으로만 유지한다.
