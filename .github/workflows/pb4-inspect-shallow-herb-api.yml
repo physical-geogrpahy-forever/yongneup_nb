@@ -1,0 +1,46 @@
+name: Inspect PB4 shallow herb API
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-inspect-shallow-herb-api.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Inspect final package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4inspect
+          mkdir -p /tmp/pb4inspect
+          python - <<'PY'
+          import zipfile, pathlib
+          z=pathlib.Path('pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip')
+          with zipfile.ZipFile(z) as zz:
+              zz.extractall('/tmp/pb4inspect')
+              for n in zz.namelist():
+                  low=n.lower()
+                  if any(k in low for k in ('biome4_backend','climate.py','run_yongneup','depth','sweep','diagnostic','config.py')):
+                      print(n)
+          PY
+          root=$(find /tmp/pb4inspect -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          echo "ROOT=$root"
+          echo '=== backend key defs ==='
+          grep -nE '^(class|def) |pftpar|climate|mckenzie|root|depth|run_biome|evaluate' "$root/pb4studio/biome4_backend.py" | head -n 260 || true
+          echo '=== climate key defs ==='
+          grep -nE '^(class|def) |CHELSA|Beyer|agb|npp|lai|pft' "$root/pb4studio/climate.py" | head -n 260 || true
+          echo '=== selfcontained runner head ==='
+          sed -n '1,320p' "$root/tools/run_yongneup_21ka_chelsa_selfcontained.py" || true
+          echo '=== tests/tools names ==='
+          find "$root" -maxdepth 3 -type f | sed "s#^$root/##" | grep -Ei 'test|depth|sweep|diagn|onecell|single' | head -n 300 || true
