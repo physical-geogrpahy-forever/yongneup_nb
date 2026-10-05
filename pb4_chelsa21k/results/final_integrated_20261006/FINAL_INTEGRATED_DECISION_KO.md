@@ -26,4 +26,6 @@ Final SHA-256: a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34
 
 ## Park et al. (2021)
 
-Park is an independent holdout evaluation. It is not included in the Jang 62-item accuracy and is not used for parameter tuning. Sample-level Supplementary pollen composition will be evaluated in 100-year windows without interpolation after the raw Supplementary table is archived.
+Park et al. (2021)은 independent holdout으로 완료하였다. 사용자가 제공한 Supplementary Excel의 sample-level pollen, PCA, temperature reconstruction을 직접 사용했고, 주 정량구간 16-69 cm의 53 samples를 17개 100년 window로 집계하였다. Park PC2와 dynamic PB4 cold-tree PFT fraction은 Spearman rho=0.632, p=0.00644로 유의한 같은 방향의 관계를 보였으나 static은 rho=-0.255, p=0.323이었다. pollen broadleaf fraction과 dynamic model fraction은 rho=0.448, p=0.0713으로 양의 경향이나 0.05 기준에서 유의하지 않았다. 2738-2206 cal yr BP open-vegetation event는 open PFT로 재현되지 않았다. Park 결과는 모델 재보정에 사용하지 않는다.
+
+상세: `PARK2021_HOLDOUT_RESULT_20261006_KO.md`
