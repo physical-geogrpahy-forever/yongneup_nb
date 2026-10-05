@@ -1,0 +1,12 @@
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/MCKENZIE2003_REFERENCE_AUDIT_2026-08-17.json
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/fortran_src/biome4_original_4_2b2.f
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/fortran_src/biome4_batch_wrapper_original.f90
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/diagnostics/mckenzie2003_issue3_regression.txt
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/tools/mckenzie2003_depth_sensitivity.py
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/tools/test_mckenzie2003_reference_contract.py
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/YONGNEUP_MCKENZIE2003_DEPTH_SENSITIVITY.csv
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/YONGNEUP_MCKENZIE2003_ROOT_WEIGHTS.csv
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/MCKENZIE2003_REFERENCE_AUDIT_2026-08-17.md
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/BIOME4_SD_MCKENZIE2003_MODEL_NOTE.txt
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/YONGNEUP_MCKENZIE2003_4KA_FINAL_REGRESSION.csv
+/tmp/pb4src/PB4Studio_v6.6.3_CHELSA21K/pb4studio/data/yongneup_soilgrids_mckenzie2003_awc.csv
