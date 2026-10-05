@@ -54,4 +54,5 @@ jobs:
           fi
           git status --short
           git commit -m 'Test Jackson life-form shallow-root temperate-grass candidate [skip ci]' || exit 0
+          git pull --rebase origin main
           git push origin HEAD:main
