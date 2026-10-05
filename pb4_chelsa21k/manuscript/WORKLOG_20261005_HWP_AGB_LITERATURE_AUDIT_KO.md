@@ -904,42 +904,40 @@ Wang et al. (2011) 독립 BIOME4 vegetation-carbon 진단:
 따라서 기존 canonical baseline은 유지한다. 다음 해결은 BIOME4 자체의 biomass/carbon 체계에서 하나의 일관된 식생상태변수를 정의할 수 있는지 문헌적으로 확인한 뒤 진행한다.
 
 
-# 18. 용늪 현지 AGB 검증/보정 자료 후보
+# 18. 대한민국 30 m AGB 지도 — 외부 검증 전용, AGB bridge 해결책에서 제외
 
-Pelletier Eq. (5) 원 계수의 무보정 이식이 물리적으로 기각된 뒤, 누더기식 추가 모듈을 피하기 위한 가장 깔끔한 다음 자료원으로 **대한민국 전국 30 m 산림 AGB 지도**를 확인했다.
+Kim et al. (2026)의 대한민국 전국 30 m 산림 AGB 지도는 **NPP로부터 AGB를 계산한 자료가 아니다.**
 
-자료:
+자료 생성 방식:
 
-Kim, Seunguk, Shin, Joong Hoon, Han, Hee, & Choe, Hyeyeong (2026).
-*Nationwide 30 m maps of forest composition, biomass, and diversity in South Korea (2021–2025) from direct prediction and plot-index imputation.*
-Zenodo. DOI: 10.5281/zenodo.21701424.
+- 제8차 국가산림자원조사(2021-2025) 현장 plot 자료
+- Sentinel-2
+- 기후 및 지형 predictor
+- direct prediction: attribute별 random forest
+- plot-index imputation: 각 산림셀에 가장 잘 대응하는 실제 inventory plot의 관측속성을 할당
 
-핵심 특성:
+따라서 이 자료는 BIOME4의 (NPP\rightarrow AGB) 변환식을 제공하지 않는다.
 
-- 제8차 국가산림자원조사(2021-2025) 기반
-- Sentinel-2, 기후, 지형 예측자 사용
-- 대한민국 전국 30 m 해상도
-- CRS EPSG:5179
-- aboveground biomass 직접 예측 지도 제공
-- direct-prediction AGB와 cell-level uncertainty 지도 제공
-- forest-type map을 추가한 FTM 버전도 제공
-- spatial-block cross-validation 및 별도 공간독립 test set 사용
+이 자료를 이용해 BIOME4 NPP와 AGB 사이에 새 회귀식을 적합하면 그것은 **새로운 경험적 coupling을 추가하는 것**이므로, 현재 목표인 누더기 없는 모델 해결책으로 채택하지 않는다.
 
-주요 파일:
+이 자료의 역할은 필요할 경우 현대시점 AGB 규모와 공간패턴의 **독립 외부검증**에만 제한한다.
 
-- `base_biomass_30m.tif`
-- `base_biomass_sd_30m.tif`
-- `ftm_biomass_30m.tif`
-- `ftm_biomass_sd_30m.tif`
+즉:
 
-이 자료는 BIOME4 또는 Pelletier에 다른 DGVM을 붙이지 않고, **현재 용늪 및 주변 산림의 실제 AGB 규모를 독립적으로 검증하는 자료**로 사용할 수 있다.
+- AGB bridge 결정: 사용하지 않음
+- (NPP\rightarrow AGB) 계수 추정: 사용하지 않음
+- Pelletier (e,f) 재보정: 우선 사용하지 않음
+- 현대 AGB plausibility check: 선택적으로 사용 가능
 
-잠정적으로 가장 일관된 다음 전략:
+## 18.1 다음 핵심 경로
 
-1. 현재 canonical baseline은 그대로 보존
-2. 용늪 20 m 모델영역과 이 30 m AGB 지도를 EPSG:5179에서 정합
-3. 산림셀만 추출하여 현대 AGB의 평균, 범위, 공간패턴, 불확실성 확인
-4. baseline `0.010NPP`, Pelletier Eq. (5), Wang (C_{veg})와 현대시점 규모 비교
-5. Pelletier Eq. (5)의 형태를 유지할 경우, Arizona의 (e,f)를 그대로 쓰지 않고 **독립적인 한국 AGB 관측자료를 이용한 지역 검증 또는 보정 가능성**을 평가
+AGB bridge는 다시 **BIOME4 자체 또는 BIOME4를 직접 사용한 문헌**에서 해결한다.
 
-아직 이 자료로 (e,f)를 적합하지 않았으며, 적합 여부도 확정하지 않았다. 데이터 확인 전 임의 보정은 금지한다.
+최우선 확인 대상:
+
+1. BIOME4 NPP에서 vegetation biomass/carbon을 계산한 공식
+2. Wang et al. (2011)의 (C_{veg}=NPP\tau_{veg}) 계보와 원 출처
+3. BIOME4 문헌에서 total vegetation carbon을 aboveground biomass로 분리한 사례가 있는지
+4. BIOME4 자체의 PFT/biome별 turnover 또는 biomass allocation 정의가 있는지
+
+BIOME3, LPJ, 외부 AGB 지도 회귀를 조합하여 bridge를 만드는 방식은 사용하지 않는다.
