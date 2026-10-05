@@ -1,0 +1,208 @@
+name: Run final PB4 with Beyer forcing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-finalcode-beyer21k.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '4'
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Extract final canonical and enable packaged Beyer input only in temporary copy
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4beyer
+          mkdir -p /tmp/pb4beyer
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4beyer
+          root=$(find /tmp/pb4beyer -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          echo "ROOT=$root"
+
+          python - "$root" <<'PY'
+          from pathlib import Path
+          import sys
+          root=Path(sys.argv[1])
+
+          p=root/'pb4studio'/'climate.py'
+          s=p.read_text(encoding='utf-8')
+          needle='''    if "tasmin_raw_01" in columns and "tasmax_raw_01" in columns and "pr_raw_01" in columns:
+              return _load_chelsa21k_raw_wide_csv(path)
+              raise ValueError('''
+          if needle not in s:
+              needle='''    if "tasmin_raw_01" in columns and "tasmax_raw_01" in columns and "pr_raw_01" in columns:
+              return _load_chelsa21k_raw_wide_csv(path)
+          raise ValueError('''
+          repl='''    if "tasmin_raw_01" in columns and "tasmax_raw_01" in columns and "pr_raw_01" in columns:
+              return _load_chelsa21k_raw_wide_csv(path)
+          if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):
+              df = pd.read_csv(path)
+              return _apply_yongneup_panel590_temperature_downscaling(df)
+          raise ValueError('''
+          if needle not in s:
+              raise SystemExit('load_climate patch anchor not found')
+          s=s.replace(needle,repl,1)
+          p.write_text(s,encoding='utf-8')
+
+          r=root/'tools'/'run_yongneup_21ka_chelsa_selfcontained.py'
+          x=r.read_text(encoding='utf-8')
+          old='YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv'
+          if old not in x:
+              raise SystemExit('runner climate filename anchor not found')
+          x=x.replace(old,'climate_yongneup_128.25E_38.25N.csv')
+          x=x.replace('outputs_CHELSA21K','outputs_BEYER21K_FINALCODE')
+          x=x.replace('CHELSA21K','BEYER21K_FINALCODE')
+          out=root/'tools'/'run_yongneup_21ka_beyer_finalcode.py'
+          out.write_text(x,encoding='utf-8')
+          print('temporary Beyer runner:',out)
+          PY
+
+      - name: Run full 21 to 0 ka final-code Beyer experiment
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(find /tmp/pb4beyer -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          cd "$root"
+          python tools/run_yongneup_21ka_beyer_finalcode.py | tee /tmp/finalcode_beyer21k.log
+
+      - name: Summarize PFT8 and validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(find /tmp/pb4beyer -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          mkdir -p pb4_chelsa21k/results/finalcode_beyer21k_20261006
+          cp /tmp/finalcode_beyer21k.log pb4_chelsa21k/results/finalcode_beyer21k_20261006/RUN.log
+
+          python - "$root" <<'PY'
+          from pathlib import Path
+          import sys, pandas as pd, numpy as np, json, shutil
+          root=Path(sys.argv[1])
+          out=root/'outputs_BEYER21K_FINALCODE'
+          dst=Path('pb4_chelsa21k/results/finalcode_beyer21k_20261006')
+
+          if not out.exists():
+              cands=list(root.glob('outputs*'))
+              raise SystemExit(f'expected output dir missing. candidates={cands}')
+
+          # copy compact CSV diagnostics only
+          for p in out.rglob('*.csv'):
+              rel=p.relative_to(out)
+              if p.stat().st_size < 30_000_000:
+                  q=dst/rel
+                  q.parent.mkdir(parents=True,exist_ok=True)
+                  shutil.copy2(p,q)
+
+          # locate validation files
+          rows=[]
+          for mode in ('static','dynamic'):
+              vp=out/f'model_{mode}'/'validation_per_output_time.csv'
+              if not vp.exists():
+                  found=list((out/f'model_{mode}').rglob('validation_per_output_time.csv'))
+                  if not found: raise SystemExit(f'validation file missing for {mode}')
+                  vp=found[0]
+              df=pd.read_csv(vp,encoding='utf-8-sig')
+              target={
+                  '95_01':('broadleaf','basin_count_broadleaf'),
+                  '95_02':('mixed','basin_count_mixed'),
+                  '95_03':('broadleaf','basin_count_broadleaf'),
+                  '95_04':('mixed','basin_count_mixed'),
+              }
+              d=df[df['record_id'].astype(str).isin(target)].copy()
+              d['target_count']=d.apply(lambda r:r[target[str(r['record_id'])][1]],axis=1)
+              d['target_fraction']=d['target_count']/d['valid_basin_cell_count']
+              d['correct_1pct']=d['target_fraction']>=0.01-1e-15
+              rows.append({'mode':mode,'n':len(d),'correct_n':int(d.correct_1pct.sum()),
+                           'accuracy_pct':100*d.correct_1pct.mean()})
+
+          valid=pd.DataFrame(rows)
+          valid.to_csv(dst/'BEYER_JANG1PCT_SUMMARY.csv',index=False)
+
+          # locate the time series with PFT counts
+          tsfiles=[]
+          for p in out.rglob('*.csv'):
+              try:
+                  h=pd.read_csv(p,nrows=1,encoding='utf-8-sig')
+              except Exception:
+                  continue
+              cols=set(h.columns)
+              if 'ka_bp' in cols and any(c.startswith('reich_lai_sapwood_pft08_count') for c in cols):
+                  tsfiles.append(p)
+          if not tsfiles:
+              raise SystemExit('PFT count timeseries not found')
+          ts=max(tsfiles,key=lambda p:len(pd.read_csv(p,encoding='utf-8-sig')))
+          df=pd.read_csv(ts,encoding='utf-8-sig')
+          df.to_csv(dst/'BEYER_FINALCODE_21KA_TIMESERIES.csv',index=False,encoding='utf-8-sig')
+
+          pftcols=[c for c in df.columns if c.startswith('reich_lai_sapwood_pft') and c.endswith('_count')]
+          summaries=[]
+          for mode,g in df.groupby('mode'):
+              for c in pftcols:
+                  pft=int(c.split('pft')[1].split('_')[0])
+                  vals=pd.to_numeric(g[c],errors='coerce').fillna(0)
+                  positive=g.loc[vals>0,'ka_bp']
+                  summaries.append({
+                    'mode':mode,'pft':pft,'n_timesteps_positive':int((vals>0).sum()),
+                    'first_oldest_ka':float(positive.max()) if len(positive) else np.nan,
+                    'last_youngest_ka':float(positive.min()) if len(positive) else np.nan,
+                    'max_cell_count':int(vals.max()),
+                  })
+          pd.DataFrame(summaries).to_csv(dst/'BEYER_PFT_OCCURRENCE_SUMMARY.csv',index=False)
+
+          # key late-Holocene rows
+          key=df[(df['ka_bp']>=0.0)&(df['ka_bp']<=5.0)].copy()
+          key.to_csv(dst/'BEYER_0TO5KA_TIMESERIES.csv',index=False,encoding='utf-8-sig')
+
+          # PFT8 concise table
+          c8='reich_lai_sapwood_pft08_count'
+          p8=df[pd.to_numeric(df[c8],errors='coerce').fillna(0)>0].copy()
+          keep=[c for c in ['mode','ka_bp',c8,'dominant_vegetation_code','vegetation_class_counts','mean_npp','reich_lai_sapwood_agb_mean_kg_m2'] if c in p8.columns]
+          p8[keep].to_csv(dst/'BEYER_PFT8_POSITIVE_TIMES.csv',index=False,encoding='utf-8-sig')
+
+          md=['# Final PB4 code with Beyer forcing','',
+              'This is a controlled forcing experiment. Model code, BIOME4 native climate limits, McKenzie coupling, AGB*, and geomorphic equations are unchanged. Only the climate forcing is switched from CHELSA-TraCE21k to the packaged Beyer monthly series, using the retained Yongneup panel-590 lapse metadata helper and 0.1-kyr temporal interpolation.','',
+              '## Jang validation','',valid.to_markdown(index=False),'',
+              '## PFT occurrence','',pd.DataFrame(summaries).to_markdown(index=False),'',
+              '## PFT8 positive late-Holocene rows','',
+              (p8[keep].to_markdown(index=False) if len(p8) else 'No PFT8 occurrence.'),'']
+          (dst/'BEYER_FINALCODE_RESULT_KO.md').write_text('\n'.join(md),encoding='utf-8')
+          print(valid.to_string(index=False))
+          print(pd.DataFrame(summaries).query('pft in [4,6,7,8,12]').to_string(index=False))
+          print('PFT8 rows',len(p8))
+          if len(p8): print(p8[keep].to_string(index=False))
+          PY
+
+      - name: Commit experiment
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/finalcode_beyer21k_20261006
+          git commit -m 'Run final PB4 code with Beyer forcing [skip ci]' || exit 0
+          git push origin HEAD:main
