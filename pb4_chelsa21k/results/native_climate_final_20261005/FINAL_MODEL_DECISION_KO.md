@@ -104,3 +104,38 @@ Reich, P. B., Walters, M. B., & Ellsworth, D. S. (1992). Leaf life-span in relat
 Pelletier, J. D., et al. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. *Journal of Geophysical Research: Earth Surface, 118*, 741-758. https://doi.org/10.1002/jgrf.20046
 
 BIOME4 v4.2b2 source code, Jed O. Kaplan: https://github.com/jedokaplan/BIOME4
+
+
+## 2026-10-06 최종 통합 production 승격
+
+위 2026-10-05 과학적 결정은 2026-10-06 통합 package로 실제 승격되었다.
+
+최종 canonical package:
+
+`pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip`
+
+최종 explicit alias:
+
+`pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K_FINAL_INTEGRATED.zip`
+
+최종 SHA-256:
+
+`a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34`
+
+최종 integration commit:
+
+`2e0df5606e5c23d35b1b4ad421a4adf2d3031e08`
+
+AGB 변경 전 nativeClimate package는 다음 archive로 보존한다.
+
+`pb4_chelsa21k/model/archive/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_PRE_AGB.zip`
+
+archive SHA-256:
+
+`eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
+
+통합 package는 21.0-0.0 ka BP 전체 211시점을 static과 dynamic으로 다시 실행했으며, Jang 검증은 static 24/62 = 38.71%, dynamic 55/62 = 88.71%로 재확인되었다.
+
+Park et al. (2021)은 이 Jang score에 합치지 않고 independent holdout으로만 사용한다. Park 결과는 최종모형 재보정에 사용하지 않는다. 세부 정책은 `pb4_chelsa21k/manuscript/PARK2021_INDEPENDENT_VALIDATION_POLICY_20261006_KO.md`를 따른다.
+
+2026-10-06 이후 package 상태와 실행결과의 최종 기준은 `pb4_chelsa21k/results/final_integrated_20261006/`이다.
