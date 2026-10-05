@@ -121,7 +121,7 @@ def patch_candidate(z: Path, pft7_mode: str) -> tuple[Path, Path, Path]:
     f_c_wood[pft_round == 4] = 0.48
     f_c_wood[pft_round == 5] = 0.51
     f_c_wood[pft_round == 6] = 0.51
-    f_c_wood[pft_round == 7] = 0.48 if pft7_mode == "BDT" else 0.51
+    f_c_wood[pft_round == 7] = {0.48 if pft7_mode == "BDT" else 0.51:.2f}
     f_c_wood[pft_round == 10] = 0.47
 
     L = np.maximum(lai_bal, 0.0)
