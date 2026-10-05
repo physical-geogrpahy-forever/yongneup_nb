@@ -2,6 +2,8 @@
 
 작성일: 2026-10-05
 
+> **최신 판정(2026-10-05): Section 13을 우선한다.** Xia×Xue 조합은 정의 불일치로 철회했다. 실제 ForC/Luyssaert 관측비율을 계산했지만 검증된 최종 BIOME4→dry AGB 계수는 아직 확정하지 못했다. Section 10–11의 lookup은 실험 후보 기록이다.
+
 ## 목적
 
 용늪 PB4-McKenzie-nativeClimate에서 Pelletier 지형식의 식생량 항을 처리하기 위해,
@@ -803,3 +805,143 @@ candidate는 published BIOME4 equation이 아니다.
 2. PFT-specific을 최우선할 경우: 관측 기반 또는 독립 PFT-specific NPP/ANPP → AGB 관계를 찾아 BIOME4 PFT 정의와 직접 비교 가능한 경우에만 사용한다.
 3. IBIS/Xue cross-model mapping은 sensitivity candidate로만 유지한다.
 4. BIOME4 내부 Alloc 또는 sapwood respiration parameter를 total AGB로 오해해 사용하지 않는다.
+
+
+# 13. Xia–Xue 후보 철회 및 Luyssaert 유래 실제 관측자료 계산 (2026-10-05)
+
+## 13.1 이번 판정의 지위
+
+**PFT4/5/6/7의 검증된 최종 NPP→dry AGB 계수는 아직 확정하지 못했다.**
+
+이 절의 수치는 실제 공개 관측자료에서 새로 계산한 **진단용 stock/NPP 비율**이다. 논문에 발표된 BIOME4 고유 계수도, 평형 AGB를 검증한 회귀계수도 아니다. 이전 절의 후보를 production 식으로 승격하는 근거로 사용하지 않는다.
+
+모델 입력 조건은 그대로 NPP와 PFT 두 개다. 관측 임령은 아래 자료 선별에만 사용했으며 모델에 임령/코호트를 추가하지 않았다. 이번 작업은 자료·문헌 검증이며 모델 실행이나 production AGB lookup 변경을 포함하지 않는다.
+
+## 13.2 Xia (2019) × Xue (2017)을 최종식으로 사용할 수 없는 이유
+
+- Xia의 관측 NPPwood는 stem + branch + **coarse root**다. Allocation의 분모는 leaf + wood + fine-root NPP의 합이다. 그 값을 aboveground wood allocation이라고 부르면 안 된다.
+- Xue의 관측 residence-time 계산은 **지상부량 / 지상부 목질 생산량(stem + branch)**이다. NPP 전체로 나눈 값이 아니다. AGB numerator는 total aboveground biomass로 제시되며, leaf-free wood-only stock이라고 재정의하지 않는다.
+- 따라서 Xia의 a_wood를 Xue의 residence time과 바로 곱하면 coarse-root 생산을 지상부량에 포함하는 오류가 생긴다.
+- 두 논문의 boreal broadleaf deciduous 범주를 BIOME4 PFT7 전체와 같은 범주라고 단정할 수 없다. 특히 boreal deciduous needleleaf(Larix)가 같은 범주에 포함됐다고 주장할 근거가 없다.
+
+Xue Table 2의 TeB 82.9, TeC 74.7, BoC 80.9, BoB 55.5 yr 자체는 확인했다. 그러나 그 값을 total NPP→AGB 계수나 BIOME4 PFT7 전체의 확정값으로 사용하지 않는다.
+
+Primary sources:
+- Xia et al. (2019), DOI [10.1029/2018JG004777](https://doi.org/10.1029/2018JG004777), [저자 기관 PDF](https://climatehomes.unibe.ch/~joos/papers/xia19jgrbg.pdf), Methods 2.1.
+- Xue et al. (2017), DOI [10.1002/2016GB005557](https://doi.org/10.1002/2016GB005557), observation method and Table 2.
+
+## 13.3 원자료 확보 경로와 버전
+
+NASA/ORNL DAAC의 Luyssaert 배포본 DOI [10.3334/ORNLDAAC/949](https://doi.org/10.3334/ORNLDAAC/949)는 자료설명서를 확인했다. CSV/DB archive 직접 다운로드는 Earthdata 로그인에 막혀 원 archive 자체를 읽지는 못했다. 설명서의 변수 정의 확인과 실제 archive 확인을 혼동하지 않는다.
+
+이번 실제 계산은 공개 [ForC 저장소](https://github.com/forc-db/ForC)의 아래 고정 snapshot에서 수행했다.
+
+- Commit: 407c520e6350917bca42e6bf7d5031dbcc551362
+- Commit date: 2024-08-08
+- 파일: data/ForC_measurements.csv, data/ForC_sites.csv, data/ForC_variables.csv, data/ForC_pft.csv 및 metadata/
+- 재사용: CC BY 4.0. ForC 출처를 표시하며 원 논문 citation ID도 결과 CSV에 보존했다.
+- NPP와 AGB **양쪽**의 loaded.from에 Luyssaert_2007_cbob가 포함된 기록만 선택했다. _v3.3 표기와 복수 source chain을 포함하며 원문 그대로 CSV에 남겼다.
+- citation.ID는 원 연구 논문으로 지정될 수 있으므로 citation.ID == Luyssaert만 요구하면 해당 database에서 유래한 자료를 잘못 누락한다.
+- 이는 ForC에 공개 재수록된 Luyssaert 유래 자료다. ORNL 배포본 v3.1 전체 또는 Xia가 사용한 v3.3.1 전체를 직접 확보했다는 뜻이 아니다.
+
+ForC 원 dictionary:
+- [변수 정의](https://github.com/forc-db/ForC/blob/407c520e6350917bca42e6bf7d5031dbcc551362/data/ForC_variables.csv)
+- [PFT 정의](https://github.com/forc-db/ForC/blob/407c520e6350917bca42e6bf7d5031dbcc551362/data/ForC_pft.csv)
+- [관측 필드 정의](https://github.com/forc-db/ForC/blob/407c520e6350917bca42e6bf7d5031dbcc551362/metadata/measurements_metadata.csv)
+
+## 13.4 동일하게 적용한 변수·자료 선별
+
+| 필드 | 이번에 사용한 정의 | 단위 |
+|---|---|---|
+| NPP_1_C | foliage + branch + stem + coarse root + fine root 연간 생산량 | Mg C ha^-1 yr^-1 |
+| biomass_ag_C | 전체 live aboveground biomass의 carbon stock | Mg C ha^-1 |
+
+NPP_2~5의 understory, reproductive production, herbivory, VOC/exudates 등 추가 항을 NPP_1과 섞지 않았다. NPP_1은 구조적 생산량의 합이며 BIOME4 계산 NPP의 모든 탄소 유출 항과 동일함을 검증한 것은 아니다.
+
+모든 PFT에 적용한 기준:
+
+1. 같은 sites.sitename와 같은 명시적 plot.name로 연결한다. NI/NRA/NA/NAC 및 빈 관측구 이름은 제외한다.
+2. NPP와 AGB 양쪽의 dominant.veg code가 같아야 한다.
+3. 양쪽 mean > 0. flag.suspicious=1 및 D.precedence=0은 제외한다. 중복 지정이 없는 빈 precedence는 유지한다.
+4. 양쪽 기록 임령 ≥100을 선택한다. 999는 실제 999년이 아니라 primary/old-growth/mature/intact designation이다. 이 선별은 평형을 입증하지 않으며 관리림·교란 이력을 자동 배제하지 않는다.
+5. ForC의 biogeog는 생물지리 구역이지 boreal/temperate 기후 분류가 아니다. FAO.ecozone의 Temperate / Boreal prefix를 사용한다.
+6. 동일 PFT의 관측구별 stock/NPP 비율 중앙값을 먼저 구한 뒤, 관측구들 사이의 중앙값을 구한다. 하나의 관측구에 여러 stock/flux 기록이 있다는 이유로 그 관측구를 여러 독립 표본처럼 세지 않는다.
+7. 주 계산에서는 관측연도 일치 또는 동일 기록 임령을 추가로 요구하지 않았다. 시점이 다른/불명확한 같은 관측구 조합도 포함하므로 **동시 측정 계수라고 주장하지 않는다.** 연도 겹침 및 동일 기록 임령은 별도 diagnostic field로 제공한다.
+
+| BIOME4에 대응시킨 관측 analogue | ForC 조건 |
+|---|---|
+| PFT4 | Temperate + 2TDB |
+| PFT5 | Temperate + 2TEN |
+| PFT6 | Boreal + 2TEN |
+| PFT7 | Boreal + 2TDB / 2TDN / 2TD |
+
+2TD는 broadleaf/needleleaf 혼합 또는 leaf type 불명인 deciduous group이다. 이번 ≥100년 paired subset에는 2TD가 없고 PFT7은 2TDB 1곳, 2TDN 1곳이다. Habit가 불명인 2TN·2TB, 혼합/불명인 2TM·2TREE는 이 네 그룹에 임의 할당하지 않았다.
+
+이 표는 관측 분류를 BIOME4 PFT에 대응시킨 명시적 calibration 방법이며 ForC에 BIOME4 PFT 번호가 직접 기록되어 있는 것은 아니다.
+
+## 13.5 실제 계산값과 단위
+
+관측구 j에서
+
+\[
+T_j=\frac{AGB_{C,j}}{NPP_{1,C,j}}
+\]
+
+를 구했다. 두 원 변수의 Mg C ha^-1 단위가 약분되므로 T_j의 단위는 yr이다. **T_j는 aboveground carbon / total structural NPP의 유효 비율이며 woody residence time이 아니다.**
+
+입력 NPP가 g C m^-2 yr^-1이면,
+
+\[
+AGB_C\ [{\rm kg\ C\ m^{-2}}]=\frac{T_i}{1000}NPP
+\]
+
+이고, 건조량 내 탄소질량 비율을 f_C라고 하면
+
+\[
+AGB_{\rm dry}\ [{\rm kg\ dry\ m^{-2}}]
+=\frac{T_i}{1000f_C}NPP
+=c_iNPP.
+\]
+
+아래 dry 계수는 **f_C=0.5라고 가정했을 때만** 성립한다. 새로운 독립 탄소함량 검증값으로 0.5를 주장하지 않는다.
+
+| PFT | 관측구 n | T_i 중앙값 (yr) | 진단용 c_i (f_C=0.5) | 관측구 c_i 최소–최대 | 기록 연도가 겹치는 관측구 |
+|---|---:|---:|---:|---:|---:|
+| 4 | 8 | 25.23374 | 0.0504675 | 0.0231614–0.0698840 | 7 |
+| 5 | 17 | 40.45765 | 0.0809153 | 0.0336043–0.2435928 | 15 |
+| 6 | 8 | 19.66431 | 0.0393286 | 0.0179529–0.0715187 | 8 |
+| 7 | 2 | 14.97645 | 0.0299529 | 0.0105370–0.0493688 | 1 |
+
+전체 35 관측구, candidate stock/flux 조합 44행이다. 최소–최대는 신뢰구간이 아니다. NPP가 변할 때 AGB가 변하는 단일 NPP×PFT 형태의 관측 기반 계수는 **계산 가능했지만**, 이 값의 평형성·대표성·독립 예측 성능은 아직 검증되지 않았다.
+
+연도 diagnostic은 point date의 calendar year와 알려진 start/end year를 비교했다. 예를 들어 1994와 1994.580822는 같은 calendar year로 처리한다. 다른 연도가 기록된 경우와 날짜가 미상인 경우를 CSV에서 구별한다. 연도 겹침 자체도 완전한 동시성 또는 평형의 증거는 아니다.
+
+## 13.6 PFT7의 실제 두 관측구
+
+| 관측구 | 식생 | NPP_1_C | AGB_C | 기록 임령 | 관측 시점 | 진단용 c (f_C=0.5) |
+|---|---|---:|---:|---:|---|---:|
+| Aheden / unmanaged | 2TDB (deciduous broadleaf) | 3.01 Mg C ha^-1 yr^-1 | 74.30 Mg C ha^-1 | 둘 다 180 | 둘 다 1995 | 0.0493688 |
+| Tura / natural regeneration after fire.Larix gmelinii forest | 2TDN (deciduous needleleaf) | 2.16 Mg C ha^-1 yr^-1 | 11.38 Mg C ha^-1 | 둘 다 105 | NPP 2000–2004; AGB 날짜 NI | 0.0105370 |
+
+Measurement IDs: Aheden NPP=99, AGB=87; Tura NPP=15318, AGB=15314.
+
+Tura는 같은 관측구로 연결되는 자료이며 stock timing이 미상이다. 날짜 미상을 날짜 불일치 또는 비평형의 증거로 바꾸지 않는다. 다만 시간 대응을 검증했다고 말할 수도 없다.
+
+두 관측구의 비율은 약 4.69배 다르다. n=2의 중앙값을 boreal deciduous forest 전체, 특히 Larix 중심 식생의 검증된 대표계수라고 확정하지 않는다. 따라서 “Xia/BoBD를 PFT7에 놓으면 해결된다”는 종전 주장도 철회한다.
+
+## 13.7 재현 파일과 최종 상태
+
+이 절의 숫자는 아래 파일로 재현할 수 있다.
+
+- [관측 stock/flux 조합과 출처](BIOME4_LUYSSAERT_FORC_DIAGNOSTIC_PAIRS_20261005.csv)
+- [관측구별 비율](BIOME4_LUYSSAERT_FORC_DIAGNOSTIC_PLOT_RATIOS_20261005.csv)
+- [PFT별 요약](BIOME4_LUYSSAERT_FORC_DIAGNOSTIC_SUMMARY_20261005.csv)
+- [재현 스크립트](BIOME4_LUYSSAERT_FORC_REPRODUCE_20261005.py)
+
+재현 명령:
+
+    python BIOME4_LUYSSAERT_FORC_REPRODUCE_20261005.py /path/to/ForC/data /path/to/output
+
+Python pandas가 필요하다. 입력 ForC revision을 위 commit에 고정해야 한다.
+
+확인된 것은 **하나의 공개 관측 자료체계에 들어 있는 Luyssaert 유래 NPP와 AGB 자료로 네 forest PFT analogue의 비율을 동일한 방식으로 계산할 수 있다는 것**이다. 요청된 검증된 최종 dry-AGB 계수 네 개를 완성했다고 주장하지 않는다. 종별 논문을 PFT마다 새로 붙이는 방법은 사용하지 않았다.
