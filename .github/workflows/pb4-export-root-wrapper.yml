@@ -24,18 +24,19 @@ jobs:
           unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4src
           root=$(find /tmp/pb4src -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
           mkdir -p pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot
-          wrapper=$(find "$root" -type f -name 'biome4_batch_wrapper_mckenzie2003.f90' | head -1)
           core=$(find "$root" -type f -name 'biome4_original_4_2b2.f' | head -1)
           climate=$(find "$root" -type f -path '*/pb4studio/climate.py' | head -1)
-          echo "wrapper=$wrapper"
+          backend=$(find "$root" -type f -path '*/pb4studio/biome4_backend.py' | head -1)
           echo "core=$core"
           echo "climate=$climate"
-          test -n "$wrapper"
+          echo "backend=$backend"
           test -n "$core"
           test -n "$climate"
-          cp "$wrapper" pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/
+          test -n "$backend"
           cp "$core" pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/
           cp "$climate" pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/
+          cp "$backend" pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/
+          find "$root" -type f | grep -Ei 'mckenzie|wrapper|fortran' > pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/PACKAGED_SOURCE_PATHS.txt || true
       - name: Commit
         shell: bash
         run: |
