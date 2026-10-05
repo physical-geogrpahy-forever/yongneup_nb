@@ -37,4 +37,5 @@ jobs:
           git add pb4_chelsa21k/results/pft8_shallow_canopy_candidate_20261006
           git add pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_PFT8_SHALLOW_CANOPY.zip
           git commit -m 'Test PFT8 shallow-canopy competition candidate [skip ci]' || exit 0
+          git pull --rebase origin main
           git push origin HEAD:main
