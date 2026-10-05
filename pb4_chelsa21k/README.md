@@ -93,3 +93,21 @@ Park et al. (2021)은 Jang et al. (2011)의 62개 categorical score에 합산하
 - conifer vs deciduous broadleaf 상대조성, arboreal/non-arboreal 변화방향, open-vegetation event 재현을 평가
 - pollen percentage와 model area fraction을 같은 물리량으로 보지 않으므로 Spearman 상관과 변화방향 일치도를 중심으로 평가
 - 세부 정책: `manuscript/PARK2021_INDEPENDENT_VALIDATION_POLICY_20261006_KO.md`
+
+
+### Park holdout completed result
+
+Park et al. (2021) Supplementary Excel은 이미 확보되어 있었으며 2026-10-06 실제 원자료로 holdout 검증을 완료했다.
+
+- source: `1-s2.0-S0031018221004909-mmc1(1).xlsx`
+- source SHA-256: `6d4ad8310434e02e1f963ee36932e30ae66f757d6028260d33ea98e7359c8f97`
+- primary Park interval: 16-69 cm, 515-2072 cal yr BP
+- pollen samples: 53
+- 100-year windows: 17
+- Park PC2 vs dynamic cold-tree PFT fraction: rho=0.632, p=0.00644
+- Park PC2 vs static cold-tree PFT fraction: rho=-0.255, p=0.323
+- pollen broadleaf fraction vs dynamic temperate-deciduous fraction: rho=0.448, p=0.0713
+- 2738-2206 cal yr BP open-vegetation event: not reproduced as open PFT
+
+Results:
+`results/final_integrated_20261006/PARK2021_HOLDOUT_RESULT_20261006_KO.md`
