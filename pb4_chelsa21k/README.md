@@ -11,6 +11,7 @@
 - `reconstruct_pb4.py`: PB4 ZIP 재구성 및 SHA-256 검증
 - `SHA256SUMS.txt`: 원자료와 모델 패키지 무결성 값
 - `manuscript/FINAL_METHODS_CANONICAL_20261006_KO.md`: 최종 Methods 수식, 변수명, 검증정책의 권위 기준
+- `manuscript/FINAL_METHODS_MANUSCRIPT_DRAFT_20261006_KO.md`: 실제 논문 본문에 옮길 수 있는 최종 Methods 서술 초안
 - `manuscript/VESLEM_PB4_HWP_EQUATION_GUIDE_KO.md`: Pelletier/McKenzie 원문 대조용 참고 감사문서
 - `manuscript/WORKLOG_20261005_HWP_AGB_LITERATURE_AUDIT_KO.md`: 2026-10-05까지의 AGB coupling 문헌감사, BIOME4 v4.2b2 source audit, 잠정적 최종모델 위치, 미해결 과제 및 다음 실행 계획
 
