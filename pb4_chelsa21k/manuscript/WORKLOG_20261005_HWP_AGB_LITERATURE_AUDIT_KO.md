@@ -15,12 +15,51 @@
 3. AGB 변환식을 변경하면 dynamic 21-0 ka 결과를 반드시 다시 실행하고 Jang 검증을 다시 해야 한다.
 4. 발표 PPT는 참고용일 뿐, 수식의 근거는 원문 논문 및 실제 코드로 확인한다.
 5. BIOME4가 직접 산출하지 않는 변수를 BIOME4 원식이라고 부르지 않는다.
+6. **최종 식생 코어는 BIOME4 v4.2b2이다. BIOME3는 최종 모델, 후보식, 파라미터 출처에서 제외한다.** BIOME3를 검토했던 내용은 과거 검토 이력일 뿐이며, 최종 Methods나 AGB bridge의 근거로 사용하지 않는다.
 
 ---
 
-# 1. 현재 최종 production 모델 기준
+# 1. 현재 잠정적 최종 production baseline 및 위치
 
-최종 production 모델은 **PB4-McKenzie-nativeClimate**이다.
+AGB coupling provenance가 아직 미해결이므로 아래 모델을 **현재 잠정적 최종 baseline**으로 고정한다. AGB bridge가 최종 확정되고 21-0 ka 재검증을 통과하면 그때 새 최종판으로 승격한다.
+
+현재 잠정적 최종 모델은 **PB4-McKenzie-nativeClimate**이다.
+
+## 1.1 GitHub 위치
+
+저장소:
+
+`physical-geogrpahy-forever/yongneup_nb`
+
+잠정적 최종 canonical package:
+
+`pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip`
+
+명시적 final alias:
+
+`pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`
+
+두 ZIP의 SHA-256:
+
+`eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
+
+이 baseline을 확정한 production commit:
+
+`cfd220b2be2b9d166aa0d5e220c3dc1d9c78634a`
+
+최종 baseline 결과 및 provenance:
+
+`pb4_chelsa21k/results/native_climate_final_20261005/`
+
+재구성 자료:
+
+- `pb4_chelsa21k/payload/`
+- `pb4_chelsa21k/reconstruct_pb4.py`
+- `pb4_chelsa21k/SHA256SUMS.txt`
+
+**중요:** 이후 AGB식을 변경하는 실험은 이 ZIP을 덮어쓰지 않고 별도 candidate로 실행한다. 새 candidate가 물리적 타당성과 Jang 재검증을 모두 통과하기 전까지 위 ZIP이 비교 기준이다.
+
+## 1.2 모델 기준
 
 - 기후: CHELSA-TraCE21k / EnviCloud, 21-0 ka BP, 100년 간격
 - 기후 원자료: `YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv`
@@ -359,66 +398,17 @@ AGB_C=\tau_w\Delta C_{sapwood}
 
 ---
 
-# 8. Haxeltine & Prentice (1996) BIOME3 원문 재검토
+# 8. BIOME3 검토 이력 — 최종 모델에서는 폐기
 
-업로드한 원문:
-*BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types.*
+BIOME3 원문은 BIOME4의 계보를 확인하는 과정에서 일시적으로 검토하였다. 그러나 본 연구의 식생 코어는 **BIOME4 v4.2b2**이며, 사용자는 BIOME3를 최종 방법론에서 제외하기로 결정했다.
 
-원문 p.701에서 확인한 핵심:
+따라서 앞으로의 원칙은 다음과 같다.
 
-## 8.1 sapwood carbon
-
-BIOME3 Eq. (34):
-
-[
-C_s=LAI\,C_n
-]
-
-여기서
-
-- (C_s): total sapwood carbon content, kg C m(^{-2})
-- (LAI): leaf area index
-- (C_n): 단위 LAI당 sapwood carbon
-
-BIOME3 원문은 여러 biomass 자료와 sapwood 비율을 바탕으로
-
-[
-C_n=1\;kg\;C\;m^{-2}\;LAI^{-1}
-]
-
-을 사용한다.
-
-즉 BIOME3 원문에서는
-
-[
-C_s=LAI
-]
-
-이다.
-
-## 8.2 leaf litterfall
-
-BIOME3 Eq. (38):
-
-[
-L_f=LAI\,L_n
-]
-
-여기서
-
-[
-L_n=50\;g\;C\;m^{-2}\;yr^{-1}\;LAI^{-1}
-]
-
-이다.
-
-중요: (L_f)는 standing leaf biomass가 아니라 annual leaf litterfall flux이다. 따라서 (L_f\times leaf\ longevity)로 leaf stock을 만드는 것은 추가 가정이며 BIOME3 원식 자체는 아니다.
-
-## 8.3 equilibrium LAI
-
-BIOME3는 여러 LAI 후보에서 NPP를 계산하고, minimum allocation requirement를 만족하는 범위에서 NPP가 최대인 LAI를 equilibrium LAI로 선택한다.
-
-따라서 LAI는 임의 입력이 아니라 photosynthesis, respiration, water balance, phenology를 반영한 최적 평형 식생구조 변수이다.
+- BIOME3의 biomass 식 또는 파라미터를 PB4 AGB bridge에 사용하지 않는다.
+- BIOME3의 (C_s=LAI C_n), (C_n=1.0) 값은 최종 모델의 근거가 아니다.
+- BIOME3와 BIOME4의 파라미터 차이를 맞추거나 보정하려고 하지 않는다.
+- 최종 Methods의 식생모델 설명과 AGB 해결은 **BIOME4 v4.2b2 원 코드와 BIOME4 관련 문헌만**을 기준으로 한다.
+- 이 절은 과거 검토가 있었음을 남기는 감사기록일 뿐이다.
 
 ---
 
@@ -508,15 +498,9 @@ NPP\ge L_f
 
 ---
 
-# 10. BIOME3/BIOME4 native biomass bridge의 현재 판정
+# 10. BIOME4-native biomass bridge의 현재 판정
 
-현재 가장 직접적으로 코드와 원문에 근거하는 값은 **sapwood carbon**이다.
-
-BIOME3:
-
-[
-C_{sap}=1.0\,LAI
-]
+현재 가장 직접적으로 **BIOME4 v4.2b2 코드 자체에 근거하는 값**은 sapwood carbon이다.
 
 BIOME4 v4.2b2:
 
@@ -592,15 +576,14 @@ LAI=5이면:
 - BIOME4 carbon stocks
 - Kaplan BIOME4 biomass
 - BIOME4 NPP biomass conversion
-- BIOME3/BIOME4 equilibrium biomass
+- BIOME4 equilibrium biomass
 
 목표:
 
 1. BIOME4를 사용해 AGB 또는 vegetation carbon을 실제 추정한 논문 확인
 2. total AGB 계산식이 있으면 원문식과 파라미터 추출
 3. sapwood-only 진단인지 total vegetation carbon인지 구분
-4. BIOME4 v4.2b2의 `stemcarbon=0.5` 변경 근거 추적
-5. BIOME3의 (C_n=1.0)에서 BIOME4의 0.5로 바뀐 이유 확인
+4. BIOME4 v4.2b2의 `stemcarbon=0.5` 자체의 BIOME4 문헌적 근거 추적
 
 ## B. carbon fraction (f_C)
 
@@ -732,9 +715,11 @@ Pelletier, J. D., et al. (2013). *Coevolution of nonlinear trends in vegetation,
 
 McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). *Estimating Water Storage Capacities in Soil at Catchment Scales.* CRC for Catchment Hydrology Technical Report 03/3.
 
-## BIOME3
+## BIOME3 — 검토 후 최종 모델 근거에서 제외
 
 Haxeltine, A., & Prentice, I. C. (1996). *BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types.* Global Biogeochemical Cycles, 10(4), 693-709. DOI: 10.1029/96GB02344.
+
+이 문헌은 계보 확인 과정의 감사기록으로만 남기며, 최종 PB4의 AGB 식, 파라미터, 식생코어 근거로 사용하지 않는다.
 
 ## LPJ
 
@@ -759,11 +744,10 @@ Malhi et al. (2017). New Phytologist. DOI: 10.1111/nph.14189.
 1. 기존 `AGB=0.010NPP`는 Pelletier 원식이 아니며 provenance가 약하다.
 2. Xue는 woody residence time을 강하게 지지하지만 allocation fraction을 직접 완성해주지 않는다.
 3. Sitch는 allocation을 해결하지만 LPJ 구조를 BIOME4에 새로 이식하는 큰 변경이다.
-4. BIOME3/BIOME4는 LAI와 sapwood carbon을 직접 연결하는 native 구조를 가지고 있다.
-5. BIOME3 원문은 (C_s=LAI C_n), (C_n=1.0)을 사용한다.
-6. BIOME4 v4.2b2 source는 사실상 (C_{sap}=0.5LAI)를 사용한다.
-7. 그러나 sapwood carbon은 total AGB가 아니다.
-8. 따라서 다음 최우선 과제는 **BIOME4 문헌에서 total AGB/vegetation carbon을 계산한 사례를 찾고, BIOME4의 0.5 stemcarbon 근거를 추적하는 것**이다.
-9. 그 뒤 후보 AGB bridge를 정하고, full 21-0 ka dynamic ablation을 새로 실행해야 한다.
+4. BIOME3는 최종 모델과 AGB 해결 경로에서 폐기한다.
+5. BIOME4 v4.2b2 source는 사실상 (C_{sap}=0.5LAI)의 sapwood-carbon 구조를 사용한다.
+6. 그러나 sapwood carbon은 total AGB가 아니다.
+7. 따라서 다음 최우선 과제는 **BIOME4 문헌에서 total AGB/vegetation carbon을 계산한 사례를 찾고, BIOME4의 `stemcarbon=0.5` 근거를 추적하는 것**이다.
+8. 그 뒤 BIOME4 기반 후보 AGB bridge를 정하고, full 21-0 ka dynamic ablation을 새로 실행해야 한다.
 
 이 문서는 이 지점의 인계 기준이다.
