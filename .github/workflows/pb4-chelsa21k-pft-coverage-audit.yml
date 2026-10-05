@@ -1,0 +1,52 @@
+name: PB4 CHELSA21K PFT coverage audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-pft-coverage-audit.yml'
+      - 'pb4_chelsa21k/tools/audit_pft_coverage_21ka.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Run full 21 ka PFT coverage audit
+        shell: bash
+        run: python pb4_chelsa21k/tools/audit_pft_coverage_21ka.py
+
+      - name: Commit audit results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/pft_coverage_audit_20261005
+          git status --short
+          git commit -m 'Record full 21ka PFT coverage audit [skip ci]' || exit 0
+          git push origin HEAD:main
