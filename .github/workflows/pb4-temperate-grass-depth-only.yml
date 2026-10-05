@@ -1,0 +1,120 @@
+name: Quick temperate-grass depth check
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-temperate-grass-depth-only.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio scipy tabulate
+      - name: Patch and sweep
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/qgrass
+          mkdir -p /tmp/qgrass
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/qgrass
+          root=$(find /tmp/qgrass -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          export ROOT="$root"
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          root=Path(os.environ['ROOT'])
+          p=root/'pb4studio'/'biome4_backend.py'
+          s=p.read_text(encoding='utf-8')
+          s=s.replace(
+              '       real pb4_soildepth,root0,xi,rd,rtop_eff,rbot_eff\n',
+              '       real pb4_soildepth,root0,xi,rd,rtop_eff,rbot_eff\n       real beta_lf,denom_lf\n',1)
+          old=(
+              '       if (rd.gt.0.0) then\n'
+              '        rtop_eff=1.0-exp(-min(rd,0.30)/xi)\n'
+              '        if (rd.gt.0.30) then\n'
+              '         rbot_eff=exp(-0.30/xi)-exp(-rd/xi)\n'
+              '        else\n'
+              '         rbot_eff=0.0\n'
+              '        end if\n'
+              '       else\n'
+              '        rtop_eff=0.0\n'
+              '        rbot_eff=0.0\n'
+              '       end if\n')
+          new=(
+              '       if ((pft.eq.8).or.(pft.eq.9).or.(pft.eq.12).or.\n'
+              '     >     (pft.eq.13)) then\n'
+              '        beta_lf=0.952\n'
+              '       else if ((pft.eq.10).or.(pft.eq.11)) then\n'
+              '        beta_lf=0.978\n'
+              '       else\n'
+              '        beta_lf=0.970\n'
+              '       end if\n'
+              '       denom_lf=1.0-beta_lf**30.0\n'
+              '       if (rd.gt.0.0) then\n'
+              '        if (rd.le.0.30) then\n'
+              '         rtop_eff=root0*\n'
+              '     >    (1.0-beta_lf**(100.0*rd))/denom_lf\n'
+              '         rbot_eff=0.0\n'
+              '        else\n'
+              '         rtop_eff=root0\n'
+              '         rbot_eff=exp(-0.30/xi)-exp(-rd/xi)\n'
+              '        end if\n'
+              '       else\n'
+              '        rtop_eff=0.0\n'
+              '        rbot_eff=0.0\n'
+              '       end if\n')
+          if old not in s:
+              raise SystemExit('root block not found')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
+          (
+            cd "$root"
+            python tools/mckenzie2003_depth_sensitivity.py               --climate embedded_inputs/yongneup_exact20m/YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv               --elevation-m 1162.08               --depths 0.01 0.02 0.03 0.04 0.05 0.06 0.08 0.10 0.12 0.15 0.20 0.30 0.50 1.50               --ages 5.0 4.0 3.0 2.7 2.5 2.3 2.2 2.0               --threads 4               --output /tmp/qgrass/sweep.csv
+          )
+          mkdir -p pb4_chelsa21k/results/temperate_grass_candidate_20261006
+          cp /tmp/qgrass/sweep.csv pb4_chelsa21k/results/temperate_grass_candidate_20261006/QUICK_DEPTH_SWEEP.csv
+          python - <<'PY'
+          import pandas as pd, numpy as np
+          from pathlib import Path
+          p=Path('pb4_chelsa21k/results/temperate_grass_candidate_20261006')
+          d=pd.read_csv(p/'QUICK_DEPTH_SWEEP.csv')
+          d=d[d.variant.astype(str).eq('mckenzie2003')].copy()
+          rows=[]
+          for age,g in d.groupby('target_age_ka'):
+              h=g[g.optpft.astype(int).eq(8)]
+              rows.append(dict(age_ka=age,n_pft8_depths=len(h),
+                               depth_min=h.depth_m.min() if len(h) else np.nan,
+                               depth_max=h.depth_m.max() if len(h) else np.nan,
+                               depths=';'.join(f'{x:g}' for x in h.depth_m.tolist()),
+                               optpfts=';'.join(map(str,sorted(set(g.optpft.astype(int)))))))
+          s=pd.DataFrame(rows)
+          s.to_csv(p/'QUICK_DEPTH_SUMMARY.csv',index=False)
+          print(s.to_string(index=False))
+          PY
+      - name: Commit
+        shell: bash
+        run: |
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/temperate_grass_candidate_20261006/QUICK_DEPTH_*.csv
+          git commit -m 'Add quick temperate-grass depth candidate result [skip ci]' || exit 0
+          git push origin HEAD:main
