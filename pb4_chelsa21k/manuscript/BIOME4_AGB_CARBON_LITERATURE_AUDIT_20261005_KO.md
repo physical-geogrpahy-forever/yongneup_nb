@@ -1315,3 +1315,52 @@ ForC 동일 snapshot의 LAI와 biomass_ag_C를 탐색했다. 양의 값, suspici
 - https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2010GB003917
 - https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2002JD002558
 - https://jules-lsm.github.io/vn4.4/namelists/pft_params.nml.html
+
+
+## 19. 초본 LAI 기반 AGB 경로 확인 (2026-10-05)
+
+**판정: 같은 JULES 계열의 generic C3/C4 grass 계수로 full-leaf living AGB 진단식을 구성할 수 있다. 모든 한랭 초본/지의류/이끼 또는 용늪 습지 초본에 대해 검증된 식이라는 뜻은 아니다.**
+
+### 원문 정의와 공통 계수
+
+Clark et al. (2011), DOI 10.5194/gmd-4-701-2011, Table7 및 Section5.2:
+- generic C3/C4 grass의 awl=0.005 kg C m^-2.
+- aws=1: 초본 stem carbon은 전부 respiring stem으로 표현된다.
+- 기존 표의 bwl=1.667. Harper2018 Eq4는 5/3를 명시한다.
+
+Harper2016 Table2의 공통 trait 체계:
+- C3 grass LMA=0.0495 kg leaf dry matter m^-2 leaf.
+- C4 grass LMA=0.1370 kg leaf dry matter m^-2 leaf.
+Harper2018 Table2에서도 C3/C4의 awl=0.005, aws=1이다. 교목과 초본에 같은 JULES9 functional-type 체계를 사용한다. 억새 단일 종의 bioenergy 보정 계수로 자연 초본을 대체하지 않는다.
+
+Littleton et al. (2020), JULES-BE, DOI 10.5194/gmd-13-1123-2020, Section2.2.2 Eq3-4는 위 모델 풀을 이용해 above-ground carbon을 leafC+woodC로 계산하며 rootC는 별도로 below-ground로 처리한다. 초본의 woodC 항은 지상 구조/줄기 풀로 해석하는 진단식이다. 교목 통합 woody pool에 적용한 Wolf2011의 stem:coarse-root=75:25 분리비율을 generic grass에 그대로 적용하지 않는다. 2020 논문의 AGB 보정/검증은 Miscanthus PFT에 대한 것이므로 generic grass 또는 용늪 습지 초본의 AGB 검증 근거로 확대하지 않는다.
+
+### 유도식과 단위
+
+full-leaf living herb AGB_dry = LMA * Lbal + awl * Lbal^(5/3) / fC_stem.
+단위 kg dry matter m^-2. Lbal은 최대/잠재 LAI이다. rootC는 합산하지 않는다.
+fC_stem=0.5는 명시적인 건물량 변환 가정이며 해당 2018 논문의 초본 줄기 탄소분율로 확인한 수치라고 하지 않는다. 잎 건물량은 LMA로 직접 계산해 버전별 잎 Cmass 차이와 섞지 않는다.
+
+조건부 수치식:
+C3: AGB = 0.0495*Lbal + 0.010*Lbal^(5/3).
+C4: AGB = 0.1370*Lbal + 0.010*Lbal^(5/3).
+LAI=3의 산술 확인: C3=0.2109025147 kg dry m^-2 (210.9025 g m^-2); C4=0.4734025147 kg dry m^-2 (473.4025 g m^-2).
+이는 새 용늪 시뮬레이션 또는 현장 검증 결과가 아닌 공통 가정 아래 식 계산 예시이다. 죽은 standing biomass, litter 및 뿌리 생체량은 포함하지 않는다.
+
+### BIOME4 대응과 하층식생의 제한
+
+검사한 native source의 PFT8은 temperate grass, PFT9은 tropical C4 grass, PFT12는 cold herbaceous, PFT13은 lichen/forb로 표기된다. 실제 source의 photosynthetic-path 선택은 PFT9를 C4로 실행하고 PFT8은 C3로 실행한다. 이 source에서 월별 C3/C4 재선택 분기는 PFT10에만 활성화되어 있다. 주석에 C3/C4라고 쓰인 것만으로 PFT8의 실제 C4 비율을 만들어 내지 않는다. 최종 production 버전이 native source와 다른 경우 해당 코드의 pathway를 다시 확인해야 한다.
+
+- 일반 초본의 C3/C4 기능형에는 같은 JULES generic grass 체계를 대응 후보로 사용한다.
+- PFT12 cold herbaceous를 C3 grass 계수로 처리하는 것은 기능형 통합이라는 추가 가정이다. cold-herb 전용 검증 계수라고 표현하지 않는다.
+- PFT13의 lichen/forb 전체에 generic grass 계수를 검증된 값처럼 적용하지 않는다. 특히 지의류/이끼를 grass의 잎+줄기 allometry로 처리할 근거는 이번 검토에서 확보하지 않았다.
+- 산림 하층의 실제 초본 AGB를 요구한다면 초본 층 자체의 LAI/피복률이 필요하다. 총 canopy LAI만으로 교목과 초본의 실제 생체량을 분해하지 않는다.
+- BIOME4 output(6)은 grasspft의 optlai, output(7)은 그 PFT의 optnpp이다. 이는 대안 초본 PFT의 potential output이며, 산림 밑에서 실현되는 하층 LAI/AGB라는 뜻이 아니다. 교목 potential AGB와 초본 potential AGB를 그대로 더하지 않는다.
+
+초본 경로와 계수 존재 확인은 끝났지만, 용늪 현장 정확도와 모든 13PFT의 공통 변환은 아직 완료되지 않았다. production 코드는 변경하지 않았다.
+
+원문:
+- https://gmd.copernicus.org/articles/4/701/2011/
+- https://gmd.copernicus.org/articles/9/2415/2016/
+- https://gmd.copernicus.org/articles/11/2857/2018/
+- https://gmd.copernicus.org/articles/13/1123/2020/
