@@ -1,0 +1,41 @@
+name: Full PFT8 threshold matrix
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-pft8-threshold-full-matrix.yml'
+      - 'pb4_chelsa21k/tools/test_pft8_threshold_full.py'
+
+permissions:
+  contents: read
+
+jobs:
+  threshold:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        threshold: ['2.65','2.70','2.75','2.80','2.85','2.90','2.95']
+    env:
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy matplotlib
+      - name: Run threshold
+        shell: bash
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/tools/test_pft8_threshold_full.py --threshold ${{ matrix.threshold }}
