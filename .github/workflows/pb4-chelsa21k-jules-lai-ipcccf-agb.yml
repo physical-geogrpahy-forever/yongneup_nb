@@ -1,0 +1,59 @@
+name: PB4 JULES LAI IPCC-CF AGB candidate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-jules-lai-ipcccf-agb.yml'
+      - 'pb4_chelsa21k/tools/run_jules_lai_ipcccf_agb_candidate.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Syntax check
+        shell: bash
+        run: python -m py_compile pb4_chelsa21k/tools/run_jules_lai_ipcccf_agb_candidate.py
+
+      - name: Run JULES LAI IPCC-CF candidates
+        shell: bash
+        run: python pb4_chelsa21k/tools/run_jules_lai_ipcccf_agb_candidate.py
+
+      - name: Commit candidate packages and results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_IPCCCF_AGB_PFT7_BDT.zip
+          git add pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_IPCCCF_AGB_PFT7_NDT.zip
+          git add pb4_chelsa21k/results/jules_lai_ipcccf_agb_candidate_20261005
+          git commit -m 'Run JULES LAI IPCC-CF AGB candidates [skip ci]' || exit 0
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
