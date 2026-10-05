@@ -4,10 +4,11 @@
 
 주 검증과 모델선택은 Jang et al. (2011), n=62, 유역 1% 출현 기준으로 이미 고정한다. Park 자료는 모델을 다시 보정하지 않는 holdout으로만 사용한다.
 
-필요 원자료:
+확보 원자료:
 
-- PARK2021_YNC_POLLEN_RAW.csv
-- PARK2021_TAXON_MAPPING.csv
+- 사용자가 제공한 Supplementary Excel: `1-s2.0-S0031018221004909-mmc1(1).xlsx`
+- 파생 100년 window: `PARK2021_YNC_100YR_WINDOWS.csv`
+- taxon mapping: `PARK2021_TAXON_MAPPING.csv`
 
 Park et al. (2021) Supplementary의 sample-level pollen composition을 원자료로 사용하며, Fig. 3을 수작업 digitize하여 정량자료를 만들지 않는다.
 
