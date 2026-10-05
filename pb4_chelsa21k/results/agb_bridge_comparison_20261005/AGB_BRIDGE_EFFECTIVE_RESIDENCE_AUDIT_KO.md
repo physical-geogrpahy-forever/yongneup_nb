@@ -2,25 +2,34 @@
 
 Date: 2026-10-05
 
-The equilibrium dry-AGB bridge
+## Correction of the residence-time definition
 
-AGBdry [kg m-2] = c_i * NPP_C [g C m-2 yr-1]
+The Xue/IBIS equilibrium bridge is derived from the carbon-pool equation itself:
 
-implies an aboveground-carbon stock/productivity ratio
+[
+C_{i,j}=a_{i,j}	au_{i,j}NPP_i
+]
 
-T_i = c_i * 1000 * fC_i
+Therefore the model-native aboveground carbon stock/productivity ratio is
 
-in years.
+[
+T_i=a_{L,i}	au_{L,i}+a_{W,i}	au_{W,i}
+]
 
-Using IPCC carbon fractions gives:
+and must **not** be reconstructed by multiplying the dry-AGB coefficient by a new IPCC carbon fraction.
 
-| PFT | Xue dry coefficient | fC | implied T (yr) | ForC >=100 yr median T (yr) | Xue / ForC |
-|---|---:|---:|---:|---:|---:|
-|4 temperate deciduous|0.0286|0.48|13.728|25.234|0.544|
-|5 temperate evergreen conifer|0.0222|0.51|11.322|40.458|0.280|
-|6 boreal evergreen|0.0327|0.51|16.677|19.664|0.848|
-|7 boreal deciduous, BDT carbon fraction|0.0422|0.48|20.256|14.976|1.353|
-|7 boreal deciduous, NDT carbon fraction|0.0422|0.51|21.522|14.976|1.437|
+Xue et al. separately converts modeled carbon density to dry AGB by a factor of 2.0. The earlier audit mixed these two steps by applying 0.48/0.51 after the Xue dry conversion. That was unnecessary and is corrected here.
+
+## Realized Yongneup forest PFTs
+
+| BIOME4 PFT | Xue/IBIS analogue | model-native AGB_C/NPP_C (yr) | Xue dry coefficient | independent check |
+|---|---|---:|---:|---|
+|4|temperate broadleaf cold-deciduous|14.30|0.0286|Worak Q. mongolica 12.16 yr|
+|6|boreal conifer evergreen|16.35|0.0327|ForC >=100 yr boreal-evergreen median 19.66 yr|
+|7|boreal cold-deciduous tree|21.10|0.0422|ForC analogue n too small/heterogeneous for decisive test|
+|10|evergreen shrub structural analogue|1.425|0.00285|negligible domain contribution|
+
+PFT5 is excluded from the Yongneup scientific validation because it has 0 dominant-PFT occurrences in the retained canonical 21-0 ka run and no retained historical diagnostic shows it becoming selected dominant optPFT.
 
 ## PFT4 local check
 
@@ -29,45 +38,54 @@ Mt. Worak Quercus mongolica:
 - annual NPP C fixation = 6.74 t C ha-1 yr-1
 - observed effective ratio = 81.94 / 6.74 = 12.16 yr
 
-This is very close to the Xue-implied 13.73 yr.
+Xue/IBIS PFT4 equilibrium factor:
+- 14.30 yr
 
-The older ForC temperate deciduous median is much higher at 25.23 yr. That discrepancy is consistent with the fact that standing stock/NPP ratio changes strongly with stand age and structure.
+Difference:
+- Xue / observed = 1.18
+- about 18% higher than the local mature-forest ratio
+
+This is close for a cross-model PFT transfer and directly tests the stock/NPP quantity represented by the equilibrium equation.
 
 ## PFT6 check
 
-ForC >=100 yr boreal-evergreen analogue:
+ForC/Luyssaert >=100 yr boreal-evergreen analogue:
 - n = 8 plots
 - median AGB_C/NPP_C = 19.66 yr
 
-Xue-implied PFT6:
-- 16.68 yr
+Xue/IBIS PFT6:
+- 16.35 yr
 
-Ratio = 0.85, which is close for a cross-model equilibrium transfer.
+Difference:
+- Xue / observed median = 0.83
+- about 17% lower than the mature-plot median
 
-The Korean magnitude checks span low-biomass Halla Abies koreana and much larger mature Korean pine stands, so a single stock value is not expected. The stock/NPP comparison is more informative than stock alone.
+Again, this is close relative to the very large stand-age and site variation in forest standing biomass.
 
-## PFT5 warning
+## PFT7 and PFT10
 
-PFT5 is a poor match to the mature ForC diagnostic: 11.3 vs 40.5 yr. This would be a serious limitation in a domain where PFT5 is common.
+PFT7:
+- Xue equilibrium factor = 21.10 yr
+- dynamic contribution is minor relative to PFT6
+- available ForC analogue count and functional-type correspondence are insufficient for a decisive residence-time validation
+- retain as uncertainty, not as a reason to reject the whole domain bridge
 
-However, PFT5 has zero dominant-cell occurrences in the current 21-0 ka Yongneup run. It therefore does not affect this experiment's AGB feedback.
+PFT10:
+- Xue evergreen-shrub structural analogue = 1.425 yr
+- only 200 cell-observations in the whole dynamic 21-ka run
+- cell-weighted mean NPP only 6.08 g C m-2 yr-1
+- basin-scale effect is negligible
 
-## PFT7 warning
+## Interpretation
 
-The ForC PFT7 diagnostic has only two plots and mixes deciduous broadleaf and deciduous needleleaf analogues. The combined median is not a strong target for BIOME4 PFT7.
+For the PFTs that control the Yongneup experiment:
+- PFT4 local Korean stock/NPP ratio agrees with Xue within about 18%
+- PFT6 mature ForC stock/NPP ratio agrees with Xue within about 17%
 
-PFT7 also contributes relatively few cells, so it is retained as an uncertainty rather than used to reject the bridge.
+This is stronger evidence than matching AGB magnitude alone because it tests the exact slow-process quantity used by the equilibrium allocation-turnover formulation.
 
-## Current interpretation
+The result does not imply universal residence times. It supports the Xue parameter set as a defensible **equilibrium potential-vegetation bridge for this domain**.
 
-For the PFTs that actually dominate this Yongneup 21-ka experiment:
-
-- PFT4: local Korean stock/NPP ratio supports Xue.
-- PFT6: mature ForC stock/NPP ratio supports Xue reasonably well.
-- PFT7: unresolved but low contribution.
-- PFT10: unresolved and negligible contribution.
-- PFT5: substantial mismatch but absent from the realized dominant-PFT trajectory.
-
-Therefore the Xue/IBIS bridge is currently the strongest equilibrium AGB candidate for this specific domain, while the JULES-LAI bridge remains an independent low-biomass sensitivity case.
-
-This is a domain-specific promotion argument, not evidence that the Xue coefficients are universally valid for all BIOME4 PFTs.
+See also:
+- `XUE_IBIS_SCIENTIFIC_BASIS_KO.md`
+- `XUE_IBIS_REALIZED_PFT_SCIENTIFIC_BASIS.csv`
