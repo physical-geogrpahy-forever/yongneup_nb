@@ -151,11 +151,10 @@ def summarize(out: Path):
         p, df = find_summary(out, mode)
         age_col = age_column(df)
 
-        keep = []
-        if age_col:
-            keep.append(age_col)
-        keep += [c for c in df.columns if c.startswith("audit_optpft_") or c.startswith("audit_biome_")]
-        sub = df[keep].copy()
+        # Preserve the full 211-step canonical summary, including geomorphic
+        # state, NPP and EEMT, so later AGB candidates can be compared against
+        # the exact canonical trajectory without another hidden reference run.
+        sub = df.copy()
         sub.insert(0, "mode", mode)
         sub.insert(1, "source_csv", str(p.relative_to(out)))
         full_frames.append(sub)
