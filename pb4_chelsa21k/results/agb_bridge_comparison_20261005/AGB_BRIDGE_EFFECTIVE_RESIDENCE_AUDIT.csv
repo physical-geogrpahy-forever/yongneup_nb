@@ -1,6 +1,6 @@
-pft,xue_dry_coeff,carbon_fraction,xue_implied_AGBC_over_NPPC_years,ForC_mature_median_years,xue_to_ForC_ratio,local_check,interpretation
-4,0.0286,0.48,13.728,25.2337,0.5440,"Worak Quercus mongolica 12.157 yr","Xue close to Korean local ratio; lower than mature ForC median"
-5,0.0222,0.51,11.322,40.4576,0.2798,"not selected in PB4 21ka","large mismatch but no domain contribution"
-6,0.0327,0.51,16.677,19.6643,0.8481,"Halla Abies and Korean pine magnitude checks","close to mature ForC median"
-7_BDT,0.0422,0.48,20.256,14.9765,1.3525,"ForC n=2 mixed broadleaf/needleleaf","uncertain; broad PFT definition"
-7_NDT,0.0422,0.51,21.522,14.9765,1.4371,"ForC n=2 mixed broadleaf/needleleaf","uncertain; small domain contribution"
+pft,realized_in_yongneup,xue_equilibrium_AGBC_over_NPPC_yr,xue_dry_coeff,independent_ratio_yr,xue_to_observed_ratio,evidence,status
+4,yes,14.30,0.0286,12.16,1.176,"Mt. Worak Quercus mongolica aboveground C / NPP C","supported"
+6,yes,16.35,0.0327,19.6643,0.831,"ForC/Luyssaert >=100 yr boreal-evergreen median, n=8","supported"
+7,yes,21.10,0.0422,,,"analogue sample/function-type uncertainty","usable with uncertainty"
+10,yes,1.425,0.00285,,,"evergreen-shrub structural analogue; negligible contribution","sensitivity analogue"
+5,no,11.10,0.0222,,,"0 dominant-PFT occurrences in retained Yongneup canonical run","excluded from domain validation"
