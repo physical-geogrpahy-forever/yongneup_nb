@@ -1,0 +1,251 @@
+name: Run final PB4 with Beyer forcing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-final-beyer21k-diagnostic.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      OMP_NUM_THREADS: '4'
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Extract final canonical
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4beyer
+          mkdir -p /tmp/pb4beyer
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4beyer
+          root=$(find /tmp/pb4beyer -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          test -n "$root"
+          echo "ROOT=$root" >> "$GITHUB_ENV"
+
+      - name: Build Beyer 21 ka 100-year forcing
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import numpy as np, pandas as pd, os
+
+          root=Path(os.environ['ROOT'])
+          src=root/'embedded_inputs'/'yongneup_exact20m'/'climate_yongneup_128.25E_38.25N.csv'
+          d=pd.read_csv(src,encoding='utf-8-sig')
+          req={'ka_bp','month','temp_C','precip_mm','cloud_pct','tmin_C'}
+          assert req.issubset(d.columns), d.columns
+
+          target=np.round(np.arange(0.0,21.0+0.0001,0.1),1)
+          rows=[]
+          for m in range(1,13):
+              g=d[d.month.eq(m)].sort_values('ka_bp')
+              x=g.ka_bp.to_numpy(float)
+              for age in target:
+                  rows.append({
+                      'ka_bp':float(age),
+                      'month':m,
+                      'temp_C':float(np.interp(age,x,g.temp_C.to_numpy(float))),
+                      'precip_mm':float(np.interp(age,x,g.precip_mm.to_numpy(float))),
+                      'cloud_pct':float(np.interp(age,x,g.cloud_pct.to_numpy(float))),
+                      'tmin_C':float(np.interp(age,x,g.tmin_C.to_numpy(float))),
+                  })
+          out=pd.DataFrame(rows).sort_values(['ka_bp','month'],ascending=[False,True])
+          p=root/'embedded_inputs'/'yongneup_exact20m'/'YONGNEUP_BEYER21K_100YR.csv'
+          out.to_csv(p,index=False,encoding='utf-8-sig')
+          print(p)
+          print('rows',len(out),'ages',out.ka_bp.nunique(),'range',out.ka_bp.min(),out.ka_bp.max())
+          print(out[out.ka_bp.isin([5.0,4.0,3.0,2.7,2.5,2.3,2.2,2.0,0.0])].to_string(index=False))
+          PY
+
+      - name: Create Beyer runner from final runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import os
+          root=Path(os.environ['ROOT'])
+          src=root/'tools'/'run_yongneup_21ka_chelsa_selfcontained.py'
+          txt=src.read_text(encoding='utf-8')
+          txt=txt.replace("YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv","YONGNEUP_BEYER21K_100YR.csv")
+          txt=txt.replace("outputs_CHELSA21K","outputs_BEYER21K_FINAL")
+          txt=txt.replace("run_config_CHELSA21K.json","run_config_BEYER21K_FINAL.json")
+          txt=txt.replace("PB4Studio CHELSA21K self-contained Yongneup run","PB4Studio final-code Beyer21K Yongneup diagnostic")
+          dst=root/'tools'/'run_yongneup_21ka_beyer_final.py'
+          dst.write_text(txt,encoding='utf-8')
+          print(dst)
+          PY
+
+      - name: Run final code with Beyer
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$ROOT"
+          python tools/run_yongneup_21ka_beyer_final.py | tee /tmp/PB4_FINAL_BEYER21K_RUN.log
+
+      - name: Analyze vegetation and Jang
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p pb4_chelsa21k/results/final_beyer21k_20261006
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd, numpy as np, json, os, shutil
+
+          root=Path(os.environ['ROOT'])
+          out=root/'outputs_BEYER21K_FINAL'
+          dst=Path('pb4_chelsa21k/results/final_beyer21k_20261006')
+          dst.mkdir(parents=True,exist_ok=True)
+
+          # Jang 1% validation
+          target={
+              '95_01':('broadleaf','basin_count_broadleaf'),
+              '95_02':('mixed','basin_count_mixed'),
+              '95_03':('broadleaf','basin_count_broadleaf'),
+              '95_04':('mixed','basin_count_mixed'),
+          }
+          jang=[]
+          detail=[]
+          for mode in ('static','dynamic'):
+              p=out/f'model_{mode}'/'validation_per_output_time.csv'
+              df=pd.read_csv(p,encoding='utf-8-sig')
+              df=df[df.record_id.astype(str).isin(target)].copy()
+              df['target_class']=df.record_id.astype(str).map(lambda x:target[x][0])
+              df['target_count']=df.apply(lambda r:r[target[str(r.record_id)][1]],axis=1)
+              df['target_fraction']=df.target_count/df.valid_basin_cell_count
+              df['correct_1pct']=df.target_fraction>=0.01-1e-15
+              jang.append({'mode':mode,'n':len(df),'correct_n':int(df.correct_1pct.sum()),
+                           'accuracy_pct':100*df.correct_1pct.mean()})
+              df.insert(0,'mode',mode)
+              detail.append(df)
+          pd.DataFrame(jang).to_csv(dst/'BEYER_FINAL_JANG1PCT_SUMMARY.csv',index=False,encoding='utf-8-sig')
+          pd.concat(detail,ignore_index=True).to_csv(dst/'BEYER_FINAL_JANG1PCT_ROWS.csv',index=False,encoding='utf-8-sig')
+
+          # Find 211-row diagnostic csvs with PFT counts
+          frames=[]
+          for mode in ('static','dynamic'):
+              found=[]
+              for p in (out/f'model_{mode}').rglob('*.csv'):
+                  try: df=pd.read_csv(p,encoding='utf-8-sig')
+                  except Exception: continue
+                  if len(df)==211 and 'ka_bp' in df.columns and any(c.startswith('reich_lai_sapwood_pft') and c.endswith('_count') for c in df.columns):
+                      found.append((p,df))
+              if not found:
+                  raise RuntimeError(f'No 211-row PFT diagnostic found for {mode}')
+              p,df=max(found,key=lambda x:len(x[1].columns))
+              d=df.copy()
+              d.insert(0,'mode',mode)
+              d.insert(1,'source_csv',str(p.relative_to(out)))
+              frames.append(d)
+              print('PFT source',mode,p)
+          ts=pd.concat(frames,ignore_index=True)
+          ts.to_csv(dst/'BEYER_FINAL_21KA_PFT_TIMESERIES.csv',index=False,encoding='utf-8-sig')
+
+          # Compact PFT summary
+          pftcols=[f'reich_lai_sapwood_pft{i:02d}_count' for i in range(1,14)]
+          rows=[]
+          for _,r in ts.iterrows():
+              counts={i:int(r.get(f'reich_lai_sapwood_pft{i:02d}_count',0) or 0) for i in range(1,14)}
+              herb=sum(counts[i] for i in (8,9,12,13))
+              woody=sum(counts[i] for i in (2,3,4,5,6,7,10,11))
+              rows.append({
+                  'mode':r['mode'],'ka_bp':r['ka_bp'],
+                  'pft4_count':counts[4],'pft6_count':counts[6],'pft7_count':counts[7],
+                  'pft8_count':counts[8],'pft9_count':counts[9],
+                  'pft12_count':counts[12],'pft13_count':counts[13],
+                  'herbaceous_count_8_9_12_13':herb,
+                  'woody_count':woody,
+                  'n_cells':int(r.get('n_cells',herb+woody)),
+              })
+          comp=pd.DataFrame(rows)
+          comp['herbaceous_fraction']=comp.herbaceous_count_8_9_12_13/comp.n_cells.replace(0,np.nan)
+          comp.to_csv(dst/'BEYER_FINAL_PFT_COMPACT.csv',index=False,encoding='utf-8-sig')
+
+          # Park event and Zone 2 windows
+          key=comp[(comp.ka_bp>=0.5)&(comp.ka_bp<=3.2)].copy()
+          key.to_csv(dst/'BEYER_FINAL_PARK_INTERVAL_PFT.csv',index=False,encoding='utf-8-sig')
+
+          # Compare with final CHELSA PFT timeseries already in repo
+          cp=Path('pb4_chelsa21k/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv')
+          chelsa=pd.read_csv(cp,encoding='utf-8-sig')
+          cr=[]
+          for _,r in chelsa.iterrows():
+              counts={i:int(r.get(f'reich_lai_sapwood_pft{i:02d}_count',0) or 0) for i in range(1,14)}
+              herb=sum(counts[i] for i in (8,9,12,13))
+              cr.append({'mode':r['mode'],'ka_bp':r['ka_bp'],
+                         'chelsa_pft8_count':counts[8],
+                         'chelsa_herbaceous_count':herb,
+                         'chelsa_n_cells':int(r.get('n_cells',0))})
+          cdf=pd.DataFrame(cr)
+          merged=comp.merge(cdf,on=['mode','ka_bp'],how='left')
+          merged['chelsa_herbaceous_fraction']=merged.chelsa_herbaceous_count/merged.chelsa_n_cells.replace(0,np.nan)
+          merged.to_csv(dst/'BEYER_VS_CHELSA_HERBACEOUS.csv',index=False,encoding='utf-8-sig')
+
+          # Summary
+          summ=[]
+          for mode,g in comp.groupby('mode'):
+              hp=g[g.herbaceous_count_8_9_12_13>0]
+              p8=g[g.pft8_count>0]
+              event=g[(g.ka_bp>=2.2)&(g.ka_bp<=2.7)]
+              summ.append({
+                  'mode':mode,
+                  'n_timesteps_with_any_herbaceous':len(hp),
+                  'first_herbaceous_ka_bp':float(hp.ka_bp.max()) if len(hp) else np.nan,
+                  'last_herbaceous_ka_bp':float(hp.ka_bp.min()) if len(hp) else np.nan,
+                  'n_timesteps_with_pft8':len(p8),
+                  'max_pft8_fraction':float((g.pft8_count/g.n_cells).max()),
+                  'park_2p2_2p7_mean_herb_fraction':float(event.herbaceous_fraction.mean()),
+                  'park_2p2_2p7_max_herb_fraction':float(event.herbaceous_fraction.max()),
+              })
+          s=pd.DataFrame(summ)
+          s.to_csv(dst/'BEYER_FINAL_HERBACEOUS_SUMMARY.csv',index=False,encoding='utf-8-sig')
+
+          md=['# Final PB4 code with Beyer forcing diagnostic','',
+              'This is an A/B climate-forcing diagnostic. The production code, soil/root coupling, AGB* and geomorphic equations are unchanged; only climate forcing is replaced by the embedded Beyer Yongneup series temporally interpolated to 0.1 kyr.',
+              '',
+              '## Jang 1% validation','',
+              pd.DataFrame(jang).to_markdown(index=False),'',
+              '## Herbaceous summary','',s.to_markdown(index=False),'',
+              '## Park-event interval 2.2-2.7 ka','',
+              key[(key['mode']=='dynamic')&(key.ka_bp>=2.2)&(key.ka_bp<=2.7)].to_markdown(index=False),'']
+          (dst/'FINAL_CODE_BEYER21K_DIAGNOSTIC_KO.md').write_text('\n'.join(md),encoding='utf-8')
+          shutil.copy2('/tmp/PB4_FINAL_BEYER21K_RUN.log',dst/'PB4_FINAL_BEYER21K_RUN.log')
+          print(pd.DataFrame(jang).to_string(index=False))
+          print(s.to_string(index=False))
+          print(key[(key['mode']=='dynamic')&(key.ka_bp>=2.2)&(key.ka_bp<=2.7)].to_string(index=False))
+          PY
+
+      - name: Commit diagnostic results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/final_beyer21k_20261006
+          git commit -m 'Run final PB4 code with Beyer 21 ka forcing [skip ci]' || exit 0
+          git push origin HEAD:main
