@@ -91,6 +91,21 @@ def main():
                 f.write(f"{j:5d}: {lines[j-1]}\n")
             f.write("```\n\n")
 
+    extra = OUT / "RUNNER_VEG_CONTEXT.md"
+    with extra.open("w", encoding="utf-8") as f:
+        f.write("# Runner and vegetation context\n\n")
+        for rel, a, b in [
+            ("pb4studio/runner.py", 530, 600),
+            ("pb4studio/climate.py", 650, 770),
+            ("pb4studio/climate.py", 837, 910),
+        ]:
+            pp = root / rel
+            lines = pp.read_text(encoding="utf-8", errors="replace").splitlines()
+            f.write(f"## `{rel}` lines {a}-{b}\n\n```text\n")
+            for j in range(a, min(b, len(lines)) + 1):
+                f.write(f"{j:5d}: {lines[j-1]}\n")
+            f.write("```\n\n")
+
     print(report.read_text(encoding="utf-8")[:30000])
 
 
