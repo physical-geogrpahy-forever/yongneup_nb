@@ -323,3 +323,15 @@ Jang et al. (2011)의 원문 식생대와 기존 PB4 축약 라벨이 일부 불
 - `results/fourway_20261004/TRUE_ORIGINAL_AND_EXACT_RESTART.patch`
 
 Park et al. (2021)은 이 62개 categorical 총점에 포함하지 않고 Supplementary 실측 화분자료로 별도 평가한다.
+
+
+## 14. Native-climate ablation, 2026-10-05
+
+PB4-McKenzie의 토심별 AWC, PFT별 finite-depth roots, 51% 과반 reduced-class 판정, dynamic Pelletier coupling을 유지한 채 PFT5/PFT6 기후제약만 BIOME4 v4.2b2 원본값으로 복원해 21-0 ka 전체를 새로 실행했다.
+
+Jang 원문 식생대, n=62, 유역 1% 출현 기준 결과는 tunedClimate 판과 동일했다.
+
+- static 24/62 = 38.71%
+- dynamic 55/62 = 88.71%
+
+따라서 현재 증거에서는 PFT5/PFT6 기후제약 튜닝이 성능에 기여하지 않는다. 향후 production candidate는 원본 BIOME4 PFT 기후제약을 유지하고 McKenzie/Jackson soil-root-water coupling과 51% 과반 판정을 유지하는 구성이 우선이다.

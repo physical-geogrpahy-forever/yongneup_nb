@@ -151,3 +151,21 @@ Park et al. (2021)은 이 62개 categorical 정확도에 넣지 않는다. Suppl
 특히 3.4-0.4 ka에는 native BIOME4 broadleaf cell 자체가 매 시점 3-4/298셀, 즉 1.0067-1.3423% 존재하므로 1% 기준을 31/31 통과한다. 이 부분은 51% post-classification만으로 생긴 것이 아니다.
 
 상세 진단은 `cause_diagnostics/CAUSE_DIAGNOSIS_KO.md`와 동 디렉터리의 CSV를 참조한다.
+
+
+## 11. Native-climate ablation
+
+2026-10-05에 PB4-McKenzie의 McKenzie AWC, Jackson finite-depth roots, 51% 과반 판정, dynamic Pelletier coupling은 유지하고 PFT5/PFT6 기후제약 튜닝만 제거한 full 21-0 ka ablation을 새로 실행했다.
+
+결과는 tunedClimate와 완전히 동일했다.
+
+- static: 24/62 = 38.71%
+- dynamic: 55/62 = 88.71%
+- 95_01: 12/12
+- 95_02: 9/15
+- 95_03: static 0/31, dynamic 31/31
+- 95_04: 3/4
+
+따라서 PFT5/PFT6 온도보정은 현재 검증 정확도 향상에 필요하지 않으며, BIOME4 v4.2b2 원본 기후제약을 유지하는 nativeClimate 구성이 더 단순한 생산 후보이다.
+
+상세 결과: `../native_climate_ablation_20261005/NATIVE_CLIMATE_ABLATION_RESULTS_KO.md`
