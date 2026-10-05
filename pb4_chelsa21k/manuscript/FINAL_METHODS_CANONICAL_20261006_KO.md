@@ -311,38 +311,31 @@ f_C=0.50
 
 ### 9.1 잎 건조생체량
 
-Reich et al. (1992)의 전체 LEAVES 회귀식은
+Reich et al. (1992)의 전체 LEAVES 회귀식을 원식 그대로 사용한다.
 
-[
-log_{10}(SLA)
+\[
+\boxed{
+\log_{10}(SLA_p)
 =
 2.44
 -
-0.43log_{10}(L_{m,p})
-]
-
-이다. (L_{m,p})의 단위는 month, SLA의 원 단위는 cm^2 g^-1이다.
-
-m^2 kg^-1로 변환하면
-
-[
-SLA_p
-=
-27.542287L_{m,p}^{-0.43}
-]
-
-이므로
-
-[
-oxed{
-B_{leaf,p}
-=
-0.0363078055
-LAI_pL_{m,p}^{0.43}
+0.43\log_{10}(L_{m,p})
 }
-]
+\]
 
-가 된다.
+여기서 \(L_{m,p}\)의 단위는 month이고, \(SLA_p\)의 원 단위는 \(\mathrm{cm^2\,g^{-1}}\)이다.
+
+Reich et al. (1992)의 정의에 따라 SLA는 leaf area / leaf dry mass이므로 잎 건조생체량은
+
+\[
+\boxed{
+B_{\mathrm{leaf,dry},p}
+=
+\frac{LAI_p}{SLA_p}
+}
+\]
+
+로 계산한다. 실제 코드에서는 Reich 원식의 단위변환과 대입을 수치적으로 수행하지만, 논문 본문에서는 유도된 소수계수를 별도의 경험계수처럼 제시하지 않는다.
 
 ### 9.2 변재 건조생체량
 
@@ -373,23 +366,19 @@ end{cases}
 
 ### 9.3 셀 단위 최종 AGB*
 
-BIOME4 경쟁 후 해당 셀에서 선택된 dominant PFT를 (p^*)라 하면 최종 AGB*는
+BIOME4 경쟁 후 해당 셀에서 선택된 dominant PFT를 \(p^*\)라 하면 최종 AGB*는 두 성분의 합으로 정의한다.
 
-[
-oxed{
+\[
+\boxed{
 AGB^*
 =
-LAI_{p^*}
-left[
-I_{sap,p^*}
+B_{\mathrm{leaf,dry},p^*}
 +
-0.0363078055
-L_{m,p^*}^{0.43}
-ight]
+B_{\mathrm{sapwood,dry},p^*}
 }
-]
+\]
 
-이다.
+여기서 잎 항은 Reich et al. (1992)의 원식과 \(B_{\mathrm{leaf,dry},p}=LAI_p/SLA_p\)로 계산하고, 변재 항은 Haxeltine and Prentice (1996)의 sapwood-LAI 관계와 BIOME4 v4.2b2의 \(stemcarbon=0.5\) 구현을 따른다.
 
 단위는 kg dry biomass m^-2이다.
 
