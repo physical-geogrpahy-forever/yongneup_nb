@@ -31,7 +31,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq gfortran
           python -m pip install --upgrade pip
-          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy
+          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
 
       - name: Extract current native and prior tuned CHELSA packages
         shell: bash
