@@ -10,7 +10,8 @@
 - `payload/`: `PB4Studio_v6.6.3_CHELSA21K.zip`의 base64 분할 보존본
 - `reconstruct_pb4.py`: PB4 ZIP 재구성 및 SHA-256 검증
 - `SHA256SUMS.txt`: 원자료와 모델 패키지 무결성 값
-- `manuscript/VESLEM_PB4_HWP_EQUATION_GUIDE_KO.md`: Pelletier/McKenzie 원문 대조, PB4 수식, HWP 입력 가이드
+- `manuscript/FINAL_METHODS_CANONICAL_20261006_KO.md`: 최종 Methods 수식, 변수명, 검증정책의 권위 기준
+- `manuscript/VESLEM_PB4_HWP_EQUATION_GUIDE_KO.md`: Pelletier/McKenzie 원문 대조용 참고 감사문서
 - `manuscript/WORKLOG_20261005_HWP_AGB_LITERATURE_AUDIT_KO.md`: 2026-10-05까지의 AGB coupling 문헌감사, BIOME4 v4.2b2 source audit, 잠정적 최종모델 위치, 미해결 과제 및 다음 실행 계획
 
 ## 현재 최종 과학모형
@@ -65,7 +66,7 @@ S_p + 0.03630780547701014 L_{m,p}^{0.43}
 Pelletier coupling:
 
 [
-k_d = 0.033 EEMT + 0.05 AGB^*
+kappa_d = 0.033 EEMT + 0.05 AGB^*
 ]
 
 The direct Pelletier exponential EEMT-to-AGB equation is not used for Yongneup.
@@ -82,32 +83,17 @@ The direct Pelletier exponential EEMT-to-AGB equation is not used for Yongneup.
 
 
 
-### Park et al. (2021) validation policy
+### 최종 검증정책
 
-Park et al. (2021)은 Jang et al. (2011)의 62개 categorical score에 합산하지 않는다. Jang 검증으로 최종모형을 고정한 뒤 수행하는 **독립 holdout validation**으로만 사용하며, Park 결과를 이용해 파라미터를 다시 보정하지 않는다.
+최종 Methods와 정량 검증은 **Jang et al. (2011)만 사용**한다.
 
-- 주 검증: Jang et al. (2011), n=62, 유역 내 목표 식생군 1% 출현 기준
-- Park: Supplementary sample-level pollen composition 기반 독립 보조검증
-- 100년 window 집계, 시료 간 보간 없음
-- 완전히 발달한 peatland 이후 69-16 cm 구간을 주 정량 비교구간으로 사용
-- conifer vs deciduous broadleaf 상대조성, arboreal/non-arboreal 변화방향, open-vegetation event 재현을 평가
-- pollen percentage와 model area fraction을 같은 물리량으로 보지 않으므로 Spearman 상관과 변화방향 일치도를 중심으로 평가
-- 세부 정책: `manuscript/PARK2021_INDEPENDENT_VALIDATION_POLICY_20261006_KO.md`
+- 대상: `95_01`, `95_02`, `95_03`, `95_04`
+- 총 62개 100년 output-time
+- 판정: 관측 식생군이 모의 유역 내 유효 격자의 1% 이상에서 출현하면 일치
+- 결과: static **24/62 = 38.71%**, dynamic **55/62 = 88.71%**
+- 51% 과반 규칙은 mixed biome의 검증용 reduced-class 재분류에만 사용하며 BIOME4 내부 경쟁식이 아님
 
+Park et al. (2021) 관련 holdout, PC2 상관, Herbs 비교는 연구과정 기록으로만 보존하고 최종 Methods와 최종 정량 검증에서는 사용하지 않는다.
 
-### Park holdout completed result
-
-Park et al. (2021) Supplementary Excel은 이미 확보되어 있었으며 2026-10-06 실제 원자료로 holdout 검증을 완료했다.
-
-- source: `1-s2.0-S0031018221004909-mmc1(1).xlsx`
-- source SHA-256: `6d4ad8310434e02e1f963ee36932e30ae66f757d6028260d33ea98e7359c8f97`
-- primary Park interval: 16-69 cm, 515-2072 cal yr BP
-- pollen samples: 53
-- 100-year windows: 17
-- Park PC2 vs dynamic cold-tree PFT fraction: rho=0.632, p=0.00644
-- Park PC2 vs static cold-tree PFT fraction: rho=-0.255, p=0.323
-- pollen broadleaf fraction vs dynamic temperate-deciduous fraction: rho=0.448, p=0.0713
-- 2738-2206 cal yr BP open-vegetation event: not reproduced as open PFT
-
-Results:
-`results/final_integrated_20261006/PARK2021_HOLDOUT_RESULT_20261006_KO.md`
+최종 방법론 기준:
+`manuscript/FINAL_METHODS_CANONICAL_20261006_KO.md`
