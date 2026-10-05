@@ -101,3 +101,32 @@ Scenarios:
 PFT climate tuning 제거 여부는 동일 CHELSA 조건에서 결과가 정확히 동일하므로 원인에서 제외할 수 있다.
 
 다만 historical Beyer 표는 과거 실행 산출물이며, 현재 최종 코드에 원 Beyer NetCDF를 다시 넣어 같은 코드와 같은 설정에서 climate forcing만 단독 교체한 신규 A/B 실행은 아니다. 따라서 가장 강한 원인은 Beyer -> CHELSA forcing 변경으로 판단되지만, 엄밀한 단일요인 인과확정에는 원 Beyer forcing을 현재 최종 코드에 재입력하는 추가 실험이 필요하다.
+
+
+## 2026-10-06 current-final-code Beyer 재실행에 따른 정정
+
+이전 진단에서 historical Beyer sensitivity table의 PFT8 출현을 climate-forcing 차이의 직접 증거로 해석했으나, current final PB4 code에 동일 packaged Beyer forcing을 다시 넣어 실행한 결과 이 해석은 수정해야 한다.
+
+current final code + Beyer의 동일 depth sweep에서 0-6 ka, 토심 0.01-1.50 m의 모든 시험점에서 PFT8 optPFT는 0회였다.
+
+대표 4 ka, 0.05 m:
+
+- PFT4 NPP = 297.15
+- PFT6 NPP = 265.14
+- PFT7 NPP = 335.32
+- PFT8 NPP = 265.00
+- optPFT = 7
+
+2.2-2.7 ka, 0.05 m에서도 PFT7 NPP는 약 339.7-351.4로 PFT8의 약 265.9-277.2보다 높았고 모두 optPFT 7이었다.
+
+또한 current final code + Beyer full 21 ka spatial run에서도 PFT8은 static/dynamic 모두 0개 시점에서 우점했다. 따라서 **Beyer로 forcing만 되돌리는 것으로 temperate grass는 복구되지 않는다.**
+
+historical Beyer sensitivity와 current-final Beyer의 차이는 old sensitivity의 climate treatment까지 포함한 implementation history에서 발생한다. current final code는 Beyer 0.5-degree panel을 reference elevation 590.4 m로 해석하고 월별 lapse rate를 이용해 실제 DEM elevation으로 하향보정한다. 패널 590.4 m에서 Yongneup 약 1162 m로의 여름 보정량은 대략 -3.1~-3.3°C이므로, 과거 raw Beyer TWM 약 22°C를 그대로 사용한 경우와 달리 PFT7의 native upper TWM 21°C constraint를 통과시킬 수 있다.
+
+따라서 과거 5 cm PFT8은 현재 증거상 **Beyer 자체의 본질적 효과라기보다, 당시 raw panel climate를 site elevation으로 충분히 하향보정하지 않았던 설정과 결부된 결과**로 보는 것이 가장 타당하다.
+
+current final code에서는 CHELSA와 lapse-corrected Beyer 모두 PFT7이 활성화되고 PFT8을 경쟁에서 억제한다. 그러므로 현재 temperate grass 문제는 forcing 선택보다 PFT7-PFT8 competition 및 지역 peatland/open-habitat process의 표현 문제로 재정의한다.
+
+근거 결과:
+- `pb4_chelsa21k/results/beyer_current_final_depth_20261006/`
+- `pb4_chelsa21k/results/herbaceous_cause_20261006/BEYER_FINAL_CODE_FULL_RUN_SUMMARY_KO.md`
