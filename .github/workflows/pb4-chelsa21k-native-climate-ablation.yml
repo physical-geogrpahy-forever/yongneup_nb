@@ -1,0 +1,177 @@
+name: PB4 CHELSA21K native-climate ablation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-native-climate-ablation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  ablation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy
+
+      - name: Reconstruct exact CHELSA21K package
+        shell: bash
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/reconstruct_pb4.py
+          echo "bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09  pb4_chelsa21k/PB4Studio_v6.6.3_CHELSA21K.zip" | sha256sum -c -
+          rm -rf /tmp/pb4
+          mkdir -p /tmp/pb4
+          unzip -q pb4_chelsa21k/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4
+          test -d /tmp/pb4/PB4Studio_v6.6.3_CHELSA21K
+
+      - name: Remove only PFT5 PFT6 climate tuning
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('/tmp/pb4/PB4Studio_v6.6.3_CHELSA21K/pb4studio/biome4_backend.py')
+          s=p.read_text(encoding='utf-8')
+          fn=s.index('def _patch_fortran_source')
+          old5=s.index('old5 =', fn)
+          line_start=s.rfind('\n    if variant', fn, old5)+1
+          if line_start <= 0:
+              raise SystemExit('climate-sieve conditional not found')
+          line_end=s.index('\n', line_start)
+          cond=s[line_start:line_end]
+          print('original climate patch condition:', cond)
+          if 'variant' not in cond:
+              raise SystemExit('unexpected climate patch condition')
+          s=s[:line_start] + '    if False:  # native-climate ablation: keep BIOME4 v4.2b2 PFT5/PFT6 limits' + s[line_end:]
+          p.write_text(s, encoding='utf-8')
+          print('patched:', p)
+          # McKenzie/Jackson coupling must remain present.
+          required=[
+              'BIOME4-SD reference-derived root-depth adapter',
+              'pb4_soildepth',
+              'rtop_eff',
+              'rbot_eff',
+          ]
+          for token in required:
+              if token not in s:
+                  raise SystemExit(f'missing retained coupling token: {token}')
+          PY
+          ROOT=/tmp/pb4/PB4Studio_v6.6.3_CHELSA21K
+          echo '=== retained climate classification rule evidence ==='
+          grep -n -E '0\.51|51%|broad.*conifer|conifer.*broad' "$ROOT/pb4studio/climate.py" | head -30 || true
+          echo '=== native source climate limits ==='
+          grep -n -E '!-?[ ]*5|!-?[ ]*6' "$ROOT/fortran_src/biome4_original_4_2b2.f" | head -20 || true
+
+      - name: Run full 21 to 0 ka comparison
+        shell: bash
+        working-directory: /tmp/pb4/PB4Studio_v6.6.3_CHELSA21K
+        run: |
+          set -euo pipefail
+          python tools/run_yongneup_21ka_chelsa_selfcontained.py 2>&1 | tee /tmp/pb4_native_climate_run.log
+
+      - name: Recompute corrected Jang 1 percent validation
+        shell: bash
+        working-directory: /tmp/pb4/PB4Studio_v6.6.3_CHELSA21K
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import pandas as pd
+
+          out=Path('outputs_CHELSA21K')
+          target={
+              '95_01':('broadleaf','basin_count_broadleaf'),
+              '95_02':('mixed','basin_count_mixed'),
+              '95_03':('broadleaf','basin_count_broadleaf'),
+              '95_04':('mixed','basin_count_mixed'),
+          }
+          rows=[]
+          zones=[]
+          for mode in ('static','dynamic'):
+              p=out/f'model_{mode}'/'validation_per_output_time.csv'
+              df=pd.read_csv(p,encoding='utf-8-sig')
+              df=df[df['record_id'].astype(str).isin(target)].copy()
+              df['target_class']=df['record_id'].astype(str).map(lambda x:target[x][0])
+              df['target_count']=df.apply(lambda r:r[target[str(r['record_id'])][1]],axis=1)
+              df['target_fraction']=df['target_count']/df['valid_basin_cell_count']
+              df['correct_1pct']=df['target_fraction'] >= 0.01 - 1e-15
+              n=len(df)
+              c=int(df['correct_1pct'].sum())
+              rows.append({
+                  'model':'PB4-McKenzie-nativeClimate',
+                  'mode':mode,
+                  'n':n,
+                  'correct_n':c,
+                  'accuracy_pct':100*c/n,
+                  'threshold_fraction':0.01,
+              })
+              for rid,g in df.groupby(df['record_id'].astype(str),sort=False):
+                  zones.append({
+                      'mode':mode,
+                      'record_id':rid,
+                      'target_class':target[rid][0],
+                      'n':len(g),
+                      'correct_n':int(g['correct_1pct'].sum()),
+                      'accuracy_pct':100*float(g['correct_1pct'].mean()),
+                      'target_fraction_min':float(g['target_fraction'].min()),
+                      'target_fraction_max':float(g['target_fraction'].max()),
+                  })
+              keep=['record_id','model_ka_bp','valid_basin_cell_count',
+                    'basin_count_conifer','basin_count_broadleaf','basin_count_mixed',
+                    'basin_count_herbaceous','target_class','target_fraction','correct_1pct']
+              df[keep].to_csv(out/f'native_climate_{mode}_corrected_jang_rows.csv',index=False,encoding='utf-8-sig')
+          summary=pd.DataFrame(rows)
+          breakdown=pd.DataFrame(zones)
+          summary.to_csv(out/'NATIVE_CLIMATE_ABLATION_1PCT_SUMMARY.csv',index=False,encoding='utf-8-sig')
+          breakdown.to_csv(out/'NATIVE_CLIMATE_ABLATION_1PCT_BY_ZONE.csv',index=False,encoding='utf-8-sig')
+          provenance={
+              'execution_status':'new_full_21ka_execution',
+              'model':'PB4Studio_v6.6.3_CHELSA21K',
+              'base_package_sha256':'bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09',
+              'climate':'YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv',
+              'period_ka_bp':'21.0-0.0',
+              'interval_kyr':0.1,
+              'retained':['McKenzie AWC','Jackson finite-depth roots','51% majority reduced classification','dynamic Pelletier coupling'],
+              'removed':['PFT5 climate tuning','PFT6 climate tuning'],
+              'validation':'Jang 2011 corrected reduced mapping, n=62, 1% basin presence',
+          }
+          (out/'NATIVE_CLIMATE_ABLATION_PROVENANCE.json').write_text(json.dumps(provenance,ensure_ascii=False,indent=2),encoding='utf-8')
+          print('=== NATIVE CLIMATE ABLATION SUMMARY ===')
+          print(summary.to_string(index=False))
+          print('=== BY ZONE ===')
+          print(breakdown.to_string(index=False))
+          PY
+
+      - name: Upload ablation results
+        uses: actions/upload-artifact@v4
+        with:
+          name: pb4-chelsa21k-native-climate-ablation
+          path: |
+            /tmp/pb4/PB4Studio_v6.6.3_CHELSA21K/outputs_CHELSA21K/NATIVE_CLIMATE_ABLATION_1PCT_SUMMARY.csv
+            /tmp/pb4/PB4Studio_v6.6.3_CHELSA21K/outputs_CHELSA21K/NATIVE_CLIMATE_ABLATION_1PCT_BY_ZONE.csv
+            /tmp/pb4/PB4Studio_v6.6.3_CHELSA21K/outputs_CHELSA21K/native_climate_static_corrected_jang_rows.csv
+            /tmp/pb4/PB4Studio_v6.6.3_CHELSA21K/outputs_CHELSA21K/native_climate_dynamic_corrected_jang_rows.csv
+            /tmp/pb4/PB4Studio_v6.6.3_CHELSA21K/outputs_CHELSA21K/NATIVE_CLIMATE_ABLATION_PROVENANCE.json
+            /tmp/pb4_native_climate_run.log
+          retention-days: 30
