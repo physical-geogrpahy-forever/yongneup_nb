@@ -76,13 +76,20 @@ Spearman은 단조관계의 크기를 보여주고, Kendall tau-b는 작은 n과
 
 ### 4.2 시간 자기상관 보정
 
-표준 독립표본 p-value 대신 시간구조를 보존하는 permutation 또는 block-based null을 사용한다.
+표준 독립표본 p-value는 최종 추론에 사용하지 않는다. 17개 window는 시간순서 자료이며 자기상관 가능성이 있기 때문이다.
 
-우선순위:
-1. circular-shift permutation
-2. 짧은 moving-block permutation sensitivity
+주 불확실성 평가는 **moving-block bootstrap**으로 한다.
 
-이를 통해 시간적 자기상관을 보존한 상태에서 관측-모델 관계가 우연히 나올 가능성을 평가한다.
+- block length 2 windows = 200 yr
+- block length 3 windows = 300 yr
+- 두 block length에서 Spearman rho와 Kendall tau-b의 95% bootstrap CI를 계산
+- 결론이 block length에 따라 바뀌면 유의성보다 불확실성을 보고
+
+blocked permutation은 보조 sensitivity로 사용한다.
+
+circular shift는 시계열 자기상관을 잘 보존하지만 n=17에서는 가능한 고유 shift 수가 매우 적어 p-value 해상도가 낮으므로 주 유의성 검정으로 사용하지 않는다.
+
+따라서 최종 보고는 단일 p-value보다 effect size와 autocorrelation-preserving CI를 중심으로 한다.
 
 ### 4.3 변화방향 검증
 
@@ -120,11 +127,14 @@ nearest-100-year 배정에 대한 민감도를 확인한다.
 - 17-window 관측/모델 비교표
 
 주 통계:
-- 직접 식생유형별 Spearman rho
 - 직접 식생유형별 Kendall tau-b
-- autocorrelation-preserving permutation p
+- 직접 식생유형별 Spearman rho
+- moving-block bootstrap 95% CI, block length 2와 3
+- blocked-permutation sensitivity
 - 변화방향 일치율
 - ±0.1 kyr alignment sensitivity
+
+모델 값이 전 구간에서 동일하여 분산이 0인 경우 correlation을 강제로 계산하지 않는다. 이 경우에는 "not estimable due to zero model variance"로 보고하고, 해당 식생유형의 시간변동을 모델이 재현하지 못한 구조적 한계로 판정한다.
 
 보조:
 - Park PC1/PC2
