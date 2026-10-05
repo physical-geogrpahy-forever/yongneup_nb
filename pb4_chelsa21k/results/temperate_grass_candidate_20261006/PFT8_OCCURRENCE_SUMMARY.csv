@@ -1,0 +1,3 @@
+mode,n_timesteps,n_timesteps_pft8_present,max_pft8_cells,late_holocene_0p5_3p2_n_pft8_steps,late_holocene_0p5_3p2_max_pft8_cells
+dynamic,211,114,13.0,8,1.0
+static,211,0,0.0,0,0.0
