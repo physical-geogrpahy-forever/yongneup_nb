@@ -1,0 +1,8 @@
+independent_equilibrium_scheme,temperate_equivalent_c_kgdry_per_gCyr,boreal_equivalent_c_kgdry_per_gCyr,source
+Ise_meta_analysis,0.0281283,0.0456382,"Ise et al. 2010 Table 3 outputs converted using IPCC CF and root:shoot"
+Ise_BiomeBGC_partitioning,0.0317710,0.0612701,"Ise et al. 2010 Table 3 outputs converted using IPCC CF and root:shoot"
+Ise_VISIT_partitioning,0.0420832,0.0751118,"Ise et al. 2010 Table 3 outputs converted using IPCC CF and root:shoot"
+Xue_IBIS_PFT4,0.0286000,,"temperate deciduous"
+Xue_IBIS_PFT5,0.0222000,,"temperate evergreen conifer"
+Xue_IBIS_PFT6,,0.0327000,"boreal evergreen"
+Xue_IBIS_PFT7,,0.0422000,"boreal deciduous"
