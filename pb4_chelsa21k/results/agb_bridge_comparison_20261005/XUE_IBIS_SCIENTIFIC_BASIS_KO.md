@@ -1,3 +1,5 @@
+> **RETRACTED AS DIRECT AGB BRIDGE (2026-10-05 final-paper recheck).** Xue et al. (2017) Eq. (3) defines carbon stocks in leaf, stem and root pools; the paper later states that IBIS does not calculate global AGB directly but carbon density. Therefore the coefficients 0.0286, 0.0327 and 0.0422 remain valid algebraic equilibrium carbon-pool diagnostics for the chosen Xue parameterization, but are **not established dry-AGB coefficients**. Do not use this document to justify production AGB without a separately proven aboveground partition.
+
 # Xue/IBIS AGB bridge scientific basis for Yongneup
 
 Date: 2026-10-05
@@ -315,7 +317,7 @@ Xue dry AGB
 }
 ]
 
-is the strongest current primary bridge because it has four independent layers of support:
+is **not accepted as a direct AGB bridge**. The following items support the equilibrium carbon-pool structure but do not establish the anatomical aboveground partition:
 
 1. **mass-balance basis**: allocation minus turnover equation
 2. **model-state compatibility**: equilibrium solution for an equilibrium BIOME4 target
