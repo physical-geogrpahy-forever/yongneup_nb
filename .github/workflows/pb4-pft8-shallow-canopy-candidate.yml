@@ -1,0 +1,245 @@
+name: Test PFT8 shallow-canopy competition
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-pft8-shallow-canopy-candidate.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '4'
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran zip
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Build PFT8 shallow-canopy candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4pft8
+          mkdir -p /tmp/pb4pft8
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4pft8
+          root=$(find /tmp/pb4pft8 -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          export ROOT="$root"
+          python - <<'PY'
+          from pathlib import Path
+          import os
+
+          root=Path(os.environ['ROOT'])
+          sources=list(root.rglob('biome4.f'))
+          if not sources:
+              raise SystemExit('biome4.f not found')
+          old="""      if (wdom.eq.7) then
+               if (optnpp(wdom).lt.120.0) then
+                optpft=grasspft"""
+          new="""      if (wdom.eq.7) then
+               if (grasspft.eq.8.and.woodylai.lt.3.0) then
+                optpft=grasspft
+               else if (optnpp(wdom).lt.120.0) then
+                optpft=grasspft"""
+          n=0
+          for p in sources:
+              txt=p.read_text(encoding='utf-8',errors='ignore')
+              if old in txt:
+                  txt=txt.replace(old,new,1)
+                  p.write_text(txt,encoding='utf-8')
+                  print('PATCHED',p)
+                  n+=1
+          if n != 1:
+              raise SystemExit(f'expected exactly one source patch, got {n}')
+
+          note=root/'PFT8_SHALLOW_CANOPY_COMPETITION_CANDIDATE_2026-10-06.md'
+          note.write_text("""# PFT8 shallow-canopy competition candidate
+
+Status: experimental candidate, not canonical.
+
+Purpose:
+Restore the possibility of BIOME4 PFT8 temperate grass dominance under shallow-soil,
+low-canopy conditions without changing climate forcing, PFT climate limits, NPP,
+LAI, McKenzie/Jackson hydrology, AGB*, or Pelletier coupling.
+
+Patch:
+In the original BIOME4 competition2 branch for wdom=7 (boreal deciduous tree),
+if the competing grass PFT is PFT8 and woody LAI is below 3.0, select PFT8.
+
+The LAI=3 threshold is not fitted to Park et al. (2021). It reuses an existing
+BIOME4 tree-grass competition threshold already present in the PFT4 branch.
+This is therefore a competition-consistency sensitivity extension, not an
+original BIOME4 rule and not yet accepted for production.
+""",encoding='utf-8')
+          PY
+
+      - name: Run depth sweep
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(find /tmp/pb4pft8 -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          (
+            cd "$root"
+            python tools/mckenzie2003_depth_sensitivity.py               --climate embedded_inputs/yongneup_exact20m/YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv               --elevation-m 1162.08               --depths 0.01 0.02 0.03 0.04 0.05 0.06 0.08 0.10 0.12 0.15 0.20 0.30 0.50 1.50               --ages 5.0 4.0 3.0 2.7 2.5 2.3 2.2 2.0               --threads 4               --output /tmp/PFT8_SHALLOW_CANOPY_DEPTH_SWEEP.csv
+          )
+
+      - name: Run full 21 ka candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(find /tmp/pb4pft8 -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          (
+            cd "$root"
+            python tools/run_yongneup_21ka_chelsa_selfcontained.py | tee /tmp/PFT8_SHALLOW_CANOPY_21KA.log
+          )
+
+      - name: Audit candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(find /tmp/pb4pft8 -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          export ROOT="$root"
+          mkdir -p pb4_chelsa21k/results/pft8_shallow_canopy_candidate_20261006
+          cp /tmp/PFT8_SHALLOW_CANOPY_DEPTH_SWEEP.csv pb4_chelsa21k/results/pft8_shallow_canopy_candidate_20261006/
+          cp /tmp/PFT8_SHALLOW_CANOPY_21KA.log pb4_chelsa21k/results/pft8_shallow_canopy_candidate_20261006/
+          python - <<'PY'
+          from pathlib import Path
+          import os, pandas as pd, numpy as np, json, zipfile, hashlib, shutil
+
+          root=Path(os.environ['ROOT'])
+          out=root/'outputs_CHELSA21K'
+          dst=Path('pb4_chelsa21k/results/pft8_shallow_canopy_candidate_20261006')
+
+          # Depth-sweep focused comparison
+          sw=pd.read_csv('/tmp/PFT8_SHALLOW_CANOPY_DEPTH_SWEEP.csv')
+          if 'variant' in sw.columns:
+              sw=sw[sw['variant'].astype(str).eq('mckenzie2003')].copy()
+          focus=sw[(sw['target_age_ka'].isin([5.0,4.0,3.0,2.7,2.5,2.3,2.2,2.0])) &
+                   (sw['depth_m'].isin([0.03,0.04,0.05,0.06,0.08,0.10]))].copy()
+          cols=['target_age_ka','depth_m','biome_id','optpft',
+                'pft04_npp','pft04_lai','pft07_npp','pft07_lai',
+                'pft08_npp','pft08_lai']
+          focus[cols].to_csv(dst/'DEPTH_SWEEP_FOCUS.csv',index=False)
+
+          # Jang, and herbaceous basin fraction
+          target={
+              '95_01':('broadleaf','basin_count_broadleaf'),
+              '95_02':('mixed','basin_count_mixed'),
+              '95_03':('broadleaf','basin_count_broadleaf'),
+              '95_04':('mixed','basin_count_mixed'),
+          }
+          jrows=[]; jsum=[]
+          for mode in ['static','dynamic']:
+              p=out/f'model_{mode}'/'validation_per_output_time.csv'
+              df=pd.read_csv(p,encoding='utf-8-sig')
+              df=df[df['record_id'].astype(str).isin(target)].copy()
+              df['target_class']=df['record_id'].astype(str).map(lambda x:target[x][0])
+              df['target_count']=df.apply(lambda r:r[target[str(r['record_id'])][1]],axis=1)
+              df['target_fraction']=df['target_count']/df['valid_basin_cell_count']
+              df['correct_1pct']=df['target_fraction']>=0.01-1e-15
+              df['herbaceous_fraction']=df['basin_count_herbaceous']/df['valid_basin_cell_count']
+              jsum.append({
+                  'mode':mode,'n':len(df),'correct_n':int(df['correct_1pct'].sum()),
+                  'accuracy_pct':100*df['correct_1pct'].mean(),
+                  'max_herbaceous_fraction':float(df['herbaceous_fraction'].max()),
+                  'n_rows_herbaceous_ge_1pct':int((df['herbaceous_fraction']>=0.01).sum()),
+              })
+              keep=['record_id','model_ka_bp','valid_basin_cell_count',
+                    'basin_count_conifer','basin_count_broadleaf','basin_count_mixed',
+                    'basin_count_herbaceous','herbaceous_fraction','target_class',
+                    'target_fraction','correct_1pct']
+              x=df[keep].copy(); x.insert(0,'mode',mode); jrows.append(x)
+          jsum=pd.DataFrame(jsum)
+          jrows=pd.concat(jrows,ignore_index=True)
+          jsum.to_csv(dst/'JANG_SUMMARY.csv',index=False)
+          jrows.to_csv(dst/'JANG_ROWS.csv',index=False)
+
+          # Full 21 ka PFT8 occurrence from the diagnostic timeseries
+          frames=[]
+          for mode in ['static','dynamic']:
+              found=[]
+              for p in (out/f'model_{mode}').rglob('*.csv'):
+                  try: d=pd.read_csv(p,encoding='utf-8-sig')
+                  except Exception: continue
+                  if 'reich_lai_sapwood_pft08_count' in d.columns and 'ka_bp' in d.columns:
+                      found.append((p,d))
+              if not found:
+                  raise SystemExit(f'no PFT timeseries for {mode}')
+              p,d=max(found,key=lambda x:len(x[1]))
+              z=d[['ka_bp','reich_lai_sapwood_pft08_count','n_cells',
+                   'dominant_vegetation_code','vegetation_class_counts']].copy()
+              z.insert(0,'mode',mode)
+              z['pft8_fraction']=z['reich_lai_sapwood_pft08_count']/z['n_cells']
+              frames.append(z)
+          ts=pd.concat(frames,ignore_index=True)
+          ts.to_csv(dst/'PFT8_21KA_TIMESERIES.csv',index=False)
+
+          park=ts[(ts['mode']=='dynamic') & (ts['ka_bp']>=0.5) & (ts['ka_bp']<=3.2)].copy()
+          park.to_csv(dst/'PFT8_PARK_INTERVAL.csv',index=False)
+
+          summary={
+              'jang':jsum.to_dict(orient='records'),
+              'dynamic_pft8_max_fraction_21ka':float(ts.loc[ts['mode'].eq('dynamic'),'pft8_fraction'].max()),
+              'dynamic_pft8_n_timesteps_positive_21ka':int((ts.loc[ts['mode'].eq('dynamic'),'reich_lai_sapwood_pft08_count']>0).sum()),
+              'dynamic_pft8_max_fraction_park_0p5_3p2ka':float(park['pft8_fraction'].max()),
+              'dynamic_pft8_n_timesteps_positive_park_0p5_3p2ka':int((park['reich_lai_sapwood_pft08_count']>0).sum()),
+          }
+          (dst/'SUMMARY.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          md=['# PFT8 shallow-canopy competition candidate','',
+              'Experimental candidate only. Canonical PB4 is unchanged.','',
+              'Patch: when wdom=PFT7, grasspft=PFT8, and woody LAI < 3.0, select PFT8.',
+              'The 3.0 LAI threshold reuses an existing BIOME4 PFT4 tree-grass competition threshold and was not fit to Park data.','',
+              '## Jang','',jsum.to_markdown(index=False),'',
+              '## PFT8 occurrence','',
+              f"- dynamic max PFT8 fraction over 21 ka: {summary['dynamic_pft8_max_fraction_21ka']:.6f}",
+              f"- dynamic positive PFT8 timesteps over 21 ka: {summary['dynamic_pft8_n_timesteps_positive_21ka']}",
+              f"- dynamic max PFT8 fraction over 3.2-0.5 ka: {summary['dynamic_pft8_max_fraction_park_0p5_3p2ka']:.6f}",
+              f"- dynamic positive PFT8 timesteps over 3.2-0.5 ka: {summary['dynamic_pft8_n_timesteps_positive_park_0p5_3p2ka']}",
+              '',
+              '## Focused depth sweep','',focus[cols].to_markdown(index=False)]
+          (dst/'PFT8_SHALLOW_CANOPY_CANDIDATE_RESULT_KO.md').write_text('\n'.join(md),encoding='utf-8')
+
+          # Candidate package
+          pkg=Path('pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_PFT8_SHALLOW_CANOPY.zip')
+          pkg.parent.mkdir(parents=True,exist_ok=True)
+          with zipfile.ZipFile(pkg,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for p in sorted(root.rglob('*')):
+                  if p.is_file() and 'outputs_CHELSA21K' not in p.parts:
+                      z.write(p,p.relative_to(root.parent))
+          h=hashlib.sha256(pkg.read_bytes()).hexdigest()
+          (dst/'CANDIDATE_SHA256.txt').write_text(f'{h}  {pkg.name}\n',encoding='utf-8')
+          print(jsum.to_string(index=False))
+          print(json.dumps(summary,indent=2))
+          print('CANDIDATE_SHA256',h)
+          PY
+
+      - name: Commit candidate and diagnostics
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/pft8_shallow_canopy_candidate_20261006
+          git add pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_PFT8_SHALLOW_CANOPY.zip
+          git commit -m 'Test PFT8 shallow-canopy competition candidate [skip ci]' || exit 0
+          git push origin HEAD:main
