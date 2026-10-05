@@ -1,0 +1,131 @@
+PB4-McKenzie-nativeClimate AGB source audit
+canonical_sha256=eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d
+package_root=PB4Studio_v6.6.3_CHELSA21K
+
+BIOME4_SD_MCKENZIE2003_MODEL_NOTE.txt:17:   The BIOME4<->Pelletier AGB bridge remains a separate unresolved full-model provenance issue.
+FLUVIAL_ISSUE1_PELLETIER2010_AW_AUDIT_2026-08-17.md:90: No erosion cap, K0 tuning, EEMT tuning, F tuning, DEM smoothing, or minimum-soil-depth floor was added.
+FLUVIAL_ISSUE3_ADAPTIVE_TIMESTEP_AUDIT_2026-08-17.md:24: | 0.0125 m | 320 | 0.003125 kyr | 0.0108226 m | 2 |
+HILLSLOPE_SC15_AUDIT_2026-08-17.md:8: - No BIOME4 physiology, McKenzie/Jackson soil-depth response, fluvial K0/F/EEMT logic, Pelletier-2010 A/w classifier, or fixed-base-level outlet logic was changed in this patch.
+HOTFIX10N10_ALLPFT_INTERPOLATION_CLASSIFICATION_AUDIT_2026-08-18.md:52: This is not a replacement for the final 120 ka dynamic rerun: restoring PFTs changes vegetation -> NPP/EEMT -> geomorphic feedback, so final accuracy must be recomputed from a fresh full run.
+HOTFIX10N7_MIXED_DOMINANCE_51_49_AUDIT_2026-08-18.md:19: This is an **exclusive validation reclassification only**. It does not alter BIOME4 native biome IDs, NPP, LAI, EEMT, or geomorphic coupling.
+HOTFIX10N8_SELFCONTAINED_AUDIT_2026-08-18.md:93: Because changing PFT competition changes NPP/EEMT and therefore long-term geomorphic feedback, the final hotfix10n8 accuracy must be obtained from a fresh 120 ka run rather than by reusing the hotfix10n7 trajectory.
+MCKENZIE2003_REFERENCE_AUDIT_2026-08-17.md:9: This does **not** certify the entire BIOME4-Pelletier coupled model as assumption-free. In particular, the pre-existing BIOME4 NPP -> Pelletier AGB bridge remains a separate unresolved provenance issue and is not justified by McKenzie et al. (2003), Jackson et al. (1996), or SoilGrids.
+fortran_src/biome4_original_4_2b2.f:2200: c      y   = Efficiency with which carbon is turned into biomass
+gui/tab_results.py:28: VARIABLES = ["elevation_m", "soil_depth_m", "vegetation_code", "npp", "eemt"]
+gui/tab_results.py:31:     "npp": "NPP", "eemt": "EEMT",
+gui/tab_results.py:263:                              ("mean_npp", "평균 NPP"), ("mean_eemt", "평균 EEMT"),
+pb4studio/climate.py:3: climate.py — 기후자료 로딩, BIOME4 결합, EEMT/AGB 계산, 스냅샷 출력.
+pb4studio/climate.py:784: def compute_eemt_and_agb(
+pb4studio/climate.py:792:     """Compute EEMT and the AGB proxy that feeds Pelletier kd."""
+pb4studio/climate.py:809:     # 둔다. 따라서 EEMT의 물리적 기후항(유효강수)은 유지되지만 생물에너지항은 0이다.
+pb4studio/climate.py:815:     eppt_mj = np.nansum(np.asarray(temp_monthly_C, dtype="float64") * float(cfg.eemt_cw_j_kg_k) * peff_mm, axis=0) / 1.0e6
+pb4studio/climate.py:819:     npp_kg_biomass = np.maximum(npp_gC, 0.0) / 1000.0 / max(float(cfg.eemt_carbon_fraction), 1e-6)
+pb4studio/climate.py:820:     ebio_mj = npp_kg_biomass * float(cfg.eemt_hbio_j_kg) / 1.0e6
+pb4studio/climate.py:823:     eemt = eppt_mj + ebio_mj
+pb4studio/climate.py:824:     eemt = np.where(land & np.isfinite(eemt), eemt, np.nan)
+pb4studio/climate.py:826:     # NPP->AGB is the intentional coupling proxy; remove hidden min/max clipping.
+pb4studio/climate.py:827:     agb = np.maximum(npp_gC, 0.0) * float(cfg.agb_from_npp_scale)
+pb4studio/climate.py:828:     agb = np.where(bare_bedrock, 0.0, agb)
+pb4studio/climate.py:829:     agb = np.where(land & np.isfinite(agb), agb, np.nan)
+pb4studio/climate.py:830:     return eemt.astype("float32"), agb.astype("float32")
+pb4studio/climate.py:999: def summarize_snapshot(resolution_m: int, ka_bp: float, z: np.ndarray, h: np.ndarray, veg_code: np.ndarray, npp: np.ndarray, eemt: np.ndarray, land: np.ndarray) -> Dict[str, float | int | str]:
+pb4studio/climate.py:1021:         "eemt": eemt,
+pb4studio/config.py:47:     "soil_bulk_density_kg_m3", "hillslope_denom_min", "eemt_min_for_erodibility",
+pb4studio/config.py:60:                 "나지 기반암에서의 잠재적 토양생산 속도(P0 = a·exp(b·EEMT))의 a항.",
+pb4studio/config.py:62:     "eemt_to_p0_b": {
+pb4studio/config.py:63:         "unit": "-", "label": "EEMT 민감도 (b)",
+pb4studio/config.py:65:                 "토양생산이 EEMT(유효에너지·물질전달)에 얼마나 민감하게 반응하는지.",
+pb4studio/config.py:86:     "kd_c_eemt_m_per_kyr_per_mj": {
+pb4studio/config.py:87:         "unit": "m·kyr^-1 per MJ m^-2 yr^-1", "label": "사면수송계수 EEMT항 (c)",
+pb4studio/config.py:89:                 "비선형 사면수송계수 kd = c·EEMT + d·AGB 의 c항.",
+pb4studio/config.py:91:     "kd_d_agb_m_per_kyr_per_kgm2": {
+pb4studio/config.py:92:         "unit": "m·kyr^-1 per kg m^-2", "label": "사면수송계수 AGB항 (d)",
+pb4studio/config.py:94:                 "비선형 사면수송계수 kd = c·EEMT + d·AGB 의 d항 (식생 지상부바이오매스 효과).",
+pb4studio/config.py:113:                 "K = K0 / EEMT 로 정의되는 사면세류·집중류 침식 침식성계수.",
+pb4studio/config.py:115:     "eemt_min_for_erodibility": {
+pb4studio/config.py:116:         "unit": "MJ m^-2 yr^-1", "label": "침식성계수 분모 EEMT 하한",
+pb4studio/config.py:351:     """BIOME4 결합/토양 수리/EEMT/AGB 계수. 기본값은 모두 원본
+pb4studio/config.py:355:     토양 수리 파라미터 변환, EEMT(유효에너지·물질전달) 계산, AGB(지상부
+pb4studio/config.py:387:     # EEMT 계산
+pb4studio/config.py:388:     eemt_cw_j_kg_k: float = 4186.0
+pb4studio/config.py:389:     eemt_hbio_j_kg: float = 22.0e6
+pb4studio/config.py:390:     eemt_carbon_fraction: float = 0.50
+pb4studio/config.py:391:     eemt_clip_min_mj_m2_yr: float = 1.0
+pb4studio/config.py:392:     eemt_clip_max_mj_m2_yr: float = 80.0
+pb4studio/config.py:394:     # AGB 프록시 (kd = c*EEMT + d*AGB 의 AGB 입력)
+pb4studio/config.py:395:     # NOTE: PelletierStrictConfig currently requires standing AGB. BIOME4 does
+pb4studio/config.py:396:     # not prognose standing AGB, so this legacy bridge is retained only to keep
+pb4studio/config.py:399:     # future reference-only AGB coupling.
+pb4studio/config.py:400:     agb_from_npp_scale: float = 0.010
+pb4studio/config.py:401:     agb_min_kg_m2: float = 0.1
+pb4studio/config.py:402:     agb_max_kg_m2: float = 100.0
+pb4studio/figures.py:69:         ("eemt", "EEMT", f"{dynamic_label}-{static_label} EEMT 차이", "Blues"),
+pb4studio/pelletier_geomorph.py:50:     eemt_to_p0_b: float = 0.030
+pb4studio/pelletier_geomorph.py:58:     kd_c_eemt_m_per_kyr_per_mj: float = 0.033
+pb4studio/pelletier_geomorph.py:59:     kd_d_agb_m_per_kyr_per_kgm2: float = 0.050
+pb4studio/pelletier_geomorph.py:71:     # Legacy field retained for old JSON compatibility only. Eq. (18) uses actual positive EEMT.
+pb4studio/pelletier_geomorph.py:72:     eemt_min_for_erodibility: float = 0.0
+pb4studio/pelletier_geomorph.py:591:     eemt: np.ndarray,
+pb4studio/pelletier_geomorph.py:592:     agb: np.ndarray,
+pb4studio/pelletier_geomorph.py:611:     eemt = _as_float_array(eemt)
+pb4studio/pelletier_geomorph.py:612:     agb = np.maximum(_as_float_array(agb), 0.0)
+pb4studio/pelletier_geomorph.py:616:     kd = cfg.kd_c_eemt_m_per_kyr_per_mj * eemt + cfg.kd_d_agb_m_per_kyr_per_kgm2 * agb
+pb4studio/pelletier_geomorph.py:931:     eemt: np.ndarray,
+pb4studio/pelletier_geomorph.py:939:     eemt = _as_float_array(eemt)
+pb4studio/pelletier_geomorph.py:940:     nonfinite_eemt = land & ~np.isfinite(eemt)
+pb4studio/pelletier_geomorph.py:941:     if np.any(nonfinite_eemt):
+pb4studio/pelletier_geomorph.py:942:         first = tuple(int(v) for v in np.argwhere(nonfinite_eemt)[0])
+pb4studio/pelletier_geomorph.py:944:             f"Non-finite EEMT on active land in fluvial erosion: "
+pb4studio/pelletier_geomorph.py:945:             f"{int(np.count_nonzero(nonfinite_eemt))} cell(s); first at row={first[0]}, col={first[1]}"
+pb4studio/pelletier_geomorph.py:963:     # Pelletier Eq. (18): K = K0 / EEMT. Do not reuse a project floor.
+pb4studio/pelletier_geomorph.py:964:     bad_eemt = land & (~np.isfinite(eemt) | (eemt <= 0.0))
+pb4studio/pelletier_geomorph.py:965:     if np.any(bad_eemt):
+pb4studio/pelletier_geomorph.py:966:         first = tuple(int(v) for v in np.argwhere(bad_eemt)[0])
+pb4studio/pelletier_geomorph.py:968:             f"Pelletier Eq. (18) requires finite positive EEMT on active land; "
+pb4studio/pelletier_geomorph.py:969:             f"{int(np.count_nonzero(bad_eemt))} bad cell(s), first row={first[0]}, col={first[1]}"
+pb4studio/pelletier_geomorph.py:972:         float(cfg.k0_regolith), eemt,
+pb4studio/pelletier_geomorph.py:973:         out=np.zeros_like(eemt, dtype="float64"),
+pb4studio/pelletier_geomorph.py:974:         where=land & np.isfinite(eemt) & (eemt > 0.0),
+pb4studio/pelletier_geomorph.py:1002:     eemt: np.ndarray,
+pb4studio/pelletier_geomorph.py:1003:     agb: np.ndarray,
+pb4studio/pelletier_geomorph.py:1022:     eemt_arr = _as_float_array(eemt)
+pb4studio/pelletier_geomorph.py:1023:     agb_arr = _as_float_array(agb)
+pb4studio/pelletier_geomorph.py:1024:     nonfinite_eemt = land & ~np.isfinite(eemt_arr)
+pb4studio/pelletier_geomorph.py:1025:     nonfinite_agb = land & ~np.isfinite(agb_arr)
+pb4studio/pelletier_geomorph.py:1026:     if np.any(nonfinite_eemt):
+pb4studio/pelletier_geomorph.py:1027:         first = tuple(int(v) for v in np.argwhere(nonfinite_eemt)[0])
+pb4studio/pelletier_geomorph.py:1028:         raise ValueError(f"Non-finite EEMT on active land: first at row={first[0]}, col={first[1]}")
+pb4studio/pelletier_geomorph.py:1029:     if np.any(nonfinite_agb):
+pb4studio/pelletier_geomorph.py:1030:         first = tuple(int(v) for v in np.argwhere(nonfinite_agb)[0])
+pb4studio/pelletier_geomorph.py:1031:         raise ValueError(f"Non-finite AGB on active land: first at row={first[0]}, col={first[1]}")
+pb4studio/pelletier_geomorph.py:1042:     # Eq. (10) 토양생산과 Eq. (15) 사면수송은 실제 finite EEMT를 사용한다.
+pb4studio/pelletier_geomorph.py:1043:     eemt_model = np.where(np.isfinite(eemt_arr), eemt_arr, 0.0)
+pb4studio/pelletier_geomorph.py:1044:     eemt_safe = np.maximum(eemt_model, cfg.eemt_min_for_erodibility)
+pb4studio/pelletier_geomorph.py:1045:     agb_safe = np.maximum(np.where(np.isfinite(agb_arr), agb_arr, 0.0), 0.0)
+pb4studio/pelletier_geomorph.py:1047:     p0 = float(cfg.p0_base_m_per_kyr) * np.exp(float(cfg.eemt_to_p0_b) * eemt_model)
+pb4studio/pelletier_geomorph.py:1060:         cfg=cfg, z=z_state, h=h_mobile, land=land, eemt=eemt_model, agb=agb_safe, dt_kyr=dt_kyr, dx_m=dx_m,
+pb4studio/pelletier_geomorph.py:1073:         eemt=eemt_safe, dt_kyr=dt_kyr, dx_m=dx_m,
+pb4studio/pelletier_geomorph.py:1157:     eemt: np.ndarray,
+pb4studio/pelletier_geomorph.py:1158:     agb: np.ndarray,
+pb4studio/pelletier_geomorph.py:1170:     eemt = np.maximum(_as_float_array(eemt), 0.0)
+pb4studio/pelletier_geomorph.py:1171:     agb = np.maximum(_as_float_array(agb), 0.0)
+pb4studio/pelletier_geomorph.py:1172:     kd = cfg.kd_c_eemt_m_per_kyr_per_mj * eemt + cfg.kd_d_agb_m_per_kyr_per_kgm2 * agb
+pb4studio/runner.py:12: BIOME4 호출과 EEMT/AGB 결합을 유지하면서, 실행 전 기후 연대범위 검사를
+pb4studio/runner.py:32:     run_biome4_dynamic_step, compute_eemt_and_agb, vegetation_array,
+pb4studio/runner.py:74:     ``vegetation_array``; NPP and AET are zero so EEMT can retain its
+pb4studio/runner.py:96:     eemt: np.ndarray,
+pb4studio/runner.py:97:     agb: np.ndarray,
+pb4studio/runner.py:129:     stable_dt = pelletier_default_stable_dt_kyr(cfg, eemt, agb, land, dx_m)
+pb4studio/runner.py:174:                     cfg, z, b, h, land, boundary_cfg, eemt, agb, dt, dx_m,
+pb4studio/runner.py:549:         eemt, agb = compute_eemt_and_agb(
+pb4studio/runner.py:555:         eemt = np.where(igrid.land & np.isfinite(eemt), eemt, np.nan).astype("float32")
+pb4studio/runner.py:568:         row = summarize_snapshot(int(round(igrid.resolution_m)), float(ka), z, h, veg_code, npp, eemt, igrid.land)
+pb4studio/runner.py:579:                 "vegetation_code": veg_code, "npp": npp, "eemt": eemt,
+pb4studio/runner.py:603:                 geomorph_cfg, z, b, h, igrid.land, boundary_cfg, eemt, agb,
+pb4studio/runner.py:800:             for var in ("elevation_m", "soil_depth_m", "npp", "eemt"):
+tools/test_fluvial_adaptive_convergence.py:26:     eemt=state['eemt'].astype(float); agb=state['agb'].astype(float); land=state['land'].astype(bool)
+tools/test_fluvial_adaptive_convergence.py:29:     def no_hill(cfg,z,h,land,eemt,agb,dt_kyr,dx_m):
+tools/test_fluvial_adaptive_convergence.py:45:             eemt, agb, interval, dx, max_dt, min_dt, tol, True,
+tools/test_hillslope_sc15_20m_1k.py:10: z10=S['z'].astype(float); h10=S['h'].astype(float); b10=S['b'].astype(float); land10=S['land'].astype(bool); e10=S['eemt'].astype(float); a10=S['agb'].astype(float)
+tools/test_hillslope_sc15_20m_1k.py:20: z,land=agg(z10); h,_=agg(h10); b,_=agg(b10); eemt,_=agg(e10); agb,_=agg(a10); z=b+h
+tools/test_hillslope_sc15_20m_1k.py:45:         cfg,z,b,h,land,bc,eemt,agb,interval_kyr=1.0,dx_m=dx,
