@@ -335,7 +335,7 @@ static에서는 지형과 토심을 갱신하지 않는다.
 
 이는 기존 nativeClimate baseline과 동일하다.
 
-Park et al. (2021)은 이 62개 categorical 총점에 합치지 않는다. Supplementary의 실제 화분조성 자료를 이용한 별도 검증으로 처리한다.
+Park et al. (2021)은 이 62개 categorical 총점에 합치지 않는다. 최종모형을 Jang 검증으로 고정한 뒤 수행하는 독립 holdout으로만 사용하며, Park 결과를 이용한 재보정은 하지 않는다. Park의 Supplementary sample-level pollen composition을 100년 window로 집계하되 보간하지 않고, 완전히 발달한 peatland 이후인 69-16 cm 구간을 주 정량 비교구간으로 사용한다. 지역 식생 비교는 conifer와 deciduous broadleaf의 상대조성, arboreal/non-arboreal 변화방향, 2738-2206 cal yr BP의 arboreal 감소와 herbaceous 증가 사건 재현을 중심으로 평가한다. pollen percentage와 model area fraction은 같은 물리량이 아니므로 binary accuracy나 절대 RMSE보다 Spearman 상관과 변화방향 일치도를 주 지표로 사용한다. 세부 정책은 PARK2021_INDEPENDENT_VALIDATION_POLICY_20261006_KO.md를 따른다.
 
 ## 13. 최종 AGB* 실행 결과
 
