@@ -1,0 +1,44 @@
+name: PB4 Pelletier Eq5 AGB candidate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-pelletier-agb-candidate.yml'
+      - 'pb4_chelsa21k/tools/run_pelletier_agb_candidate.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install runtime
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy
+      - name: Run full 21-0 ka Pelletier Eq5 AGB candidate
+        run: python pb4_chelsa21k/tools/run_pelletier_agb_candidate.py
+      - name: Commit candidate results
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/pelletier_agb_candidate_20261005
+          git commit -m 'Run Pelletier Eq5 AGB 21ka candidate [skip ci]' || exit 0
+          git push origin HEAD:main
