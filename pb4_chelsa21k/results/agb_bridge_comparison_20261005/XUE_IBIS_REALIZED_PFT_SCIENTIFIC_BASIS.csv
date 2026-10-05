@@ -1,0 +1,6 @@
+BIOME4_PFT,realized_in_21ka,dominant_timesteps_dynamic,total_cell_observations_dynamic,IBIS_PFT,IBIS_name,a_leaf,tau_leaf_yr,a_wood,tau_wood_yr,equilibrium_AGBC_over_NPPC_yr,Xue_dry_AGB_coefficient,domain_check,status
+4,yes,47,11099,5,temperate broadleaf cold-deciduous,0.30,1,0.40,35,14.30,0.0286,"Worak Quercus mongolica AGB_C/NPP_C = 12.16 yr","primary supported"
+6,yes,186,48107,6,boreal conifer evergreen,0.30,2.5,0.30,52,16.35,0.0327,"ForC >=100 yr boreal-evergreen median AGB_C/NPP_C = 19.66 yr","primary supported"
+7,yes,201,2241,"7 or 8","boreal cold-deciduous tree",0.30,1,0.40,52,21.10,0.0422,"low contribution; PFT7/8 have identical AGB-relevant parameters","supported with uncertainty"
+10,yes,90,200,9,evergreen shrub,0.45,1.5,0.15,5,1.425,0.00285,"mean NPP 6.08; negligible basin contribution","structural analogue sensitivity"
+5,no,0,0,4,temperate conifer evergreen,0.30,2,0.30,35,11.10,0.0222,"no retained Yongneup dominant-PFT occurrence","exclude from domain justification; fail closed if newly realized"
