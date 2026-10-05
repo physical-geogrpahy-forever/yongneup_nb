@@ -1,3 +1,5 @@
+> 최신 정정(Section 21): 역사적 평형 생체량 모델은 존재하며 BIOME-BGC는 줄기와 굵은뿌리를 분리한다. 모델의 존재와 BIOME4용 최종 변환계수의 검증을 구분한다.
+
 > **2026-10-05 최종 적용 판정 업데이트(Section 20): JULES 기본계수의 용늪 최종 채택 안 함.** 정적 LAI→AGB 구조는 확인됐지만 BIOME4 LAI로 전이한 정확도는 미검증이며 원 모델도 온대/한대 탄소량 편향을 보고한다.
 
 > **2026-10-05 LAI 경로 추가 확인(Section 18): JULES/TRIFFID에 정적 LAI→목질부 생체량 식이 존재함.** 굵은뿌리 분리와 full-leaf 정의를 명시한 전이식은 구성 가능하지만, 용늪 최종 계수의 검증/채택은 아직 아니다.
@@ -1400,3 +1402,26 @@ Wolf2011은 초기 TRIFFID를 포함한 LSM의 organ allometry와 관측 산림�
 원문:
 - https://gmd.copernicus.org/articles/11/2857/2018/gmd-11-2857-2018.html (Section4.2,5)
 - https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2010GB003917 (Section3-5, 초기 모델 비교)
+
+
+## 21. 역사적 평형 생체량 모델의 존재와 AGB 출력 확인
+
+**판정 정정:** “정적 또는 평형 생체량 모델이 없다”는 결론은 근거가 없으며 철회한다. 생체량을 계산하는 역사적 모델의 존재, 지상부와 지하부 구분, BIOME4 출력에 바로 붙일 수 있는 폐쇄식, 그 전이의 성능은 별도로 판정해야 한다. 동적 모델의 평형 운전 또는 평형식을 순수 정적 식생지리 모델과 혼동해서도 안 된다.
+
+### 확인된 원문 근거
+
+1. **FBM, Lüdeke et al. (1994), Kohlmaier et al. (1997):** 1997년 논문은 transient 및 steady-state 모드를 명시하며, 동일한 기본 구조를 32개 식생 유형에 적용한다. GC는 잎, 세근, 저장물질을 포함하고 RC는 줄기, 가지, 굵은뿌리를 포함한다. 따라서 평형 생체량 모델의 존재는 확인되지만 GC+RC를 AGB로 그대로 사용할 수는 없다. 식생 유형에 따라 풀 크기가 기후 및 토양 조건에 반응하므로 단순 고정 생체량 표만을 적용하는 방식과도 다르다. 출처: https://www.mkb-l.de/lit/fbm97.pdf (pp. 62–64, Table 2). 1994년 논문의 전문은 이번 확인에서 확보하지 못했으므로 그 논문의 세부 식이나 성능을 새로 검증했다고 주장하지 않는다.
+
+2. **BIOME-BGC 4.1.1 공식 설명서:** 잎, 줄기, 세근, 굵은뿌리 생산을 분리한다. EPC line 15는 new stem C:new leaf C이며 line 17은 new coarse-root C:new stem C이다. 따라서 줄기 생산에 굵은뿌리를 합쳐야만 계산되는 구조가 아니다. 특히 livewood와 deadwood는 respiring/non-respiring 조직 구분이다. deadwood에는 살아 있는 나무의 심재, 목부, 수피 등이 포함되므로 AGB 계산에서 dead stem pool을 고사목으로 오인하여 제외하면 안 된다. CWD와 litter는 별도 풀이다. 공식 설명서 spinup은 기후 반복으로 soil C/N의 steady-state를 얻는 절차이며, 이것만으로 임의의 시점에 모든 식물 풀이 정확히 평형이라고 단정하지 않는다. 원래 모델은 일별 기상, 토양, 질소 조건을 요구하는 과정 모델이다. 출처: https://daac.ornl.gov/MODELS/guides/biome-bgc_guide.html (설명서 pp. 4, 11–12).
+
+3. **White et al. (2000), BIOME-BGC 공통 파라미터 체계:** ENF, DBF, DNF, shrub, C3 grass, C4 grass를 동일 모델 안에서 다룬다. 별도 온대/한대 ENF 계수가 있는 것처럼 표현하면 안 된다. DNF의 일부 파라미터는 문헌 부족으로 ENF 값을 사용하며, 이는 논문 자체의 명시적 가정이다. BIOME4 PFT7에는 침엽/활엽 낙엽 성격의 선택 문제가 남아 있어 DNF 하나로 자동 매핑할 수 없다. 이 논문의 검증 중심은 NPP 민감도와 파라미터화이며, BIOME4 NPP/LAI를 투입한 AGB 외부 검증을 한 것으로 간주하지 않는다. 출처: https://journals.ametsoc.org/view/journals/eint/4/3/1087-3562_2000_004_0003_pasaot_2.0.co_2.xml ; DOI 10.1175/1087-3562(2000)004<0003:PASAOT>2.0.CO;2. 전문 페이지는 직접 열기에서 403이었으나 검색 색인의 원문 Section 2.2, Appendix A를 확인했다. 공식 파라미터 자료 DOI: 10.3334/ORNLDAAC/652.
+
+4. **CENTURY, Parton et al. (1993), Gilmanov et al. (1997):** 초본 생체량 모델의 존재를 확인한다. 1993 연구는 11개 온대/열대 초지에서 peak live biomass 및 생산량을 관측과 비교했다. 1997 연구 초록은 구소련 8개 초지의 live/dead aboveground phytomass 모의를 명시하며 live phytomass 관측 비교 r²=0.41–0.98을 보고한다. 이는 동적 과정 모델의 검증이지 NPP+PFT만 받는 정적 식의 직접 검증은 아니다. 출처: https://agupubs.onlinelibrary.wiley.com/doi/10.1029/93GB02042 ; https://www.sciencedirect.com/science/article/pii/S0304380096000671 ; DOI 10.1016/S0304-3800(96)00067-1.
+
+5. **VECODE, Brovkin et al. (2002):** tree/grass 각각 green 및 structural biomass를 계산하며 NPP에 따른 allocation 및 turnover 함수를 northern Eurasia 약 500개 site 데이터로 보정했다. 그러나 structural pool에 stems+roots가 함께 포함된다. total biomass와 AGB를 동일시하지 않는다. 출처: https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2001GB001662 (Section 2.3, Appendix A).
+
+### 실용적 함의
+
+BIOME4에 추가할 식을 찾는 방향은 “모델이 없으므로 관측 논문별 계수를 조각낸다”가 아니다. 공통 모델의 지상부/지하부 풀 구조와 파라미터를 유지한 평형 진단식을 검토해야 한다. 고정된 연간 allocation과 유효 손실률을 가정하는 단순 풀 수지에서 C*=a·NPP/λ는 대수적으로 도출되지만, 해당 단순화를 원래 BIOME-BGC 실행 또는 이미 검증된 BIOME4 변환식으로 소개해서는 안 된다. 계절 낙엽, 저장/전이 풀, 화재의 조직별 영향, stem 내부 live→dead 전이는 원래 식 확인 후 처리해야 한다.
+
+이번 확인은 **역사적 생체량 모델과 AGB 분리 구조의 존재를 확정**한다. 새 BIOME4 최종 변환계수는 아직 제시하거나 채택하지 않았으며 production AGB 계산은 변경하지 않았다. JULES 전체 모형 편향이 있다는 이유만으로 모든 정적 생체량 진단식의 존재 또는 적용 가능성을 부정하는 논리는 사용하지 않는다.
