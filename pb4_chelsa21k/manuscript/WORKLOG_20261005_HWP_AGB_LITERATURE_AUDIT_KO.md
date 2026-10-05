@@ -941,3 +941,23 @@ AGB bridge는 다시 **BIOME4 자체 또는 BIOME4를 직접 사용한 문헌**�
 4. BIOME4 자체의 PFT/biome별 turnover 또는 biomass allocation 정의가 있는지
 
 BIOME3, LPJ, 외부 AGB 지도 회귀를 조합하여 bridge를 만드는 방식은 사용하지 않는다.
+
+
+# 19. BIOME4-only AGB/vegetation-carbon 문헌감사 결론
+
+상세 문서:
+
+`pb4_chelsa21k/manuscript/BIOME4_AGB_CARBON_LITERATURE_AUDIT_20261005_KO.md`
+
+핵심 결론:
+
+- BIOME4 자체는 total standing AGB를 독립 pool로 직접 계산하지 않는다.
+- Wang et al. (2011)은 BIOME4 steady-state NPP를 이용해
+  [
+  C_{veg}=NPP	au_{veg}
+  ]
+  로 vegetation carbon을 계산했다.
+- Ji et al. (2016)은 이 Wang 방법을 BIOME4 forest-carbon 연구에서 실제 재사용했다.
+- 현재 확인한 BIOME4 문헌에는 (C_{veg})를 aboveground/belowground로 분리하여 AGB를 얻는 BIOME4-native 공식이 없다.
+- 따라서 BIOME4-only 원칙에서는 (C_{veg})를 AGB라고 부르거나 AGB 자리에 그대로 넣지 않는다.
+- 다음 clean candidates는 EEMT-only 또는 BIOME4-Cveg geomorphic coupling 두 가지로 제한한다.
