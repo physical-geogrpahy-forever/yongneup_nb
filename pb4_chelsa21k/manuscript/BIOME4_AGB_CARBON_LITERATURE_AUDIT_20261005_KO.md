@@ -1718,3 +1718,84 @@ Section 22.6의 'JULES-LAI를 주 비교 후보' 판정은 이번 독립 equilib
 이 판정은 PFT-IBIS/Xue가 'BIOME4 native equation'이라는 뜻이 아니다. 여전히 BIOME4 PFT와 IBIS PFT 사이의 명시적 cross-model correspondence다. 다만 현재까지 확보한 독립 equilibrium model evidence는 이 candidate의 **AGB 규모 자체가 비정상적인 과대값이라는 주장을 지지하지 않는다.**
 
 Production 승격 전 최종 확인은 PFT mapping provenance와 지형 민감도 결과를 함께 제시하고, JULES-LAI를 lower-bound sensitivity로 병기하는 방식이 적절하다.
+
+
+## 24. JULES-LAI IPCC carbon-fraction sensitivity와 최종 비교표 (2026-10-05)
+
+### 24.1 목적
+
+Section 22의 JULES-LAI candidate는 wood carbon fraction을 0.50으로 놓은 명시적 가정을 사용했다. 이 값이 결과를 좌우하는지 확인하기 위해 2006 IPCC Table 4.3의 PFT별 기본값을 사용한 별도 21-0 ka full run을 새로 실행했다.
+
+- broadleaf: 0.48
+- conifer: 0.51
+- PFT10 shrub fallback: IPCC default 0.47
+- PFT7 BDT scenario: 0.48
+- PFT7 NDT scenario: 0.51
+
+공식:
+AGBdry = LMA * LAI + 0.75 * [awl * LAI^(5/3)] / fCwood(PFT)
+
+candidate ZIP:
+- PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_IPCCCF_AGB_PFT7_BDT.zip
+- PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_IPCCCF_AGB_PFT7_NDT.zip
+
+결과:
+pb4_chelsa21k/results/jules_lai_ipcccf_agb_candidate_20261005/
+
+### 24.2 full-run 결과
+
+| scenario | mode | 211시점 cell-mean 평균 kg dry m^-2 | 최소-최대 | absolute max |
+|---|---|---:|---:|---:|
+| BDT | dynamic | 6.1619 | 4.2710-8.7390 | 11.2406 |
+| BDT | static | 6.2909 | 4.3612-8.7957 | 8.8676 |
+| NDT | dynamic | 6.1553 | 4.2699-8.7453 | 10.9295 |
+| NDT | static | 6.2909 | 4.3612-8.7957 | 8.8676 |
+
+PFT별 dynamic mean dry AGB:
+
+| PFT | BDT scenario Mg ha^-1 | NDT scenario Mg ha^-1 |
+|---:|---:|---:|
+|4|80.75|80.75|
+|6|59.00|59.00|
+|7|62.04|60.36|
+|10|0.131|0.130|
+
+기존 uniform fC=0.50 실행의 dynamic basin mean 6.1781-6.1852 kg m^-2와 비교하면 IPCC-CF는 6.1553-6.1619로 차이가 매우 작다.
+
+0 ka BDT:
+- mean soil depth 2.5257367 m
+- mean slope 0.2909994
+- relief 68.0189110 m
+
+기존 uniform-fC JULES-BDT 0 ka:
+- mean soil depth 2.5262406 m
+- mean slope 0.2910017
+- relief 68.0241750 m
+
+따라서 carbon fraction 선택으로 인한 0 ka 토심 차이는 약 0.00050 m, relief 차이는 약 0.0053 m에 불과하다. 현재 basin-scale geomorphic result에서 carbon-fraction uncertainty는 1차 불확실성이 아니다.
+
+Jang 1% validation은 네 조합 모두 static 24/62, dynamic 55/62로 동일했다.
+
+### 24.3 최종 비교 산출물
+
+공통 비교표:
+- pb4_chelsa21k/manuscript/AGB_BRIDGE_FINAL_COMPARISON_20261005.csv
+
+독립 equilibrium coefficient cross-check:
+- pb4_chelsa21k/manuscript/AGB_EQUILIBRIUM_COEFFICIENT_CROSSCHECK_20261005.csv
+
+### 24.4 현재 최종 판정
+
+현재까지의 후보 추가 검색은 여기서 중단할 수 있다. 남은 차이는 계수 미세조정이 아니라 **목표 상태의 정의**다.
+
+- BIOME4와 같이 equilibrium potential vegetation을 목표로 할 때: PFT-IBIS/Xue NPP+PFT bridge가 현재 가장 일관적인 주 후보.
+- 현존 또는 교란된 경관의 lower-biomass 상태를 표현할 때: JULES-LAI가 유용한 하한 sensitivity.
+- PFT7 BDT/NDT와 carbon fraction 0.48/0.51의 선택은 용늪 basin 결과를 거의 바꾸지 않는다.
+- Jang 범주형 검증은 AGB bridge 판별력이 없다.
+- 따라서 이후 불확실성 분석은 **IBIS/Xue main + JULES-LAI lower sensitivity**의 두 구조를 병기하는 것이 가장 투명하다.
+
+PFT-IBIS/Xue를 주 후보로 두는 이유는 단순히 AGB가 더 크기 때문이 아니다. Ise et al. (2010)의 독립 equilibrium partitioning scheme을 같은 단위로 환산했을 때 temperate meta-analysis coefficient 0.02813이 Xue/IBIS PFT4 0.0286과 거의 동일하고, boreal meta-analysis 0.04564가 PFT7 0.0422와 가까우며 PFT6 0.0327은 오히려 보수적이기 때문이다.
+
+반대로 JULES-LAI는 같은 NPP에 대한 등가 biomass 규모가 equilibrium model군보다 절반 이하이며, 이는 current landscape average와는 잘 맞지만 성숙 또는 잠재 forest biomass에는 낮을 수 있다.
+
+이 판정은 cross-model transfer의 불확실성을 제거하지 않는다. 논문/보고서에서는 주 결과와 lower-bound sensitivity를 함께 제시하고, 각 결과에 model version, climate file, execution status, validation sample과 판정 기준을 명시한다.
