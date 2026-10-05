@@ -66,9 +66,9 @@ Leaf biomass uses the Reich et al. (1992) SLA-life-span equation in its publishe
 
 Pelletier coupling:
 
-[
-k_d = 0.033 EEMT + 0.05 AGB^*
-]
+\[
+k_d = 0.033\,EEMT + 0.05\,AGB^*
+\]
 
 The direct Pelletier exponential EEMT-to-AGB equation is not used for Yongneup.
 
