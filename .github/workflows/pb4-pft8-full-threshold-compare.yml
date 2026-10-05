@@ -1,0 +1,40 @@
+name: Compare full PFT8 LAI thresholds
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-pft8-full-threshold-compare.yml'
+      - 'pb4_chelsa21k/tools/run_pft8_full_threshold_compare.py'
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install runtime
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+      - name: Compare
+        run: python pb4_chelsa21k/tools/run_pft8_full_threshold_compare.py
+      - name: Commit results
+        run: |
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/pft8_full_threshold_compare_20261006
+          git commit -m 'Compare full PFT8 LAI thresholds [skip ci]' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
