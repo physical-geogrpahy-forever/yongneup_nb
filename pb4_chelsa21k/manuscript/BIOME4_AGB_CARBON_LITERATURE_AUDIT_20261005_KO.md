@@ -1425,3 +1425,118 @@ Wolf2011은 초기 TRIFFID를 포함한 LSM의 organ allometry와 관측 산림�
 BIOME4에 추가할 식을 찾는 방향은 “모델이 없으므로 관측 논문별 계수를 조각낸다”가 아니다. 공통 모델의 지상부/지하부 풀 구조와 파라미터를 유지한 평형 진단식을 검토해야 한다. 고정된 연간 allocation과 유효 손실률을 가정하는 단순 풀 수지에서 C*=a·NPP/λ는 대수적으로 도출되지만, 해당 단순화를 원래 BIOME-BGC 실행 또는 이미 검증된 BIOME4 변환식으로 소개해서는 안 된다. 계절 낙엽, 저장/전이 풀, 화재의 조직별 영향, stem 내부 live→dead 전이는 원래 식 확인 후 처리해야 한다.
 
 이번 확인은 **역사적 생체량 모델과 AGB 분리 구조의 존재를 확정**한다. 새 BIOME4 최종 변환계수는 아직 제시하거나 채택하지 않았으며 production AGB 계산은 변경하지 않았다. JULES 전체 모형 편향이 있다는 이유만으로 모든 정적 생체량 진단식의 존재 또는 적용 가능성을 부정하는 논리는 사용하지 않는다.
+
+
+## 22. BIOME4 optLAI → JULES/TRIFFID AGB 21–0 ka 실제 실행 결과 (2026-10-05)
+
+### 22.1 실행 지위
+
+Section 18-20에서 문헌과 식만 확인했던 JULES/TRIFFID LAI 기반 AGB 경로를 실제 PB4-McKenzie-nativeClimate에 붙여 21–0 ka 전체 실행했다.
+
+- baseline model: `PB4-McKenzie-nativeClimate`
+- baseline canonical SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
+- climate: `YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv`
+- period: 21.0–0.0 ka BP
+- interval: 0.1 kyr
+- static: 211 steps
+- dynamic: 211 steps
+- 새로 실행한 결과이며 과거 참고값이 아니다.
+- AGB bridge 이외의 production 설정은 변경하지 않았다.
+- Jang validation: corrected reduced mapping, n=62, basin presence threshold 1%.
+
+candidate ZIP:
+- `PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_BDT_AGB.zip`
+- `PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_NDT_AGB.zip`
+
+결과:
+- `pb4_chelsa21k/results/jules_lai_bdt_agb_candidate_20261005/`
+- `pb4_chelsa21k/results/jules_lai_ndt_agb_candidate_20261005/`
+
+### 22.2 실제 사용식
+
+교목 및 관목에 대해
+
+[
+AGB_{dry}
+=
+LMA,L_{bal}
++
+rac{0.75,a_{wl}L_{bal}^{5/3}}{0.50}
+]
+
+를 사용했다.
+
+- (L_{bal}): BIOME4 dominant PFT의 `lai_node`, 즉 해당 PFT의 optLAI
+- LMA: Harper et al. (2016)
+- (a_{wl}): Harper et al. (2018)
+- 0.75: Wolf et al. (2011)의 integrated woody pool에 대한 stem:coarse-root 75:25 분리
+- 0.50: 목질부 dry-mass 변환을 위한 명시적 carbon fraction 가정
+
+PFT mapping:
+- BIOME4 PFT4 → JULES BDT: LMA 0.0823, awl 0.78
+- PFT5 → NET: LMA 0.2263, awl 0.65
+- PFT6 → NET: LMA 0.2263, awl 0.65
+- PFT7 → BDT 및 NDT를 각각 독립 실행
+- PFT10 → ESH: LMA 0.1515, awl 0.13
+
+PFT10에 forest-derived 75:25 woody split을 적용한 것은 명시적 구조 전이 가정이며, shrub에 독립 검증된 분리비라고 표현하지 않는다.
+
+### 22.3 AGB 실제 결과
+
+| 후보 | mode | 211시점 cell-mean의 평균 (kg dry m^-2) | 시점평균 최소–최대 | 절대 최대 | legacy 0.010×NPP 대비 평균비 |
+|---|---|---:|---:|---:|---:|
+| JULES PFT7=BDT | static | 6.3216 | 4.4380–8.4545 | 8.5235 | 1.5585 |
+| JULES PFT7=BDT | dynamic | 6.1781 | 4.3439–8.3989 | 10.8032 | 1.5650 |
+| JULES PFT7=NDT | static | 6.3216 | 4.4380–8.4545 | 8.5235 | 1.5585 |
+| JULES PFT7=NDT | dynamic | 6.1852 | 4.3452–8.4025 | 11.1406 | 1.5673 |
+
+1 kg m^-2 = 10 Mg ha^-1 이므로, 전기간 cell-mean의 평균은 약 61.8–63.2 Mg dry ha^-1 수준이다.
+
+비교:
+- canonical legacy `0.010×NPP`: dynamic 4.0086, static 4.1236 kg m^-2
+- PFT-IBIS/Xue candidate: dynamic 12.8357, static 13.0915 kg m^-2
+- JULES-LAI candidate: dynamic 약 6.18, static 6.32 kg m^-2
+
+따라서 JULES-LAI는 legacy보다 약 56% 높지만 IBIS/Xue equilibrium candidate의 약 절반 수준이다. 이 차이는 단순 계수 미세조정이 아니라 NPP residence-time 방식과 LAI allometry 방식의 구조 차이에서 발생한다.
+
+### 22.4 PFT별 기여와 PFT7 민감도
+
+BDT 시나리오 dynamic의 cell-observation weighted mean AGB:
+- PFT4: 약 7.762 kg m^-2
+- PFT6: 약 6.006 kg m^-2
+- PFT7: 약 5.978 kg m^-2
+- PFT10: 약 0.0129 kg m^-2
+
+NDT 시나리오에서 PFT7은 약 6.171 kg m^-2였다.
+
+전체 dynamic 평균은 BDT 6.1781, NDT 6.1852 kg m^-2로 차이가 0.0071 kg m^-2, 약 0.1%에 불과했다. 현재 21 ka 용늪 공간분포에서는 PFT7 BDT/NDT 해석이 전체 AGB 결과를 지배하지 않는다.
+
+PFT10은 dynamic에서 약 185–186 cell-observations에 불과하고 AGB도 매우 작아 전체 결과 기여가 사실상 미미하다. 따라서 PFT10의 shrub woody-split 불확실성은 남지만 현재 basin-scale AGB를 좌우하는 항은 아니다.
+
+### 22.5 Jang 2011 검증
+
+| 모델 | static | dynamic |
+|---|---:|---:|
+| canonical nativeClimate | 24/62 = 38.71% | 55/62 = 88.71% |
+| PFT-IBIS/Xue AGB | 24/62 = 38.71% | 55/62 = 88.71% |
+| JULES-LAI BDT | 24/62 = 38.71% | 55/62 = 88.71% |
+| JULES-LAI NDT | 24/62 = 38.71% | 55/62 = 88.71% |
+
+따라서 현재 Jang 범주형 1% 검증은 AGB bridge를 판별하지 못한다. JULES-LAI가 검증 정확도를 악화시키지 않았다는 것은 확인되지만, 동일 정확도를 이유로 AGB 식 자체가 검증됐다고 주장하지 않는다.
+
+### 22.6 현재 판정
+
+이번 실행으로 최소한 다음은 확정됐다.
+
+1. BIOME4의 dominant-PFT optLAI를 JULES/TRIFFID allometry에 넣는 경로는 코드상 정상 작동하며 21–0 ka 전체 실행이 가능하다.
+2. 출력 AGB 규모는 legacy와 IBIS/Xue 후보의 중간이며, IBIS/Xue처럼 13 kg m^-2 수준으로 상승하지 않는다.
+3. PFT7의 BDT/NDT 모호성은 현재 용늪 전체 결과에는 매우 작다.
+4. Jang 범주형 검증은 AGB bridge 선택에 대한 판별력을 갖지 않는다.
+5. 따라서 다음 핵심 질문은 더 많은 AGB 후보를 찾는 것이 아니라, **약 6 kg dry m^-2 수준의 JULES-LAI AGB가 온대/한대 산림의 동일 정의 관측과 비교해 타당한가**이다.
+
+현재 production 승격 판정은 보류한다. 그러나 **현 단계의 주 비교 후보는 JULES-LAI로 두고, IBIS/Xue는 상한 성격의 sensitivity candidate로 유지하는 것이 가장 합리적**이다. 추가 후보를 무한히 늘리기보다 독립적인 AGB 규모 검증으로 결론을 내린다.
+
+원문:
+- Harper et al. (2016), https://doi.org/10.5194/gmd-9-2415-2016
+- Harper et al. (2018), https://doi.org/10.5194/gmd-11-2857-2018
+- Wolf et al. (2011), https://doi.org/10.1029/2010GB003917
