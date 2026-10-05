@@ -539,21 +539,21 @@ AGB=s_{AGB} max(NPP_C,0)
 
 # IV-3. Xue/IBIS 원문 수식 및 PB4 equilibrium AGB bridge
 
-## Xue 2016 preprint 원문 Eq. (1)
+## Xue 2017 Ecological Modelling 최종본 원문 Eq. (1)
 
 g_{s,H_2O}=m {A_n h_s OVER C_s}+b
 
-## Xue 2016 preprint 원문 Eq. (2)
+## Xue 2017 Ecological Modelling 최종본 원문 Eq. (2)
 
 NPP=(1-eta) INT (A_g-R_{leaf}-R_{stem}-R_{root}) dt
 
-eta=0.3. PB4에서는 이 IBIS NPP식을 사용하지 않고 BIOME4 NPP를 사용한다.
+eta=0.3. 최종 Xue 본문은 eta를 fraction of carbon lost by maintenance respiration으로 표현한다. PB4에서는 이 IBIS NPP식을 사용하지 않고 BIOME4 NPP를 사용한다.
 
-## Xue 2016 preprint 원문 Eq. (3)
+## Xue 2017 Ecological Modelling 최종본 원문 Eq. (3)
 
 {PARTIAL C_{i,j} OVER PARTIAL t}=a_{i,j} NPP_i-{C_{i,j} OVER tau_{i,j}}
 
-## Xue 2016 preprint 원문 Eq. (4)
+## Xue 2017 Ecological Modelling 최종본 원문 Eq. (4)
 
 GSI=f(bar{T_m}) f(bar{R_g}) f(bar{VPD})
 
@@ -572,11 +572,13 @@ IBIS PFT10: tau_l=1, tau_r=1, tau_w=5, a_leaf=0.45, a_root=0.35, a_wood=0.20
 IBIS PFT11: tau_l=1.25, tau_r=1, no wood, a_leaf=0.45, a_root=0.55, a_wood=0
 IBIS PFT12: tau_l=1.5, tau_r=1, no wood, a_leaf=0.45, a_root=0.55, a_wood=0
 
-주의: 35/52 yr는 Xue AGB 연구의 parameterization이다. Kucharik 2000 IBIS default 50/100 yr와 동일시하지 않는다.
+주의: 35/52 yr는 Xue 2017 최종 Table 1의 calibrated parameter set이다. Kucharik 2000 IBIS default warm-temperate 25 / temperate 50 / boreal 100 yr와 동일시하지 않는다.
 
-## Xue 2016 carbon density -> dry AGB
+## Xue 2017 final carbon density -> dry AGB
 
 AGB_{dry}=2 C_{AG}
+
+주의: x2는 carbon mass -> dry biomass mass 변환이다. total vegetation carbon 전체에 적용해 root까지 AGB로 간주하지 않는다. PB4의 leaf+wood 식은 Xue-style AGB diagnostic의 equilibrium 축약이며 IBIS wood pool의 coarse-root 포함 가능성은 구조적 불확실성으로 기록한다.
 
 ## Xue 2017 GBC 원문 Eq. (1)
 
