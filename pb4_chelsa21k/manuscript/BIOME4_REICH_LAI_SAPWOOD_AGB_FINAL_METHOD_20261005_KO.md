@@ -1,213 +1,321 @@
-# BIOME4-derived AGB* method — Reich LAI + sapwood route
+# BIOME4-derived AGB* final method
 
-작성일: 2026-10-05
+작성일: 2026-10-05  
+상태: **최종 채택**
 
-## 1. 최종 산정 대상
+## 1. 최종 변수 정의
 
-본 연구에서 지형모형에 전달하는 식생량은 **BIOME4-derived aboveground living biomass proxy** (mathrm{AGB}^*)로 정의한다.
+본 연구에서 Pelletier 식생-지형 결합식의 AGB 항에는 BIOME4 산출과 BIOME 계보의 출판식으로 계산한 **BIOME4-derived aboveground living biomass proxy**를 사용한다.
 
-[
-mathrm{AGB}^*_{mathrm{dry}}
+\[
+\boxed{
+AGB^*_{\mathrm{dry},p}
 =
-B_{mathrm{leaf,dry}}
+B_{\mathrm{leaf,dry},p}
 +
-B_{mathrm{sapwood,dry}}
-]
+B_{\mathrm{sapwood,dry},p}
+}
+\]
 
-이는 잎과 살아 있는 변재(sapwood)를 포함하며, 심재(heartwood), 굵은 가지 등 BIOME4가 독립 상태변수로 계산하지 않는 장기 목질부는 포함하지 않는다.
+여기서 \(AGB^*\)는 잎과 살아 있는 변재(sapwood)를 포함한다. BIOME4가 독립적인 standing stock으로 제공하지 않는 심재(heartwood), 굵은 가지 등의 장기 목질부는 포함하지 않는다. 따라서 본문에서 최초 정의 시 total anatomical AGB와 구분하여 \(AGB^*\)로 표기한다.
 
-## 2. 잎 건조생체량
+## 2. BIOME4 입력
 
-Reich et al. (1992), Table 1의 LEAVES 자료 회귀식:
+BIOME4의 모델 계보와 PFT 기반 최적 LAI/NPP 계산은 Kaplan et al. (2003)을 따른다. 실제 계산 파라미터는 공개 BIOME4 v4.2b2 source code의 biome4.f를 기준으로 한다.
 
-[
-log_{10}(SLA)
+본 AGB* 계산에 사용하는 BIOME4 변수는 다음과 같다.
+
+- \(LAI_p\): dominant PFT의 BIOME4 optimal LAI
+- \(L_{m,p}\): expected leaf longevity in months, BIOME4 v4.2b2 pftpar(pft,7)
+- pftpar(pft,10): presence of sapwood respiration
+- stemcarbon = 0.5: BIOME4 v4.2b2 respiration subroutine의 sapwood carbon parameter
+
+표준 BIOME4 v4.2b2는 13개의 PFT parameter slot을 가지며 PFT1은 표준 실행에서 비활성화된다. 본 식은 13개 slot 모두에 대해 파라미터를 정의하되 실제 용늪 21-0 ka 실행에서 선택된 dominant PFT만 사용한다.
+
+## 3. 잎 건조생체량
+
+Reich et al. (1992), Table 1의 전체 LEAVES 자료에 제시된 회귀식은 다음과 같다.
+
+\[
+\boxed{
+\log_{10}(SLA)
 =
 2.44
 -
-0.43log_{10}(mathrm{life	ext{-}span})
-]
+0.43\log_{10}(\mathrm{life\mbox{-}span})
+}
+\]
 
-여기서 life-span은 month, (SLA)는 cm2 g-1이다.
+여기서 life-span의 단위는 month이고 \(SLA\)의 단위는 \(\mathrm{cm^2\,g^{-1}}\)이다. Reich et al. (1992)은 \(SLA\)를 leaf area / leaf dry mass로 정의한다.
 
-따라서
+BIOME4의 leaf longevity \(L_m\)을 같은 단위인 month로 대입하면
 
-[
+\[
 SLA
 =
 10^{2.44}L_m^{-0.43}
-]
+\quad
+[\mathrm{cm^2\,g^{-1}}].
+\]
 
-이고, (1 mathrm{cm^2,g^{-1}}=0.1 mathrm{m^2,kg^{-1}})이므로
+단위 변환
 
-[
+\[
+1\ \mathrm{cm^2\,g^{-1}}
+=
+0.1\ \mathrm{m^2\,kg^{-1}}
+\]
+
+을 적용하면
+
+\[
 SLA
 =
-27.542287 L_m^{-0.43}
-quad [mathrm{m^2,kg^{-1}}].
-]
+27.542287\,L_m^{-0.43}
+\quad
+[\mathrm{m^2\,kg^{-1}}].
+\]
 
-BIOME4의 LAI 정의와 (SLA=mathrm{leaf area}/mathrm{leaf dry mass})를 결합하면
+LAI는 leaf area / ground area이므로 standing leaf dry biomass는
 
-[
-oxed{
-B_{mathrm{leaf,dry}}
+\[
+B_{\mathrm{leaf,dry}}
 =
-0.03630780547701014,
-LAI,L_m^{0.43}
+\frac{LAI}{SLA}.
+\]
+
+따라서
+
+\[
+\boxed{
+B_{\mathrm{leaf,dry},p}
+=
+0.03630780547701014\,
+LAI_p\,L_{m,p}^{0.43}
 }
-]
+\]
 
-단위는 kg dry biomass m-2이다.
+이며 단위는 \(\mathrm{kg\ dry\ biomass\ m^{-2}}\)이다.
 
-(L_m)은 BIOME4 v4.2b2의 `pftpar(pft,7)`, 즉 expected leaf longevity in months를 사용한다.
+## 4. 변재 건조생체량
 
-## 3. 변재 건조생체량
+Haxeltine and Prentice (1996), BIOME3 Eq. (34)는 다음과 같이 total sapwood carbon content를 LAI와 연결한다.
 
-Haxeltine and Prentice (1996), BIOME3 Eq. (34):
-
-[
-oxed{
-C_s=LAI,C_n
+\[
+\boxed{
+C_s
+=
+LAI\,C_n
 }
-]
+\]
 
-여기서 (C_s)는 total sapwood carbon content이다.
+여기서 \(C_s\)는 total sapwood carbon content이고 \(C_n\)은 sapwood carbon content per unit LAI이다.
 
-BIOME4 v4.2b2 source code의 `respiration` subroutine은
+BIOME4 v4.2b2 source code의 respiration subroutine은 stemcarbon=0.5를 사용한다. source comment는 stemcarbon을 sapwood mass in kg C per unit leaf area per unit ground area로 정의한다. 따라서 BIOME4 구현에서는 sapwood carbon stock을
 
-`stemcarbon=0.5`
-
-를 사용하며 이를 sapwood mass in kg C per unit leaf area per unit ground area로 정의한다. 따라서
-
-[
-C_s=0.5,LAI
-quad [mathrm{kg,C,m^{-2}}].
-]
-
-건조생체량 탄소분율을 (f_C=0.50)으로 두면
-
-[
-B_{mathrm{sapwood,dry}}
+\[
+\boxed{
+C_{\mathrm{sapwood},p}
 =
-rac{0.5LAI}{0.5}
+0.5\,LAI_p
+}
+\]
+
+로 계산한다.
+
+탄소분율 \(f_C=0.50\)은 본 연구의 명시적 dry-mass conversion assumption으로 둔다. 따라서
+
+\[
+B_{\mathrm{sapwood,dry},p}
 =
-LAI.
-]
-
-단, BIOME4 `pftpar(pft,10)`이 2인 PFT는 source code에서 sapwood respiration이 제거되므로 변재 항을 0으로 둔다.
-
-계산 편의를 위해 다음 indicator를 정의한다.
-
-[
-S_p=
-egin{cases}
-1,& pftpar(p,10)=1\
-0,& pftpar(p,10)=2
-end{cases}
-]
-
-## 4. 최종식
-
-[
-oxed{
-mathrm{AGB}^*_{mathrm{dry},p}
+\frac{C_{\mathrm{sapwood},p}}{f_C}
 =
 LAI_p
-left[
+\]
+
+이다. 단, BIOME4 v4.2b2에서 pftpar(pft,10)=2인 PFT는 source code가 sapwood respiration을 제거하므로 sapwood term을 0으로 둔다.
+
+계산 편의를 위해 본 연구에서 다음 indicator를 정의한다.
+
+\[
+S_p=
+\begin{cases}
+1, & \text{if } pftpar(p,10)=1\\
+0, & \text{if } pftpar(p,10)=2
+\end{cases}
+\]
+
+\(S_p\)는 BIOME4의 원 변수명이 아니라 본 연구가 계산을 위해 정의한 indicator이다.
+
+## 5. 최종 AGB* 식
+
+위 두 항을 결합하면 최종식은 다음과 같다.
+
+\[
+\boxed{
+AGB^*_{\mathrm{dry},p}
+=
+LAI_p
+\left[
 S_p
 +
-0.03630780547701014 L_{m,p}^{0.43}
-ight]
+0.03630780547701014\,L_{m,p}^{0.43}
+\right]
 }
-]
+\]
 
-단위:
+단위는
 
-[
-mathrm{kg dry biomass m^{-2}}
-]
+\[
+\boxed{
+\mathrm{kg\ dry\ biomass\ m^{-2}}
+}
+\]
 
-(S_p)는 본 연구가 계산용으로 정의한 indicator이며 BIOME4 원 변수명이 아니다.
+이다.
 
-## 5. BIOME4 v4.2b2 13 PFT 파라미터
+본 연구에서 이후의 AGB 표기는 특별한 설명이 없는 한 이 \(AGB^*\)를 뜻하며, 최초 Methods 정의에서는 반드시 BIOME4-derived aboveground living biomass proxy (AGB*)라고 명시한다.
 
-| PFT | BIOME4 source-code type | (L_m) month | pftpar(10) | (S_p) | AGB*/LAI |
+## 6. BIOME4 v4.2b2 PFT별 계수
+
+| PFT | BIOME4 source-code type | \(L_m\) month | pftpar(10) | \(S_p\) | \(AGB^*/LAI\) |
 |---:|---|---:|---:|---:|---:|
-|1|Tropical Evergreen Trees|18|1|1|1.125825|
-|2|Tropical Drought-deciduous Trees|9|1|1|1.093395|
-|3|Temperate Broadleaved Evergreen Trees|18|1|1|1.125825|
-|4|Temperate Deciduous Trees|7|1|1|1.083829|
-|5|Cool Conifer Trees|30|1|1|1.156734|
-|6|Boreal Evergreen Trees|24|1|1|1.142394|
-|7|Boreal Deciduous Trees|24|1|1|1.142394|
-|8|C3/C4 temperate grass|8|2|0|0.088783|
-|9|C4 tropical grass|10|2|0|0.097724|
-|10|C3/C4 woody desert|12|1|1|1.105693|
-|11|Tundra shrub|8|1|1|1.088783|
-|12|Cold herbaceous|8|2|0|0.088783|
-|13|Lichen/forb|8|1|1|1.088783|
+| 1 | Tropical Evergreen Trees | 18 | 1 | 1 | 1.125825 |
+| 2 | Tropical Drought-deciduous Trees | 9 | 1 | 1 | 1.093395 |
+| 3 | Temperate Broadleaved Evergreen Trees | 18 | 1 | 1 | 1.125825 |
+| 4 | Temperate Deciduous Trees | 7 | 1 | 1 | 1.083829 |
+| 5 | Cool Conifer Trees | 30 | 1 | 1 | 1.156734 |
+| 6 | Boreal Evergreen Trees | 24 | 1 | 1 | 1.142394 |
+| 7 | Boreal Deciduous Trees | 24 | 1 | 1 | 1.142394 |
+| 8 | C3/C4 temperate grass | 8 | 2 | 0 | 0.088783 |
+| 9 | C4 tropical grass | 10 | 2 | 0 | 0.097724 |
+| 10 | C3/C4 woody desert | 12 | 1 | 1 | 1.105693 |
+| 11 | Tundra shrub | 8 | 1 | 1 | 1.088783 |
+| 12 | Cold herbaceous | 8 | 2 | 0 | 0.088783 |
+| 13 | Lichen/forb | 8 | 1 | 1 | 1.088783 |
 
-PFT13은 생물학적 명칭만 보면 변재가 어색하지만, 본 계산에서는 BIOME4 v4.2b2 source code의 `pftpar(13,10)=1`을 수정하지 않고 그대로 따른다.
+PFT13은 식생형 명칭상 sapwood 해석에 주의가 필요하지만, 본 연구에서는 BIOME4 v4.2b2 source code의 pftpar(13,10)=1을 임의 수정하지 않고 그대로 따른다.
 
-## 6. 21–0 ka 전체 실행
+## 7. Pelletier 지형식과의 결합
 
-모델:
-- PB4-McKenzie-nativeClimate
-- baseline SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
-- 새 candidate SHA-256: `1a4a7e07b9387c38f21019e9bc781a499b7c5864f949abf7075ea779e435a05c`
-- climate: `YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv`
-- 21.0–0.0 ka BP, 0.1 kyr interval, static/dynamic 각각 211 steps
+Pelletier et al. (2013)의 colluvial transport coupling 구조는 유지한다.
 
-AGB* basin mean의 시계열 평균:
-- static: 3.19979 kg m-2
-- dynamic: 3.11600 kg m-2
+\[
+\boxed{
+k_d
+=
+c\,EEMT
++
+d\,AGB^*
+}
+\]
 
-legacy (0.010	imes NPP):
-- static: 4.12358 kg m-2
-- dynamic: 4.00976 kg m-2
+사용 계수는 Pelletier et al. (2013)의
 
-따라서 새 식은 평균적으로 legacy의 약 80% 수준이다.
+\[
+c=0.033,\qquad d=0.05
+\]
+
+를 유지한다.
+
+반면 Pelletier et al. (2013)의 대상지 경험식
+
+\[
+AGB=e\exp(fEEMT)
+\]
+
+은 용늪에 사용하지 않는다. 원 연구의 EEMT 실험 범위보다 용늪 EEMT가 훨씬 높아 지수 외삽이 폭주하기 때문이다. 따라서 **Pelletier의 지형수송 결합식은 유지하고 AGB 상태변수만 BIOME4-derived \(AGB^*\)로 대체**한다.
+
+## 8. 21-0 ka 전체 재실행 결과
+
+실행 조건:
+
+- model: PB4-McKenzie-nativeClimate
+- baseline canonical SHA-256: eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d
+- AGB* candidate SHA-256: 1a4a7e07b9387c38f21019e9bc781a499b7c5864f949abf7075ea779e435a05c
+- climate: YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv
+- period: 21.0-0.0 ka BP
+- interval: 0.1 kyr
+- static: 211 steps
+- dynamic: 211 steps
+- 새로 실행한 결과이며 과거 참고값이 아님
+
+21 ka 전체 basin-mean AGB*의 시계열 평균:
+
+\[
+\mathrm{static}=3.19979\ \mathrm{kg\,m^{-2}}
+\]
+
+\[
+\mathrm{dynamic}=3.11600\ \mathrm{kg\,m^{-2}}
+\]
 
 0 ka:
-- static AGB*: 3.48349 kg m-2
-- dynamic AGB*: 3.46620 kg m-2
-- legacy static: 6.14980 kg m-2
-- legacy dynamic: 6.10805 kg m-2
 
-Jang et al. (2011) corrected reduced mapping, basin 1% presence:
-- static: 24/62 = 38.71%
-- dynamic: 55/62 = 88.71%
+\[
+\mathrm{static}=3.48349\ \mathrm{kg\,m^{-2}}
+\]
 
-즉 vegetation-class validation은 기존 canonical과 동일하며 AGB bridge 교체로 악화되지 않았다.
+\[
+\mathrm{dynamic}=3.46620\ \mathrm{kg\,m^{-2}}
+\]
 
-## 7. 실제 용늪 21 ka에서 출현한 PFT
+즉 0 ka dynamic은 약 \(34.66\ \mathrm{t\,ha^{-1}}\)이다.
 
-새 candidate의 dominant PFT:
-- static: PFT4, PFT6
-- dynamic: PFT4, PFT6, PFT7, PFT10
-- 그 외 PFT는 dominant로 출현하지 않음
-- PFT0은 dynamic bare/nonvegetated cells이며 AGB*=0
+기존 0.010 x NPP bridge와 비교하면 21 ka 평균은 약 22% 감소하고, 0 ka에서는 약 43% 감소한다.
 
-## 8. 해석상 제한
+Jang et al. (2011) corrected reduced mapping, basin 1% presence criterion:
 
-이 값은 total anatomical AGB가 아니다. BIOME4가 직접 제공하거나 published BIOME3/BIOME4 lineage에서 명시적으로 연결 가능한 **foliage + sapwood**만 사용한 (mathrm{AGB}^*)이다.
+\[
+\mathrm{static}=24/62=38.71\%
+\]
 
-따라서 원고에서는 최초 정의 시 다음과 같이 명시한다.
+\[
+\mathrm{dynamic}=55/62=88.71\%
+\]
 
-> BIOME4-derived aboveground living biomass proxy (AGB*), comprising foliage and sapwood.
+로 기존 nativeClimate production baseline과 동일하다.
 
-이후 기호는 (mathrm{AGB}^*)로 통일한다.
+## 9. 최종 채택 판정
 
-## 9. 핵심 레퍼런스
+본 연구의 AGB 처리 방식은 다음으로 고정한다.
 
-- Kaplan, J. O., et al. (2003). Climate change and Arctic ecosystems: 2. Modeling, paleodata-model comparisons, and future projections. Journal of Geophysical Research: Atmospheres, 108(D19). https://doi.org/10.1029/2002JD002559
-- Haxeltine, A., & Prentice, I. C. (1996). BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types. Global Biogeochemical Cycles, 10, 693-709. https://doi.org/10.1029/96GB02344
-- Reich, P. B., Walters, M. B., & Ellsworth, D. S. (1992). Leaf life-span in relation to leaf, plant, and stand characteristics among diverse ecosystems. Ecological Monographs, 62(3), 365-392. https://doi.org/10.2307/2937116
-- BIOME4 v4.2b2 source code: https://github.com/jedokaplan/BIOME4
+\[
+\boxed{
+BIOME4\ optLAI
++
+BIOME4\ PFT\ leaf\ longevity
++
+Reich\ SLA\mbox{-}life\mbox{-}span
++
+BIOME4\ sapwood
+\rightarrow
+AGB^*
+}
+\]
 
-## 10. 실행 파일
+다음 방식은 production AGB 산정식으로 사용하지 않는다.
 
-- candidate package: `pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_REICH_LAI_SAPWOOD_AGB.zip`
-- runner: `pb4_chelsa21k/tools/run_reich_lai_sapwood_agb_candidate.py`
-- results: `pb4_chelsa21k/results/reich_lai_sapwood_agb_candidate_20261005/`
+- legacy AGB = 0.010 x NPP: 출처 없는 historical comparator
+- Pelletier Eq. (5) AGB = e exp(f EEMT): 용늪 EEMT에서 지수 외삽 폭주
+- Xue/IBIS bridge: PFT 대응과 aboveground 해석 불확실성
+- JULES bridge: 별도 모델의 allometry를 BIOME4에 전이하는 cross-model sensitivity
+
+## 10. 참고문헌
+
+Kaplan, J. O., et al. (2003). Climate change and Arctic ecosystems: 2. Modeling, paleodata-model comparisons, and future projections. *Journal of Geophysical Research: Atmospheres, 108*(D19), 8171. https://doi.org/10.1029/2002JD002559
+
+Haxeltine, A., & Prentice, I. C. (1996). BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types. *Global Biogeochemical Cycles, 10*(4), 693-709. https://doi.org/10.1029/96GB02344
+
+Reich, P. B., Walters, M. B., & Ellsworth, D. S. (1992). Leaf life-span in relation to leaf, plant, and stand characteristics among diverse ecosystems. *Ecological Monographs, 62*(3), 365-392. https://doi.org/10.2307/2937116
+
+Pelletier, J. D., et al. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. *Journal of Geophysical Research: Earth Surface, 118*, 741-758. https://doi.org/10.1002/jgrf.20046
+
+BIOME4 v4.2b2 source code. Jed O. Kaplan. https://github.com/jedokaplan/BIOME4
+
+## 11. 구현 및 결과 파일
+
+- runner: pb4_chelsa21k/tools/run_reich_lai_sapwood_agb_candidate.py
+- candidate package: pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_REICH_LAI_SAPWOOD_AGB.zip
+- results: pb4_chelsa21k/results/reich_lai_sapwood_agb_candidate_20261005/
+- comparison: pb4_chelsa21k/results/agb_bridge_comparison_20261005/AGB_BRIDGE_COMPARISON.csv
