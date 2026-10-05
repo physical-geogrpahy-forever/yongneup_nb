@@ -84,6 +84,8 @@ jobs:
           grep -nE '^(class|def) |pftpar|climate|mckenzie|root|depth|run_biome|evaluate' "$root/pb4studio/biome4_backend.py" | head -n 260 || true
           echo '=== climate key defs ==='
           grep -nE '^(class|def) |CHELSA|Beyer|agb|npp|lai|pft' "$root/pb4studio/climate.py" | head -n 260 || true
+          echo '=== selfcontained runner PFT output lines ==='
+          grep -nE 'pft[0-9]+_npp|pft_npp|validation_per_output|np.save|write_csv|to_csv|summary_rows|vegetation_class' "$root/tools/run_yongneup_21ka_chelsa_selfcontained.py" | head -n 500 || true
           echo '=== selfcontained runner head ==='
           sed -n '1,320p' "$root/tools/run_yongneup_21ka_chelsa_selfcontained.py" || true
           echo '=== mckenzie depth sensitivity tool ==='
