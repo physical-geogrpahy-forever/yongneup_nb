@@ -1,0 +1,3 @@
+mode,jang_correct,jang_n,pft8_positive_steps,pft8_max_cells,pft8_max_fraction,park_2p2_2p7_positive_steps
+static,24,62,0,0,0.0,0
+dynamic,55,62,101,8,0.026845637583892617,1
