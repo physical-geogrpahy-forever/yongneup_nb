@@ -13,9 +13,9 @@
 - `manuscript/VESLEM_PB4_HWP_EQUATION_GUIDE_KO.md`: Pelletier/McKenzie 원문 대조, PB4 수식, HWP 입력 가이드
 - `manuscript/WORKLOG_20261005_HWP_AGB_LITERATURE_AUDIT_KO.md`: 2026-10-05까지의 AGB coupling 문헌감사, BIOME4 v4.2b2 source audit, 잠정적 최종모델 위치, 미해결 과제 및 다음 실행 계획
 
-## 현재 잠정적 최종 모델 위치
+## 현재 최종 과학모형
 
-AGB coupling을 재검토 중이므로 현재 production package를 **잠정적 최종 baseline**으로 취급한다.
+AGB 검토는 종료되었으며 최종 과학모형은 **PB4-McKenzie-nativeClimate + BIOME4-derived AGB***로 고정한다. 기존 nativeClimate canonical ZIP은 AGB 변경 전 비교 baseline으로 보존하고, AGB*가 반영된 별도 candidate package를 최종 AGB 구현 기준으로 사용한다.
 
 - 모델: `PB4-McKenzie-nativeClimate`
 - canonical: `model/PB4Studio_v6.6.3_CHELSA21K.zip`
@@ -24,7 +24,7 @@ AGB coupling을 재검토 중이므로 현재 production package를 **잠정적 
 - production commit: `cfd220b2be2b9d166aa0d5e220c3dc1d9c78634a`
 - 결과/provenance: `results/native_climate_final_20261005/`
 
-**식생 코어는 BIOME4 v4.2b2로 고정한다. BIOME3는 최종 모델, 후보식, 파라미터 출처에서 제외한다.** AGB식을 변경한 candidate가 21-0 ka 전체 재실행 및 검증을 통과하기 전까지 위 package를 비교 기준으로 보존한다.
+**식생 코어는 BIOME4 v4.2b2로 고정한다.** AGB*의 변재-LAI 관계는 BIOME 계보의 Haxeltine and Prentice (1996) Eq. (34)를 사용하고, 실제 계수와 PFT 적용은 BIOME4 v4.2b2 source code를 따른다. 잎 건조생체량은 Reich et al. (1992)의 SLA-life-span 회귀식을 사용한다. AGB* candidate는 21-0 ka 전체 재실행 및 Jang 검증을 완료했다.
 
 과거 Beyer 실행 정확도나 이전 hotfix 정확도는 현재 CHELSA21K 결과로 간주하지 않는다. 새 결과는 동일 CHELSA21K forcing으로 다시 실행한 뒤 별도로 기록한다.
 
@@ -45,3 +45,35 @@ The canonical package is now `PB4-McKenzie-nativeClimate`: McKenzie AWC, finite-
 - Explicit final alias: `model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`
 - Final decision/results: `results/native_climate_final_20261005/`
 - Canonical SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
+
+
+### 2026-10-05 final AGB* decision
+
+Final AGB* equation:
+
+[
+AGB^*_{dry,p}
+=
+LAI_p
+left[
+S_p + 0.03630780547701014 L_{m,p}^{0.43}
+ight]
+]
+
+Pelletier coupling:
+
+[
+k_d = 0.033 EEMT + 0.05 AGB^*
+]
+
+The direct Pelletier exponential EEMT-to-AGB equation is not used for Yongneup.
+
+- authoritative method: `manuscript/BIOME4_REICH_LAI_SAPWOOD_AGB_FINAL_METHOD_20261005_KO.md`
+- final decision: `results/agb_bridge_comparison_20261005/AGB_BRIDGE_PROMOTION_DECISION_KO.md`
+- full-run results: `results/reich_lai_sapwood_agb_candidate_20261005/`
+- selected AGB* package: `model_candidates/PB4Studio_v6.6.3_CHELSA21K_REICH_LAI_SAPWOOD_AGB.zip`
+- selected AGB* package SHA-256: `1a4a7e07b9387c38f21019e9bc781a499b7c5864f949abf7075ea779e435a05c`
+- dynamic 21 ka mean AGB*: 3.11600 kg m^-2
+- dynamic 0 ka AGB*: 3.46620 kg m^-2 = 34.662 t ha^-1
+- Jang dynamic validation: 55/62 = 88.71%
+
