@@ -51,7 +51,7 @@ Wu et al. (2009) independently coupled BIOME4 to the process-based DEMETER carbo
 
 ## 3. The Xue/IBIS process equation
 
-Xue et al. (2016 preprint; final article 2017) describe IBIS annual NPP allocation among leaves, stems for trees, and roots. For PFT (i), biomass pool (j):
+Xue et al. (2017) final Ecological Modelling article directly describes IBIS annual NPP allocation among leaves, stems for trees, and roots. For PFT (i), biomass pool (j):
 
 [
 rac{partial C_{i,j}}{partial t}
@@ -88,7 +88,7 @@ NPP_i
 }
 ]
 
-Xue converts modeled carbon density to dry AGB by multiplying by 2.0. With BIOME4 NPP in g C m^-2 yr^-1:
+Xue states that the model calculates carbon density rather than AGB and converts the carbon density used for AGB comparison by multiplying by 2.0 (IPCC, 2003). In this project that factor is used only as carbon-mass -> dry-biomass conversion after defining the Xue-style aboveground diagnostic; it is not applied to total vegetation carbon including roots. With BIOME4 NPP in g C m^-2 yr^-1:
 
 [
 oxed{
@@ -198,7 +198,7 @@ PFT10 is not treated as a fully validated correspondence. It contributes only 20
 
 The Xue study did not merely report IBIS parameters. It evaluated potential AGB using a global plot dataset.
 
-The 2016 methodological paper states that 2,101 plot-level AGB observations were collected and used to constrain the model. The final 2017 Ecological Modelling article reports that IBIS reproduced global total AGB on a comparable scale to other estimates, while also identifying important spatial biases caused largely by using one parameter set for a PFT across the globe.
+The final 2017 Ecological Modelling article states that, after filtering, **992 plot-level AGB samples were retained for calibration and 982 for independent validation**, for 1,974 final AGB samples in total. It also states that parameters most sensitive to GPP and AGB were calibrated and that Table 1 contains the calibrated PFT-dependent parameter set. The article reports that IBIS reproduced global total AGB on a comparable scale to other estimates, while also identifying important spatial biases caused largely by using one parameter set for a PFT across the globe.
 
 This gives the bridge a useful but bounded validation status:
 - strong enough to use as a physically based potential-AGB candidate
@@ -285,6 +285,19 @@ The full Xue/IBIS candidate has:
 Pelletier et al. (2013) source observations extend to roughly 60-75 kg m^-2 AGB at high elevation, so the Xue candidate does not exceed the source AGB magnitude.
 
 The larger source-domain extrapolation in Yongneup is EEMT, not AGB.
+
+## 10.5 Final-paper re-verification: what is now directly proven
+
+Direct inspection of the final *Ecological Modelling* paper changes the provenance strength in four ways.
+
+1. **Eq. (3) and Table 1 are in the final paper itself.** The 35/52 yr values and allocation fractions no longer depend on the 2016 discussion preprint as their only source.
+2. **35/52 yr are calibrated Xue values, not IBIS defaults.** The final Methods state that most parameters retain Foley/Kucharik defaults, but parameters most sensitive to GPP and AGB were calibrated and reported in Table 1.
+3. **Final AGB sample accounting is 992 calibration + 982 independent validation = 1,974.** Earlier notes using 2,101 are superseded.
+4. **The factor 2.0 is directly stated for AGB comparison**, but the paper does not provide a separate equation proving that every component of total vegetation carbon is aboveground. Therefore the PB4 leaf+wood equilibrium formula remains a cross-model diagnostic derivation, not a native Xue equation.
+
+A separate IBIS implementation paper/reviewer response states that a generic woody biomass pool can include aboveground wood plus coarse roots. Xue's own final descriptions instead use leaves, stems, and roots, and the companion GBC paper associates woody residence time with stems and branches. Because these descriptions are not perfectly harmonized across IBIS versions, the safest terminology is **“Xue/IBIS equilibrium AGB diagnostic”**, with coarse-root composition retained as structural uncertainty.
+
+The companion Xue et al. (2017) GBC paper supplies an independent conceptual basis rather than the 35/52 parameter source. It defines observed near-equilibrium woody residence time as AGB divided by aboveground woody productivity and explicitly writes the same IBIS allocation-residence equation under steady-state conditions. It also demonstrates strong spatial variation in residence time. Thus it supports the equilibrium stock-from-productivity framework while simultaneously warning against treating any fixed PFT residence time as universal.
 
 ## 11. Final scientific status
 
