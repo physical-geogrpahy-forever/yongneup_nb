@@ -26,7 +26,7 @@ def run(cmd, cwd=None):
 
 
 def patch_source(root: Path) -> None:
-    sources = list(root.rglob("biome4.f"))
+    sources = list(root.rglob("biome4_original_4_2b2.f"))
     if not sources:
         raise SystemExit("biome4.f not found")
     old = """      if (wdom.eq.7) then
