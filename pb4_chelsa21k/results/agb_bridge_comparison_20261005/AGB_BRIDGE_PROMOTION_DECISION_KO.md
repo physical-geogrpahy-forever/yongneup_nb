@@ -1,30 +1,15 @@
-# AGB bridge promotion decision
+# AGB bridge promotion decision — RETRACTED
 
 Date: 2026-10-05
 
-## Decision
+> **최종 정정:** 이 문서의 기존 Xue/IBIS primary-promotion 결론은 철회한다. Xue et al. (2017)의 Eq. (3)에서 \(C_{i,j}\)는 leaf, stem, root biomass pool의 **carbon stock**이며 AGB 자체가 아니다. 같은 논문은 IBIS가 global AGB를 직접 계산하지 않고 carbon density를 계산한다고 명시하고, Table 3에서 model-derived carbon density를 above- and below-ground biomass를 포함한 forest carbon density와 비교한다. 따라서 \(0.0286/0.0327/0.0422\times NPP\)를 해부학적으로 검증된 dry AGB로 승격한 기존 판단은 근거가 부족하다. candidate 실행 결과는 sensitivity 기록으로만 유지한다.
 
-For the Yongneup BIOME4-Pelletier 21-0 ka experiment, the preferred equilibrium/potential-vegetation AGB bridge is:
+## Current decision
 
-[
-AGB_{dry}(NPP,PFT)=c_i NPP
-]
-
-with the Xue/IBIS equilibrium coefficients:
-
-| BIOME4 PFT | dominant-use status in this run | coefficient kg dry m-2 per g C m-2 yr-1 |
-|---:|---|---:|
-|0|nonvegetated|0|
-|4|used|0.0286|
-|6|used, dominant over much of 21 ka|0.0327|
-|7|used, minor|0.0422|
-|10|used, negligible|0.00285|
-
-This is the **primary scientific candidate**, not a claim that these coefficients are universal BIOME4 parameters.
-
-The JULES/TRIFFID optLAI bridge with IPCC carbon fractions is retained as the **lower-biomass/current-landscape sensitivity case**.
-
-The canonical production package is not overwritten by this decision file.
+- **Xue/IBIS NPP-turnover bridge: production AGB로 기각/보류.** carbon-pool equilibrium diagnostic으로는 유효하지만 AGB 분리가 입증되지 않았다.
+- **JULES-LAI bridge: sensitivity only.** 별도 cross-model allometry이며 production 확정식 아님.
+- **canonical legacy 0.010×NPP: historical comparator only.** 출처가 충분하지 않으므로 production 과학식으로 승격하지 않는다.
+- **다음 AGB 해결 경로:** aboveground를 정의 자체에 포함하는 자료만 사용한다. 우선 Xue et al. (2017, GBC)의 observed \(\tau_w=AGB/aboveground\ woody\ productivity\) 및 supplementary NPP→aboveground woody NPP 관계를 검토하되, PFT별 residence-time 대응과 leaf 포함 여부를 별도 해결해야 한다.
 
 ## PFT5 domain status
 
