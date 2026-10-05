@@ -9,7 +9,7 @@ encoded = "".join(p.read_text(encoding="ascii").strip() for p in PARTS)
 out = ROOT / "PB4Studio_v6.6.3_CHELSA21K.zip"
 out.write_bytes(base64.b64decode(encoded, validate=True))
 sha = hashlib.sha256(out.read_bytes()).hexdigest()
-expected = "eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d"
+expected = "a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34"
 print(f"wrote: {out}")
 print(f"sha256: {sha}")
 if sha != expected:

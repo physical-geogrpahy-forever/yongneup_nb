@@ -1,0 +1,663 @@
+PB4Studio CHELSA21K self-contained Yongneup run
+[정적모델] 1/211 21.0 ka BP
+[BIOME4 mckenzie2003 batch compile] OpenMP enabled, OMP_NUM_THREADS=4
+[정적모델] 26/211 18.5 ka BP
+[정적모델] 51/211 16.0 ka BP
+[정적모델] 76/211 13.5 ka BP
+[정적모델] 101/211 11.0 ka BP
+[정적모델] 126/211 8.5 ka BP
+[정적모델] 151/211 6.0 ka BP
+[정적모델] 176/211 3.5 ka BP
+[정적모델] 201/211 1.0 ka BP
+[정적모델] 211/211 0.0 ka BP
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 52636 (\N{HANGUL SYLLABLE CUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 47141 (\N{HANGUL SYLLABLE RYEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51216 (\N{HANGUL SYLLABLE JEOM}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 52824 (\N{HANGUL SYLLABLE CI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 45236 (\N{HANGUL SYLLABLE NAE}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49345 (\N{HANGUL SYLLABLE SANG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 52636 (\N{HANGUL SYLLABLE CUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 47141 (\N{HANGUL SYLLABLE RYEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51216 (\N{HANGUL SYLLABLE JEOM}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 52824 (\N{HANGUL SYLLABLE CI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 45236 (\N{HANGUL SYLLABLE NAE}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49345 (\N{HANGUL SYLLABLE SANG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+[동적모델] 1/211 21.0 ka BP
+[동적모델] 26/211 18.5 ka BP
+[동적모델] 51/211 16.0 ka BP
+[동적모델] 76/211 13.5 ka BP
+[동적모델] 101/211 11.0 ka BP
+[동적모델] 126/211 8.5 ka BP
+[동적모델] 151/211 6.0 ka BP
+[동적모델] 176/211 3.5 ka BP
+[동적모델] 201/211 1.0 ka BP
+[동적모델] 211/211 0.0 ka BP
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 52636 (\N{HANGUL SYLLABLE CUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 47141 (\N{HANGUL SYLLABLE RYEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51216 (\N{HANGUL SYLLABLE JEOM}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 52824 (\N{HANGUL SYLLABLE CI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 45236 (\N{HANGUL SYLLABLE NAE}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49345 (\N{HANGUL SYLLABLE SANG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 52636 (\N{HANGUL SYLLABLE CUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 47141 (\N{HANGUL SYLLABLE RYEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51216 (\N{HANGUL SYLLABLE JEOM}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 52824 (\N{HANGUL SYLLABLE CI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 45236 (\N{HANGUL SYLLABLE NAE}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49345 (\N{HANGUL SYLLABLE SANG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 52636 (\N{HANGUL SYLLABLE CUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 47141 (\N{HANGUL SYLLABLE RYEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51216 (\N{HANGUL SYLLABLE JEOM}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 52824 (\N{HANGUL SYLLABLE CI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 45236 (\N{HANGUL SYLLABLE NAE}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:840: UserWarning: Glyph 49345 (\N{HANGUL SYLLABLE SANG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 52636 (\N{HANGUL SYLLABLE CUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 47141 (\N{HANGUL SYLLABLE RYEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51216 (\N{HANGUL SYLLABLE JEOM}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 52824 (\N{HANGUL SYLLABLE CI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 45236 (\N{HANGUL SYLLABLE NAE}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 49345 (\N{HANGUL SYLLABLE SANG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:841: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 44288 (\N{HANGUL SYLLABLE GWAN}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 52769 (\N{HANGUL SYLLABLE CEUG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 51032 (\N{HANGUL SYLLABLE YI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 44036 (\N{HANGUL SYLLABLE GAN}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 44032 (\N{HANGUL SYLLABLE GA}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 51473 (\N{HANGUL SYLLABLE JUNG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 54217 (\N{HANGUL SYLLABLE PYEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 44512 (\N{HANGUL SYLLABLE GYUN}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 47732 (\N{HANGUL SYLLABLE MYEON}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 48708 (\N{HANGUL SYLLABLE BI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 44396 (\N{HANGUL SYLLABLE GU}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 54633 (\N{HANGUL SYLLABLE HAB}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 46020 (\N{HANGUL SYLLABLE DO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:778: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 44288 (\N{HANGUL SYLLABLE GWAN}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 52769 (\N{HANGUL SYLLABLE CEUG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 51032 (\N{HANGUL SYLLABLE YI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 44036 (\N{HANGUL SYLLABLE GAN}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 44032 (\N{HANGUL SYLLABLE GA}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 51473 (\N{HANGUL SYLLABLE JUNG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 54217 (\N{HANGUL SYLLABLE PYEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 44512 (\N{HANGUL SYLLABLE GYUN}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 50669 (\N{HANGUL SYLLABLE YEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 47732 (\N{HANGUL SYLLABLE MYEON}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 48708 (\N{HANGUL SYLLABLE BI}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 44396 (\N{HANGUL SYLLABLE GU}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 48324 (\N{HANGUL SYLLABLE BYEOL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 54633 (\N{HANGUL SYLLABLE HAB}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 46020 (\N{HANGUL SYLLABLE DO}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/validation.py:781: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(output_path, dpi=200)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 46020 (\N{HANGUL SYLLABLE DO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 52264 (\N{HANGUL SYLLABLE CA}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 46020 (\N{HANGUL SYLLABLE DO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 52264 (\N{HANGUL SYLLABLE CA}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 53664 (\N{HANGUL SYLLABLE TO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 49900 (\N{HANGUL SYLLABLE SIM}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 53664 (\N{HANGUL SYLLABLE TO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 49900 (\N{HANGUL SYLLABLE SIM}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:128: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.04, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:134: UserWarning: Glyph 51060 (\N{HANGUL SYLLABLE I}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 52824 (\N{HANGUL SYLLABLE CI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 48520 (\N{HANGUL SYLLABLE BUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:180: UserWarning: Glyph 54805 (\N{HANGUL SYLLABLE HYEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.10, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 51068 (\N{HANGUL SYLLABLE IL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 52824 (\N{HANGUL SYLLABLE CI}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 48520 (\N{HANGUL SYLLABLE BUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 54805 (\N{HANGUL SYLLABLE HYEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 52840 (\N{HANGUL SYLLABLE CIM}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 50685 (\N{HANGUL SYLLABLE YEOB}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 49688 (\N{HANGUL SYLLABLE SU}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 47548 (\N{HANGUL SYLLABLE RIM}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 54876 (\N{HANGUL SYLLABLE HWAL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 54844 (\N{HANGUL SYLLABLE HON}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 54952 (\N{HANGUL SYLLABLE HYO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 52488 (\N{HANGUL SYLLABLE CO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 48376 (\N{HANGUL SYLLABLE BON}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 44060 (\N{HANGUL SYLLABLE GAE}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 48169 (\N{HANGUL SYLLABLE BANG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 47924 (\N{HANGUL SYLLABLE MU}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 45208 (\N{HANGUL SYLLABLE NA}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:182: UserWarning: Glyph 51648 (\N{HANGUL SYLLABLE JI}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 44036 (\N{HANGUL SYLLABLE GAN}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 45380 (\N{HANGUL SYLLABLE NYEON}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 44201 (\N{HANGUL SYLLABLE GYEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 54217 (\N{HANGUL SYLLABLE PYEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 44512 (\N{HANGUL SYLLABLE GYUN}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 46020 (\N{HANGUL SYLLABLE DO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 48320 (\N{HANGUL SYLLABLE BYEON}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 54868 (\N{HANGUL SYLLABLE HWA}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 54217 (\N{HANGUL SYLLABLE PYEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 44512 (\N{HANGUL SYLLABLE GYUN}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 44256 (\N{HANGUL SYLLABLE GO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 46020 (\N{HANGUL SYLLABLE DO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 48320 (\N{HANGUL SYLLABLE BYEON}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 54868 (\N{HANGUL SYLLABLE HWA}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 44036 (\N{HANGUL SYLLABLE GAN}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 45380 (\N{HANGUL SYLLABLE NYEON}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 44201 (\N{HANGUL SYLLABLE GYEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 53664 (\N{HANGUL SYLLABLE TO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:266: UserWarning: Glyph 49900 (\N{HANGUL SYLLABLE SIM}) missing from font(s) DejaVu Sans.
+  fig.tight_layout()
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 53664 (\N{HANGUL SYLLABLE TO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:268: UserWarning: Glyph 49900 (\N{HANGUL SYLLABLE SIM}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 47732 (\N{HANGUL SYLLABLE MYEON}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 48708 (\N{HANGUL SYLLABLE BI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 44036 (\N{HANGUL SYLLABLE GAN}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 45380 (\N{HANGUL SYLLABLE NYEON}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 44201 (\N{HANGUL SYLLABLE GYEOG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 50640 (\N{HANGUL SYLLABLE E}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 46384 (\N{HANGUL SYLLABLE DDA}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 47480 (\N{HANGUL SYLLABLE REUN}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:300: UserWarning: Glyph 54805 (\N{HANGUL SYLLABLE HYEONG}) missing from font(s) DejaVu Sans.
+  fig.tight_layout(rect=(0, 0.08, 1, 0.96))
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 47732 (\N{HANGUL SYLLABLE MYEON}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 51201 (\N{HANGUL SYLLABLE JEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 48708 (\N{HANGUL SYLLABLE BI}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 50984 (\N{HANGUL SYLLABLE YUL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 46041 (\N{HANGUL SYLLABLE DONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 47784 (\N{HANGUL SYLLABLE MO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 45944 (\N{HANGUL SYLLABLE DEL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 51221 (\N{HANGUL SYLLABLE JEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 49884 (\N{HANGUL SYLLABLE SI}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 44036 (\N{HANGUL SYLLABLE GAN}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 45380 (\N{HANGUL SYLLABLE NYEON}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 44201 (\N{HANGUL SYLLABLE GYEOG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 50640 (\N{HANGUL SYLLABLE E}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 46384 (\N{HANGUL SYLLABLE DDA}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 47480 (\N{HANGUL SYLLABLE REUN}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 49885 (\N{HANGUL SYLLABLE SIG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 49373 (\N{HANGUL SYLLABLE SAENG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 50976 (\N{HANGUL SYLLABLE YU}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 54805 (\N{HANGUL SYLLABLE HYEONG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 52840 (\N{HANGUL SYLLABLE CIM}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 50685 (\N{HANGUL SYLLABLE YEOB}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 49688 (\N{HANGUL SYLLABLE SU}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 47548 (\N{HANGUL SYLLABLE RIM}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 54876 (\N{HANGUL SYLLABLE HWAL}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 54844 (\N{HANGUL SYLLABLE HON}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 54952 (\N{HANGUL SYLLABLE HYO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 52488 (\N{HANGUL SYLLABLE CO}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 48376 (\N{HANGUL SYLLABLE BON}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 44060 (\N{HANGUL SYLLABLE GAE}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 48169 (\N{HANGUL SYLLABLE BANG}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 47924 (\N{HANGUL SYLLABLE MU}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 45208 (\N{HANGUL SYLLABLE NA}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+/tmp/pb4_final_integrated_run/PB4Studio_v6.6.3_CHELSA21K/pb4studio/figures.py:302: UserWarning: Glyph 51648 (\N{HANGUL SYLLABLE JI}) missing from font(s) DejaVu Sans.
+  fig.savefig(out_path, dpi=300)
+FINISHED
