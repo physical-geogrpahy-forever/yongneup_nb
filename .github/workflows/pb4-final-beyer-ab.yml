@@ -41,6 +41,25 @@ jobs:
         run: |
           set -euo pipefail
           root=$(find /tmp/pb4beyer -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          python - "$root/pb4studio/climate.py" <<'PY'
+          import sys
+          from pathlib import Path
+          p=Path(sys.argv[1])
+          s=p.read_text(encoding='utf-8')
+          old='''    if "tasmin_raw_01" in columns and "tasmax_raw_01" in columns and "pr_raw_01" in columns:
+        return _load_chelsa21k_raw_wide_csv(path)
+    raise ValueError('''
+          new='''    if "tasmin_raw_01" in columns and "tasmax_raw_01" in columns and "pr_raw_01" in columns:
+        return _load_chelsa21k_raw_wide_csv(path)
+    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):
+        legacy = pd.read_csv(path)
+        return _apply_yongneup_panel590_temperature_downscaling(legacy)
+    raise ValueError('''
+          if old not in s:
+              raise SystemExit('load_climate patch target not found')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          print('enabled legacy Beyer loader for temporary A/B run only')
+          PY
           mkdir -p pb4_chelsa21k/results/beyer_final_ab_20261006
           (
             cd "$root"
