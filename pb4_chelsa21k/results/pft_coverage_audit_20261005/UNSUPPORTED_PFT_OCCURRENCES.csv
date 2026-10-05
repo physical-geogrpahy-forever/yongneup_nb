@@ -1,0 +1,2 @@
+﻿mode,pft,timesteps_present,total_cell_observations,max_cells_in_timestep,mean_cells_all_211_steps,cell_weighted_mean_npp_gC_m2_yr,oldest_age_ka_present,youngest_age_ka_present,xue_forest_bridge_supported
+dynamic,10,90,200,8,0.9478672985781991,6.08,19.8,6.2,False
