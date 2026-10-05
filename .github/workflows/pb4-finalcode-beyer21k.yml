@@ -52,13 +52,16 @@ jobs:
 
           p=root/'pb4studio'/'climate.py'
           s=p.read_text(encoding='utf-8')
-          start=s.index('def load_climate')
-          pos=s.index('    raise ValueError(',start)
-          insert=('    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):'+chr(10)
-                  +'        df = pd.read_csv(path)'+chr(10)
-                  +'        return _apply_yongneup_panel590_temperature_downscaling(df)'+chr(10))
-          s=s[:pos]+insert+s[pos:]
-          p.write_text(s,encoding='utf-8')
+          lines=s.splitlines()
+          i0=next(i for i,line in enumerate(lines) if line.startswith('def load_climate'))
+          ir=next(i for i in range(i0+1,len(lines)) if lines[i].startswith('    raise ValueError('))
+          extra=[
+              '    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):',
+              '        df = pd.read_csv(path)',
+              '        return _apply_yongneup_panel590_temperature_downscaling(df)',
+          ]
+          lines[ir:ir]=extra
+          p.write_text(chr(10).join(lines)+chr(10),encoding='utf-8')
 
           r=root/'tools'/'run_yongneup_21ka_chelsa_selfcontained.py'
           x=r.read_text(encoding='utf-8')
@@ -67,7 +70,6 @@ jobs:
               raise SystemExit('runner climate filename anchor not found')
           x=x.replace(old,'climate_yongneup_128.25E_38.25N.csv')
           x=x.replace('outputs_CHELSA21K','outputs_BEYER21K_FINALCODE')
-          x=x.replace('CHELSA21K','BEYER21K_FINALCODE')
           out=root/'tools'/'run_yongneup_21ka_beyer_finalcode.py'
           out.write_text(x,encoding='utf-8')
           print('temporary Beyer runner:',out)
