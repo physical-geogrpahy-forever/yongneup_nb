@@ -72,6 +72,12 @@ jobs:
             grep -n -A160 -B20 'findnpp' "$src" | head -n 260 || true
             grep -n -A160 -B20 'competition2' "$src" | head -n 300 || true
           fi
+          echo '=== PFT12 competition exact lines ==='
+          if [ -n "$src" ]; then
+            grep -nE 'optpft.*12|grasspft.*12|pft.*12|present\(12\)|gdd0|gdd5' "$src" | sed -n '1,500p' || true
+            sed -n '440,760p' "$src" || true
+            sed -n '760,1120p' "$src" || true
+          fi
           echo '=== backend key defs ==='
           grep -nE '^(class|def) |pftpar|climate|mckenzie|root|depth|run_biome|evaluate' "$root/pb4studio/biome4_backend.py" | head -n 260 || true
           echo '=== climate key defs ==='
