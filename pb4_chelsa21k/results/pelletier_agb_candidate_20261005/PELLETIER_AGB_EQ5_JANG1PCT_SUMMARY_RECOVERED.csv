@@ -1,0 +1,3 @@
+model,mode,n,correct_n,accuracy_pct,threshold_fraction
+PB4-McKenzie-nativeClimate-PelletierAGB-Eq5,static,62,24,38.70967741935484,0.01
+PB4-McKenzie-nativeClimate-PelletierAGB-Eq5,dynamic,62,54,87.09677419354838,0.01
