@@ -1,0 +1,165 @@
+name: Sweep shallow PFT8 competition
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-pft8-shallow-competition-sweep.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Create candidate source trees
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pft8sweep
+          mkdir -p /tmp/pft8sweep
+          for th in 2.5 3.0 3.5; do
+            mkdir -p "/tmp/pft8sweep/$th"
+            unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d "/tmp/pft8sweep/$th"
+          done
+
+          python - <<'PY'
+          from pathlib import Path
+
+          base = Path('/tmp/pft8sweep')
+          thresholds = ['2.5','3.0','3.5']
+          old = """      if (wdom.eq.7) then
+       if (optnpp(wdom).lt.120.0) then
+        optpft=grasspft"""
+          for th in thresholds:
+              root = next((base/th).glob('PB4Studio*'))
+              src = root/'fortran_src'/'biome4_original_4_2b2.f'
+              if not src.exists():
+                  raise SystemExit(f'missing source: {src}')
+              txt = src.read_text(encoding='latin-1')
+              if old not in txt:
+                  raise SystemExit(f'PFT7 block not found in {src}')
+              new = f"""      if (wdom.eq.7) then
+c PB4 shallow-soil grass competition candidate:
+c use BIOME4 canopy structure to allow temperate grass in an
+c open boreal-deciduous canopy. This is not an original rule.
+       if (grasspft.eq.8.and.grassnpp.gt.0.0.and.
+     >     grasslai.ge.2.0.and.woodylai.lt.{th}) then
+        optpft=grasspft
+       else if (optnpp(wdom).lt.120.0) then
+        optpft=grasspft"""
+              src.write_text(txt.replace(old,new,1), encoding='latin-1')
+              note = root/'PFT8_SHALLOW_COMPETITION_CANDIDATE.md'
+              note.write_text(
+                  f'# PFT8 shallow competition candidate\n\n'
+                  f'Boreal deciduous PFT7 branch extension: if grasspft=8, '
+                  f'grass NPP > 0, grass LAI >= 2.0, and woody LAI < {th}, '
+                  f'temperate grass PFT8 is selected.\n\n'
+                  f'This is a PB4 candidate extension, not an original BIOME4 v4.2b2 rule.\n',
+                  encoding='utf-8'
+              )
+          PY
+
+      - name: Run depth sweeps
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p pb4_chelsa21k/results/pft8_shallow_competition_sweep_20261006
+          depths="0.01 0.02 0.03 0.04 0.05 0.06 0.08 0.10 0.12 0.15 0.20 0.30"
+          ages="5.0 4.0 3.0 2.7 2.5 2.3 2.2 2.0"
+          for th in 2.5 3.0 3.5; do
+            root=$(find "/tmp/pft8sweep/$th" -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+            (
+              cd "$root"
+              rm -f fortran_src/*.so fortran_src/*.o fortran_src/*.mod || true
+              python tools/mckenzie2003_depth_sensitivity.py \
+                --climate embedded_inputs/yongneup_exact20m/YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv \
+                --elevation-m 1162.08 \
+                --depths $depths --ages $ages --threads 2 \
+                --output "/tmp/pft8sweep/pft8_lai_$th.csv"
+            )
+            cp "/tmp/pft8sweep/pft8_lai_$th.csv" "pb4_chelsa21k/results/pft8_shallow_competition_sweep_20261006/PFT8_LAI_$th.csv"
+          done
+
+      - name: Summarize candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd
+          out=Path('pb4_chelsa21k/results/pft8_shallow_competition_sweep_20261006')
+          rows=[]
+          detail=[]
+          for th in ['2.5','3.0','3.5']:
+              df=pd.read_csv(out/f'PFT8_LAI_{th}.csv')
+              if 'variant' in df.columns:
+                  df=df[df['variant'].astype(str).eq('mckenzie2003')].copy()
+              for age,g in df.groupby('target_age_ka'):
+                  p8=g[g['optpft'].eq(8)]
+                  rows.append({
+                    'woody_lai_threshold':float(th),
+                    'age_ka':float(age),
+                    'n_depths':len(g),
+                    'n_pft8_depths':len(p8),
+                    'pft8_depth_min_m':p8['depth_m'].min() if len(p8) else None,
+                    'pft8_depth_max_m':p8['depth_m'].max() if len(p8) else None,
+                  })
+              for _,row in df.iterrows():
+                  if row['depth_m'] in [0.03,0.04,0.05,0.06,0.08,0.10]:
+                      detail.append({
+                        'woody_lai_threshold':float(th),
+                        'age_ka':row['target_age_ka'],
+                        'depth_m':row['depth_m'],
+                        'optpft':row['optpft'],
+                        'pft7_npp':row.get('pft07_npp'),
+                        'pft7_lai':row.get('pft07_lai'),
+                        'pft8_npp':row.get('pft08_npp'),
+                        'pft8_lai':row.get('pft08_lai'),
+                        'whc_total_mm':row.get('whc_total_mm'),
+                      })
+          s=pd.DataFrame(rows)
+          d=pd.DataFrame(detail)
+          s.to_csv(out/'PFT8_THRESHOLD_SUMMARY.csv',index=False)
+          d.to_csv(out/'PFT8_THRESHOLD_KEY_DEPTHS.csv',index=False)
+          md=['# PFT8 shallow competition threshold sweep','',
+              'Candidate extension is applied only in the PFT7 competition branch.',
+              'Condition: grasspft=8, grass NPP>0, grass LAI>=2.0, woody LAI<threshold.',
+              'This is a PB4 candidate rule, not original BIOME4.',
+              '',
+              '## Summary','',s.to_markdown(index=False),'',
+              '## Key depths','',d.to_markdown(index=False)]
+          (out/'PFT8_THRESHOLD_SWEEP_KO.md').write_text('\n'.join(md),encoding='utf-8')
+          print(s.to_string(index=False))
+          PY
+
+      - name: Commit sweep
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/pft8_shallow_competition_sweep_20261006
+          git commit -m 'Sweep shallow PFT8 competition thresholds [skip ci]' || exit 0
+          git push origin HEAD:main
