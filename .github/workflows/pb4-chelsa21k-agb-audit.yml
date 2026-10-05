@@ -1,0 +1,33 @@
+name: Audit PB4 AGB bridge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-agb-audit.yml'
+      - 'pb4_chelsa21k/tools/audit_agb_bridge.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Audit canonical package
+        run: python pb4_chelsa21k/tools/audit_agb_bridge.py
+      - name: Commit audit
+        run: |
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/pelletier_agb_candidate_20261005
+          git commit -m 'Audit current PB4 AGB bridge [skip ci]' || exit 0
+          git push origin HEAD:main
