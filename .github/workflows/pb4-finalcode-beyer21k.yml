@@ -54,7 +54,9 @@ jobs:
           s=p.read_text(encoding='utf-8')
           start=s.index('def load_climate')
           pos=s.index('    raise ValueError(',start)
-          insert='    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):\\n        df = pd.read_csv(path)\\n        return _apply_yongneup_panel590_temperature_downscaling(df)\\n'
+          insert=('    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):'+chr(10)
+                  +'        df = pd.read_csv(path)'+chr(10)
+                  +'        return _apply_yongneup_panel590_temperature_downscaling(df)'+chr(10))
           s=s[:pos]+insert+s[pos:]
           p.write_text(s,encoding='utf-8')
 
