@@ -655,11 +655,11 @@ L_f=60\,LAI
 
 Xue 계열에서 현재 직접 확인한 자료는 두 종류이다.
 
-1. **Xue et al. (2016) 공개 preprint**
-   - *Evaluation of modeled global carbon dynamics: analysis based on global carbon flux and above-ground biomass data*
-   - Biogeosciences Discussions, doi:10.5194/bg-2016-142
-   - 2017년 *Ecological Modelling* 355:84-96에 최종 출판된 연구의 공개 preprint이다.
-   - 현재 라이브러리에는 최종 *Ecological Modelling* PDF가 저장되어 있지 않지만, 공개 preprint 원문에서 식과 Table 1을 직접 확인했다.
+1. **Xue et al. (2017), Ecological Modelling 최종 출판본**
+   - *Evaluation of modeled global vegetation carbon dynamics: Analysis based on global carbon flux and above-ground biomass data*
+   - *Ecological Modelling* 355:84-96, doi:10.1016/j.ecolmodel.2017.04.012
+   - 최종 PDF를 직접 대조하여 Eq. (1)-(4), Table 1, AGB calibration/validation 표본수, carbon-density-to-AGB 변환을 확인했다.
+   - 2016 Biogeosciences Discussions preprint는 역사적 선행본으로만 남기고, 수식과 parameter의 주 출처는 최종 출판본으로 한다.
 
 2. **Xue et al. (2017), Global Biogeochemical Cycles**
    - *Global patterns of woody residence time and its influence on model simulation of aboveground biomass*
@@ -669,7 +669,7 @@ Xue 계열에서 현재 직접 확인한 자료는 두 종류이다.
 
 아래에서는 **Xue 원문식**, **Xue Table 1 parameter**, **PB4에서 유도한 equilibrium 식**을 구분한다.
 
-### IV-3.2 Xue et al. (2016 preprint) 원문 Eq. (1): stomatal conductance
+### IV-3.2 Xue et al. (2017, Ecological Modelling) 원문 Eq. (1): stomatal conductance
 
 \[
 g_{s,H_2O}=m\frac{A_n h_s}{C_s}+b
@@ -683,7 +683,7 @@ HWP 입력:
 
 **PB4 AGB bridge:** 직접 사용하지 않음. IBIS의 전체 생리구조를 기록하기 위해 원문식으로 보존한다.
 
-### IV-3.3 Xue et al. (2016 preprint) 원문 Eq. (2): NPP
+### IV-3.3 Xue et al. (2017, Ecological Modelling) 원문 Eq. (2): NPP
 
 \[
 NPP=(1-\eta)\int(A_g-R_{leaf}-R_{stem}-R_{root})dt
@@ -697,7 +697,7 @@ HWP 입력:
 
 **PB4 AGB bridge:** 이 IBIS NPP 계산식 자체를 가져오지 않는다. PB4는 BIOME4가 직접 계산한 \(NPP_i\)를 입력으로 사용한다.
 
-### IV-3.4 Xue et al. (2016 preprint) 원문 Eq. (3): PFT별 biomass pool 질량수지
+### IV-3.4 Xue et al. (2017, Ecological Modelling) 원문 Eq. (3): PFT별 biomass pool 질량수지
 
 본 연구의 AGB bridge에 가장 중요한 Xue 원식이다.
 
@@ -717,7 +717,7 @@ HWP 입력:
 
     {PARTIAL C_{i,j} OVER PARTIAL t}=a_{i,j} NPP_i-{C_{i,j} OVER tau_{i,j}}
 
-### IV-3.5 Xue et al. (2016 preprint) 원문 Eq. (4): growing season index
+### IV-3.5 Xue et al. (2017, Ecological Modelling) 원문 Eq. (4): growing season index
 
 \[
 GSI=f(\overline{T_m})f(\overline{R_g})f(\overline{VPD})
@@ -750,9 +750,9 @@ AGB bridge에 직접 필요한 열은 \(\tau_l,\tau_r,\tau_w,a_{leaf},a_{root},a
 |11|warm C4 grass|1.25|1|wood pool 없음|0.45|0.55|0|
 |12|cool C3 grass|1.5|1|wood pool 없음|0.45|0.55|0|
 
-**중요:** 35 yr와 52 yr는 이 Xue AGB 연구에서 사용된 parameterization이다. Xue et al. (2017, GBC)의 model-comparison Table 2는 Kucharik et al. (2000)의 IBIS default woody residence time을 temperate forest 50 yr, boreal forest 100 yr로 요약한다. 따라서 35/52 yr를 “IBIS 보편 기본값”이라고 쓰지 않는다.
+**중요:** 35 yr와 52 yr는 최종 Xue et al. (2017) Table 1의 **calibrated PFT parameter set**이다. 저자들은 대부분의 parameter에는 Foley et al. (1996)과 Kucharik et al. (2000)의 default를 사용하되, GPP와 AGB에 민감한 parameter를 Table 1처럼 보정했다고 명시한다. 따라서 35/52 yr를 “IBIS 보편 기본값”이라고 쓰지 않는다. 별도 Xue et al. (2017, GBC)의 model-comparison Table 2는 Kucharik et al. (2000)의 IBIS default woody residence time을 warm-temperate 25 yr, temperate 50 yr, boreal 100 yr로 요약한다.
 
-### IV-3.7 Xue et al. (2016 preprint)의 carbon density -> dry AGB 변환
+### IV-3.7 Xue et al. (2017, Ecological Modelling)의 carbon density -> dry AGB 변환
 
 원문은 IBIS가 \(Mg\ C\ ha^{-1}\) 단위의 carbon density를 계산하기 때문에 관측 dry AGB와 비교할 때 IPCC (2003)에 따라 2.0을 곱했다고 명시한다.
 
@@ -764,7 +764,15 @@ HWP 입력:
 
     AGB_{dry}=2 C_{AG}
 
-**주의:** Xue dry-AGB coefficient를 사용한 뒤 0.48 또는 0.51 같은 carbon fraction을 다시 곱하면 이중변환이 된다.
+**정의 주의:** Eq. (3)의 IBIS vegetation state에는 leaf, stem/wood, root pool이 모두 존재한다. 따라서 이 문장의 ×2만으로 total vegetation carbon 전체를 AGB로 바꿀 수 있다고 해석하지 않는다. PB4에서는 먼저 Xue의 AGB diagnostic과 대응되는 지상부 후보 pool을 선택한 뒤, ×2를 carbon mass -> dry biomass mass 변환으로만 사용한다. 0.48 또는 0.51 같은 별도 carbon fraction을 다시 적용하면 이중변환이다.
+
+**IBIS wood-pool 구조 주의:** Xue 최종 논문은 세 pool을 leaves, stems (for trees), roots로 서술하고 GBC 논문은 woody residence time을 stems and branches에 대응시킨다. 그러나 다른 IBIS 구현 문헌에는 generic woody pool에 coarse roots가 포함된다는 설명도 있다. 따라서 아래 leaf + wood 평형식은 **Xue/IBIS AGB diagnostic의 재현을 위한 평형축약**으로 사용하며, 모든 IBIS version에서 해부학적으로 순수한 aboveground pool임이 입증된 식이라고 표현하지 않는다.
+
+### IV-3.7a 최종본 AGB calibration 표본수와 검증 지위
+
+최종 *Ecological Modelling* 논문은 plot-level AGB 자료를 필터링한 뒤 **992 samples를 calibration, 982 samples를 independent validation**에 사용했다고 명시한다. 합계 1,974 plot samples이며, 이전 작업기록의 “2,101 plots” 표현은 최종 출판본 기준으로 사용하지 않는다.
+
+또한 저자들은 Table 1의 민감 parameter를 GPP와 AGB 관측에 맞춰 trial-and-error로 보정했다고 설명한다. 따라서 Table 1의 35/52 yr와 allocation coefficient는 단순 이론값보다 강한 **AGB-tested calibrated parameterization**이지만, 한 PFT 내 공간적으로 불변인 single parameter set이라는 한계가 있고 저자 스스로 이를 AGB spatial bias의 원인으로 지적한다.
 
 ### IV-3.8 Xue et al. (2017, GBC) 원문 Eq. (1): woody residence time 관측 정의
 
@@ -820,7 +828,7 @@ HWP 입력:
 
     C_{i,j}=a_{i,j} tau_{i,j} NPP_i
 
-aboveground carbon은 leaf + wood로 두어
+Xue 최종 논문의 AGB calibration 구조를 재현하기 위한 **Xue-style aboveground diagnostic**은 leaf + wood candidate로 두어
 
 \[
 \boxed{
@@ -835,7 +843,7 @@ HWP 입력:
 
     AGB_{C,i}=NPP_i (a_{leaf,i} tau_{leaf,i}+a_{wood,i} tau_{wood,i})
 
-BIOME4 NPP가 \(g\ C\ m^{-2}\ yr^{-1}\)이고 Xue의 dry-biomass 변환 2.0을 적용하면
+BIOME4 NPP가 \(g\ C\ m^{-2}\ yr^{-1}\)이고 Xue가 AGB 비교에 사용한 dry-biomass 변환 2.0을 적용하면
 
 \[
 \boxed{
@@ -919,8 +927,8 @@ BIOME4 PFT5는 canonical 21-0 ka에서 static과 dynamic 모두 0/211 timestep, 
 
 ### IV-3.14 Xue 원문 링크
 
-- Xue et al. (2016) 공개 preprint PDF: https://bg.copernicus.org/preprints/bg-2016-142/bg-2016-142.pdf
 - Xue et al. (2017) Ecological Modelling final article: https://doi.org/10.1016/j.ecolmodel.2017.04.012
+- 2016 Biogeosciences Discussions preprint (historical version): https://bg.copernicus.org/preprints/bg-2016-142/bg-2016-142.pdf
 - Xue et al. (2017) Global Biogeochemical Cycles: https://doi.org/10.1002/2016GB005557
 
 
