@@ -1,0 +1,23 @@
+--- biome4_backend.py.tunedClimate
++++ biome4_backend.py.nativeClimate
+@@ -399,16 +399,10 @@
+     # (2003) BoNE climatic occurrence sieve used by LPJ:
+     #   TCM -32.5 <= TCM < -2 C; GDD5 >= 600; TWM <= 23 C.
+     # No soil-depth response, PFT override, or palaeovegetation-fitted coefficient.
+-    if variant in {BIOME4_VARIANT_ORIGINAL, BIOME4_VARIANT_MCKENZIE2003}:
+-        old5 = "     + -2.0,-99.9, -99.9, 10.0, 900.0,-99.9, -99.9,-99.9,  10.0,-99.9,   !5"
+-        new5 = "     +-19.0,-99.9, -99.9, 10.0, 900.0,-99.9, -99.9,-99.9,  10.0,-99.9,   !5  PFT5_REF_M19_GDD900"
+-        old6 = "     +-32.5, -2.0, -99.9,-99.9, -99.9,-99.9, -99.9,-99.9, -99.9, 21.0,   !6"
+-        new6 = "     +-32.5, -2.0, -99.9,-99.9, 600.0,-99.9, -99.9,-99.9, -99.9, 23.0,   !6  SITCH2003_BONE"
+-        if old5 not in text or old6 not in text:
+-            raise RuntimeError("Could not locate original PFT5/PFT6 climate limits for hotfix10n6 climate-sieve patch.")
+-        text = text.replace(old5, new5, 1)
+-        text = text.replace(old6, new6, 1)
+-
++    # PB4 CHELSA21K production policy (2026-10-05):
++    # retain native BIOME4 v4.2b2 PFT5/PFT6 climate limits.
++    # McKenzie/Jackson finite-depth soil-water/root coupling remains active;
++    # climate-sieve tuning is intentionally not applied.
+     # hotfix10n10: restore the native BIOME4 v4.2b2 competition set for the
+     # 120 ka production run. The original source already disables PFT1
+     # (Tropical Evergreen) with pfts(1)=0; no additional PFTs are force-disabled.

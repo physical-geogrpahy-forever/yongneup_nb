@@ -335,3 +335,21 @@ Jang 원문 식생대, n=62, 유역 1% 출현 기준 결과는 tunedClimate 판�
 - dynamic 55/62 = 88.71%
 
 따라서 현재 증거에서는 PFT5/PFT6 기후제약 튜닝이 성능에 기여하지 않는다. 향후 production candidate는 원본 BIOME4 PFT 기후제약을 유지하고 McKenzie/Jackson soil-root-water coupling과 51% 과반 판정을 유지하는 구성이 우선이다.
+
+
+## 14. 2026-10-05 최종 production 결정: native BIOME4 climate limits
+
+PFT5/PFT6 기후제약 보정만 제거하고 CHELSA21K 21-0 ka 전체를 새로 실행했다. McKenzie AWC, PFT별 finite-depth root accessibility, 51% 과반 reduced-class 규칙, dynamic Pelletier coupling은 그대로 유지했다.
+
+Jang et al. (2011) 원문 식생대, n=62, 유역 1% 기준에서 결과는 이전 tunedClimate와 완전히 동일했다.
+
+- static: **24/62 = 38.71%**
+- dynamic: **55/62 = 88.71%**
+- dynamic 95_03: **31/31**
+- 95_03 broadleaf fraction: 약 **1.3423-3.3557%**
+
+따라서 PFT5/PFT6 기후튜닝은 정확도 향상에 불필요하다고 판정하고 최종 production 모델에서 제거했다. 최종 모델은 **PB4-McKenzie-nativeClimate**이며, BIOME4 v4.2b2의 원래 PFT 기후 niche를 유지하면서 통합 모델에 필요한 토심-AWC-뿌리-지형 coupling만 추가한다.
+
+최종 canonical ZIP SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
+
+상세 자료: `results/native_climate_final_20261005/`
