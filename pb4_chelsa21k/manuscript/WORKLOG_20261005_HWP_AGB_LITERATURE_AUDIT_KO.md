@@ -880,6 +880,14 @@ Wang et al. (2011) 독립 BIOME4 vegetation-carbon 진단:
 - dynamic, 시간별 유역평균의 평균: 3.780 kg C m^-2
 - dynamic 범위: 2.372-6.171 kg C m^-2
 
+공간비교 진단:
+
+- static, 211시점 평균 cellwise Pearson r = 0.7200
+- dynamic, 211시점 평균 cellwise Pearson r = -0.9054
+- dynamic 범위 = -0.9979에서 0.9998
+
+이 결과는 단순한 절대규모 문제뿐 아니라, dynamic McKenzie 토심-수문 feedback이 작동할 때 Pelletier Eq. (5)의 EEMT 기반 AGB 공간패턴이 BIOME4 NPP 기반 Wang vegetation-carbon 패턴과 대체로 반대로 움직였음을 보여준다. 따라서 Eq. (5) 원 계수의 무보정 적용을 더 강하게 기각한다.
+
 단위와 정의가 다르므로 Pelletier AGB와 Wang Cveg를 직접 같은 값으로 보지는 않는다. 다만 Pelletier Eq. (5)의 Arizona 계수를 현재 PB4 EEMT에 무보정 적용하면 용늪에서 AGB가 수백에서 수만 kg m^-2까지 폭증하므로 물리적으로 사용할 수 없다.
 
 ## 17.5 판정
