@@ -61,6 +61,17 @@ jobs:
           sed -n '469,603p' "$root/pb4studio/climate.py" || true
           echo '=== package Beyer mentions ==='
           grep -RIl 'Beyer' "$root" | sed "s#^$root/##" | head -n 300 || true
+          echo '=== PFT12 source context ==='
+          grep -RniE 'cold herbaceous|pft.?12|pfts\(12\)|25\.0|Tundra shrub|Lichen/forb' "$root/fortran" "$root/pb4studio" | head -n 400 || true
+          echo '=== BIOME4 source PFT parameter block ==='
+          src=$(find "$root" -type f -iname 'biome4*.f' | head -1)
+          echo "SRC=$src"
+          if [ -n "$src" ]; then
+            grep -n -A120 -B30 'subroutine pftdata' "$src" | head -n 220 || true
+            grep -n -A80 -B20 'cold herbaceous' "$src" | head -n 180 || true
+            grep -n -A160 -B20 'findnpp' "$src" | head -n 260 || true
+            grep -n -A160 -B20 'competition2' "$src" | head -n 300 || true
+          fi
           echo '=== backend key defs ==='
           grep -nE '^(class|def) |pftpar|climate|mckenzie|root|depth|run_biome|evaluate' "$root/pb4studio/biome4_backend.py" | head -n 260 || true
           echo '=== climate key defs ==='
