@@ -2,6 +2,8 @@
 
 작성일: 2026-10-05
 
+> **첨부 원문 직접 검증: Section 15.** Figure S8의 NPP→지상부 목질 생산량 식을 확인했다. 관측 AGB/생산량 비율과 IBIS wood-pool 체류시간은 구분한다. PFT7의 Larix 대응 및 IBIS generic wood의 coarse-root 처리가 미검증이므로 이전 네 개 선형 AGB 계수를 확정값으로 사용하지 않는다.
+
 > **정적 모델 존재 여부 정정: Section 14.** PFT별 NPP로 AGB를 계산하는 IBIS 탄소풀 방정식의 정적 평형해는 존재한다. BIOME4 자체 AGB 출력의 부재와 정적 모델의 부재를 혼동하지 않는다. Section 13의 관측비율과 Section 14의 모델 유도계수는 서로 다른 계산이다.
 
 > **최신 판정(2026-10-05): Section 13을 우선한다.** Xia×Xue 조합은 정의 불일치로 철회했다. 실제 ForC/Luyssaert 관측비율을 계산했지만 검증된 최종 BIOME4→dry AGB 계수는 아직 확정하지 못했다. Section 10–11의 lookup은 실험 후보 기록이다.
@@ -1016,3 +1018,159 @@ Section 10의 수치 출처는 이 **2016 preprint Table 1**이다. 위 2017 Glo
 ## 14.4 정정된 결론
 
 목표인 AGB=f(NPP,PFT)의 정적 계산 구조는 존재한다. IBIS 탄소풀 모델의 평형 축약은 확인된 구체적 사례다. 남은 선택은 같은 framework의 parameter set을 사용한 외부 정적 AGB 모듈을 어떤 근거와 한계로 BIOME4에 적용할 것인지이며, “그런 모델이 존재하지 않는다”는 문제가 아니다.
+
+
+# 15. 사용자가 첨부한 2017 본문 및 보충자료 직접 검증 (2026-10-05)
+
+## 15.1 판정
+
+**NPP→지상부 목질 생산량→AGB의 정적 계산식은 유도할 수 있다. 실제로 보충자료 Figure S8에 첫 단계의 수치 식이 있다. 그러나 이 두 파일만으로 BIOME4 PFT4/5/6/7 전체의 검증된 계수를 확정했다고 주장하지 않는다.**
+
+중요한 새로운 확인은 Xia의 coarse-root 포함 a_wood 없이도 Xue (2017) 안에서 NPP→aboveground woody production 변환을 얻을 수 있다는 것이다.
+
+또한 이전 절에서 IBIS의 generic wood를 항상 aboveground wood로 취급한 부분은 미검증이므로 적용을 보류한다. Section 10–11과 14의 네 개 선형 계수를 검증된 total dry AGB로 사용하지 않는다.
+
+이번에는 첨부 파일을 직접 읽고 그림을 렌더해 확인했다. 보충자료를 “접근하지 못했음”으로 남긴 이전 상태를 대체한다. 새로운 BIOME4/PB4 실행과 production lookup 변경은 없다.
+
+## 15.2 확인한 파일과 위치
+
+본문:
+Global Biogeochemical Cycles - 2017 - Xue - Global patterns of woody residence time and its influence on model simulation (1).pdf
+
+- DOI: 10.1002/2016GB005557
+- SHA256: bd1be6017423620ef12a516b930bc0281e1869de60328931a6fae2b3919ac888
+- PDF page 2 / journal p.822: Eq. (1), AGB 및 aboveground woody productivity 정의
+- PDF page 4 / journal p.824: Eq. (2), IBIS carbon-pool equation
+- PDF page 12 / journal p.832: Figure S8을 통한 MODIS NPP→aboveground NPP 변환 사용 설명
+- PDF page 13 / journal p.833: Table 2, model default 및 meta-analysis residence times
+
+보충자료:
+gbc20541-sup-0001-supplementary.docx
+
+- SHA256: ff5596ca353a77d8054631ec447dd9916828679b753b4105f119e26b4c9fbbd4
+- 원 OOXML에서 Table 1개 및 embedded image 8개 확인
+- 렌더 page 2: Table S1 (Fluxnet site 목록)
+- 렌더 page 6: Figure S4 (BoCe, BoB, BoCd를 별도 표기)
+- 렌더 page 10: Figure S8 (총 NPP와 aboveground woody NPP의 관계)
+- 원 Contents에는 S1–S7이라고 쓰였지만 실제 파일에 S8도 있다.
+
+DOCX의 vector 그림을 PDF로 렌더하고, 그림 안의 수치·축·caption을 시각적으로 확인했다. 원 첨부 파일은 수정하지 않았다.
+
+## 15.3 실제 Figure S8 식
+
+총 NPP를 x라고 하면 Figure S8은
+
+\[
+P_{\rm AGwood,C}=F(x)
+=0.0001x^2+0.3515x-14.828
+\]
+
+를 제시하며 R^2=0.7538이다.
+
+- x: Total NPP, g C m^-2 yr^-1
+- y: ANPP, g C m^-2 yr^-1
+- Caption에서 y를 above ground woody NPP라고 정의한다.
+- 원 관측자료는 Luyssaert et al. (2007)이다.
+- 잎을 포함한 전체 ANPP가 아니라 여기서는 **지상부 목질 생산량**으로 읽어야 한다.
+- 따라서 Xia의 stem + branch + coarse-root wood allocation을 지상부라고 바꾸어 사용하는 오류를 피할 수 있다.
+- R^2=0.7538은 NPP→aboveground woody NPP 관계의 값이며, 네 PFT의 최종 AGB 예측 R^2가 아니다.
+
+본문 p.832는 이 회귀로 MODIS NPP에서 aboveground NPP를 추정해 residence-time 비교에 사용했다고 명시한다. 저자도 이 과정이 추가 불확실성을 만든다고 설명한다.
+
+이 식은 이차식이며 고정 allocation fraction이 아니다. 현재 주 목적을 “AGB=c_PFT NPP인 선형식만”으로 불필요하게 제한하지 않는다. 사용자 목표는 정적 AGB=f(NPP,PFT)다.
+
+## 15.4 본문 Eq. (1)을 이용한 정적 유도식
+
+원문 Eq. (1):
+
+\[
+\tau_w=\frac{\overline{AGB_{\rm dry}}}{\overline{P_{\rm AGwood,dry}}}.
+\]
+
+따라서 같은 정의의 생산량과 체류시간을 사용하면
+
+\[
+AGB_{{\rm dry},i}=\tau_{w,i}P_{\rm AGwood,dry}.
+\]
+
+S8의 carbon production을 dry production으로 바꾸기 위해 목질 생산량의 dry-matter carbon fraction f_C를 명시하면
+
+\[
+\boxed{
+AGB_{{\rm dry},i}
+=\frac{\tau_{w,i}}{1000f_C}
+(0.0001NPP^2+0.3515NPP-14.828).
+}
+\]
+
+NPP 입력은 g C m^-2 yr^-1, 출력은 kg dry m^-2다. 여기서 f_C=0.5는 **별도로 명시한 carbon→dry 변환 가정**이며, 첨부 논문이 이 유도식에 필요한 f_C를 새로 추정했다고 주장하지 않는다.
+
+f_C=0.5이면:
+
+\[
+AGB_{{\rm dry},i}=0.002\tau_{w,i}F(NPP).
+\]
+
+이 식은 본문 Eq. (1)과 supplementary S8을 결합해 이번에 전개한 정적 식이다. 논문에 그대로 발표된 BIOME4 전용 회귀식은 아니다. 실행시에는 NPP와 PFT로 tau를 선택할 수 있으며 임령/코호트 입력은 추가하지 않는다.
+
+Eq. (1)의 numerator가 이미 AGB이므로 이 관측 기반 effective residence-time 경로에 별도의 leaf stock을 다시 더하지 않는다. 한편 Eq. (2)의 wood-pool residence time을 사용할 때는 같은 해석을 자동 적용할 수 없다.
+
+## 15.5 관측 tau의 범주와 실제 숫자 확인
+
+| 대응을 검토한 BIOME4 PFT | Table 2 관측 범주 | Meta-analysis tau_w (yr) | 0.002 tau_w | NPP=500일 때 위 유도식의 dry AGB kg m^-2 |
+|---|---|---:|---:|---:|
+| 4 | TeB, temperate broadleaf | 82.9 | 0.1658 | 30.8258676 |
+| 5 | TeC, temperate coniferous | 74.7 | 0.1494 | 27.7767468 |
+| 6 | BoC, boreal coniferous | 80.9 | 0.1618 | 30.0821796 |
+| 7의 broadleaf analogue만 | BoB, boreal broadleaf | 55.5 | 0.1110 | 20.6373420 |
+
+NPP=500일 때 S8 production은 185.922 g C m^-2 yr^-1이다. 각 수치는 f_C=0.5 가정에서 실제로 산술 재현했다. 독립 AGB 검증 결과는 아니다. Table 2의 coarse vegetation category를 BIOME4 기능형에 대응시키는 가정도 명시적으로 남긴다.
+
+**마지막 행을 BIOME4 PFT7 전체의 확정식으로 사용하지 않는다.** BoB는 broadleaf이고, supplementary S4는 BoB와 boreal conifer cold-deciduous (BoCd)를 명시적으로 분리한다. Figure S4에 BoCd가 있다는 사실만으로 BoB의 55.5 yr가 Larix에도 적용됨을 입증할 수 없다. BoC의 pooled value를 deciduous conifer의 별도 관측 tau로 표현하지도 않는다.
+
+## 15.6 이 첨부 파일에서 없는 것
+
+Table S1은 10개 Fluxnet 관측소 목록이다. a_leaf, a_wood, tau_leaf의 PFT parameter table이 아니다.
+
+따라서 첨부한 2017 본문 및 SI에 Section 10의 2016 preprint Table 1 allocation values가 모두 들어 있다고 주장하지 않는다. Eq. (2)의 algebraic equilibrium은 확인되지만, 숫자 parameter와 pool의 지상부/지하부 범위는 별도로 검증해야 한다.
+
+본문 Table 2의 IBIS default tau는 TeB=50, TeC=50, BoB=100, BoC=100 yr다. 이것은 2016 preprint parameter table의 temperate=35, boreal=52 yr와 다른 parameter set이다. 둘을 같은 설정으로 혼합하지 않는다.
+
+또한 이 default wood-pool tau를 S8 production에 곱한 뒤 Eq. (1)의 total AGB와 동일하다고 자동 선언하지 않는다. Default pool residence time과 관측 AGB/woody-production의 유효 비율은 구분해야 한다.
+
+## 15.7 IBIS generic wood의 지상부 범위 재검증
+
+앞서 Section 14에서 a_W를 지상부 배분율로 곧바로 사용할 수 있다고 설명한 것은 검증이 부족했다.
+
+Castanho et al.의 IBIS 연구에 대한 **저자 답변**은 IBIS의 generic woody biomass pool이 aboveground wood와 coarse roots를 포함한다고 명시한다:
+[공식 Copernicus author response](https://bg.copernicus.org/preprints/9/C5858/2012/bgd-9-C5858-2012.pdf), PDF page 8, journal discussion p.C5865.
+
+이는 해당 IBIS 기술에서의 직접 근거다. 첨부 Xue (2017)는 stems and branches라고 기술하므로, Xue가 실제로 사용한 구현과 그 output 변환을 확인하지 않은 채 모든 IBIS version의 wood pool이 aboveground-only라고 단정하면 안 된다.
+
+generic wood에 coarse root가 포함되는 경우의 올바른 일반형은:
+
+\[
+AGB_{{\rm dry},i}^{*}
+=\frac{NPP_i}{1000f_C}
+\left[
+a_{L,i}\tau_{L,i}
++g_{{\rm AGwood},i}a_{W,i}\tau_{W,i}
+\right],
+\]
+
+여기서 g_AGwood는 generic wood stock 중 aboveground wood의 비율이다. 단순히 fine-root 항을 제외하는 것만으로 generic wood 내부의 coarse-root가 제거되는 것은 아니다.
+
+**0.0286/0.0222/0.0327/0.0422를 total dry AGB로 확정한 종전 주장은 보류한다.** 수식의 평형해 존재 자체와, 실제 목질 pool을 지상부로 변환하는 문제가 별개임을 기록한다. 임의의 g_AGwood를 새로 넣지 않았다.
+
+## 15.8 적용 범위와 현재 상태
+
+- 정적 계산 구조: 확인.
+- S8을 이용한 total NPP→aboveground woody production 변환의 수치 식: 확인.
+- Eq. (1)에서 total AGB로 연결하는 유도: 정의와 f_C를 명시하면 가능.
+- 전체 PFT7, 특히 deciduous conifer의 관측 residence-time 대응: 이 두 파일만으로 확인하지 못함.
+- 기존 IBIS 계수 네 개를 그대로 total dry AGB라고 사용하는 것: 미검증.
+- 모델 실행 또는 production 수정: 수행하지 않음.
+
+S8 원 식은 NPP=0에서 -14.828을 주며, 약 41.69044 g C m^-2 yr^-1 미만에서 음수가 된다. 전체 격자에 적용한다면 비산림/무생산 및 저생산 셀의 처리 규칙이 별도로 필요하다. max(0,F(NPP))는 가능한 비음수 처리 방식이지만 **원 논문의 회귀식 자체가 아니라 구현자가 추가하는 규칙**이다. 이번 검증에서는 원 식을 바꾸지 않았다.
+
+Figure S8 축은 0–2500까지 표시되지만 이를 명시된 정확한 calibration data range로 주장하지 않는다. 원자료 범위 밖의 extrapolation이나 PFT별 독립 정확도는 별도 확인 대상이다.
