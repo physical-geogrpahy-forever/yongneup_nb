@@ -1,3 +1,5 @@
+> **2026-10-05 최신 적용 판정(Section 17): Ise 원계수 채택 보류.** 식 재현은 확인했지만 관측연도 중첩 성숙림의 예측/관측 AGB 중앙값은 PFT5=0.489(n=15), PFT6=2.247(n=8), PFT7=1.810(n=1)이다. Section 16의 코드와 숫자는 진단 후보이며 검증된 최종 bridge가 아니다. 아래의 이전 상태 기록보다 이 판정을 우선한다.
+
 > 2026-10-05 최신 판정: Section 16에서 Ise et al. (2010)의 VISIT 식과 공통 계수로 실행 가능한 총 NPP→평형 dry AGB 2군 모델을 제공한다. PFT4/5는 온대, PFT6/7은 아한대의 같은 계수이며, 네 PFT 독립 보정이나 native BIOME4 출력이 아니다. 이전의 모든 정적 모델이 없다는 표현은 철회한다.
 
 # BIOME4-only AGB/vegetation-carbon 문헌 감사
@@ -1203,3 +1205,38 @@ f_C=0.5를 명시적 공통 변환 가정으로 놓으면 c_temperate=0.03953820
 실행 코드: `ise2010_static_agb.py`.
 
 이번 결과는 **실행 가능한 2군 정적 모델**이다. PFT4/5/6/7마다 서로 다른 독립계수가 필요하다는 추가 조건까지 충족했다고 표현하지 않는다. 이전 Sections 13-15의 네 PFT 세분 검증 부족은 그대로 남지만, 그것을 모든 정적 모델의 부재로 확대하지 않는다. Production BIOME4/Pelletier code와 기존 기후/지형 실험은 변경하지 않았다.
+
+# 17. Ise 원계수 적용성 검증: 현 프로젝트 최종값으로 채택하지 않음
+
+2026-10-05 Section 16의 계산 후보에 대해 사용자가 실제 적용 가능성을 검증하라고 요청했다. 산술 재현과 프로젝트 적용 판정을 구분하여 다음 추가 검증을 새로 실행했다.
+
+## 17.1 canonical BIOME4 코드 확인
+
+PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip을 읽었고 SHA-256=eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d로 기존 canonical과 일치했다. 실행/수정하지 않았다.
+
+원 Fortran은 npp=gpp-stemresp-leafresp-finerootresp-growthresp로 연간 순탄소생산량을 계산한다. 이것은 ANPP나 woody NPP가 아니다. findnpp는 LAI별 생산량을 비교하여 최대 NPP를 찾는다. output(3)의 연간 NPP가 Python out[2], npp_node로 전달된다. 서로 경쟁하는 PFT별 잠재 NPP를 합친 tree_npp_total_node/total_pft_npp_node를 forest total NPP라고 보고 사용하면 안 된다. NPP와 실제 선택한 PFT가 대응하는 입력을 써야 한다.
+
+## 17.2 원계수와 관측 stock 대조
+
+기존 ForC/Luyssaert-origin NPP_1_C/biomass_ag_C 연결자료 44행, 35개 site/plot을 사용했다. ForC commit=407c520e6350917bca42e6bf7d5031dbcc551362. 두 reported ages >=100 조건(999는 성숙림 표식)이 적용되어 있다. 계수를 이 관측자료에 fit하지 않았다.
+
+Mg C ha^-1 yr^-1 NPP를 100배하여 g C m^-2 yr^-1, Mg C ha^-1 AGB를 0.1/f_C배하여 kg dry m^-2로 바꿨다. 예측/관측 양쪽의 f_C=0.5는 비율에서 소거된다. plot별 여러 pair ratio를 중앙값으로 먼저 요약하고, PFT 내 plot들은 동일 가중치로 요약했다.
+
+| 관측연도 중첩 자료 | 관측구 n | 예측/관측 AGB 중앙값 | plot 비율 평균 절대백분율오차 |
+|---|---:|---:|---:|
+| PFT4 | 7 | 0.7839745355 | 27.02567382% |
+| PFT5 | 15 | 0.4886370497 | 48.30593038% |
+| PFT6 | 8 | 2.2473047317 | 157.09026144% |
+| PFT7 | 1 | 1.8098783549 | 80.98783549% |
+
+시간 중첩+동일 reported age 조건의 n은 6/14/8/1이며 중앙값 0.7834397225/0.4808876354/2.2473047317/1.8098783549이다. 주요 불일치는 유지된다.
+
+PFT7 strict sample은 Aheden broadleaf 1곳이다. Tura/Larix는 AGB 관측연도가 불명이라 strict sample에서 제외했다. 전체 진단에 포함하면 Tura 예측/관측=8.479752828이지만 이것을 동시점 검증값이라고 제시하지 않는다. PFT7/Larix 적용성이 검증됐다고 표현하지 않는다.
+
+## 17.3 판정
+
+원계수 c_temperate=0.0395382093, c_boreal=0.0893514696의 산술과 조건부 평형식은 맞다. 그러나 이 계수를 현 프로젝트의 검증된 최종 AGB 계수로 사용하지 않는다. PFT5/6 관측 불일치가 크고, PFT7 동시점 검증 표본은 1곳이다. 이 표본이 교란 없는 수학적 평형만으로 구성되었다는 근거도 없어 원 논문 이론 자체를 기각하는 검증이라고 주장하지 않는다.
+
+Section 16은 실행 가능한 **계산 후보의 존재**를 증명한 것이며, 실제 적용 검증 통과 선언이 아니다. 원계수 계산기는 진단용으로 보존하고 출력에 project application status를 명시했다. 새 적용성 검사 및 관측별 provenance를 audit_ise2010_applicability.py와 BIOME4_ISE2010_APPLICABILITY_20261005.json으로 기록한다. 상세 문서의 첫머리에도 이 적용 보류 판정을 반영했다.
+
+Production의 기존 NPP→AGB proxy를 이 후보로 교체하지 않았다. 기존 0.010 proxy가 이 후보보다 검증되었다는 뜻도 아니며, 최종 NPP/PFT→AGB bridge 확보 과제는 미완료다.
