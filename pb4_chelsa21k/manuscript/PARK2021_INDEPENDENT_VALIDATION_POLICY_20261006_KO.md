@@ -144,3 +144,21 @@ Supplementary 또는 별도 Results subsection:
 ## 10. 참고문헌
 
 Park, J., Jin, Q., Choi, J., Bahk, J., & Park, J. (2021). Late Holocene climate variability in central Korea indicated by vegetation, geochemistry, and fire records of the Yongneup moor. Palaeogeography, Palaeoclimatology, Palaeoecology, 584, 110705. https://doi.org/10.1016/j.palaeo.2021.110705
+
+
+## 11. 2026-10-06 source check refinement
+
+Park et al. (2021) 본문을 다시 대조한 결과, pollen analysis는 16-88 cm에서 50 cm를 제외한 72개 시료를 대상으로 하며 평균 시간해상도는 36.8년이다. 각 시료에서 최소 400개의 pollen grains and spores를 계수했고, pollen percentage는 total non-aquatic pollen and spore counts를 기준으로 계산했다.
+
+Park의 temperature reconstruction에서는 pollen percentage를 arboreal pollen sum 기준으로 다시 계산했으며, Cyperaceae, Apiaceae, Sphagnum은 local water availability에 민감하다고 판단하여 제외했다. 따라서 PB4의 regional vegetation 구조와 비교할 때도 local wetland taxa를 직접 면적비와 대응시키지 않는다.
+
+Park holdout의 우선 비교축은 다음으로 고정한다.
+
+1. arboreal conifer vs deciduous broadleaf의 상대 조성
+2. 총 arboreal vs non-arboreal 변화의 방향
+3. 2738-2206 cal yr BP의 arboreal pollen 감소 및 Poaceae/Artemisia 증가와 같은 open-vegetation event의 재현 여부
+4. 완전히 발달한 peatland 이후인 69-16 cm 구간을 주 정량 비교구간으로 사용
+
+특히 tree composition은 pollen과 model 모두 conifer+broadleaf 내부에서 closure하여 비교한다. pollen percentage와 model area fraction의 절대값을 동일한 물리량으로 간주하지 않고, Spearman rank correlation과 변화방향 일치도를 중심으로 평가한다.
+
+Supplementary sample-level raw table을 확보하기 전에는 Park 정량점수를 계산하지 않는다. 논문 Fig. 3의 선을 수작업으로 역추정하여 정량검증값을 만드는 방식은 사용하지 않는다.
