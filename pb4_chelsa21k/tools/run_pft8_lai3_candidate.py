@@ -185,20 +185,30 @@ def jang_summary(out: Path):
 
 
 def find_timeseries(out: Path) -> pd.DataFrame:
-    hits=[]
-    for p in out.rglob("*.csv"):
-        try:
-            df=pd.read_csv(p,encoding="utf-8-sig")
-        except Exception:
-            continue
-        if {"ka_bp","reich_lai_sapwood_pft08_count","reich_lai_sapwood_agb_mean_kg_m2"}.issubset(df.columns):
-            hits.append((p,df))
-    if not hits:
-        raise SystemExit("candidate 21ka timeseries not found")
-    p,df=max(hits,key=lambda x: len(x[1]))
-    if len(df) not in {211,422}:
-        print(f"warning: unexpected timeseries length {len(df)} at {p}")
-    return df
+    frames=[]
+    for mode in ("static","dynamic"):
+        hits=[]
+        base=out/f"model_{mode}"
+        for p in base.rglob("*.csv"):
+            try:
+                df=pd.read_csv(p,encoding="utf-8-sig")
+            except Exception:
+                continue
+            if {"ka_bp","reich_lai_sapwood_pft08_count","reich_lai_sapwood_agb_mean_kg_m2"}.issubset(df.columns):
+                hits.append((p,df))
+        if not hits:
+            raise SystemExit(f"candidate 21ka timeseries not found for {mode}")
+        p,df=max(hits,key=lambda x: len(x[1]))
+        if len(df)!=211:
+            print(f"warning: unexpected {mode} timeseries length {len(df)} at {p}")
+        d=df.copy()
+        if "mode" in d.columns:
+            d["mode"]=mode
+        else:
+            d.insert(0,"mode",mode)
+        d.insert(1,"source_csv",str(p.relative_to(out)))
+        frames.append(d)
+    return pd.concat(frames,ignore_index=True)
 
 
 def summarize_timeseries(ts: pd.DataFrame):
