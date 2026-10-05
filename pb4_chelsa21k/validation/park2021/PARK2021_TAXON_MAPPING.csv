@@ -1,0 +1,91 @@
+code,name,group,park_validation_category,regional_vegetation_score
+Pin,Pinus,A,conifer_arboreal,yes
+Abi,Abies,A,conifer_arboreal,yes
+Pic,Picea,A,conifer_arboreal,yes
+Tsu,Tsuga,A,conifer_arboreal,yes
+Cup,Cupressaceae,A,conifer_arboreal,yes
+Pla,Platycarya,A,broadleaf_arboreal,yes
+Eph,Ephedra,A,other_woody,no
+Car,Carpinus,A,broadleaf_arboreal,yes
+Euo,Euonymus,A,broadleaf_arboreal,yes
+Ace,Acer,A,broadleaf_arboreal,yes
+QueC,Quercus (deciduous),A,broadleaf_arboreal,yes
+QueL,Quercus (evergreen),A,broadleaf_arboreal,yes
+Eri,Rhododendron/Ericaceae,A,broadleaf_arboreal,yes
+Fra,Fraxinus/Oleaceae,A,broadleaf_arboreal,yes
+Jug,Juglans/Pterocarya,A,broadleaf_arboreal,yes
+Til,Tilia,A,broadleaf_arboreal,yes
+Cas,Castanea,A,broadleaf_arboreal,yes
+Ulm,Ulmus/Zelkova,A,broadleaf_arboreal,yes
+Ile,Ilex,A,broadleaf_arboreal,yes
+Cel,Celtis/Aphananthe,A,broadleaf_arboreal,yes
+Bux,Buxus,A,broadleaf_arboreal,yes
+Vit,Vitis,A,broadleaf_arboreal,yes
+Cam,Camellia,A,broadleaf_arboreal,yes
+Fag,Fagus,A,broadleaf_arboreal,yes
+Bet,Betula,A,broadleaf_arboreal,yes
+Sal,Salix,A,broadleaf_arboreal,yes
+Cor,Corylus,A,broadleaf_arboreal,yes
+Aln,Alnus,A,broadleaf_arboreal,yes
+Mor,Morus,A,broadleaf_arboreal,yes
+Lon,Lonicera,A,broadleaf_arboreal,yes
+Myr,Myrica,A,broadleaf_arboreal,yes
+Carya,Carya,A,broadleaf_arboreal,yes
+Sam,Sambucus,A,broadleaf_arboreal,yes
+Vib,Viburnum,A,broadleaf_arboreal,yes
+Rha,Rhamnaceae,A,broadleaf_arboreal,yes
+Ros,Rosaceae,A,broadleaf_arboreal,yes
+Rhu,Rhus,A,broadleaf_arboreal,yes
+Art,Artemisia,B,herbaceous,yes
+Ast,Asteraceae subf Aster.,B,herbaceous,yes
+AstC,Asteraceae subf Cich.,B,herbaceous,yes
+Api,Apiaceae,B,local_wetness_herb,no
+Sax,Saxifragaceae,B,herbaceous,yes
+Fil,Filipendula,B,herbaceous,yes
+Eup,Euphorbia,B,herbaceous,yes
+Epi,Epilobium,B,herbaceous,yes
+Cary,Caryophyllaceae,B,herbaceous,yes
+Lam,Lamiaceae,B,herbaceous,yes
+Lil,Liliaceae/Hemerocallis,B,herbaceous,yes
+Gal,Galium/Rubiaceae,B,herbaceous,yes
+Pol,Polygonum,B,herbaceous,yes
+Tha,Thalictrum,B,herbaceous,yes
+Camp,Campanula,B,herbaceous,yes
+Plan,Plantago,B,herbaceous,yes
+Rum,Rumex,B,herbaceous,yes
+Bra,Brassicaceae,B,herbaceous,yes
+Poa,Poaceae (<37 μm),B,herbaceous,yes
+Poa37,"Poaceae (>37, <40 μm)",B,herbaceous,yes
+Hum,Humulus type,B,herbaceous,yes
+Ama,Amaranthaceae,B,herbaceous,yes
+San,Sanguisorba,B,herbaceous,yes
+Per,Persicaria,B,herbaceous,yes
+Ran,Ranunculaceae,B,herbaceous,yes
+Ger,Geranium,B,herbaceous,yes
+Urt,Urtica,B,herbaceous,yes
+Gen,Gentianaceae,B,herbaceous,yes
+Hel,Heloniopsis,B,herbaceous,yes
+Oxa,Oxalis,B,herbaceous,yes
+All,Allium,B,herbaceous,yes
+Cyp,Cyperaceae,Q,aquatic_local,no
+Typ,Typha/Sparganium,Q,aquatic_local,no
+Imp,Impatiens,Q,aquatic_local,no
+Men,Menyanthes,Q,aquatic_local,no
+Pot,Potamogeton,Q,aquatic_local,no
+Iri,Iridaceae,Q,aquatic_local,no
+Sag,Sagittaria,Q,aquatic_local,no
+Nym,Nymphea,Q,aquatic_local,no
+Nup,Nuphar,Q,aquatic_local,no
+Erio,Eriocaulon,Q,aquatic_local,no
+Trap,Trapa,Q,aquatic_local,no
+Ott,Ottelia,Q,aquatic_local,no
+Myp,Myriophyllum,Q,aquatic_local,no
+Utr,Utricularia,Q,aquatic_local,no
+Nymp,Nymphoides,Q,aquatic_local,no
+Pte,Pteridium (Trilete),F,fern,no
+Osm,Osmunda (Trilete),F,fern,no
+Sph,Sphagnum (Trilete),F,local_wetness_sphagnum,no
+Bot,Botrychium (Trilete),F,fern,no
+Hup,Huperzia (Trilete),F,fern,no
+Plm,Polypodium (Monolete),F,fern,no
+Ple,Polypodiales undiff. (Monolete),F,fern,no
