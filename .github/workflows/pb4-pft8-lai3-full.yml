@@ -1,0 +1,42 @@
+name: Run full PFT8 LAI3 candidate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-pft8-lai3-full.yml'
+      - 'pb4_chelsa21k/tools/run_pft8_lai3_candidate.py'
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+      - name: Run full candidate
+        run: python pb4_chelsa21k/tools/run_pft8_lai3_candidate.py
+      - name: Commit candidate and results
+        run: |
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_PFT8_LAI3.zip
+          git add pb4_chelsa21k/results/pft8_lai3_candidate_20261006
+          git commit -m 'Run full PFT8 LAI3 candidate [skip ci]' || exit 0
+          git push origin HEAD:main
