@@ -319,3 +319,254 @@ k_d=cEEMT+dAGB
 AGB만 위 biome-based dry shoot biomass로 교체한다.
 
 새 candidate는 기존 canonical baseline을 덮어쓰지 않고 별도 21–0 ka ablation으로 검증한다.
+
+
+# 10. 목표 정정 및 우선 후보: BIOME4 NPP + PFT → dry AGB
+
+## 10.1 실제 필요한 상태변수
+
+본 연구에서 필요한 것은 biome별 고정 AGB가 아니라 다음과 같은 셀별, 시점별 함수이다.
+
+[
+\boxed{AGB_{dry}=f(NPP, PFT)}
+]
+
+즉 BIOME4가 각 셀과 시점에서 계산한 NPP 변화가 AGB에 연속적으로 반영되어야 하고, 같은 NPP라도 PFT의 탄소배분과 조직 체류시간 차이에 따라 AGB가 달라져야 한다.
+
+따라서 9절의 Ragon-Saugier biome lookup은 문헌적 참고 및 독립 sensitivity candidate로만 남기며, **주 AGB bridge 후보로 채택하지 않는다.** 이 절의 판정이 9.5의 우선 candidate 판정을 대체한다.
+
+## 10.2 BIOME4 자체에서 확보되는 입력
+
+BIOME4 v4.2b2는 각 PFT에 대해 최적 NPP와 LAI를 계산하고 경쟁 후 dominant PFT를 출력한다. 원본 코드에서 PFT별 최적 NPP는 `optnpp(pft)`, 최적 LAI는 `optlai(pft)`이며, 최종 출력에는 dominant PFT와 PFT별 NPP가 포함된다.
+
+용늪 PB4 패키지에서는 이를 이미 다음 배열로 전달한다.
+
+- `npp_node`
+- `optpft_node`
+- `biome4_full_id_node`
+- `pftXX_mod_npp_node`
+
+따라서 새로운 외부 식생모델을 실제로 동적으로 결합하지 않아도, BIOME4의 직접 산출인 `NPP + PFT`를 AGB bridge의 입력으로 사용할 수 있다.
+
+## 10.3 IBIS의 PFT별 NPP allocation-turnover 식
+
+Foley et al. (1996)과 Kucharik et al. (2000)의 IBIS 계열은 annual NPP를 PFT별 leaf, wood, fine-root carbon pool에 할당하고 각 pool의 residence time으로 탄소 stock을 계산한다.
+
+Xue et al. (2016 preprint; 2017 final)은 IBIS로 potential AGB를 계산하고 전지구 2,101개 plot-level AGB 자료와 비교했다. 이 연구에서 PFT (i), biomass pool (j)의 변화는 다음과 같다.
+
+[
+\frac{\partial C_{i,j}}{\partial t}
+=
+a_{i,j}NPP_i
+-
+\frac{C_{i,j}}{\tau_{i,j}}
+]
+
+여기서 (a_{i,j})는 annual NPP의 해당 pool 배분비율이고, (	au_{i,j})는 해당 pool의 carbon residence time이다.
+
+BIOME4는 equilibrium potential vegetation model이므로 AGB bridge에서도 평형상태를 취하면
+
+[
+\frac{\partial C_{i,j}}{\partial t}=0
+]
+
+이고 따라서
+
+[
+C_{i,j}=a_{i,j}\tau_{i,j}NPP_i
+]
+
+이다.
+
+aboveground carbon은 leaf + wood만 포함하므로
+
+[
+\boxed{
+AGB_{C,i}
+=
+NPP_i
+\left(
+a_{leaf,i}\tau_{leaf,i}
++
+a_{wood,i}\tau_{wood,i}
+\right)
+}
+]
+
+가 된다.
+
+Xue et al.은 IBIS가 계산한 carbon density를 dry AGB로 비교할 때 IPCC (2003)에 따라 2.0을 곱했다. 따라서 BIOME4 NPP 단위가 ({\rm g\ C\ m^{-2}\ yr^{-1}})일 때 dry AGB 단위 ({\rm kg\ dry\ biomass\ m^{-2}})로의 식은
+
+[
+\boxed{
+AGB_{dry,i}
+=
+\frac{2}{1000}
+NPP_i
+\left(
+a_{leaf,i}\tau_{leaf,i}
++
+a_{wood,i}\tau_{wood,i}
+\right)
+}
+]
+
+이다.
+
+중요하게도 이 식 전체가 Xue 논문에 한 줄의 BIOME4 회귀식으로 제시된 것은 아니다. **IBIS의 published pool equation과 PFT parameter table을 BIOME4의 equilibrium 성격에 맞추어 평형해로 축약한 문헌 기반 유도식**이다.
+
+## 10.4 Xue et al. PFT parameter set
+
+Xue et al. (2016) Table 1에서 용늪 forest PFT에 필요한 값은 다음과 같다.
+
+| IBIS PFT | 식생형 | tau_leaf yr | tau_wood yr | a_leaf | a_wood |
+|---:|---|---:|---:|---:|---:|
+| 4 | Temperate conifer evergreen | 2.0 | 35 | 0.30 | 0.30 |
+| 5 | Temperate broadleaf cold-deciduous | 1.0 | 35 | 0.30 | 0.40 |
+| 6 | Boreal conifer evergreen | 2.5 | 52 | 0.30 | 0.30 |
+| 7 | Boreal broadleaf cold-deciduous | 1.0 | 52 | 0.30 | 0.40 |
+| 8 | Boreal conifer cold-deciduous | 1.0 | 52 | 0.30 | 0.40 |
+
+## 10.5 BIOME4 PFT ↔ IBIS PFT 구조 대응
+
+BIOME4 v4.2b2의 forest PFT 정의와 Xue/IBIS PFT 정의를 구조 및 잎 phenology 기준으로 대응시키면 다음과 같다.
+
+| BIOME4 PFT | BIOME4 정의 | 대응 IBIS PFT | 대응 근거 |
+|---:|---|---:|---|
+| 4 | Temperate Deciduous Trees / Temperate Summergreen | 5 | temperate broadleaf cold-deciduous |
+| 5 | Cool Conifer Trees / Temperate Evergreen Conifer | 4 | temperate conifer evergreen |
+| 6 | Boreal Evergreen Trees | 6 | boreal conifer evergreen |
+| 7 | Boreal Deciduous Trees | 7 또는 8 | boreal cold-deciduous tree |
+
+BIOME4 PFT7은 boreal deciduous tree라는 넓은 기능형이므로 broadleaf deciduous와 deciduous conifer를 완전히 구별하지 않는다. 그러나 Xue Table 1에서 IBIS PFT7과 PFT8은 AGB 계산에 필요한 (	au_{leaf}, 	au_{wood}, a_{leaf}, a_{wood}) 값이 모두 동일하므로, **이번 AGB 계산에서는 이 구조적 모호성이 수치 결과에 영향을 주지 않는다.**
+
+## 10.6 용늪 forest PFT별 직접 계산식
+
+위 식과 Xue Table 1을 결합하면 다음과 같다.
+
+### BIOME4 PFT4: temperate deciduous tree
+
+[
+a_L\tau_L+a_W\tau_W
+=
+0.30(1)+0.40(35)
+=
+14.30
+]
+
+[
+\boxed{AGB_{dry}=0.0286\,NPP}
+]
+
+### BIOME4 PFT5: temperate evergreen conifer
+
+[
+0.30(2)+0.30(35)=11.10
+]
+
+[
+\boxed{AGB_{dry}=0.0222\,NPP}
+]
+
+### BIOME4 PFT6: boreal evergreen conifer
+
+[
+0.30(2.5)+0.30(52)=16.35
+]
+
+[
+\boxed{AGB_{dry}=0.0327\,NPP}
+]
+
+### BIOME4 PFT7: boreal deciduous tree
+
+[
+0.30(1)+0.40(52)=21.10
+]
+
+[
+\boxed{AGB_{dry}=0.0422\,NPP}
+]
+
+따라서 forest PFT에 대한 우선 candidate는
+
+[
+\boxed{
+AGB_{dry}(NPP,PFT)=
+\begin{cases}
+0.0286NPP & PFT=4\\
+0.0222NPP & PFT=5\\
+0.0327NPP & PFT=6\\
+0.0422NPP & PFT=7
+\end{cases}
+}
+]
+
+이다.
+
+예를 들어 (NPP=500\ {\rm g\ C\ m^{-2}\ yr^{-1}})이면 각각 14.30, 11.10, 16.35, 21.10 kg dry biomass m^-2가 된다.
+
+## 10.7 왜 Xue/IBIS를 첫 candidate로 쓰는가
+
+이 경로는 현재 목표에 대해 다음 장점이 있다.
+
+1. NPP가 변하면 AGB가 연속적으로 변한다.
+2. 같은 NPP라도 PFT별 allocation과 residence time 차이가 AGB에 반영된다.
+3. Xue et al.은 IBIS를 이용해 실제 potential AGB를 계산하고 2,101개 plot-level AGB 자료로 평가했다.
+4. carbon stock을 dry AGB로 변환하는 2.0 factor도 해당 연구에 명시되어 있다.
+5. BIOME4와 IBIS 모두 PFT 기반 potential vegetation framework이므로 biome 평균 고정 lookup보다 기능형 대응이 직접적이다.
+6. BIOME4 → DEMETER 결합의 Wu et al. (2009)도 BIOME4의 NPP/vegetation 출력을 외부 carbon-allocation 모듈로 전달해 carbon stock을 계산한 직접 선행례이므로, BIOME4 NPP에 별도 allocation/turnover 모듈을 붙이는 설계 자체는 선행연구와 부합한다.
+
+## 10.8 중요한 불확실성과 sensitivity
+
+PFT별 wood allocation과 wood residence time은 고정된 자연상수가 아니다.
+
+Ma et al. (2024)은 IBIS의 biomass가 특히 `awood`, `tauwood0`, `tauroot`, `rgrowth`에 민감함을 보였고, forest age를 무시한 steady-state assumption이 젊은 산림의 biomass를 과대평가할 수 있음을 지적했다. 또한 Ma et al.의 prior/default `tauwood0`는 temperate forest 50 yr, boreal forest 100 yr 등으로 Xue의 35/52 yr와 상당히 다르다.
+
+따라서 Xue parameter set을 보편적 정답으로 취급하지 않는다. 다만 본 용늪 모델의 BIOME4가 **equilibrium potential vegetation**을 계산하고, Xue 연구가 **potential AGB**를 직접 평가했다는 점 때문에 첫 번째 candidate로 Xue set을 사용한다. Ma et al. parameterization은 이후 sensitivity 범위로 사용한다.
+
+## 10.9 비산림 PFT 처리
+
+현재 forest PFT4-7은 직접 대응이 가능하지만, BIOME4 PFT8-13 전부를 Xue의 IBIS PFT에 자동 대응시키면 일부는 구조적 추정이 된다.
+
+특히:
+
+- BIOME4 PFT8은 C3/C4 temperate grass 혼합형
+- PFT10은 C3/C4 woody desert
+- PFT11은 tundra shrub
+- PFT13은 lichen/forb
+
+이므로, 이들을 임의로 Xue PFT에 강제 대응시키지 않는다.
+
+**다음 실행 전 먼저 최종 PB4-McKenzie-nativeClimate 21-0 ka 전체 211시점에서 실제 `optpft_node` 분포를 감사한다.**
+
+- 실제 사용 PFT가 4-7에 한정되면 forest candidate를 그대로 실행한다.
+- 그 밖의 PFT가 존재하면 빈도, 면적, 시점부터 기록하고 각 PFT에 대한 별도 문헌 대응을 검토한다.
+- unsupported PFT를 단일 계수나 가장 가까운 PFT로 조용히 대체하지 않는다.
+
+## 10.10 현재 판정
+
+현재 우선순위는 다음과 같다.
+
+[
+\boxed{
+BIOME4\ NPP + BIOME4\ dominant\ PFT
+\rightarrow
+Xue/IBIS\ PFT\ allocation+turnover
+\rightarrow
+dry\ AGB
+}
+]
+
+이는 기존 `AGB=0.010*NPP`를 PFT별 문헌 기반 계수로 대체하며, Ragon-Saugier의 biome-fixed AGB lookup보다 본 연구가 요구하는 시간 및 공간 연속성을 보존한다.
+
+단, **아직 production에 반영하지 않는다.** 먼저 21-0 ka PFT coverage audit을 수행한 뒤 별도 candidate로 전체 실행하고 기존 canonical baseline과 비교한다.
+
+## 10.11 핵심 문헌
+
+- Foley, J. A., Prentice, I. C., Ramankutty, N., Levis, S., Pollard, D., Sitch, S., & Haxeltine, A. (1996). An integrated biosphere model of land surface processes, terrestrial carbon balance, and vegetation dynamics. Global Biogeochemical Cycles, 10, 603-628. https://doi.org/10.1029/96GB02692
+- Kucharik, C. J., Foley, J. A., Delire, C., Fisher, V. A., Coe, M. T., Lenters, J. D., Young-Molling, C., Ramankutty, N., Norman, J. M., & Gower, S. T. (2000). Testing the performance of a dynamic global ecosystem model: Water balance, carbon balance, and vegetation structure. Global Biogeochemical Cycles, 14(3), 795-825. https://doi.org/10.1029/1999GB001138
+- Xue, B.-L. et al. (2016). Evaluation of modeled global vegetation carbon dynamics: Analysis based on global carbon flux and above-ground biomass data. Biogeosciences Discussions. https://doi.org/10.5194/bg-2016-142
+- Xue, B.-L. et al. (2017). Evaluation of modeled global vegetation carbon dynamics: Analysis based on global carbon flux and above-ground biomass data. Ecological Modelling, 355, 84-96. https://doi.org/10.1016/j.ecolmodel.2017.04.012
+- Wu, H., Guiot, J., Peng, C., & Guo, Z. (2009). New coupled model used inversely for reconstructing past terrestrial carbon storage from pollen data: validation of model using modern data. Global Change Biology, 15, 82-96. https://doi.org/10.1111/j.1365-2486.2008.01712.x
+- Ma, R. et al. (2024). Stepwise Calibration of Age-Dependent Biomass in the Integrated Biosphere Simulator (IBIS) Model. Journal of Advances in Modeling Earth Systems. https://doi.org/10.1029/2023MS004048
