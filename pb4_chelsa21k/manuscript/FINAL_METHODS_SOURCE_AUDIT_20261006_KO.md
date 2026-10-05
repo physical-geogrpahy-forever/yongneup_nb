@@ -35,7 +35,7 @@
 
 | 항목 | 근거 | 판정 |
 |---|---|---|
-| 식생모형 | Kaplan et al. (2003) 및 BIOME4 v4.2b2 source | 원문 직접 + source 직접 |
+| 식생모형 | Kaplan (2001)의 BIOME4 개발 논문집/학위논문 및 BIOME4 v4.2b2 source | 원문 직접 + source 직접 |
 | 입력 | 월별 기온, 강수, cloudiness, absolute Tmin, CO2, 토양수문조건 | source 직접 |
 | PFT 수 | production v4.2b2 source에 13 PFT | source 직접 |
 | PFT별 NPP 및 optimal LAI | BIOME4/BIOME3 계열 생리 및 경쟁구조 | 원문 직접 + source 직접 |
@@ -377,6 +377,8 @@ Haxeltine, A., & Prentice, I. C. (1996). BIOME3: An equilibrium terrestrial bios
 Jackson, R. B., et al. (1996). A global analysis of root distributions for terrestrial biomes. *Oecologia, 108*, 389-411. https://doi.org/10.1007/BF00333714
 
 Jang, B.-O., Kang, S.-J., & Choi, K.-R. (2011). Vegetation history around Yongneup moor at Mt. Daeamsan, Korea. *Journal of Ecology and Environment, 34*, 259-267. https://doi.org/10.5141/JEFB.2011.028
+
+Kaplan, J. O. (2001). *Geophysical applications of vegetation modeling*. Doctoral dissertation, Lund University. ISBN 91-7874-089-4.
 
 Karger, D. N., et al. (2023). CHELSA-TraCE21k: high-resolution (1 km) downscaled transient temperature and precipitation data since the Last Glacial Maximum. *Climate of the Past, 19*, 439-456. https://doi.org/10.5194/cp-19-439-2023
 
