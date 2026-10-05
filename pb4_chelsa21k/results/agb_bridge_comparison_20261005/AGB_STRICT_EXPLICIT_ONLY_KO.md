@@ -20,7 +20,7 @@ The following are NOT accepted as AGB without a separately published aboveground
 - leaf/stem/root carbon pools
 - total ecosystem carbon
 
-## 1. Xue et al. (2017), Global Biogeochemical Cycles — PASS
+## 1. Xue et al. (2017), Global Biogeochemical Cycles — PARTIAL ONLY, FAIL AS COMPLETE YONGNEUP BRIDGE
 
 Paper:
 Xue et al. (2017), Global patterns of woody residence time and its influence on model simulation of aboveground biomass. DOI 10.1002/2016GB005557.
@@ -47,13 +47,14 @@ Meta-analysis tau_w values in Table 2:
 - boreal broadleaf (BoB): 55.5 yr
 - boreal coniferous (BoC): 80.9 yr
 
-This route PASSES the strict AGB filter.
+The equation itself PASSES the strict AGB-definition filter, but the route FAILS as a complete Yongneup AGB bridge.
 
-Important:
-- it predicts woody AGB, not leaf biomass plus wood by assumption
-- BIOME4 total NPP cannot be inserted directly; an explicit aboveground woody productivity conversion is required
-- PFT7 mapping remains ambiguous between BoB and BoC
-- PFT10 has no directly supported category in this table
+Reason:
+- BIOME4 PFT7 is a realized boreal-deciduous tree PFT in Yongneup.
+- Xue GBC Table 2 reports TeB, TeC, BoB and BoC broad forest categories, but does not provide a directly matching BIOME4-PFT7 AGB parameterization.
+- BoB or BoC must not be silently substituted for BIOME4 PFT7.
+- PFT10 is also unsupported by this explicit-AGB table.
+- Therefore Xue GBC can be used only as partial structural evidence for PFT4/PFT6-type forests, not as the production bridge for the full realized Yongneup PFT set.
 
 ## 2. Xue et al. (2017) supplementary Figure S8 — supporting flux relation only
 
@@ -71,7 +72,7 @@ When NPP is in g C m-2 yr-1, this produces aboveground woody productivity in g C
 
 To obtain dry-mass AGB from carbon productivity, a separately explicit carbon-to-dry-mass conversion is required.
 
-## 3. Combined Xue explicit-AGB route
+## 3. Combined Xue explicit-AGB route — NOT ELIGIBLE FOR PRODUCTION
 
 Using only definitions that are explicit about aboveground terms:
 
@@ -91,7 +92,7 @@ AGB_dry =
 
 with NPP in g C m-2 yr-1 and AGBdry in kg dry m-2.
 
-This is the first currently retained Yongneup candidate whose final state variable is explicitly AGB in the source definition.
+This is NOT retained as a complete Yongneup candidate because the source does not provide a direct explicit-AGB parameterization for realized BIOME4 PFT7 (and PFT10). It is retained only as a partial equation/definition reference.
 
 At NPP = 500 g C m-2 yr-1:
 - TeB tau=82.9 -> 30.826 kg dry m-2
@@ -135,10 +136,8 @@ The following are excluded from the AGB candidate set unless an independently pu
 
 ## Current status
 
-Strict primary route retained for further Yongneup testing:
+No complete production AGB bridge is currently accepted.
 
-Xue 2017 GBC explicit AGB definition
-+
-Xue supplementary explicit aboveground woody productivity relation
-
-No other candidate is promoted unless the paper itself explicitly defines the target as AGB/aboveground biomass.
+Xue 2017 GBC is partial evidence only because realized BIOME4 PFT7 lacks a direct explicit-AGB mapping. Any next candidate must satisfy BOTH:
+1. target variable explicitly AGB/aboveground biomass in the source;
+2. direct support for every realized Yongneup PFT that materially occurs, especially PFT4, PFT6, PFT7, and PFT10, without nearest-class substitution.
