@@ -1,0 +1,6 @@
+model_or_reference,role,pft4_Mg_dry_ha,pft6_Mg_dry_ha,pft7_Mg_dry_ha,basin_dynamic_mean_Mg_dry_ha,zero_ka_mean_soil_depth_m,zero_ka_relief_m,Jang_dynamic_accuracy_pct,notes
+PFT-IBIS-Xue,primary_equilibrium_candidate,153.1622,126.2598,132.4125,128.3566,2.6135018,67.4449311,88.7097,"NPP+PFT equilibrium allocation/turnover"
+JULES-LAI-IPCCCF-BDT,lower_biomass_sensitivity,80.7505,59.0020,62.0418,61.6190,2.5257367,68.0189110,88.7097,"PFT7=BDT; IPCC CF 0.48/0.51/0.47"
+JULES-LAI-IPCCCF-NDT,lower_biomass_sensitivity,80.7503,59.0023,60.3603,61.5534,2.5256233,68.0219693,88.7097,"PFT7=NDT; IPCC CF 0.48/0.51/0.47"
+Thurner2014_Asia_IPCC_converted,current_landscape_reference,91.4966,57.4129,57.4129,,,,,"TBMF/BFT total C converted to AGB with IPCC root:shoot and CF; PFT6/7 both use BFT reference"
+ForC_Luyssaert_mature_plot_medians,mature_intact_reference,282.1563,105.3529,88.5527,,,,,"plot-level medians; >=100 yr selection; not representative of landscape mean"
