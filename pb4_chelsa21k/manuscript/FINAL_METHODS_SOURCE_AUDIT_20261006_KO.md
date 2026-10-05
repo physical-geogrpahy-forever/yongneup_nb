@@ -37,9 +37,11 @@
 |---|---|---|
 | 식생모형 | Kaplan (2001)의 BIOME4 개발 논문집/학위논문 및 BIOME4 v4.2b2 source | 원문 직접 + source 직접 |
 | 입력 | 월별 기온, 강수, cloudiness, absolute Tmin, CO2, 토양수문조건 | source 직접 |
-| PFT 수 | production v4.2b2 source에 13 PFT | source 직접 |
+| PFT 수 | v4.2b2 source에 13 parameterized PFT가 정의되지만 PFT1 tropical evergreen은 `pfts(1)=0`으로 비활성화되어 실제 경쟁에는 12 active PFT가 참여 | source 직접 |
 | PFT별 NPP 및 optimal LAI | BIOME4/BIOME3 계열 생리 및 경쟁구조 | 원문 직접 + source 직접 |
 | native climate limits | 최종 production에서 v4.2b2 native limits 유지 | source/provenance 직접 |
+| temperate grass photosynthetic pathway | Kaplan (2001)의 표는 temperate grass를 C3/C4 잠재형으로 설명하지만 사용한 v4.2b2 source의 active branch는 `if (pft.eq.9.or.pft.eq.10) c4=.true.`이고 PFT8은 C3 branch로 실행 | source 직접 |
+
 | 토심별 NPP 또는 LAI 직접 multiplier | 사용하지 않음 | source 직접 |
 
 BIOME4 source 확인 파일:
@@ -355,6 +357,7 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 - Pelletier \(K_0\), \(F\), \(g\), \(i\) 원값
 - 동해안 중부 regional uplift 문헌
 - Jang 61 pollen samples, 5 radiocarbon samples 및 네 LPZ
+- BIOME4 v4.2b2의 13 parameter sets, PFT1 비활성화 및 PFT8 C3 실제 실행경로
 
 ### 제출 전 마지막 확인
 
