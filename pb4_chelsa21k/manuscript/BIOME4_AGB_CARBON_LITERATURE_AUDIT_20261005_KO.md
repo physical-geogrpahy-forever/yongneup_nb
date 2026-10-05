@@ -196,3 +196,126 @@ Wang/Ji의 BIOME4 carbon-storage lineage만 사용한다.
 - BIOME4-only literature에서 Cveg -> AGB 분할식은 현재 확인되지 않음.
 - 따라서 BIOME4-only 원칙 아래에서는 **AGB를 억지로 만들지 말고 Cveg를 명시적인 새 geomorphic vegetation state로 쓰거나, AGB term 자체를 제거하는 것이 정직하다.**
 - BIOME3, LPJ, Xue, Malhi, 한국 AGB 지도 회귀는 이 bridge에 사용하지 않는다.
+
+
+# 9. 추가 검색으로 확인한 BIOME4→biomass→AGB 직접 경로
+
+이전 판정인 "BIOME4-only 문헌에서 AGB로 갈 수 있는 경로를 찾지 못했다"는 검색이 불충분했다. 추가 검색에서 **BIOME4 biome을 실제 biomass density에 연결한 직접 선행연구**를 확인했다.
+
+## 9.1 Ragon et al. (2024): BIOME4 biome → ecosystem biomass density
+
+Ragon et al. (2024), *Alternative climatic steady states near the Permian–Triassic Boundary*, Scientific Reports 14:26136,
+DOI 10.1038/s41598-024-76432-8.
+
+이 연구는 BIOME4의 28 biome을 ecosystem type에 대응시키고, Houghton et al. (2009)의 mean living biomass density를 할당해 terrestrial biomass를 계산했다. 여러 값이 있을 때는 Saugier et al. (2001)을 사용했다.
+
+관련 매핑:
+
+| BIOME4 biome | ecosystem group | total living biomass |
+|---|---|---:|
+| 4 Temperate deciduous broadleaf forest | Temperate forests | 270 Mg ha^-1 |
+| 5 Temperate evergreen needleleaf forest | Temperate forests | 270 |
+| 6 Warm-temperate evergreen broadleaf and mixed forest | Temperate forests | 270 |
+| 7 Cool mixed forest | Temperate + boreal forests | 160 |
+| 9 Cool-temperate evergreen needleleaf and mixed forest | Temperate + boreal forests | 160 |
+| 8 Cool evergreen needleleaf forest | Boreal forests | 83 |
+| 10 Cold evergreen needleleaf forest | Boreal forests | 83 |
+| 11 Cold deciduous forest | Boreal forests | 83 |
+| 17 Temperate evergreen needleleaf open woodland | Boreal forests | 83 |
+
+즉 **BIOME4의 biome 결과를 biomass density로 후처리하는 방법은 실제 문헌에 존재한다.**
+
+## 9.2 Saugier et al. (2001): total biomass가 아니라 shoot biomass까지 분리
+
+Ragon이 biomass source로 우선 사용한 Saugier et al. (2001), *Estimations of Global Terrestrial Productivity: Converging Toward a Single Number?*는 주요 biome별 biomass를 shoot와 root로 분리한다.
+
+dry mass 기준:
+
+| biome | shoot biomass g m^-2 | root biomass g m^-2 | total g m^-2 |
+|---|---:|---:|---:|
+| Tropical forest | 30,400 | 8,400 | 38,800 |
+| Temperate forest | 21,000 | 5,700 | 26,700 |
+| Boreal forest | 6,100 | 2,200 | 8,300 |
+| Mediterranean shrubland | 6,000 | 6,000 | 12,000 |
+| Tropical savanna/grassland | 4,000 | 1,700 | 5,700 |
+| Temperate grassland | 250 | 500 | 750 |
+| Desert | 350 | 350 | 700 |
+| Arctic tundra | 250 | 400 | 650 |
+
+여기서 **shoot biomass는 dry aboveground biomass에 해당한다.**
+
+따라서 Ragon의 BIOME4 biome→ecosystem mapping에 Saugier의 shoot biomass를 사용하면, 별도의 NPP→AGB 회귀식 없이 직접 AGB를 줄 수 있다.
+
+용늪에 중요한 forest biome의 direct AGB lookup:
+
+[
+AGB_{temperate}=21.0 {m kg dry m^{-2}}
+]
+
+[
+AGB_{boreal}=6.1 {m kg dry m^{-2}}
+]
+
+BIOME4 7/9의 "temperate + boreal forests"는 Saugier의 두 forest biome을 합친 Ragon/Houghton group이다. Saugier가 제시한 면적을 이용한 area-weighted shoot biomass는
+
+[
+AGB_{temp+boreal}
+=
+rac{21.0	imes10.4+6.1	imes13.7}{10.4+13.7}
+approx12.53 {m kg dry m^{-2}}
+]
+
+이다.
+
+따라서 forest biome mapping은:
+
+- BIOME4 4/5/6 → 21.0 kg dry m^-2
+- BIOME4 7/9 → 12.53 kg dry m^-2
+- BIOME4 8/10/11/17 → 6.1 kg dry m^-2
+
+## 9.3 이 경로의 장점
+
+이 방법은 다음을 사용하지 않는다.
+
+- BIOME3
+- LPJ allocation
+- Xue residence time
+- Malhi wood allocation
+- 임의의 NPP→AGB 계수
+- Pelletier Arizona EEMT→AGB 경험식
+
+구조는 단순하다.
+
+[
+BIOME4 biome
+ightarrow
+Ragon ecosystem mapping
+ightarrow
+Saugier shoot biomass
+ightarrow
+AGB
+]
+
+즉 **BIOME4 결과에서 AGB를 얻는 published post-processing lineage**가 존재한다.
+
+## 9.4 한계
+
+이 방식은 standing biomass가 biome별 대표값이므로 같은 biome 안의 NPP 차이에 따른 연속적인 AGB variation은 표현하지 않는다.
+따라서 spatial/temporal AGB는 BIOME4 biome이 바뀔 때 단계적으로 바뀐다.
+
+그러나 현재 `AGB=0.010 NPP`처럼 출처 없는 연속 proxy를 쓰는 것보다 문헌적 provenance가 훨씬 명확하고,
+Pelletier의 필요한 단위인 kg dry m^-2와 직접 일치한다.
+
+## 9.5 다음 candidate
+
+다음 AGB candidate는 우선 이 **BIOME4-biome/Saugier-shoot AGB lookup**으로 정의한다.
+
+Pelletier의 다른 식은 그대로 유지:
+
+[
+k_d=cEEMT+dAGB
+]
+
+AGB만 위 biome-based dry shoot biomass로 교체한다.
+
+새 candidate는 기존 canonical baseline을 덮어쓰지 않고 별도 21–0 ka ablation으로 검증한다.
