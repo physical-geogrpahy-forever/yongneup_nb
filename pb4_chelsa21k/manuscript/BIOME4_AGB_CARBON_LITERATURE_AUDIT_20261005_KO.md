@@ -2,6 +2,8 @@
 
 작성일: 2026-10-05
 
+> **정적 모델 존재 여부 정정: Section 14.** PFT별 NPP로 AGB를 계산하는 IBIS 탄소풀 방정식의 정적 평형해는 존재한다. BIOME4 자체 AGB 출력의 부재와 정적 모델의 부재를 혼동하지 않는다. Section 13의 관측비율과 Section 14의 모델 유도계수는 서로 다른 계산이다.
+
 > **최신 판정(2026-10-05): Section 13을 우선한다.** Xia×Xue 조합은 정의 불일치로 철회했다. 실제 ForC/Luyssaert 관측비율을 계산했지만 검증된 최종 BIOME4→dry AGB 계수는 아직 확정하지 못했다. Section 10–11의 lookup은 실험 후보 기록이다.
 
 ## 목적
@@ -945,3 +947,72 @@ Tura는 같은 관측구로 연결되는 자료이며 stock timing이 미상이�
 Python pandas가 필요하다. 입력 ForC revision을 위 commit에 고정해야 한다.
 
 확인된 것은 **하나의 공개 관측 자료체계에 들어 있는 Luyssaert 유래 NPP와 AGB 자료로 네 forest PFT analogue의 비율을 동일한 방식으로 계산할 수 있다는 것**이다. 요청된 검증된 최종 dry-AGB 계수 네 개를 완성했다고 주장하지 않는다. 종별 논문을 PFT마다 새로 붙이는 방법은 사용하지 않았다.
+
+
+# 14. 정적 NPP×PFT→AGB 모델 존재 여부 정정 (2026-10-05)
+
+## 14.1 존재 여부와 적용 검증을 구분한다
+
+**PFT별 NPP로 평형 AGB를 계산하는 정적 탄소풀 모델을 구성할 수 있으며, 기존 IBIS 탄소풀 방정식에 그 근거가 명시돼 있다. “그런 모델이 하나도 없다”는 판정은 하지 않는다.**
+
+BIOME4 자체가 standing AGB를 출력하지 않는다는 사실, BIOME4 전용으로 발표된 직접 변환식을 아직 확인하지 못했다는 사실, 다른 모델의 동일한 PFT 체계에서 정적 평형해를 얻을 수 있다는 사실은 서로 다르다.
+
+관측 NPP/AGB paired sample의 부족 역시 이 모델 구조의 부재를 뜻하지 않는다.
+
+## 14.2 확인한 published equation과 정적 해
+
+[Xue et al. (2017), Global Biogeochemical Cycles, DOI 10.1002/2016GB005557](https://doi.org/10.1002/2016GB005557), Section 2.4, Eq. (2)는 IBIS의 PFT i, biomass pool j에 대해
+
+\[
+\frac{dC_{i,j}}{dt}
+=a_{i,j}NPP_i-\frac{C_{i,j}}{\tau_{i,j}}
+\]
+
+를 제시한다. 본문은 NPP를 leaves, stems, roots로 배분하며 IBIS의 a가 고정값이라고 설명한다. Wood residence-time 항은 stems and branches의 pool에 대응한다.
+
+IBIS 전체 모델은 동적이다. 아래 식은 그 pool equation에서 dC/dt=0을 놓아 얻은 **정적 평형해**이지 IBIS 전체가 정적 모델이라는 주장이 아니다.
+
+\[
+C_{i,j}^{*}=a_{i,j}\tau_{i,j}NPP_i.
+\]
+
+지상부를 leaf와 stem/branch로 정의하고 뿌리 pool을 제외하면
+
+\[
+AGB_{C,i}^{*}
+=NPP_i(a_{L,i}\tau_{L,i}+a_{W,i}\tau_{W,i}).
+\]
+
+NPP 입력 g C m^-2 yr^-1, dry AGB 출력 kg dry m^-2, dry-matter carbon fraction f_C라면
+
+\[
+AGB_{{\rm dry},i}^{*}
+=\frac{NPP_i}{1000f_C}
+(a_{L,i}\tau_{L,i}+a_{W,i}\tau_{W,i}).
+\]
+
+이는 기존 방정식에서 이번에 전개한 평형 유도식이다. Eq. (2) 자체가 BIOME4의 published equation은 아니다. 고정된 공통 parameter set을 선택하면 실행시 입력은 NPP와 PFT뿐이며 임령/코호트 이력은 필요하지 않다.
+
+## 14.3 PFT 공통 parameter set이 제시된 자료와 그 지위
+
+Xue et al.의 2016 discussion manuscript
+[Evaluation of modeled global carbon dynamics: analysis based on global carbon flux and above-ground biomass data](https://bg.copernicus.org/preprints/bg-2016-142/bg-2016-142.pdf),
+DOI 10.5194/bg-2016-142, Table 1 (PDF page 27)은 IBIS의 모든 12 PFT에 allocation 및 residence-time parameters를 한 표로 제시한다.
+
+Section 10의 수치 출처는 이 **2016 preprint Table 1**이다. 위 2017 Global Biogeochemical Cycles 논문의 Table 1은 mixed-effect model comparison이며 이 parameter table이 아니다. 두 문헌의 제목·자료 규모·표를 구분하며 2016 manuscript를 확인 없이 “2017 final”로 표현하지 않는다. 2017 논문은 pool equation의 published 근거로 사용할 수 있지만 2016 Table 1의 모든 수치가 같은 논문의 확정 parameter라는 주장은 하지 않는다.
+
+| 관측 analogue / BIOME4 대응 | IBIS PFT | a_L | tau_L yr | a_W | tau_W yr | f_C=0.5 가정의 평형 dry 계수 |
+|---|---:|---:|---:|---:|---:|---:|
+| Temperate deciduous / 4 | 5 | 0.30 | 1 | 0.40 | 35 | 0.0286 |
+| Temperate evergreen conifer / 5 | 4 | 0.30 | 2 | 0.30 | 35 | 0.0222 |
+| Boreal evergreen conifer / 6 | 6 | 0.30 | 2.5 | 0.30 | 52 | 0.0327 |
+| Boreal deciduous broadleaf / 7 | 7 | 0.30 | 1 | 0.40 | 52 | 0.0422 |
+| Boreal deciduous conifer / 7 | 8 | 0.30 | 1 | 0.40 | 52 | 0.0422 |
+
+이 표는 동일 자료의 동일 parameter framework를 이용한 정적 계산이 실제 가능하다는 재현 예시다. 종별 관측논문을 PFT마다 붙인 결과가 아니다. Boreal deciduous broadleaf와 needleleaf 두 범주는 이 parameter set에서 동일한 AGB 계수를 갖는다.
+
+다만 이 대응은 여전히 **BIOME4→IBIS의 명시적인 기능형 대응**이다. BIOME4 고유 계수라고 부르지 않으며, 이 절을 이유로 기존 production lookup이나 canonical 실행 결과를 변경하지 않았다. 관측자료에서 계산한 Section 13의 계수와 이 모델 parameter에서 유도한 계수를 혼합하지 않는다.
+
+## 14.4 정정된 결론
+
+목표인 AGB=f(NPP,PFT)의 정적 계산 구조는 존재한다. IBIS 탄소풀 모델의 평형 축약은 확인된 구체적 사례다. 남은 선택은 같은 framework의 parameter set을 사용한 외부 정적 AGB 모듈을 어떤 근거와 한계로 BIOME4에 적용할 것인지이며, “그런 모델이 존재하지 않는다”는 문제가 아니다.
