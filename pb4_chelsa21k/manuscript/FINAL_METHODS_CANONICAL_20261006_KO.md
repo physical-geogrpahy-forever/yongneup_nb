@@ -499,7 +499,7 @@ d\,AGB^*
 
 ### 8.4 유수침식
 
-Pelletier Eq. (16)의 구조는
+Pelletier et al. (2013)의 slope-wash 및 fluvial incision 식은
 
 \[
 \boxed{
@@ -513,7 +513,15 @@ K
 
 로 유지한다.
 
-유로폭은 Pelletier Eq. (17)을 별도로
+여기서 유효 유로폭 \(w\)는 모든 셀에서 동일한 식으로 계산하지 않는다. Pelletier et al. (2013)의 원 구조에 따라 hillslope sheet-flow 셀에서는 grid-cell width를 사용하고,
+
+\[
+\boxed{
+w=\Delta x
+}
+\]
+
+tributary-valley 셀에서는 valley-bottom width 관계를 사용한다.
 
 \[
 \boxed{
@@ -521,13 +529,13 @@ w=gA^i
 }
 \]
 
-로 둔다.
+원 연구는 \(g=0.005\), \(i=0.5\)를 사용하였다.
 
-erodibility는 Pelletier Eq. (18)을 별도로
+regolith에 대한 erodibility는 Pelletier Eq. (18)을 별도 식으로
 
 \[
 \boxed{
-K
+K_{\mathrm{reg}}
 =
 \frac{K_0}{EEMT}
 }
@@ -535,9 +543,21 @@ K
 
 로 둔다.
 
-따라서 \(w\)와 \(K\)를 \(E_f\) 식 안에 대입하여 하나의 전개식으로 만들지 않는다.
+Pelletier et al. (2013)은 bedrock의 fluvial erodibility를 regolith보다 작게 두었으며 Table 1의 비율 \(F=10\)을 사용하였다. 이를 본 연구 표기로 쓰면
 
-PB4 수치구현에서는 \(|\nabla z|\)을 flow-routing 방향 경사로 평가하고, 한 substep에서 실제 가용 레골리스보다 많은 물질을 제거하지 못하도록 finite-supply constraint를 적용한다. 이 부분은 Pelletier Eq. (16)-(18) 자체가 아니라 PB4의 수치구현 확장으로 별도 설명한다.
+\[
+\boxed{
+K_{\mathrm{bed}}
+=
+\frac{K_{\mathrm{reg}}}{F}
+}
+\]
+
+이다.
+
+따라서 \(w\), \(K_{\mathrm{reg}}\), \(K_{\mathrm{bed}}\)을 \(E_f\) 식 안에 대입하여 하나의 전개식으로 만들지 않는다.
+
+PB4는 hillslope와 valley를 구분하기 위해 Pelletier et al. (2013)이 기술한 grid-resolution-dependent \(A/w\) 분류논리를 유지한다. 실제 raster 구현에서는 \(|\nabla z|\)을 flow-routing 방향 경사로 평가하고, 한 substep에서 실제 가용 레골리스보다 많은 물질을 제거하지 못하도록 finite-supply constraint를 적용한다. 이 공급제약은 Pelletier의 원 과정식이 아니라 PB4의 수치구현 확장이다.
 
 ## 9. Pelletier 원 연구값과 용늪 production 값의 구분
 
@@ -552,10 +572,13 @@ PB4 수치구현에서는 \(|\nabla z|\)을 flow-routing 방향 경사로 평가
 | \(c\) | 0.033 | 0.033 |
 | \(d\) | 0.050 | 0.050 |
 | \(K_0\) | 0.020 m\(^2\) MJ\(^{-1}\) | 0.020 |
+| \(g\) | 0.005 | 원 구조 유지 |
+| \(i\) | 0.5 | 원 구조 유지 |
+| \(F\) | 10 | 원 구조 유지 |
 | \(S_c\) | 0.7, 0.9 sensitivity | **1.50** |
 | \(U\) | 0.05 m kyr\(^{-1}\) | **0.20 m kyr\(^{-1}\)** |
 
-따라서 \(S_c=1.50\)과 \(U=0.20\)은 Pelletier et al. (2013)의 원 연구값이라고 쓰면 안 된다. \(S_c=1.50\)은 용늪 20 m real-DEM 수치수렴시험을 거쳐 채택된 모델별 수치설정이다. \(U=0.20\ {\rm m\,kyr^{-1}}\)은 현재 package에 '동해안 융기율 참고값'으로 기록되어 있으나, 현재 GitHub 보존자료에서는 이를 직접 뒷받침하는 서지문헌을 확인하지 못했다. 따라서 투고본에서 이 값을 유지하려면 별도의 지역 융기율 문헌을 명시적으로 연결해야 하며, 그 전까지는 '문헌 검증 필요' 파라미터로 취급한다.
+따라서 \(S_c=1.50\)과 \(U=0.20\)은 Pelletier et al. (2013)의 원 연구값이라고 쓰면 안 된다. \(S_c=1.50\)은 용늪 20 m real-DEM 수치수렴시험을 거쳐 채택된 모델별 수치설정이다. \(U=0.20\ {\rm m\,kyr^{-1}}\)은 Park et al. (2017)이 고성-삼척의 동해안 중부 해안단구에서 제시한 약 0.16-0.28 m kyr\(^{-1}\)의 후기 제4기 융기율 범위 안에 놓이므로 지역 참고값으로 사용할 수 있다. 다만 이 값은 용늪 자체에서 직접 측정한 융기율이 아니므로, 본 연구에서는 동해안 중부의 장기 지각융기를 대표하는 일정한 regional forcing으로 취급한다.
 
 또한 Pelletier의 모델실험 EEMT 범위는 대략 5-45 MJ m\(^{-2}\) yr\(^{-1}\)였으나 용늪 PB4에서는 이 범위를 넘는 EEMT가 발생한다. 따라서 EEMT 관련 계수의 외삽은 한계로 명시한다.
 
@@ -627,7 +650,7 @@ Park et al. (2021)의 holdout, PC2 상관, Herbs 비교는 최종 Methods와 최
 4. Reich SLA-life-span 원식과 \(B_{\mathrm{leaf}}=LAI/SLA\)
 5. Haxeltine and Prentice \(C_s=LAI\,C_n\)
 6. \(AGB^*=B_{\mathrm{leaf}}+B_{\mathrm{sapwood}}\)
-7. Pelletier Eq. (6)-(10), Eq. (14)-(18)을 각각 독립식으로 제시하고 상호 대입하지 않음
+7. Pelletier Eq. (6)-(10), Eq. (14)-(18)을 각각 독립식으로 제시하고 상호 대입하지 않음. 유수침식에서는 hillslope의 \(w=\Delta x\)와 valley의 \(w=gA^i\), regolith/bedrock erodibility를 구분함
 8. 수치구현은 별도 서술하고 Eq. (20)-(22)는 보충자료에 제시
 
 검증의 51% 재분류와 1% 출현 기준은 검증 절에서 문장으로 설명한다.
@@ -652,3 +675,18 @@ Reich, P. B., Walters, M. B., & Ellsworth, D. S. (1992). Leaf life-span in relat
 McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). Estimating water storage capacities in soil at catchment scales. CRC for Catchment Hydrology.
 
 Pelletier, J. D., et al. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. Journal of Geophysical Research: Earth Surface, 118, 741-758. https://doi.org/10.1002/jgrf.20046
+
+
+Park, C.-S., Kim, Y.-H., Nam, W.-H., & Lee, G.-R. (2017). Formative age of coastal terraces and uplift rate in the East Coast of South Korea. Journal of the Korean Geomorphological Association, 24(4), 43-55.
+
+Karger, D. N., et al. (2023). Climatologies at high resolution for the Earth's land surface areas. Climate of the Past, 19, 439-456.
+
+Beyer, R. M., Krapp, M., & Manica, A. (2020). High-resolution terrestrial climate, bioclimate and vegetation for the last 120,000 years. Scientific Data, 7, 236.
+
+Bereiter, B., et al. (2015). Revision of the EPICA Dome C CO2 record from 800 to 600 kyr before present. Geophysical Research Letters, 42, 542-549.
+
+Gale, M. R., & Grigal, D. F. (1987). Vertical root distributions of northern tree species in relation to successional status. Canadian Journal of Forest Research, 17, 829-834.
+
+Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E., & Schulze, E.-D. (1996). A global analysis of root distributions for terrestrial biomes. Oecologia, 108, 389-411.
+
+Poggio, L., de Sousa, L. M., Batjes, N. H., Heuvelink, G. B. M., Kempen, B., Ribeiro, E., & Rossiter, D. (2021). SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty. SOIL, 7, 217-240.
