@@ -751,3 +751,100 @@ Malhi et al. (2017). New Phytologist. DOI: 10.1111/nph.14189.
 8. 그 뒤 BIOME4 기반 후보 AGB bridge를 정하고, full 21-0 ka dynamic ablation을 새로 실행해야 한다.
 
 이 문서는 이 지점의 인계 기준이다.
+
+
+# 17. Pelletier Eq. (5) AGB 원식 후보 실험 — 실행 중
+
+현재 잠정적 최종 baseline은 변경하지 않고 별도 candidate로 AGB bridge만 교체하여 21-0 ka 전체를 새로 실행한다.
+
+Baseline:
+
+[
+AGB=0.010max(NPP_C,0)
+]
+
+Candidate:
+
+[
+AGB=eexp(fEEMT)
+]
+
+Pelletier et al. (2013)의 원식 및 원 계수:
+
+[
+e=1 {m kg,m^{-2}},qquad
+f=0.1 {m yr,m^2,MJ^{-1}}
+]
+
+따라서 candidate 구현은
+
+[
+AGB=exp(0.1EEMT)
+]
+
+이다.
+
+## 17.1 고정 조건
+
+AGB bridge 이외에는 잠정적 최종 production baseline을 유지한다.
+
+- CHELSA-TraCE21k/EnviCloud 21-0 ka BP, 100년 간격
+- BIOME4 v4.2b2 native climate limits
+- McKenzie AWC
+- finite-depth PFT root accessibility
+- 51% reduced-class majority rule
+- 기존 EEMT 계산
+- 기존 Pelletier (c,d,K_0) 및 지형수식
+- Jang et al. (2011) corrected mapping, n=62, basin presence >=1%
+
+## 17.2 Wang 비교
+
+Wang et al. (2011)의
+
+[
+C_{mathrm{veg}}=NPP	au_{mathrm{veg}}
+]
+
+는 **독립 진단값으로만 계산**하며 지형 forcing에는 사용하지 않는다.
+
+현재 forest mega-biome mapping:
+
+- BIOME4 biome 4, warm-temperate forest: (	au=15) yr
+- BIOME4 biome 5-8, temperate forest: (	au=10) yr
+- BIOME4 biome 9-11, boreal forest: (	au=26) yr
+
+Pelletier AGB는 live dry biomass, Wang (C_{mathrm{veg}})는 carbon mass이므로 둘을 동일 변수로 간주하지 않고 별도 단위로 기록한다. 탄소분율을 임의 적용해 맞추지 않는다.
+
+## 17.3 GitHub 구현 및 실행 위치
+
+실행 스크립트:
+
+`pb4_chelsa21k/tools/run_pelletier_agb_candidate.py`
+
+Workflow:
+
+`.github/workflows/pb4-chelsa21k-pelletier-agb-candidate.yml`
+
+결과 예정 위치:
+
+`pb4_chelsa21k/results/pelletier_agb_candidate_20261005/`
+
+GitHub Actions run:
+
+`37261891795`
+
+현재 상태 기록 시점: full 21-0 ka candidate step 실행 중.
+
+예정 핵심 출력:
+
+- `PELLETIER_AGB_JANG1PCT_SUMMARY.csv`
+- `PELLETIER_AGB_JANG1PCT_BY_ZONE.csv`
+- `PELLETIER_AGB_static_JANG1PCT_ROWS.csv`
+- `PELLETIER_AGB_dynamic_JANG1PCT_ROWS.csv`
+- `PELLETIER_AGB_WANG_TIMESERIES_DIAGNOSTIC.csv`
+- `PELLETIER_AGB_WANG_TIMESERIES_COMPACT.csv`
+- `PELLETIER_AGB_PROVENANCE.json`
+- `PELLETIER_AGB_CANDIDATE.patch`
+- `PELLETIER_AGB_21KA_RUN.log`
+
+**중요:** 이 candidate가 완료되기 전 기존 55/62 = 88.71%를 새 AGB 결과로 간주하지 않는다. 새 실행의 실제 Jang 정확도와 지형결과를 별도로 판정한다.
