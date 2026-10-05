@@ -1,5 +1,7 @@
 # NPP와 PFT로 계산하는 정적 AGB: Ise et al. (2010)의 VISIT 평형식 이식
 
+> **적용 판정 추가, 2026-10-05:** 아래 식의 산술 재현은 확인했지만, 원계수를 그대로 용늪 모델의 검증된 최종 AGB 계수로 채택하지 않는다. 관측연도가 겹치는 31개 성숙림 관측구와 비교한 예측/관측 비율의 중앙값은 PFT4=0.784(n=7), PFT5=0.489(n=15), PFT6=2.247(n=8), PFT7=1.810(n=1)이다. 이는 조건부 평형식의 존재와 실제 적용 정확도가 다르다는 직접 검증 결과다. 계산기는 진단용으로 보존한다.
+
 ## 판정과 적용 범위
 
 **NPP와 PFT만 입력하는 정적 계산은 가능하다.** Ise et al. (2010)은 실제로 성분별 NPP에서 평형 생체량을 계산했다. 이 문서와 코드는 논문의 VISIT 배분식과 체류율을 결합하여 총 NPP를 입력받도록 정리한 것이다.
@@ -113,3 +115,43 @@ agb = static_agb(npp=500, pft=7)["agb_dry_kg_m2"]
 제공된 NPP를 이 관측/모델 체계의 잎+stem+root 순생산량과 대응시키는 것 역시 연결 가정이다. BIOME4 NPP의 단위와 대상 PFT를 확인해 입력해야 한다. 이 계산기만으로 BIOME4 원모델의 네 PFT별 AGB 출력이 존재한다고 주장하지 않는다.
 
 **사용 가능한 결론:** 공통된 한 논문의 VISIT 계수와 평형식으로 모든 forest PFT4-7 입력을 처리하는 온대/아한대 2군 정적 AGB 계산기를 제공한다. 네 PFT마다 독립 계수를 갖는 더 세분된 모델이 확인됐다는 결론은 내리지 않는다.
+
+## 추가 적용 검증: 원계수 채택 보류
+
+사용자의 요청에 따라 단위/입출력 코드와 실제 관측 AGB를 대조했다. 이 절의 판정이 위 계산기의 사용 가능 범위를 제한한다.
+
+### BIOME4 NPP 확인
+
+현재 canonical `PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`을 읽었다. SHA-256은 `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`로 기존 기준과 일치한다. Production 파일을 수정하거나 재실행하지 않았다.
+
+`fortran_src/biome4_original_4_2b2.f`의 호흡 계산에서 NPP는 GPP에서 stemresp, leafresp, finerootresp와 growthresp를 뺀 연간 탄소 순생산량이다. 따라서 이를 ANPP나 wood production으로 취급하면 안 된다. `findnpp`는 LAI를 바꾸며 최대 NPP를 찾는다. 즉 이 값은 관측 산림의 나이별 생산량을 직접 계산한 값이 아니라 해당 PFT의 최적 LAI 하에서 계산된 잠재 생산량이다.
+
+원 Fortran의 output(3)을 Python의 `npp_node=out[2]`로 전달한다. PFT별 생산량은 `pftXX_mod_npp_node` 등으로도 노출된다. `tree_npp_total_node`나 `total_pft_npp_node`는 서로 대안적으로 경쟁하는 PFT들의 잠재 NPP를 합한 진단값이므로 관측 forest total NPP와 같다고 보고 AGB 식에 넣으면 안 된다. 선택한 PFT와 일치하는 NPP를 사용해야 한다. 현재 `npp_node`에 곧바로 다른 dominant diagnostic에서 얻은 PFT를 붙이는 것도 해당 output들이 같은 선택을 나타내는지 확인한 뒤에만 가능하다.
+
+단위와 NPP/ANPP 구분은 해결됐지만, BIOME4의 잠재 NPP를 다른 모델의 pooled stock parameters로 이식한 연결이 현장 AGB까지 정확하다는 근거는 아직 없다.
+
+### 관측자료와 비교
+
+입력: 기존에 검증해 보존한 `BIOME4_LUYSSAERT_FORC_DIAGNOSTIC_PAIRS_20261005.csv`. ForC commit `407c520e6350917bca42e6bf7d5031dbcc551362`의 Luyssaert-origin 자료다. NPP_1_C와 biomass_ag_C를 같은 site/plot/vegetation으로 연결했고 두 기록 모두 reported stand age >=100인 44개 연결 기록, 35개 관측구다. 999는 성숙림 표시이며 실제 999년이라고 해석하지 않는다.
+
+NPP는 Mg C ha^-1 yr^-1에서 100을 곱해 g C m^-2 yr^-1로, AGB는 Mg C ha^-1에서 0.1/f_C를 곱해 kg dry m^-2로 변환했다. 예측과 관측에 동일한 f_C=0.5를 사용하므로 예측/관측 비율에서는 f_C가 소거된다. 이 오차를 탄소-건물 환산계수만 바꿔 해소할 수는 없다.
+
+동일 plot에 여러 연결 기록이 있으면 각 예측/관측 비율의 중앙값을 먼저 구했다. 이어 PFT별로 plot들을 동일한 가중치로 요약했다. 전체 자료와 시간 중첩 자료, 시간 중첩+동일 reported age 자료를 모두 확인했으며 이 자료에 모델 계수를 맞추지 않았다.
+
+| 관측연도 중첩 자료 | 관측구 수 | 예측/관측 AGB 비율 중앙값 | plot 비율의 평균 절대백분율오차 |
+|---|---:|---:|---:|
+| PFT4 | 7 | 0.783975 | 27.03% |
+| PFT5 | 15 | 0.488637 | 48.31% |
+| PFT6 | 8 | 2.247305 | 157.09% |
+| PFT7 | 1 | 1.809878 | 80.99% |
+
+시간 중첩과 동일 reported age를 모두 요구해도 관측구 수는 각각 6/14/8/1이며 중앙값은 0.783440/0.480888/2.247305/1.809878이다. PFT5 과소예측과 PFT6 과대예측은 이 추가 제한으로 없어지지 않는다.
+
+PFT7의 시간 중첩 관측은 Aheden broadleaf 1곳이다. Larix가 있는 Tura는 NPP 2000-2004에 비해 AGB 관측연도가 불명이라 strict comparison에서 제외했다. Tura를 포함한 전체 진단에서는 예측/관측=8.479753이지만, 이를 동시점 정확도 검증으로 제시하지 않는다. 원계수에 Larix-specific 적용성이 입증됐다고 말할 수 없다.
+
+이 mature diagnostic selection이 교란 없는 수학적 평형 산림만으로 구성되었다고 입증된 것은 아니다. 따라서 오차로 원 논문의 평형 이론 자체를 기각하지 않는다. 그러나 현 프로젝트에서 이 원계수를 검증된 실측 AGB 예측식으로 채택할 근거로 삼을 수도 없다.
+
+재현 코드: `audit_ise2010_applicability.py`.
+수치와 관측별 출처: `BIOME4_ISE2010_APPLICABILITY_20261005.json`.
+
+**최종 적용 판정:** 원문 평형 구조와 총 NPP 변환의 산술은 확인됐다. 제시한 0.0395382093/0.0893514696 원계수는 이식 후보의 진단값이며, 현 프로젝트의 검증된 최종 계수로 채택하지 않는다. 특히 PFT5/6의 관측 불일치와 PFT7의 strict validation 표본 부족이 남는다. Production AGB bridge를 이 후보로 바꾸지 않았다.
