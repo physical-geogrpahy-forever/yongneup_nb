@@ -1,3 +1,5 @@
+> 2026-10-05 최신 판정: Section 16에서 Ise et al. (2010)의 VISIT 식과 공통 계수로 실행 가능한 총 NPP→평형 dry AGB 2군 모델을 제공한다. PFT4/5는 온대, PFT6/7은 아한대의 같은 계수이며, 네 PFT 독립 보정이나 native BIOME4 출력이 아니다. 이전의 모든 정적 모델이 없다는 표현은 철회한다.
+
 # BIOME4-only AGB/vegetation-carbon 문헌 감사
 
 작성일: 2026-10-05
@@ -1174,3 +1176,30 @@ a_{L,i}\tau_{L,i}
 S8 원 식은 NPP=0에서 -14.828을 주며, 약 41.69044 g C m^-2 yr^-1 미만에서 음수가 된다. 전체 격자에 적용한다면 비산림/무생산 및 저생산 셀의 처리 규칙이 별도로 필요하다. max(0,F(NPP))는 가능한 비음수 처리 방식이지만 **원 논문의 회귀식 자체가 아니라 구현자가 추가하는 규칙**이다. 이번 검증에서는 원 식을 바꾸지 않았다.
 
 Figure S8 축은 0–2500까지 표시되지만 이를 명시된 정확한 calibration data range로 주장하지 않는다. 원자료 범위 밖의 extrapolation이나 PFT별 독립 정확도는 별도 확인 대상이다.
+
+
+# 16. Ise et al. (2010): 총 NPP만으로 실행 가능한 VISIT 2군 평형 AGB 계산
+
+2026-10-05 원문 Table 1(PDF p.3), Eq. (7)-(12)(p.4), Appendix A Eq. (A10)-(A15)(p.10)를 확인했다. DOI: https://doi.org/10.1029/2010JG001326 . 공저자 대학 사이트의 PDF: https://gms.ctahr.hawaii.edu/gs/handler/getmedia.ashx?dt=3&g=12&moid=6541 .
+
+정적 NPP→생체량 모델이 없다는 종전 표현은 틀렸다. 이 논문은 성분별 NPP에서 평형 stock을 실제 계산한다. VISIT의 EPP 배분과 성장 호흡 계수를 이용하면 총 NPP의 성분별 배분율을 대수적으로 구할 수 있으므로 추가 GPP/기온/나이 입력 없이 leaf+aboveground stem 평형량을 계산할 수 있다.
+
+**정확한 해상도:** Table 1은 temperate와 boreal forest의 pooled parameter set이다. BIOME4 PFT4/5→temperate, PFT6/7→boreal로 이식한다. 따라서 PFT4=5, PFT6=7의 계수가 같다. 네 PFT 각각을 보정한 관측식 또는 native BIOME4 출력으로 표현하지 않는다. Boreal broadleaf만 PFT7에 대입하지 않고 PFT6/7 모두 넓은 boreal model class로 취급하는 명시적 연결 가정이다. Larix를 별도 문헌에서 붙이지 않는다.
+
+정의:
+q_f=f_f(1-k_gf)
+q_s=(1-f_f)f_s(1-k_gs)
+q_r=(1-f_f)(1-f_s)(1-k_gr)
+a_j=q_j/(q_f+q_s+q_r)
+AGBdry=NPP*(a_f/k_f+a_s/k_s)/(1000*f_C)
+
+ff와 fs는 총 NPP의 배분율이 아니므로 위 normalization이 필요하다. stem과 root의 sapwood/heartwood를 구분하는 원문의 pool framework를 사용한다. root carbon은 AGB에서 제외하며 generic IBIS wood에 임의 보정값을 넣지 않는다. 출력 AGB는 해당 3-pool 모델의 살아 있는 지상부 leaf+stem 합이다.
+
+f_C=0.5를 명시적 공통 변환 가정으로 놓으면 c_temperate=0.039538209325339524, c_boreal=0.08935146961601986이다. NPP 단위 g C m^-2 yr^-1, AGB 단위 kg dry m^-2. NPP=500일 때 19.769104663과 44.675734808이다. 이 수치는 새 산술 계산이며 실제 용늪 예측/검증 결과가 아니다.
+
+독립 Decimal 원문 식 재현, NPP budget, pool equilibrium, zero/scaling, carbon-fraction scaling, invalid-input checks를 새로 실행해 모두 확인했다. 생태학적 정확도는 새로 검증하지 않았다. 어린 산림/최근 교란 이후 실제 AGB 대신 equilibrium stock으로 해석한다.
+
+상세 유도/원문 계수/범위: `BIOME4_ISE2010_STATIC_AGB_20261005_KO.md`.
+실행 코드: `ise2010_static_agb.py`.
+
+이번 결과는 **실행 가능한 2군 정적 모델**이다. PFT4/5/6/7마다 서로 다른 독립계수가 필요하다는 추가 조건까지 충족했다고 표현하지 않는다. 이전 Sections 13-15의 네 PFT 세분 검증 부족은 그대로 남지만, 그것을 모든 정적 모델의 부재로 확대하지 않는다. Production BIOME4/Pelletier code와 기존 기후/지형 실험은 변경하지 않았다.
