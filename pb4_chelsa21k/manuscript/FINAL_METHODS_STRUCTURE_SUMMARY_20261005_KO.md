@@ -203,7 +203,10 @@ production에서 Pelletier와 동일하게 유지되는 주요 값은 \(a=0.037\
 
 \(S_c=1.50\)은 용늪 20 m real DEM의 수치수렴시험을 통해 채택한 용늪 production 설정으로 기술한다.
 
-현재 \(U=0.20\ {\rm m\,kyr^{-1}}\)의 지역 문헌 근거는 별도 확인이 필요하다. 해당 값은 Pelletier 원 연구값으로 기술하지 않는다.
+\(U=0.20\ {\rm m\,kyr^{-1}}\)은 Park et al. (2017)이 고성-삼척 동해안 중부에서 제시한 MIS 5 이후 0.16-0.28 m kyr\(^{-1}\)의 regional uplift 범위 안에 놓인다. 다만 용늪 자체의 직접 측정값이 아니라 인접 동해안 중부를 대표하는 constant regional forcing으로 기술한다.
+
+
+유수침식에서는 Pelletier 원 구조를 다음처럼 유지한다. Hillslope sheet-flow 셀은 \(w=\Delta x\)를 사용하고 tributary-valley 셀에서만 \(w=gA^i\)를 사용한다. 또한 regolith erodibility \(K_{\mathrm{reg}}=K_0/EEMT\)와 bedrock erodibility \(K_{\mathrm{bed}}=K_{\mathrm{reg}}/F\)를 분리하며, 원 연구의 \(g=0.005\), \(i=0.5\), \(F=10\) 구조를 유지한다. \(w=gA^i\)를 전 격자에 적용하는 일반식처럼 쓰지 않는다.
 
 ## 7. 수치구현
 
