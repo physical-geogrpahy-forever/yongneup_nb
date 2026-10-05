@@ -36,6 +36,10 @@ jobs:
           PY
           root=$(find /tmp/pb4inspect -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
           echo "ROOT=$root"
+          echo '=== embedded inputs all ==='
+          find "$root/embedded_inputs" -maxdepth 4 -type f | sed "s#^$root/##" | sort || true
+          echo '=== package Beyer mentions ==='
+          grep -RIl 'Beyer' "$root" | sed "s#^$root/##" | head -n 300 || true
           echo '=== backend key defs ==='
           grep -nE '^(class|def) |pftpar|climate|mckenzie|root|depth|run_biome|evaluate' "$root/pb4studio/biome4_backend.py" | head -n 260 || true
           echo '=== climate key defs ==='
