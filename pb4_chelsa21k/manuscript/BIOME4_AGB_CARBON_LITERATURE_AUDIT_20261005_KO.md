@@ -1,3 +1,5 @@
+> **2026-10-05 최종 적용 판정 업데이트(Section 20): JULES 기본계수의 용늪 최종 채택 안 함.** 정적 LAI→AGB 구조는 확인됐지만 BIOME4 LAI로 전이한 정확도는 미검증이며 원 모델도 온대/한대 탄소량 편향을 보고한다.
+
 > **2026-10-05 LAI 경로 추가 확인(Section 18): JULES/TRIFFID에 정적 LAI→목질부 생체량 식이 존재함.** 굵은뿌리 분리와 full-leaf 정의를 명시한 전이식은 구성 가능하지만, 용늪 최종 계수의 검증/채택은 아직 아니다.
 
 > **2026-10-05 최신 적용 판정(Section 17): Ise 원계수 채택 보류.** 식 재현은 확인했지만 관측연도 중첩 성숙림의 예측/관측 AGB 중앙값은 PFT5=0.489(n=15), PFT6=2.247(n=8), PFT7=1.810(n=1)이다. Section 16의 코드와 숫자는 진단 후보이며 검증된 최종 bridge가 아니다. 아래의 이전 상태 기록보다 이 판정을 우선한다.
@@ -1364,3 +1366,37 @@ LAI=3의 산술 확인: C3=0.2109025147 kg dry m^-2 (210.9025 g m^-2); C4=0.4734
 - https://gmd.copernicus.org/articles/9/2415/2016/
 - https://gmd.copernicus.org/articles/11/2857/2018/
 - https://gmd.copernicus.org/articles/13/1123/2020/
+
+
+## 20. JULES 기본계수의 용늪 최종 적용 판정 (2026-10-05)
+
+**현재 판정: Section18-19의 정적 구조 및 산술 재현은 확인했으나, 제시한 JULES 기본계수를 BIOME4-LAI 기반 용늪 최종 AGB 모형에 그대로 채택하지 않는다.** 식/계수의 존재 확인을 현장 적용 검증 완료로 표현하지 않는다. 새 production 실행이나 계수 보정은 하지 않았다.
+
+JULES는 온대 전용이 아니라 전지구 land-surface/DGVM이다. 그렇더라도 용늪에 필요한 온대/한대의 AGB 성능은 별도로 판단해야 한다.
+
+Harper2018 Section4.2:
+- JULES-C2의 vegetation carbon high bias가 boreal/temperate forests 및 tropical savannah에서 발생한다.
+- 이 지역의 수목 피복률을 과대추정하는 점을 원인으로 지적한다.
+Section5:
+- NPP와 Cveg가 대부분 biome에서 과대추정되므로 NPP가 너무 높을 가능성을 논의한다.
+- awl/aws의 추가 평가와 하향 조정 필요 가능성도 명시한다.
+따라서 vegetation carbon bias를 단독 LAI→AGB 함수의 bias와 동일시하지 않는다. 반대로, 외부 BIOME4 LAI를 대입하면 bias가 제거된다고 주장하지 않는다. 원 연구는 자체 동적 식생, LAI, NPP, coverage를 포함한 전체 구성의 평가이며, BIOME4 optlai를 대입한 진단식의 검증은 아니다.
+
+Wolf2011은 초기 TRIFFID를 포함한 LSM의 organ allometry와 관측 산림을 비교했고 잎/줄기 배분의 상당한 불일치, 특히 낮은 생체량 산림의 문제를 보고했다. 이는 biomass allometry를 별도 검증할 필요가 있다는 근거다. 2011 연구를 2018 매개변수의 직접 검증/반증이라고 하지 않는다.
+
+### 현재 결정
+
+| 항목 | 상태 |
+|---|---|
+|같은 JULES 체계로 tree+generic grass 정적 식 구성|확인|
+|기본 awl/LMA 계수의 BIOME4 optlai 전이 정확도|미검증|
+|온대/한대 현장 AGB 또는 같은 LAI 정의의 독립 관측 검증|이번 전이식에는 없음|
+|JULES 기본계수 그대로 용늪 최종 결과에 사용|현재 채택하지 않음|
+|awl 임의 축소나 계수 변경을 통한 숫자 맞추기|수행하지 않음|
+|LAI 기반 경로 자체|계속 검토 가능한 모델 구조이며 폐기 근거는 아님|
+
+채택을 다시 판단하려면 공통 자료체계에서 정의와 면적 기준을 맞춘 LAI–living dry AGB 대조, 교목 기능형과 generic herb에 대한 성능 확인, PFT7 및 한랭 초본의 명시적 대응이 필요하다. local validation만이 유일한 길이라고 요구하는 것은 아니며, 적합한 온대/한대 독립자료도 검증 근거가 될 수 있다. 현재 미검증 상태를 모델 전체가 무가치하다는 결론으로 확대하지 않는다.
+
+원문:
+- https://gmd.copernicus.org/articles/11/2857/2018/gmd-11-2857-2018.html (Section4.2,5)
+- https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2010GB003917 (Section3-5, 초기 모델 비교)
