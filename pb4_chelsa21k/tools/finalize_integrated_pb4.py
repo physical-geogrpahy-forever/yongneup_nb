@@ -238,7 +238,7 @@ def collect_agb(out: Path) -> pd.DataFrame:
 def agb_summary(ts: pd.DataFrame) -> pd.DataFrame:
     rows = []
     for mode, g in ts.groupby("mode"):
-        ages = pd.to_numeric(g["model_ka_bp"], errors="coerce").abs()
+        ages = pd.to_numeric(g["ka_bp"], errors="coerce").abs()
         modern = g.loc[ages.idxmin()]
         rows.append({
             "mode": mode,
