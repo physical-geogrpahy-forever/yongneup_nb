@@ -1,0 +1,9 @@
+﻿mode,record_id,target_class,n,correct_n,accuracy_pct,target_fraction_min,target_fraction_max
+static,95_01,broadleaf,12,12,100.0,1.0,1.0
+static,95_02,mixed,15,9,60.0,0.0,1.0
+static,95_03,broadleaf,31,0,0.0,0.0,0.0
+static,95_04,mixed,4,3,75.0,0.0,1.0
+dynamic,95_01,broadleaf,12,12,100.0,1.0,1.0
+dynamic,95_02,mixed,15,9,60.0,0.0,0.9765100671140939
+dynamic,95_03,broadleaf,31,31,100.0,0.013422818791946308,0.030201342281879196
+dynamic,95_04,mixed,4,3,75.0,0.0,0.9832214765100671

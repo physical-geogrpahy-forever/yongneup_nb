@@ -1,0 +1,47 @@
+{
+  "execution_status": "new_full_21ka_candidate_run",
+  "baseline_model": "PB4-McKenzie-nativeClimate",
+  "baseline_canonical_sha256": "eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d",
+  "candidate_model": "PB4-McKenzie-nativeClimate-JULES-LAI-NDT-AGB",
+  "candidate_zip": "pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_JULES_LAI_NDT_AGB.zip",
+  "candidate_sha256": "1a369d9db3092e90473e696c909939a4968daa14de1ce2628b248dfa78781745",
+  "climate": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+  "period_ka_bp": "21.0-0.0",
+  "interval_kyr": 0.1,
+  "only_scientific_change_for_geomorphology": "AGB bridge: legacy 0.010*NPP -> BIOME4 optLAI + JULES/TRIFFID full-leaf allometry (NDT PFT7 scenario)",
+  "agb_units": "kg dry biomass m^-2",
+  "lai_input": "BIOME4 dominant-PFT optLAI via lai_node",
+  "fC_wood": 0.5,
+  "stem_fraction_of_integrated_wood_pool": 0.75,
+  "jules_parameters": {
+    "4": {
+      "lma": 0.0823,
+      "awl": 0.78,
+      "jules_pft": "BDT"
+    },
+    "5": {
+      "lma": 0.2263,
+      "awl": 0.65,
+      "jules_pft": "NET"
+    },
+    "6": {
+      "lma": 0.2263,
+      "awl": 0.65,
+      "jules_pft": "NET"
+    },
+    "7": {
+      "lma": 0.1006,
+      "awl": 0.8,
+      "jules_pft": "NDT"
+    },
+    "10": {
+      "lma": 0.1515,
+      "awl": 0.13,
+      "jules_pft": "ESH"
+    }
+  },
+  "pft10_correspondence": "BIOME4 woody desert evergreen -> JULES evergreen shrub (ESH) structural analogue",
+  "unsupported_pft_policy": "abort on any positive-NPP vegetated unsupported dominant PFT",
+  "legacy_0010": "diagnostic only; does not feed candidate geomorphology",
+  "validation": "Jang 2011 corrected reduced mapping, n=62, 1% basin presence"
+}
