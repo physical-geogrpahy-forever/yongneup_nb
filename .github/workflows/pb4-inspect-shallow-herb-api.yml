@@ -42,5 +42,11 @@ jobs:
           grep -nE '^(class|def) |CHELSA|Beyer|agb|npp|lai|pft' "$root/pb4studio/climate.py" | head -n 260 || true
           echo '=== selfcontained runner head ==='
           sed -n '1,320p' "$root/tools/run_yongneup_21ka_chelsa_selfcontained.py" || true
+          echo '=== mckenzie depth sensitivity tool ==='
+          sed -n '1,420p' "$root/tools/mckenzie2003_depth_sensitivity.py" || true
+          echo '=== soil depth sensitivity tool ==='
+          sed -n '1,320p' "$root/tools/soil_depth_sensitivity.py" || true
+          echo '=== config science ==='
+          grep -nE 'class ScienceConfig|biome4_variant|pft|climate' "$root/pb4studio/config.py" | head -n 260 || true
           echo '=== tests/tools names ==='
           find "$root" -maxdepth 3 -type f | sed "s#^$root/##" | grep -Ei 'test|depth|sweep|diagn|onecell|single' | head -n 300 || true
