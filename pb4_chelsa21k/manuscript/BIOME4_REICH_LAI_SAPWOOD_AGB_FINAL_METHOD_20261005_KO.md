@@ -2,7 +2,7 @@
 
 작성일: 2026-10-05  
 상태: **최종 채택**  
-2026-10-06 표기 갱신: 최종 Methods와 일치시키기 위해 기존 indicator 기호 `S_p`를 `I_{sap,p}`로 변경하였다. 계산식과 수치에는 변화가 없다.
+2026-10-06 표기 갱신: 논문 Methods에서는 문헌 원식과 BIOME4 source parameter를 직접 사용하며, 계산 편의를 위한 파생 indicator와 전개 소수계수는 본문 수식에서 제외한다.
 
 ## 1. 최종 변수 정의
 
@@ -65,7 +65,7 @@ B_{\mathrm{leaf,dry},p}
 
 ## 4. 변재 건조생체량
 
-Haxeltine and Prentice (1996), BIOME3 Eq. (34)는 다음과 같이 total sapwood carbon content를 LAI와 연결한다.
+Haxeltine and Prentice (1996), BIOME3 Eq. (34)의 원식은
 
 \[
 \boxed{
@@ -75,43 +75,29 @@ LAI\,C_n
 }
 \]
 
-여기서 \(C_s\)는 total sapwood carbon content이고 \(C_n\)은 sapwood carbon content per unit LAI이다.
+이다. 여기서 \(C_s\)는 total sapwood carbon content이고 \(C_n\)은 sapwood carbon content per unit LAI이다.
 
-BIOME4 v4.2b2 source code의 respiration subroutine은 stemcarbon=0.5를 사용한다. source comment는 stemcarbon을 sapwood mass in kg C per unit leaf area per unit ground area로 정의한다. 따라서 BIOME4 구현에서는 sapwood carbon stock을
+BIOME4 v4.2b2 source code의 respiration subroutine은 \`stemcarbon=0.5\`를 사용하며, source comment는 이를 sapwood mass in kg C per unit leaf area per unit ground area로 정의한다. 따라서 본 연구에서는 BIOME4 source parameter를
+
+\[
+C_n=0.5
+\]
+
+로 적용한다.
+
+dry biomass 변환은
 
 \[
 \boxed{
-C_{\mathrm{sapwood},p}
-=
-0.5\,LAI_p
-}
-\]
-
-로 계산한다.
-
-탄소분율 \(f_C=0.50\)은 본 연구의 명시적 dry-mass conversion assumption으로 둔다. 따라서
-
-\[
 B_{\mathrm{sapwood,dry},p}
 =
 \frac{C_{\mathrm{sapwood},p}}{f_C}
-=
-LAI_p
+}
 \]
 
-이다. 단, BIOME4 v4.2b2에서 pftpar(pft,10)=2인 PFT는 source code가 sapwood respiration을 제거하므로 sapwood term을 0으로 둔다.
+로 수행하며, \(f_C=0.50\)은 본 연구의 명시적 carbon-fraction 가정이다.
 
-계산 편의를 위해 본 연구에서 다음 indicator를 정의한다.
-
-\[
-I_{sap,p}=
-\begin{cases}
-1, & \text{if } pftpar(p,10)=1\\
-0, & \text{if } pftpar(p,10)=2
-\end{cases}
-\]
-
-\(I_{sap,p}\)는 BIOME4의 원 변수명이 아니라 본 연구가 계산을 위해 정의한 indicator이다.
+BIOME4 v4.2b2에서 \`pftpar(pft,10)=2\`인 PFT는 source code가 sapwood respiration을 제거하므로 해당 PFT의 AGB* 계산에서도 sapwood 항을 0으로 둔다. 이 처리는 BIOME4 source flag를 그대로 따른 것이며, 논문 Methods에서는 별도의 새로운 생태계수로 정의하지 않는다.
 
 ## 5. 최종 AGB* 식
 
@@ -149,25 +135,27 @@ B_{\mathrm{leaf,dry},p}
 
 본 연구에서 이후의 AGB 표기는 특별한 설명이 없는 한 이 \(AGB^*\)를 뜻하며, 최초 Methods 정의에서는 반드시 BIOME4-derived aboveground living biomass proxy (AGB*)라고 명시한다.
 
-## 6. BIOME4 v4.2b2 PFT별 계수
+## 6. BIOME4 v4.2b2 PFT별 source parameter
 
-| PFT | BIOME4 source-code type | \(L_m\) month | pftpar(10) | \(I_{sap,p}\) | \(AGB^*/LAI\) |
-|---:|---|---:|---:|---:|---:|
-| 1 | Tropical Evergreen Trees | 18 | 1 | 1 | 1.125825 |
-| 2 | Tropical Drought-deciduous Trees | 9 | 1 | 1 | 1.093395 |
-| 3 | Temperate Broadleaved Evergreen Trees | 18 | 1 | 1 | 1.125825 |
-| 4 | Temperate Deciduous Trees | 7 | 1 | 1 | 1.083829 |
-| 5 | Cool Conifer Trees | 30 | 1 | 1 | 1.156734 |
-| 6 | Boreal Evergreen Trees | 24 | 1 | 1 | 1.142394 |
-| 7 | Boreal Deciduous Trees | 24 | 1 | 1 | 1.142394 |
-| 8 | C3/C4 temperate grass | 8 | 2 | 0 | 0.088783 |
-| 9 | C4 tropical grass | 10 | 2 | 0 | 0.097724 |
-| 10 | C3/C4 woody desert | 12 | 1 | 1 | 1.105693 |
-| 11 | Tundra shrub | 8 | 1 | 1 | 1.088783 |
-| 12 | Cold herbaceous | 8 | 2 | 0 | 0.088783 |
-| 13 | Lichen/forb | 8 | 1 | 1 | 1.088783 |
+논문에는 파생된 \(AGB^*/LAI\) 소수계수를 제시하지 않고, 실제 계산에 들어가는 BIOME4 source parameter만 제시한다.
 
-PFT13은 식생형 명칭상 sapwood 해석에 주의가 필요하지만, 본 연구에서는 BIOME4 v4.2b2 source code의 pftpar(13,10)=1을 임의 수정하지 않고 그대로 따른다.
+| PFT | BIOME4 source-code type | \(L_m\) month | pftpar(10) | sapwood 항 |
+|---:|---|---:|---:|---|
+| 1 | Tropical Evergreen Trees | 18 | 1 | 사용 |
+| 2 | Tropical Drought-deciduous Trees | 9 | 1 | 사용 |
+| 3 | Temperate Broadleaved Evergreen Trees | 18 | 1 | 사용 |
+| 4 | Temperate Deciduous Trees | 7 | 1 | 사용 |
+| 5 | Cool Conifer Trees | 30 | 1 | 사용 |
+| 6 | Boreal Evergreen Trees | 24 | 1 | 사용 |
+| 7 | Boreal Deciduous Trees | 24 | 1 | 사용 |
+| 8 | C3/C4 temperate grass | 8 | 2 | 미사용 |
+| 9 | C4 tropical grass | 10 | 2 | 미사용 |
+| 10 | C3/C4 woody desert | 12 | 1 | 사용 |
+| 11 | Tundra shrub | 8 | 1 | 사용 |
+| 12 | Cold herbaceous | 8 | 2 | 미사용 |
+| 13 | Lichen/forb | 8 | 1 | 사용 |
+
+PFT13은 식생형 명칭상 sapwood 해석에 주의가 필요하지만, 본 연구에서는 BIOME4 v4.2b2 source code의 \`pftpar(13,10)=1\`을 임의 수정하지 않고 그대로 따른다.
 
 ## 7. Pelletier 지형식과의 결합
 
