@@ -61,6 +61,8 @@ jobs:
           sed -n '469,603p' "$root/pb4studio/climate.py" || true
           echo '=== package Beyer mentions ==='
           grep -RIl 'Beyer' "$root" | sed "s#^$root/##" | head -n 300 || true
+          echo '=== PFT activation source ==='
+          if [ -n "$src" ]; then grep -n -E 'pfts\([0-9]+\)|pfts\(pft\)' "$src" | head -n 500 || true; fi
           echo '=== PFT12 source context ==='
           grep -RniE 'cold herbaceous|pft.?12|pfts\(12\)|25\.0|Tundra shrub|Lichen/forb' "$root/fortran" "$root/pb4studio" | head -n 400 || true
           echo '=== BIOME4 source PFT parameter block ==='
