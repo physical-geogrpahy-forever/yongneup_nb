@@ -165,4 +165,8 @@ Park holdout의 우선 비교축은 다음으로 고정한다.
 
 특히 tree composition은 pollen과 model 모두 conifer+broadleaf 내부에서 closure하여 비교한다. pollen percentage와 model area fraction의 절대값을 동일한 물리량으로 간주하지 않고, Spearman rank correlation과 변화방향 일치도를 중심으로 평가한다.
 
-Supplementary sample-level raw table을 확보하기 전에는 Park 정량점수를 계산하지 않는다. 논문 Fig. 3의 선을 수작업으로 역추정하여 정량검증값을 만드는 방식은 사용하지 않는다.
+Supplementary sample-level raw table은 사용자가 이미 제공한 `1-s2.0-S0031018221004909-mmc1(1).xlsx`로 확보되어 있으며, SHA-256은 `6d4ad8310434e02e1f963ee36932e30ae66f757d6028260d33ea98e7359c8f97`이다. 2026-10-06 이 원자료를 직접 이용해 Park holdout을 계산했다. 논문 Fig. 3의 선을 수작업으로 역추정하지 않았다.
+
+주 정량구간 16-69 cm의 53 pollen samples는 17개 100년 window로 집계되었다. Park PC2와 dynamic PB4 cold-tree PFT fraction의 Spearman rho는 +0.632, p=0.00644였고, static에서는 rho=-0.255, p=0.323이었다. pollen broadleaf fraction과 dynamic temperate-deciduous fraction의 관계는 rho=+0.448, p=0.0713이었다.
+
+상세 결과는 `pb4_chelsa21k/results/final_integrated_20261006/PARK2021_HOLDOUT_RESULT_20261006_KO.md`를 따른다.
