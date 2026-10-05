@@ -9,7 +9,7 @@
 
 ## 2.1 연구 설계와 결합모형
 
-본 연구는 대암산 용늪에서 후기 빙기 이후의 기후변화가 식생과 토심, 지형발달의 상호작용을 통해 장기적인 식생사에 미치는 영향을 평가하기 위해 BIOME4 v4.2b2와 식생-토양-지형 상호작용을 모의하는 Pelletier et al. (2013)의 경관발달식을 결합하였다. BIOME4는 기후, 대기 CO2, 토양수분조건에 따라 PFT별 NPP와 NPP를 최대화하는 LAI를 계산하고 PFT 경쟁을 통해 잠재 식생을 판정하는 평형 식생모형이다(Kaplan et al., 2003). 본 연구에서는 원 BIOME4 v4.2b2의 13개 PFT와 native climate limits를 유지하였다.
+본 연구는 대암산 용늪에서 후기 빙기 이후의 기후변화가 식생과 토심, 지형발달의 상호작용을 통해 장기적인 식생사에 미치는 영향을 평가하기 위해 BIOME4 v4.2b2와 식생-토양-지형 상호작용을 모의하는 Pelletier et al. (2013)의 경관발달식을 결합하였다. BIOME4는 기후, 대기 CO2, 토양수분조건에 따라 PFT별 NPP와 NPP를 최대화하는 LAI를 계산하고 PFT 경쟁을 통해 잠재 식생을 판정하는 평형 식생모형이다(Kaplan, 2001). 본 연구에서는 원 BIOME4 v4.2b2의 13개 PFT와 native climate limits를 유지하였다.
 
 모의기간은 21.0 ka BP부터 현재까지이며 결합 간격은 0.1 kyr로 설정하였다. 따라서 기후와 식생은 총 211개 시점에서 계산하였다. 정적 실험에서는 초기 지표고도와 토심을 전체 기간 동안 고정한 채 기후 forcing만 변화시켰다. 동적 실험에서는 각 시점의 BIOME4 결과로부터 EEMT와 \(AGB^*\)를 산정한 뒤 지형발달모형을 100년 동안 적분하고, 갱신된 지표고도와 토심을 다음 시점의 BIOME4 계산에 다시 입력하였다.
 
@@ -509,6 +509,8 @@ Haxeltine, A., & Prentice, I. C. (1996). BIOME3: An equilibrium terrestrial bios
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E., & Schulze, E.-D. (1996). A global analysis of root distributions for terrestrial biomes. *Oecologia, 108*, 389-411. https://doi.org/10.1007/BF00333714
 
 Jang, B.-O., Kang, S.-J., & Choi, K.-R. (2011). Vegetation history around Yongneup moor at Mt. Daeamsan, Korea. *Journal of Ecology and Environment, 34*, 259-267. https://doi.org/10.5141/JEFB.2011.028
+
+Kaplan, J. O. (2001). *Geophysical applications of vegetation modeling*. Doctoral dissertation, Lund University. ISBN 91-7874-089-4.
 
 Kaplan, J. O., Bigelow, N. H., Prentice, I. C., Harrison, S. P., Bartlein, P. J., Christensen, T. R., et al. (2003). Climate change and Arctic ecosystems: 2. Modeling, paleodata-model comparisons, and future projections. *Journal of Geophysical Research: Atmospheres, 108*, 8171. https://doi.org/10.1029/2002JD002559
 
