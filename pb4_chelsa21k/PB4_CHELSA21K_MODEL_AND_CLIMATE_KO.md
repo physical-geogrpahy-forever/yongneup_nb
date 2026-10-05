@@ -195,18 +195,87 @@ z(t+1), b(t+1), H(t+1)
 
 ## 8. BIOME4에서 지형으로 가는 피드백
 
-BIOME4 출력의 NPP와 AET를 이용해 EEMT를 계산하고, NPP에서 standing AGB proxy를 만든다. 이 AGB bridge는 BIOME4가 실제 standing biomass를 prognose하지 않기 때문에 기존 Pelletier runner를 유지하기 위해 남은 별도 coupling 가정이며, 패키지 자체도 이 provenance 문제를 명시하고 있다.
+BIOME4 출력의 NPP와 AET를 이용해 EEMT를 계산한다. 지형식에 들어가는 식생량은 더 이상 NPP의 단순 선형 proxy를 사용하지 않고, BIOME4 optimal LAI와 PFT parameter를 이용한 최종 \(AGB^*\)를 사용한다.
+
+잎 건조생체량은 Reich et al. (1992)의 SLA-life-span 회귀식
+
+\[
+\log_{10}(SLA)
+=
+2.44-0.43\log_{10}(\mathrm{life\mbox{-}span})
+\]
+
+을 이용한다. BIOME4의 expected leaf longevity \(L_m\)을 적용하면
+
+\[
+\boxed{
+B_{\mathrm{leaf,dry},p}
+=
+0.03630780547701014\,LAI_p L_{m,p}^{0.43}
+}
+\]
+
+가 된다.
+
+변재는 Haxeltine and Prentice (1996) BIOME3 Eq. (34)
+
+\[
+C_s=LAI\,C_n
+\]
+
+과 BIOME4 v4.2b2 source code의 stemcarbon=0.5를 이용한다. 탄소분율 \(f_C=0.50\)을 명시적 conversion assumption으로 두면 sapwood가 활성인 PFT에서
+
+\[
+B_{\mathrm{sapwood,dry},p}=LAI_p
+\]
+
+이다. BIOME4 v4.2b2에서 pftpar(pft,10)=2인 PFT는 sapwood term을 0으로 둔다.
+
+따라서 최종 식생량은
+
+\[
+\boxed{
+AGB^*_{\mathrm{dry},p}
+=
+LAI_p
+\left[
+S_p
++
+0.03630780547701014L_{m,p}^{0.43}
+\right]
+}
+\]
+
+이며, \(S_p=1\) for pftpar(p,10)=1, \(S_p=0\) for pftpar(p,10)=2이다.
+
+Pelletier et al. (2013)의 지형 결합구조는 유지한다.
+
+\[
+\boxed{
+k_d
+=
+0.033EEMT
++
+0.05AGB^*
+}
+\]
+
+단, Pelletier Eq. (5)의 직접적인 EEMT-to-AGB 지수식은 용늪에서 사용하지 않는다.
 
 따라서 전체 feedback은 다음과 같이 이해한다.
 
-```text
-H,z
- -> 토양수분과 BIOME4 식생
- -> NPP,AET
- -> EEMT, AGB proxy
- -> Pelletier 지형변화
- -> 새 H,z
-```
+    H,z
+     -> 토양수분과 BIOME4 식생
+     -> NPP,AET,LAI,PFT
+     -> EEMT, BIOME4-derived AGB*
+     -> Pelletier 지형변화
+     -> 새 H,z
+
+AGB*는 total anatomical AGB가 아니라 foliage + sapwood를 포함하는 BIOME4-derived aboveground living biomass proxy이다.
+
+최종 수식, PFT별 계수, 참고문헌은 다음 문서를 권위 기준으로 한다.
+
+pb4_chelsa21k/manuscript/BIOME4_REICH_LAI_SAPWOOD_AGB_FINAL_METHOD_20261005_KO.md
 
 ## 9. static과 dynamic의 차이
 
