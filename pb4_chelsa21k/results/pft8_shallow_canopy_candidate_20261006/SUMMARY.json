@@ -1,0 +1,24 @@
+{
+  "jang": [
+    {
+      "mode": "static",
+      "n": 62,
+      "correct_n": 24,
+      "accuracy_pct": 38.70967741935484,
+      "max_herbaceous_fraction": 0.0,
+      "n_rows_herbaceous_ge_1pct": 0
+    },
+    {
+      "mode": "dynamic",
+      "n": 62,
+      "correct_n": 53,
+      "accuracy_pct": 85.48387096774194,
+      "max_herbaceous_fraction": 0.010067114093959731,
+      "n_rows_herbaceous_ge_1pct": 3
+    }
+  ],
+  "dynamic_pft8_max_fraction_21ka": 0.0436241610738255,
+  "dynamic_pft8_n_timesteps_positive_21ka": 169,
+  "dynamic_pft8_max_fraction_park_0p5_3p2ka": 0.010067114093959731,
+  "dynamic_pft8_n_timesteps_positive_park_0p5_3p2ka": 17
+}
