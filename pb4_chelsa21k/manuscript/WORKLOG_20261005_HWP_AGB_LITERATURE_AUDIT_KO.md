@@ -902,3 +902,44 @@ Wang et al. (2011) 독립 BIOME4 vegetation-carbon 진단:
 4. Pelletier의 (e,f)를 용늪에 맞춰 다시 적합하면 결국 지역 경험보정이 되므로 현재 목표인 누더기 없는 모델과 맞지 않는다.
 
 따라서 기존 canonical baseline은 유지한다. 다음 해결은 BIOME4 자체의 biomass/carbon 체계에서 하나의 일관된 식생상태변수를 정의할 수 있는지 문헌적으로 확인한 뒤 진행한다.
+
+
+# 18. 용늪 현지 AGB 검증/보정 자료 후보
+
+Pelletier Eq. (5) 원 계수의 무보정 이식이 물리적으로 기각된 뒤, 누더기식 추가 모듈을 피하기 위한 가장 깔끔한 다음 자료원으로 **대한민국 전국 30 m 산림 AGB 지도**를 확인했다.
+
+자료:
+
+Kim, Seunguk, Shin, Joong Hoon, Han, Hee, & Choe, Hyeyeong (2026).
+*Nationwide 30 m maps of forest composition, biomass, and diversity in South Korea (2021–2025) from direct prediction and plot-index imputation.*
+Zenodo. DOI: 10.5281/zenodo.21701424.
+
+핵심 특성:
+
+- 제8차 국가산림자원조사(2021-2025) 기반
+- Sentinel-2, 기후, 지형 예측자 사용
+- 대한민국 전국 30 m 해상도
+- CRS EPSG:5179
+- aboveground biomass 직접 예측 지도 제공
+- direct-prediction AGB와 cell-level uncertainty 지도 제공
+- forest-type map을 추가한 FTM 버전도 제공
+- spatial-block cross-validation 및 별도 공간독립 test set 사용
+
+주요 파일:
+
+- `base_biomass_30m.tif`
+- `base_biomass_sd_30m.tif`
+- `ftm_biomass_30m.tif`
+- `ftm_biomass_sd_30m.tif`
+
+이 자료는 BIOME4 또는 Pelletier에 다른 DGVM을 붙이지 않고, **현재 용늪 및 주변 산림의 실제 AGB 규모를 독립적으로 검증하는 자료**로 사용할 수 있다.
+
+잠정적으로 가장 일관된 다음 전략:
+
+1. 현재 canonical baseline은 그대로 보존
+2. 용늪 20 m 모델영역과 이 30 m AGB 지도를 EPSG:5179에서 정합
+3. 산림셀만 추출하여 현대 AGB의 평균, 범위, 공간패턴, 불확실성 확인
+4. baseline `0.010NPP`, Pelletier Eq. (5), Wang (C_{veg})와 현대시점 규모 비교
+5. Pelletier Eq. (5)의 형태를 유지할 경우, Arizona의 (e,f)를 그대로 쓰지 않고 **독립적인 한국 AGB 관측자료를 이용한 지역 검증 또는 보정 가능성**을 평가
+
+아직 이 자료로 (e,f)를 적합하지 않았으며, 적합 여부도 확정하지 않았다. 데이터 확인 전 임의 보정은 금지한다.
