@@ -1,0 +1,40 @@
+name: PB4 CHELSA21K ablation inspect
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-ablation-inspect.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Reconstruct exact PB4 CHELSA21K package
+        shell: bash
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/reconstruct_pb4.py
+          echo "bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09  pb4_chelsa21k/PB4Studio_v6.6.3_CHELSA21K.zip" | sha256sum -c -
+          mkdir -p /tmp/pb4
+          unzip -q pb4_chelsa21k/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4
+      - name: Inspect exact inputs and configs
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '=== PACKAGE ROOTS ==='
+          find /tmp/pb4 -maxdepth 2 -type d | sort
+          echo '=== RELEVANT INPUT FILES ==='
+          find /tmp/pb4 -type f \( -iname '*.tif' -o -iname '*.shp' -o -iname '*.dbf' -o -iname '*.shx' -o -iname '*.prj' -o -iname '*.csv' -o -iname '*.json' \) | sort
+          echo '=== CONFIG/ENTRYPOINT HINTS ==='
+          grep -R -n --include='*.py' --include='*.json' --include='*.md' -E 'RunConfig\(|dem_path|basin_polygon_path|CHELSA|embedded_inputs|biome4_variant' /tmp/pb4 | head -400 || true
