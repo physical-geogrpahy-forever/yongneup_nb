@@ -63,3 +63,41 @@ Scenarios:
 |        5 |      0.3  |              4 |                     6 |                      6 |          452.607 |                 382.073 |                  382.073 |
 |        5 |      0.5  |              4 |                     6 |                      6 |          452.049 |                 381.155 |                  381.155 |
 |        5 |      1.5  |              4 |                     6 |                      6 |          452.049 |                 381.155 |                  381.155 |
+
+
+## 해석
+
+이번 진단에서 가장 명확한 결과는 다음과 같다.
+
+1. CHELSA forcing을 사용할 경우, PFT5/PFT6 climate sieve를 이전 tuned 설정으로 두어도 최종 native BIOME4 설정으로 되돌려도 결과가 동일했다.
+2. 따라서 최종 production에서 침엽수 온도보정을 제거한 것이 후기 홀로세 초본 우점 소실의 원인은 아니다.
+3. historical Beyer sensitivity에서는 0, 1, 2, 3, 4, 5, 6 ka 모두 토심 0.05 m에서 PFT8이 optPFT였다.
+4. 같은 공통 age-depth grid에서 CHELSA tuned와 CHELSA native는 모두 0.05 m에서 PFT7이 optPFT였다.
+5. CHELSA에서 PFT8 자체가 사라진 것은 아니다. 시험한 각 시점에서 PFT8 NPP는 여러 토심에서 양수였으나 경쟁에서 우점하지 못했다.
+
+대표적인 0.05 m 결과:
+
+| age | historical Beyer optPFT | CHELSA tuned optPFT | CHELSA native optPFT |
+|---:|---:|---:|---:|
+| 5 ka | 8 | 7 | 7 |
+| 4 ka | 8 | 7 | 7 |
+| 3 ka | 8 | 7 | 7 |
+| 2 ka | 8 | 7 | 7 |
+
+4 ka, 0.05 m의 raw NPP:
+
+| scenario | PFT4 | PFT6 | PFT7 | PFT8 | optPFT |
+|---|---:|---:|---:|---:|---:|
+| historical Beyer | 377.68 | 0.00 | 0.00 | 369.54 | 8 |
+| CHELSA tuned | 361.94 | 297.81 | 394.60 | 338.54 | 7 |
+| CHELSA native | 361.94 | 297.81 | 394.60 | 338.54 | 7 |
+
+5 ka, 0.05 m에서도 historical Beyer는 PFT8이 우점하지만 CHELSA에서는 PFT7이 우점한다.
+
+따라서 현재 결과는 다음과 같이 판정한다.
+
+**초본류가 생리적으로 제거된 것이 아니라, CHELSA forcing 하에서 tree PFT, 특히 PFT7이 얕은 토양에서도 더 경쟁력 있게 남아 PFT8의 우점을 차단한다.**
+
+PFT climate tuning 제거 여부는 동일 CHELSA 조건에서 결과가 정확히 동일하므로 원인에서 제외할 수 있다.
+
+다만 historical Beyer 표는 과거 실행 산출물이며, 현재 최종 코드에 원 Beyer NetCDF를 다시 넣어 같은 코드와 같은 설정에서 climate forcing만 단독 교체한 신규 A/B 실행은 아니다. 따라서 가장 강한 원인은 Beyer -> CHELSA forcing 변경으로 판단되지만, 엄밀한 단일요인 인과확정에는 원 Beyer forcing을 현재 최종 코드에 재입력하는 추가 실험이 필요하다.
