@@ -1,7 +1,8 @@
 # BIOME4-derived AGB* final method
 
 작성일: 2026-10-05  
-상태: **최종 채택**
+상태: **최종 채택**  
+2026-10-06 표기 갱신: 최종 Methods와 일치시키기 위해 기존 indicator 기호 `S_p`를 `I_{sap,p}`로 변경하였다. 계산식과 수치에는 변화가 없다.
 
 ## 1. 최종 변수 정의
 
@@ -138,14 +139,14 @@ LAI_p
 계산 편의를 위해 본 연구에서 다음 indicator를 정의한다.
 
 \[
-S_p=
+I_{sap,p}=
 \begin{cases}
 1, & \text{if } pftpar(p,10)=1\\
 0, & \text{if } pftpar(p,10)=2
 \end{cases}
 \]
 
-\(S_p\)는 BIOME4의 원 변수명이 아니라 본 연구가 계산을 위해 정의한 indicator이다.
+\(I_{sap,p}\)는 BIOME4의 원 변수명이 아니라 본 연구가 계산을 위해 정의한 indicator이다.
 
 ## 5. 최종 AGB* 식
 
@@ -157,7 +158,7 @@ AGB^*_{\mathrm{dry},p}
 =
 LAI_p
 \left[
-S_p
+I_{sap,p}
 +
 0.03630780547701014\,L_{m,p}^{0.43}
 \right]
@@ -178,7 +179,7 @@ S_p
 
 ## 6. BIOME4 v4.2b2 PFT별 계수
 
-| PFT | BIOME4 source-code type | \(L_m\) month | pftpar(10) | \(S_p\) | \(AGB^*/LAI\) |
+| PFT | BIOME4 source-code type | \(L_m\) month | pftpar(10) | \(I_{sap,p}\) | \(AGB^*/LAI\) |
 |---:|---|---:|---:|---:|---:|
 | 1 | Tropical Evergreen Trees | 18 | 1 | 1 | 1.125825 |
 | 2 | Tropical Drought-deciduous Trees | 9 | 1 | 1 | 1.093395 |
