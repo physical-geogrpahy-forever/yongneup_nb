@@ -35,68 +35,33 @@ BIOME4의 모델 계보와 PFT 기반 최적 LAI/NPP 계산은 Kaplan et al. (20
 
 ## 3. 잎 건조생체량
 
-Reich et al. (1992), Table 1의 전체 LEAVES 자료에 제시된 회귀식은 다음과 같다.
+Reich et al. (1992), Table 1의 전체 LEAVES 자료에 제시된 회귀식을 원식 그대로 사용한다.
 
 \[
 \boxed{
-\log_{10}(SLA)
+\log_{10}(SLA_p)
 =
 2.44
 -
-0.43\log_{10}(\mathrm{life\mbox{-}span})
+0.43\log_{10}(L_{m,p})
 }
 \]
 
-여기서 life-span의 단위는 month이고 \(SLA\)의 단위는 \(\mathrm{cm^2\,g^{-1}}\)이다. Reich et al. (1992)은 \(SLA\)를 leaf area / leaf dry mass로 정의한다.
-
-BIOME4의 leaf longevity \(L_m\)을 같은 단위인 month로 대입하면
-
-\[
-SLA
-=
-10^{2.44}L_m^{-0.43}
-\quad
-[\mathrm{cm^2\,g^{-1}}].
-\]
-
-단위 변환
-
-\[
-1\ \mathrm{cm^2\,g^{-1}}
-=
-0.1\ \mathrm{m^2\,kg^{-1}}
-\]
-
-을 적용하면
-
-\[
-SLA
-=
-27.542287\,L_m^{-0.43}
-\quad
-[\mathrm{m^2\,kg^{-1}}].
-\]
+여기서 \(L_{m,p}\)의 단위는 month이고 \(SLA_p\)의 단위는 \(\mathrm{cm^2\,g^{-1}}\)이다. Reich et al. (1992)은 SLA를 leaf area / leaf dry mass로 정의한다.
 
 LAI는 leaf area / ground area이므로 standing leaf dry biomass는
-
-\[
-B_{\mathrm{leaf,dry}}
-=
-\frac{LAI}{SLA}.
-\]
-
-따라서
 
 \[
 \boxed{
 B_{\mathrm{leaf,dry},p}
 =
-0.03630780547701014\,
-LAI_p\,L_{m,p}^{0.43}
+\frac{LAI_p}{SLA_p}
 }
 \]
 
-이며 단위는 \(\mathrm{kg\ dry\ biomass\ m^{-2}}\)이다.
+로 계산한다. 실제 구현에서는 SLA 단위를 \(\mathrm{m^2\,kg^{-1}}\)로 변환하여 동일 계산을 수행한다.
+
+논문 Methods에서는 원식과 위 관계를 제시하며, 이를 전개해서 얻는 소수계수는 독립적인 경험계수처럼 제시하지 않는다.
 
 ## 4. 변재 건조생체량
 
@@ -150,20 +115,27 @@ I_{sap,p}=
 
 ## 5. 최종 AGB* 식
 
-위 두 항을 결합하면 최종식은 다음과 같다.
+위 두 항을 결합하면 최종 AGB*는 원 구성식을 유지하여 다음과 같이 쓴다.
 
 \[
 \boxed{
 AGB^*_{\mathrm{dry},p}
 =
-LAI_p
-\left[
-I_{sap,p}
+B_{\mathrm{leaf,dry},p}
 +
-0.03630780547701014\,L_{m,p}^{0.43}
-\right]
+B_{\mathrm{sapwood,dry},p}
 }
 \]
+
+여기서 잎 항은 Reich et al. (1992)의 원 회귀식과
+
+\[
+B_{\mathrm{leaf,dry},p}
+=
+\frac{LAI_p}{SLA_p}
+\]
+
+로 계산하며, 변재 항은 Haxeltine and Prentice (1996) Eq. (34)와 BIOME4 v4.2b2의 sapwood 구현을 따른다.
 
 단위는
 
