@@ -170,7 +170,7 @@ def patch_candidate(z: Path, pft7_mode: str) -> tuple[Path, Path, Path]:
         _fc04 = agb_jules_fc04[_m]
         _lm = igrid.land & np.isfinite(lai_j)
         row.update({{
-            "jules_pft7_mode": "{p7_mode if False else pft7_mode}",
+            "jules_pft7_mode": "{pft7_mode}",
             "jules_lai_agb_mean_kg_m2": float(np.mean(_new)) if _new.size else float("nan"),
             "jules_lai_agb_median_kg_m2": float(np.median(_new)) if _new.size else float("nan"),
             "jules_lai_agb_p05_kg_m2": float(np.percentile(_new, 5)) if _new.size else float("nan"),
@@ -178,9 +178,9 @@ def patch_candidate(z: Path, pft7_mode: str) -> tuple[Path, Path, Path]:
             "jules_lai_agb_max_kg_m2": float(np.max(_new)) if _new.size else float("nan"),
             "jules_lai_agb_fc04_mean_kg_m2": float(np.mean(_fc04)) if _fc04.size else float("nan"),
             "legacy_0010_agb_mean_kg_m2": float(np.mean(_old)) if _old.size else float("nan"),
-            "lai_mean": float(np.mean(lai_j[_lm])) if np.any(_lm) else float("nan"),
-            "lai_p95": float(np.percentile(lai_j[_lm], 95)) if np.any(_lm) else float("nan"),
-            "lai_max": float(np.max(lai_j[_lm])) if np.any(_lm) else float("nan"),
+            "jules_balance_lai_mean": float(np.mean(lai_j[_lm])) if np.any(_lm) else float("nan"),
+            "jules_balance_lai_p95": float(np.percentile(lai_j[_lm], 95)) if np.any(_lm) else float("nan"),
+            "jules_balance_lai_max": float(np.max(lai_j[_lm])) if np.any(_lm) else float("nan"),
         }})
         for _p in [0, 4, 5, 6, 7, 10]:
             _pm = igrid.land & (pft_j == _p) & np.isfinite(agb_jules_lai)
@@ -331,8 +331,8 @@ def summarize_scenario(out: Path, pft7_mode: str) -> tuple[pd.DataFrame, pd.Data
             "candidate_absolute_max_kg_m2": float(g["jules_lai_agb_max_kg_m2"].max()),
             "fc04_time_mean_of_cell_means_kg_m2": float(g["jules_lai_agb_fc04_mean_kg_m2"].mean()),
             "legacy_time_mean_of_cell_means_kg_m2": float(g["legacy_0010_agb_mean_kg_m2"].mean()),
-            "mean_lai": float(g["lai_mean"].mean()),
-            "max_lai": float(g["lai_max"].max()),
+            "mean_lai": float(g["jules_balance_lai_mean"].mean()),
+            "max_lai": float(g["jules_balance_lai_max"].max()),
         })
         for pft in [0, 4, 5, 6, 7, 10]:
             c = f"jules_pft{pft:02d}_count"
