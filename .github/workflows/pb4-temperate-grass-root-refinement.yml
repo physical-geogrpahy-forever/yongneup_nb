@@ -1,0 +1,279 @@
+name: Test temperate-grass root refinement
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-temperate-grass-root-refinement.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      OMP_NUM_THREADS: '4'
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Extract final PB4 and apply Jackson life-form sub-30cm refinement
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4grass
+          mkdir -p /tmp/pb4grass
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4grass
+          root=$(find /tmp/pb4grass -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          echo "$root" > /tmp/pb4grass_root.txt
+          python - <<'PY'
+          from pathlib import Path
+          root=Path(Path('/tmp/pb4grass_root.txt').read_text().strip())
+          p=root/'pb4studio'/'biome4_backend.py'
+          s=p.read_text(encoding='utf-8')
+          old_decl='       real pb4_soildepth,root0,xi,rd,rtop_eff,rbot_eff\n'
+          new_decl='       real pb4_soildepth,root0,xi,rd,rtop_eff,rbot_eff\n' \
+                   '       real beta_lf,denom_lf\n'
+          if old_decl not in s:
+              raise SystemExit('root declaration marker missing')
+          s=s.replace(old_decl,new_decl,1)
+          old="""       if (rd.gt.0.0) then
+        rtop_eff=1.0-exp(-min(rd,0.30)/xi)
+        if (rd.gt.0.30) then
+         rbot_eff=exp(-0.30/xi)-exp(-rd/xi)
+        else
+         rbot_eff=0.0
+        end if
+       else
+        rtop_eff=0.0
+        rbot_eff=0.0
+       end if
+"""
+          new="""c      PB4 candidate: Jackson et al. (1996) life-form sub-30cm shape.
+c      Preserve native BIOME4 r30 exactly at 0.30 m, but distinguish the
+c      within-topsoil root profile using Jackson life-form beta values:
+c      grasses/herbs beta=0.952, shrubs beta=0.978, trees beta=0.970.
+c      Below 0.30 m retain the existing BIOME4-r30/McKenzie tail.
+       if ((pft.eq.8).or.(pft.eq.9).or.(pft.eq.12).or.
+     >     (pft.eq.13)) then
+        beta_lf=0.952
+       else if ((pft.eq.10).or.(pft.eq.11)) then
+        beta_lf=0.978
+       else
+        beta_lf=0.970
+       end if
+       denom_lf=1.0-beta_lf**30.0
+       if (rd.gt.0.0) then
+        if (rd.le.0.30) then
+         rtop_eff=root0*
+     >    (1.0-beta_lf**(100.0*rd))/denom_lf
+         rbot_eff=0.0
+        else
+         rtop_eff=root0
+         rbot_eff=exp(-0.30/xi)-exp(-rd/xi)
+        end if
+       else
+        rtop_eff=0.0
+        rbot_eff=0.0
+       end if
+"""
+          if old not in s:
+              raise SystemExit('root block marker missing')
+          s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+          note=root/'JACKSON_LIFEFORM_SUB30_ROOT_CANDIDATE_2026-10-06.md'
+          note.write_text("""# Jackson life-form sub-30 cm root-profile candidate
+
+This is a candidate experiment, not yet the production model.
+
+Purpose: restore physically plausible shallow-soil competition between
+temperate grass PFT8 and woody PFTs without changing BIOME4 climate limits,
+NPP equations, or the native BIOME4 top-30-cm root fraction.
+
+For H <= 0.30 m, the native BIOME4 r30 is redistributed within the top
+30 cm using Jackson et al. (1996) life-form beta values:
+- grasses/herbs: beta = 0.952
+- shrubs: beta = 0.978
+- trees: beta = 0.970
+
+The function is normalized so that F(0.30 m) = r30 exactly.
+For H > 0.30 m the existing PB4 McKenzie/Jackson tail is retained.
+
+No Park pollen value is used to choose a threshold or coefficient.
+""",encoding='utf-8')
+          print('patched',p)
+          PY
+
+      - name: Run controlled depth sweep
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(cat /tmp/pb4grass_root.txt)
+          cd "$root"
+          python tools/mckenzie2003_depth_sensitivity.py             --climate embedded_inputs/yongneup_exact20m/YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv             --elevation-m 1162.08             --depths 0.01 0.02 0.03 0.04 0.05 0.06 0.08 0.10 0.12 0.15 0.20 0.30 0.50 1.50             --ages 5.0 4.0 3.0 2.7 2.5 2.3 2.2 2.0             --threads 4             --output /tmp/pb4grass/JACKSON_LIFEFORM_SUB30_DEPTH_SWEEP.csv
+
+      - name: Summarize depth sweep and decide full run
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p pb4_chelsa21k/results/temperate_grass_candidate_20261006
+          cp /tmp/pb4grass/JACKSON_LIFEFORM_SUB30_DEPTH_SWEEP.csv pb4_chelsa21k/results/temperate_grass_candidate_20261006/
+          python - <<'PY'
+          import pandas as pd, numpy as np
+          from pathlib import Path
+          out=Path('pb4_chelsa21k/results/temperate_grass_candidate_20261006')
+          d=pd.read_csv(out/'JACKSON_LIFEFORM_SUB30_DEPTH_SWEEP.csv')
+          d=d[d['variant'].astype(str).eq('mckenzie2003')].copy()
+          rows=[]
+          for age,g in d.groupby('target_age_ka'):
+              h=g[g['optpft'].astype(int).eq(8)]
+              rows.append({
+                  'age_ka':age,
+                  'n_depths':len(g),
+                  'n_pft8_opt_depths':len(h),
+                  'pft8_depth_min_m':h['depth_m'].min() if len(h) else np.nan,
+                  'pft8_depth_max_m':h['depth_m'].max() if len(h) else np.nan,
+                  'optpfts':';'.join(map(str,sorted(set(g['optpft'].astype(int))))),
+              })
+          s=pd.DataFrame(rows)
+          s.to_csv(out/'DEPTH_SWEEP_SUMMARY.csv',index=False)
+          print(s.to_string(index=False))
+          if int(s['n_pft8_opt_depths'].sum()) <= 0:
+              raise SystemExit('Candidate failed: PFT8 never becomes optPFT; stop before full run.')
+          PY
+
+      - name: Run full 21-0 ka candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(cat /tmp/pb4grass_root.txt)
+          cd "$root"
+          python tools/run_yongneup_21ka_chelsa_selfcontained.py | tee /tmp/pb4grass/FULL_21KA.log
+
+      - name: Evaluate Jang and PFT8 occurrence
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(cat /tmp/pb4grass_root.txt)
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd, numpy as np, json, shutil, glob
+          root=Path(Path('/tmp/pb4grass_root.txt').read_text().strip())
+          outroot=root/'outputs_CHELSA21K'
+          dst=Path('pb4_chelsa21k/results/temperate_grass_candidate_20261006')
+          shutil.copy2('/tmp/pb4grass/FULL_21KA.log',dst/'FULL_21KA.log')
+
+          target={
+              '95_01':('broadleaf','basin_count_broadleaf'),
+              '95_02':('mixed','basin_count_mixed'),
+              '95_03':('broadleaf','basin_count_broadleaf'),
+              '95_04':('mixed','basin_count_mixed'),
+          }
+          jrows=[]
+          for mode in ['static','dynamic']:
+              p=outroot/f'model_{mode}'/'validation_per_output_time.csv'
+              df=pd.read_csv(p,encoding='utf-8-sig')
+              df=df[df['record_id'].astype(str).isin(target)].copy()
+              df['target_count']=df.apply(lambda r:r[target[str(r['record_id'])][1]],axis=1)
+              df['target_fraction']=df['target_count']/df['valid_basin_cell_count']
+              df['correct_1pct']=df['target_fraction']>=0.01-1e-15
+              jrows.append({
+                  'mode':mode,'n':len(df),
+                  'correct_n':int(df['correct_1pct'].sum()),
+                  'accuracy_pct':100*float(df['correct_1pct'].mean()),
+              })
+          js=pd.DataFrame(jrows)
+          js.to_csv(dst/'JANG_1PCT_SUMMARY.csv',index=False)
+
+          # Locate the 211-row model summary containing PFT count diagnostics.
+          allframes=[]
+          for mode in ['static','dynamic']:
+              candidates=[]
+              for p in (outroot/f'model_{mode}').rglob('*.csv'):
+                  try: x=pd.read_csv(p,encoding='utf-8-sig')
+                  except Exception: continue
+                  cols=set(x.columns)
+                  if len(x)==211 and ('ka_bp' in cols or 'model_ka_bp' in cols):
+                      if any('pft08' in str(c).lower() for c in cols):
+                          candidates.append((p,x))
+              if not candidates:
+                  raise SystemExit(f'No 211-row PFT diagnostic table for {mode}')
+              p,x=max(candidates,key=lambda px:len(px[1].columns))
+              agecol='ka_bp' if 'ka_bp' in x.columns else 'model_ka_bp'
+              p8cols=[c for c in x.columns if 'pft08' in c.lower() and 'count' in c.lower()]
+              if not p8cols:
+                  raise SystemExit(f'No PFT8 count column for {mode}')
+              p8=p8cols[0]
+              y=pd.DataFrame({
+                  'mode':mode,
+                  'ka_bp':pd.to_numeric(x[agecol],errors='coerce'),
+                  'pft8_count':pd.to_numeric(x[p8],errors='coerce').fillna(0),
+              })
+              y['source_csv']=str(p.relative_to(outroot))
+              allframes.append(y)
+          p8ts=pd.concat(allframes,ignore_index=True)
+          p8ts.to_csv(dst/'PFT8_21KA_TIMESERIES.csv',index=False)
+          summary=p8ts.groupby('mode').agg(
+              n_timesteps=('ka_bp','size'),
+              n_timesteps_pft8_present=('pft8_count',lambda x:int((x>0).sum())),
+              max_pft8_cells=('pft8_count','max'),
+          ).reset_index()
+          for mode in ['static','dynamic']:
+              sub=p8ts[(p8ts['mode']==mode)&(p8ts['ka_bp'].between(0.5,3.2))]
+              row={
+                  'mode':mode,
+                  'late_holocene_0p5_3p2_n_pft8_steps':int((sub['pft8_count']>0).sum()),
+                  'late_holocene_0p5_3p2_max_pft8_cells':float(sub['pft8_count'].max()),
+              }
+              for k,v in row.items():
+                  if k!='mode': summary.loc[summary['mode']==mode,k]=v
+          summary.to_csv(dst/'PFT8_OCCURRENCE_SUMMARY.csv',index=False)
+
+          md='# Temperate-grass candidate result\n\n'
+          md+='## Jang 1% validation\n\n'+js.to_markdown(index=False)+'\n\n'
+          md+='## PFT8 occurrence\n\n'+summary.to_markdown(index=False)+'\n'
+          (dst/'CANDIDATE_RESULT_KO.md').write_text(md,encoding='utf-8')
+          print(js.to_string(index=False))
+          print(summary.to_string(index=False))
+          PY
+
+      - name: Archive candidate package
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=$(cat /tmp/pb4grass_root.txt)
+          cd /tmp/pb4grass
+          zip -qr /tmp/PB4Studio_v6.6.3_CHELSA21K_JACKSON_LIFEFORM_SUB30_GRASS_CANDIDATE.zip "$(basename "$root")"
+          cd "$GITHUB_WORKSPACE"
+          mkdir -p pb4_chelsa21k/model_candidates
+          cp /tmp/PB4Studio_v6.6.3_CHELSA21K_JACKSON_LIFEFORM_SUB30_GRASS_CANDIDATE.zip pb4_chelsa21k/model_candidates/
+          sha256sum pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_JACKSON_LIFEFORM_SUB30_GRASS_CANDIDATE.zip | tee pb4_chelsa21k/results/temperate_grass_candidate_20261006/CANDIDATE_SHA256.txt
+
+      - name: Commit candidate results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/temperate_grass_candidate_20261006
+          git add pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_JACKSON_LIFEFORM_SUB30_GRASS_CANDIDATE.zip
+          git commit -m 'Test Jackson life-form shallow-root temperate-grass candidate [skip ci]' || exit 0
+          git push origin HEAD:main
