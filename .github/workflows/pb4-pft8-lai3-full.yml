@@ -29,7 +29,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq gfortran
           python -m pip install --upgrade pip
-          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate matplotlib
       - name: Run full candidate
         run: python pb4_chelsa21k/tools/run_pft8_lai3_candidate.py
       - name: Commit candidate and results
