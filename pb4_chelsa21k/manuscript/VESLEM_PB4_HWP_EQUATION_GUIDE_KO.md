@@ -689,7 +689,7 @@ HWP 입력:
 NPP=(1-\eta)\int(A_g-R_{leaf}-R_{stem}-R_{root})dt
 \]
 
-여기서 \(A_g\)는 gross canopy production, \(\eta\)는 growth respiration으로 손실되는 탄소 비율이며 원문에서 0.3으로 고정한다. \(R_{leaf}\), \(R_{stem}\), \(R_{root}\)는 각각 잎, 줄기, 뿌리 호흡이다.
+여기서 \(A_g\)는 gross canopy production이다. 최종 출판본은 \(\eta\)를 **“fraction of carbon lost by maintenance respiration”**이라고 표현하며 0.3으로 고정한다. \(R_{leaf}\), \(R_{stem}\), \(R_{root}\)는 각각 잎, 줄기, 뿌리 호흡이다. 같은 식에서 조직별 respiration을 별도로 차감하므로, 본 문서는 저자의 용어를 그대로 기록하며 \(\eta\)를 별도의 growth-respiration parameter로 재해석하지 않는다.
 
 HWP 입력:
 
@@ -731,7 +731,7 @@ HWP 입력:
 
 **PB4 AGB bridge:** 사용하지 않음. BIOME4 phenology를 유지한다.
 
-### IV-3.6 Xue et al. (2016 preprint) Table 1: IBIS PFT별 carbon-pool parameter
+### IV-3.6 Xue et al. (2017, Ecological Modelling) Table 1: IBIS PFT별 carbon-pool parameter
 
 AGB bridge에 직접 필요한 열은 \(\tau_l,\tau_r,\tau_w,a_{leaf},a_{root},a_{wood}\)이다.
 
@@ -754,7 +754,7 @@ AGB bridge에 직접 필요한 열은 \(\tau_l,\tau_r,\tau_w,a_{leaf},a_{root},a
 
 ### IV-3.7 Xue et al. (2017, Ecological Modelling)의 carbon density -> dry AGB 변환
 
-원문은 IBIS가 \(Mg\ C\ ha^{-1}\) 단위의 carbon density를 계산하기 때문에 관측 dry AGB와 비교할 때 IPCC (2003)에 따라 2.0을 곱했다고 명시한다.
+최종 출판본은 IBIS가 \(Mg\ C\ ha^{-1}\) 단위의 carbon density를 계산하기 때문에 관측 AGB와 비교할 때 IPCC (2003)에 따라 2.0을 곱했다고 명시한다.
 
 \[
 \boxed{AGB_{dry}=2C_{AG}}
