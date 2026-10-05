@@ -648,6 +648,282 @@ L_f=60\,LAI
 
 이 검토가 끝나기 전에는 production AGB식을 변경하지 않는다. 새 AGB식을 채택하면 CHELSA 21-0 ka 전체 dynamic을 새로 실행하고 Jang n=62, 1% 기준을 재검증해야 한다.
 
+
+## IV-3. Xue/IBIS 원문 수식과 용늪 equilibrium AGB bridge
+
+### IV-3.1 원문 보유 및 출처 구분
+
+Xue 계열에서 현재 직접 확인한 자료는 두 종류이다.
+
+1. **Xue et al. (2016) 공개 preprint**
+   - *Evaluation of modeled global carbon dynamics: analysis based on global carbon flux and above-ground biomass data*
+   - Biogeosciences Discussions, doi:10.5194/bg-2016-142
+   - 2017년 *Ecological Modelling* 355:84-96에 최종 출판된 연구의 공개 preprint이다.
+   - 현재 라이브러리에는 최종 *Ecological Modelling* PDF가 저장되어 있지 않지만, 공개 preprint 원문에서 식과 Table 1을 직접 확인했다.
+
+2. **Xue et al. (2017), Global Biogeochemical Cycles**
+   - *Global patterns of woody residence time and its influence on model simulation of aboveground biomass*
+   - DOI: 10.1002/2016GB005557
+   - 이 PDF는 현재 프로젝트 라이브러리에 실제 보존되어 있다.
+   - woody residence time의 관측 정의와 IBIS carbon-pool 식을 원문에서 직접 확인했다.
+
+아래에서는 **Xue 원문식**, **Xue Table 1 parameter**, **PB4에서 유도한 equilibrium 식**을 구분한다.
+
+### IV-3.2 Xue et al. (2016 preprint) 원문 Eq. (1): stomatal conductance
+
+\[
+g_{s,H_2O}=m\frac{A_n h_s}{C_s}+b
+\]
+
+여기서 \(A_n\)은 잎 수준 순광합성률, \(h_s\)는 잎 표면 상대습도, \(C_s\)는 잎 표면 CO2 농도, \(m,b\)는 경험계수이다.
+
+HWP 입력:
+
+    g_{s,H_2O}=m {A_n h_s OVER C_s}+b
+
+**PB4 AGB bridge:** 직접 사용하지 않음. IBIS의 전체 생리구조를 기록하기 위해 원문식으로 보존한다.
+
+### IV-3.3 Xue et al. (2016 preprint) 원문 Eq. (2): NPP
+
+\[
+NPP=(1-\eta)\int(A_g-R_{leaf}-R_{stem}-R_{root})dt
+\]
+
+여기서 \(A_g\)는 gross canopy production, \(\eta\)는 growth respiration으로 손실되는 탄소 비율이며 원문에서 0.3으로 고정한다. \(R_{leaf}\), \(R_{stem}\), \(R_{root}\)는 각각 잎, 줄기, 뿌리 호흡이다.
+
+HWP 입력:
+
+    NPP=(1-eta) INT (A_g-R_{leaf}-R_{stem}-R_{root}) dt
+
+**PB4 AGB bridge:** 이 IBIS NPP 계산식 자체를 가져오지 않는다. PB4는 BIOME4가 직접 계산한 \(NPP_i\)를 입력으로 사용한다.
+
+### IV-3.4 Xue et al. (2016 preprint) 원문 Eq. (3): PFT별 biomass pool 질량수지
+
+본 연구의 AGB bridge에 가장 중요한 Xue 원식이다.
+
+\[
+\boxed{
+\frac{\partial C_{i,j}}{\partial t}
+=
+a_{i,j}NPP_i
+-
+\frac{C_{i,j}}{\tau_{i,j}}
+}
+\]
+
+여기서 \(C_{i,j}\)는 PFT \(i\)의 biomass pool \(j\)의 carbon stock, \(a_{i,j}\)는 annual NPP allocation fraction, \(\tau_{i,j}\)는 carbon residence time이다. 원문은 annual NPP를 leaf, stem, root의 세 carbon pool에 배분한다고 명시한다.
+
+HWP 입력:
+
+    {PARTIAL C_{i,j} OVER PARTIAL t}=a_{i,j} NPP_i-{C_{i,j} OVER tau_{i,j}}
+
+### IV-3.5 Xue et al. (2016 preprint) 원문 Eq. (4): growing season index
+
+\[
+GSI=f(\overline{T_m})f(\overline{R_g})f(\overline{VPD})
+\]
+
+HWP 입력:
+
+    GSI=f(bar{T_m}) f(bar{R_g}) f(bar{VPD})
+
+여기서 \(\overline{T_m}\), \(\overline{R_g}\), \(\overline{VPD}\)는 multi-day running mean air temperature, solar radiation, vapor pressure deficit이다.
+
+**PB4 AGB bridge:** 사용하지 않음. BIOME4 phenology를 유지한다.
+
+### IV-3.6 Xue et al. (2016 preprint) Table 1: IBIS PFT별 carbon-pool parameter
+
+AGB bridge에 직접 필요한 열은 \(\tau_l,\tau_r,\tau_w,a_{leaf},a_{root},a_{wood}\)이다.
+
+| IBIS PFT | 식생형 | \(\tau_l\) yr | \(\tau_r\) yr | \(\tau_w\) yr | \(a_{leaf}\) | \(a_{root}\) | \(a_{wood}\) |
+|---:|---|---:|---:|---:|---:|---:|---:|
+|1|tropical broadleaf evergreen tree|1.01|1|60|0.30|0.30|0.40|
+|2|tropical broadleaf drought-deciduous tree|1|1|60|0.30|0.30|0.40|
+|3|warm-temperate broadleaf evergreen tree|1|1|25|0.30|0.30|0.40|
+|4|temperate conifer evergreen tree|2|1|35|0.30|0.40|0.30|
+|5|temperate broadleaf cold-deciduous tree|1|1|35|0.30|0.30|0.40|
+|6|boreal conifer evergreen tree|2.5|1|52|0.30|0.40|0.30|
+|7|boreal broadleaf cold-deciduous tree|1|1|52|0.30|0.30|0.40|
+|8|boreal conifer cold-deciduous tree|1|1|52|0.30|0.30|0.40|
+|9|evergreen shrub|1.5|1|5|0.45|0.40|0.15|
+|10|cold-deciduous shrub|1|1|5|0.45|0.35|0.20|
+|11|warm C4 grass|1.25|1|wood pool 없음|0.45|0.55|0|
+|12|cool C3 grass|1.5|1|wood pool 없음|0.45|0.55|0|
+
+**중요:** 35 yr와 52 yr는 이 Xue AGB 연구에서 사용된 parameterization이다. Xue et al. (2017, GBC)의 model-comparison Table 2는 Kucharik et al. (2000)의 IBIS default woody residence time을 temperate forest 50 yr, boreal forest 100 yr로 요약한다. 따라서 35/52 yr를 “IBIS 보편 기본값”이라고 쓰지 않는다.
+
+### IV-3.7 Xue et al. (2016 preprint)의 carbon density -> dry AGB 변환
+
+원문은 IBIS가 \(Mg\ C\ ha^{-1}\) 단위의 carbon density를 계산하기 때문에 관측 dry AGB와 비교할 때 IPCC (2003)에 따라 2.0을 곱했다고 명시한다.
+
+\[
+\boxed{AGB_{dry}=2C_{AG}}
+\]
+
+HWP 입력:
+
+    AGB_{dry}=2 C_{AG}
+
+**주의:** Xue dry-AGB coefficient를 사용한 뒤 0.48 또는 0.51 같은 carbon fraction을 다시 곱하면 이중변환이 된다.
+
+### IV-3.8 Xue et al. (2017, GBC) 원문 Eq. (1): woody residence time 관측 정의
+
+보유 중인 Xue et al. (2017) GBC 원문은 near-equilibrium forest에서
+
+\[
+\boxed{\tau_w=\frac{M_w}{W_p}}
+\]
+
+로 정의한다.
+
+여기서 \(M_w\)는 mean AGB \((Mg\ ha^{-1})\), \(W_p\)는 mean aboveground woody productivity, stem + branch \((Mg\ ha^{-1}\ yr^{-1})\)이다.
+
+HWP 입력:
+
+    tau_w={M_w OVER W_p}
+
+원문은 주요 교란이 최소 100년 이상 없고 mature 또는 old-growth로 판단된 forest plot을 중심으로 \(\tau_w\)를 구축했다.
+
+### IV-3.9 Xue et al. (2017, GBC) 원문 Eq. (2): IBIS carbon pool
+
+\[
+\boxed{
+\frac{\partial C_{i,j}}{\partial t}
+=
+a_{i,j}NPP_i
+-
+\frac{C_{i,j}}{\tau_{i,j}}
+}
+\]
+
+HWP 입력:
+
+    {PARTIAL C_{i,j} OVER PARTIAL t}=a_{i,j} NPP_i-{C_{i,j} OVER tau_{i,j}}
+
+stem 및 branch carbon pool에 대해서는 \(\tau_{i,j}=\tau_w\)이다.
+
+### IV-3.10 PB4에서 사용하는 equilibrium 해: 원문식에서의 분석적 유도
+
+다음은 Xue 논문의 별도 번호식이 아니라 위 원문 mass-balance 식에 BIOME4의 equilibrium 조건을 적용한 유도식이다.
+
+\[
+\frac{\partial C_{i,j}}{\partial t}=0
+\]
+
+이므로
+
+\[
+\boxed{C_{i,j}=a_{i,j}\tau_{i,j}NPP_i}
+\]
+
+HWP 입력:
+
+    C_{i,j}=a_{i,j} tau_{i,j} NPP_i
+
+aboveground carbon은 leaf + wood로 두어
+
+\[
+\boxed{
+AGB_{C,i}
+=
+NPP_i
+(a_{leaf,i}\tau_{leaf,i}+a_{wood,i}\tau_{wood,i})
+}
+\]
+
+HWP 입력:
+
+    AGB_{C,i}=NPP_i (a_{leaf,i} tau_{leaf,i}+a_{wood,i} tau_{wood,i})
+
+BIOME4 NPP가 \(g\ C\ m^{-2}\ yr^{-1}\)이고 Xue의 dry-biomass 변환 2.0을 적용하면
+
+\[
+\boxed{
+AGB_{dry,i}
+=
+\frac{2}{1000}
+NPP_i
+(a_{leaf,i}\tau_{leaf,i}+a_{wood,i}\tau_{wood,i})
+}
+\]
+
+HWP 입력:
+
+    AGB_{dry,i}={2 OVER 1000} NPP_i (a_{leaf,i} tau_{leaf,i}+a_{wood,i} tau_{wood,i})
+
+### IV-3.11 용늪에서 실제 출현한 BIOME4 PFT의 대응식
+
+canonical 21-0 ka full coverage audit에서 실제 dominant PFT는 4, 6, 7, 10이며 PFT5는 0회였다.
+
+**BIOME4 PFT4 -> IBIS PFT5**
+
+\[
+0.30(1)+0.40(35)=14.30
+\]
+
+\[
+\boxed{AGB_{dry}=0.0286NPP}
+\]
+
+**BIOME4 PFT6 -> IBIS PFT6**
+
+\[
+0.30(2.5)+0.30(52)=16.35
+\]
+
+\[
+\boxed{AGB_{dry}=0.0327NPP}
+\]
+
+**BIOME4 PFT7 -> IBIS PFT7 또는 PFT8**
+
+두 IBIS PFT는 AGB 관련 parameter가 동일하다.
+
+\[
+0.30(1)+0.40(52)=21.10
+\]
+
+\[
+\boxed{AGB_{dry}=0.0422NPP}
+\]
+
+**BIOME4 PFT10 -> IBIS PFT9 evergreen-shrub analogue**
+
+\[
+0.45(1.5)+0.15(5)=1.425
+\]
+
+\[
+AGB_{dry}=0.00285NPP
+\]
+
+PFT10은 구조적 analogue이며 전체 21 ka 기여가 매우 작으므로 별도 불확실성으로 표시한다.
+
+### IV-3.12 PFT5 처리
+
+BIOME4 PFT5는 canonical 21-0 ka에서 static과 dynamic 모두 0/211 timestep, 0 dominant cell-observation이었다. 따라서 PFT5 coefficient는 본 용늪 연구의 과학적 근거에서 제외한다. 향후 forcing 또는 모델 버전 변경으로 PFT5가 실제 dominant로 나타나면 자동 대응하지 않고 별도 검토한다.
+
+### IV-3.13 논문에서 권장하는 서술
+
+권장:
+
+> BIOME4는 standing AGB pool을 직접 예측하지 않으므로, BIOME4가 계산한 PFT별 NPP를 Xue et al.의 IBIS carbon-pool allocation and residence-time formulation에 연결하였다. Xue의 biomass-pool mass-balance equation을 BIOME4의 equilibrium potential-vegetation 상태에 적용하여 \(C_{i,j}=a_{i,j}\tau_{i,j}NPP_i\)의 평형해를 사용하고, leaf와 wood pool을 합산하여 aboveground carbon을 구한 뒤 Xue et al.이 사용한 carbon-to-dry-biomass factor 2.0으로 변환하였다.
+
+피해야 할 서술:
+
+> “BIOME4가 Xue 식으로 AGB를 직접 계산한다.”
+
+> “0.0286, 0.0327, 0.0422는 BIOME4 고유계수이다.”
+
+이들은 cross-model equilibrium bridge의 유도계수이다.
+
+### IV-3.14 Xue 원문 링크
+
+- Xue et al. (2016) 공개 preprint PDF: https://bg.copernicus.org/preprints/bg-2016-142/bg-2016-142.pdf
+- Xue et al. (2017) Ecological Modelling final article: https://doi.org/10.1016/j.ecolmodel.2017.04.012
+- Xue et al. (2017) Global Biogeochemical Cycles: https://doi.org/10.1002/2016GB005557
+
+
 # V. McKenzie 원문과 현재 PB4의 관계를 논문에 쓰는 방식
 
 권장 서술:
@@ -720,6 +996,12 @@ Pelletier et al. (2013) Table 1은 원 연구지역의 수치모델에 대해 \(
 Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorover, J., Durcik, M., Harman, C. J., Huxman, T. E., Lohse, K. A., Lybrand, R., Meixner, T., McIntosh, J. C., Papuga, S. A., Rasmussen, C., Schaap, M., Swetnam, T. L., & Troch, P. A. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. *Journal of Geophysical Research: Earth Surface, 118*(2), 741-758. https://doi.org/10.1002/jgrf.20046
 
 McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). *Estimating water storage capacities in soil at catchment scales* (Technical Report 03/3). Cooperative Research Centre for Catchment Hydrology.
+
+
+Xue, B.-L., Guo, Q., Hu, T., Wang, G., Wang, Y., Tao, S., Su, Y., Liu, J., & Zhao, X. (2017). Evaluation of modeled global vegetation carbon dynamics: Analysis based on global carbon flux and above-ground biomass data. *Ecological Modelling, 355*, 84-96. https://doi.org/10.1016/j.ecolmodel.2017.04.012
+
+Xue, B.-L., Guo, Q., Hu, T., Xiao, J., Yang, Y., Wang, G., Tao, S., Su, Y., Liu, J., & Zhao, X. (2017). Global patterns of woody residence time and its influence on model simulation of aboveground biomass. *Global Biogeochemical Cycles, 31*, 821-835. https://doi.org/10.1002/2016GB005557
+
 
 ---
 
