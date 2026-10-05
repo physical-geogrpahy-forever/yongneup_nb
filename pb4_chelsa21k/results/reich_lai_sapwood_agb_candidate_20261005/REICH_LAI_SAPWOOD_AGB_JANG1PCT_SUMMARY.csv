@@ -1,0 +1,3 @@
+﻿model,mode,n,correct_n,accuracy_pct,threshold_fraction
+PB4-McKenzie-nativeClimate-REICH-LAI-SAPWOOD-AGB,static,62,24,38.70967741935484,0.01
+PB4-McKenzie-nativeClimate-REICH-LAI-SAPWOOD-AGB,dynamic,62,55,88.70967741935483,0.01
