@@ -1,0 +1,98 @@
+name: Current final PB4 Beyer depth sweep
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-current-final-beyer-depth.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+      - name: Run current final code with packaged Beyer climate
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4_beyer_depth
+          mkdir -p /tmp/pb4_beyer_depth
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4_beyer_depth
+          root=$(find /tmp/pb4_beyer_depth -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          python - "$root" <<'PY'
+          from pathlib import Path
+          import sys
+          root=Path(sys.argv[1])
+          p=root/'pb4studio'/'climate.py'
+          s=p.read_text(encoding='utf-8')
+          lines=s.splitlines()
+          i0=next(i for i,line in enumerate(lines) if line.startswith('def load_climate'))
+          ir=next(i for i in range(i0+1,len(lines)) if lines[i].startswith('    raise ValueError('))
+          lines[ir:ir]=[
+            '    if {"ka_bp","month","temp_C","precip_mm","cloud_pct","tmin_C"}.issubset(columns):',
+            '        df = pd.read_csv(path)',
+            '        return _apply_yongneup_panel590_temperature_downscaling(df)',
+          ]
+          p.write_text(chr(10).join(lines)+chr(10),encoding='utf-8')
+          PY
+          cd "$root"
+          python tools/mckenzie2003_depth_sensitivity.py             --climate embedded_inputs/yongneup_exact20m/climate_yongneup_128.25E_38.25N.csv             --elevation-m 1162.08             --depths 0.01 0.02 0.03 0.04 0.05 0.06 0.08 0.10 0.12 0.15 0.20 0.30 0.50 1.50             --ages 6.0 5.0 4.0 3.0 2.7 2.5 2.3 2.2 2.0 1.0 0.0             --threads 2             --output /tmp/BEYER_CURRENT_FINAL_DEPTH.csv
+          cd -
+          mkdir -p pb4_chelsa21k/results/beyer_current_final_depth_20261006
+          cp /tmp/BEYER_CURRENT_FINAL_DEPTH.csv pb4_chelsa21k/results/beyer_current_final_depth_20261006/
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd, numpy as np
+          out=Path('pb4_chelsa21k/results/beyer_current_final_depth_20261006')
+          d=pd.read_csv(out/'BEYER_CURRENT_FINAL_DEPTH.csv')
+          if 'variant' in d.columns:
+              d=d[d.variant.astype(str).eq('mckenzie2003')].copy()
+          rows=[]
+          for age,g in d.groupby('target_age_ka'):
+              p8=g[g.optpft.astype(float).eq(8)]
+              rows.append({
+                'age_ka':age,'n_depths':len(g),'n_pft8_opt':len(p8),
+                'pft8_depth_min_m':p8.depth_m.min() if len(p8) else np.nan,
+                'pft8_depth_max_m':p8.depth_m.max() if len(p8) else np.nan,
+                'pft8_max_npp':pd.to_numeric(g.get('pft08_npp'),errors='coerce').max(),
+              })
+          s=pd.DataFrame(rows)
+          s.to_csv(out/'SUMMARY.csv',index=False)
+          key=d[np.isclose(d.depth_m,0.05)].copy()
+          cols=[c for c in ['target_age_ka','depth_m','optpft','biome_id','pft04_npp','pft06_npp','pft07_npp','pft08_npp','pft07_lai','pft08_lai'] if c in key.columns]
+          key[cols].to_csv(out/'KEY_5CM.csv',index=False)
+          md=['# Current final PB4 with packaged Beyer forcing: depth sweep','',
+              'Same final code and native BIOME4 limits. Only climate forcing is the packaged Beyer monthly series.','',
+              '## PFT8 occurrence by age','',s.to_markdown(index=False),'',
+              '## 5 cm results','',key[cols].to_markdown(index=False),'']
+          (out/'RESULT_KO.md').write_text('\n'.join(md),encoding='utf-8')
+          print(s.to_string(index=False))
+          print(key[cols].to_string(index=False))
+          PY
+      - name: Commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/beyer_current_final_depth_20261006
+          git commit -m 'Run current final PB4 Beyer depth sweep [skip ci]' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
