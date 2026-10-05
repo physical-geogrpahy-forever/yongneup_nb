@@ -1,0 +1,385 @@
+name: Finalize PB4 CHELSA21K native climate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-finalize-native-climate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      OMP_NUM_THREADS: '4'
+      OLD_SHA256: bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran zip
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy
+
+      - name: Reconstruct and verify previous canonical package
+        shell: bash
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/reconstruct_pb4.py
+          echo "$OLD_SHA256  pb4_chelsa21k/PB4Studio_v6.6.3_CHELSA21K.zip" | sha256sum -c -
+          rm -rf /tmp/pb4_final_clean /tmp/pb4_final_test
+          mkdir -p /tmp/pb4_final_clean
+          unzip -q pb4_chelsa21k/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4_final_clean
+          test -d /tmp/pb4_final_clean/PB4Studio_v6.6.3_CHELSA21K
+
+      - name: Make native BIOME4 climate limits canonical
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          root=Path('/tmp/pb4_final_clean/PB4Studio_v6.6.3_CHELSA21K')
+          p=root/'pb4studio'/'biome4_backend.py'
+          s=p.read_text(encoding='utf-8')
+          before=s
+          lines=s.splitlines()
+          target='    if variant in {BIOME4_VARIANT_ORIGINAL, BIOME4_VARIANT_MCKENZIE2003}:'
+          hits=[i for i,l in enumerate(lines) if l==target]
+          if len(hits)!=1:
+              raise SystemExit(f'expected one climate-tuning block, found {len(hits)}')
+          i=hits[0]
+          j=i+1
+          while j < len(lines):
+              line=lines[j]
+              if line.strip():
+                  indent=len(line)-len(line.lstrip(' '))
+                  if indent <= 4:
+                      break
+              j+=1
+          removed='\n'.join(lines[i:j])
+          if 'old5' not in removed or 'old6' not in removed:
+              raise SystemExit('PFT5/PFT6 tuning assignments not found in target block')
+          replacement=[
+              '    # PB4 CHELSA21K production policy (2026-10-05):',
+              '    # retain native BIOME4 v4.2b2 PFT5/PFT6 climate limits.',
+              '    # McKenzie/Jackson finite-depth soil-water/root coupling remains active;',
+              '    # climate-sieve tuning is intentionally not applied.',
+          ]
+          lines=lines[:i]+replacement+lines[j:]
+          s='\n'.join(lines)+'\n'
+          p.write_text(s,encoding='utf-8')
+          Path('/tmp/biome4_backend_before.py').write_text(before,encoding='utf-8')
+          if 'old5 = ' in s or 'old6 = ' in s:
+              raise SystemExit('legacy PFT5/PFT6 tuning assignments remain')
+          for token in ['BIOME4-SD reference-derived root-depth adapter','pb4_soildepth','rtop_eff','rbot_eff']:
+              if token not in s:
+                  raise SystemExit(f'required McKenzie/Jackson coupling token missing: {token}')
+          climate=(root/'pb4studio'/'climate.py').read_text(encoding='utf-8')
+          if '0.51' not in climate:
+              raise SystemExit('51% majority classification rule missing')
+          v=root/'pb4studio'/'__init__.py'
+          vt=v.read_text(encoding='utf-8')
+          import re
+          vt2=re.sub(r"__version__\s*=\s*['\"][^'\"]+['\"]",
+                     "__version__ = '6.6.3-CHELSA21K-envicloud-nolapse-nativeclimate'",
+                     vt,count=1)
+          if vt2==vt:
+              raise SystemExit('package version string not updated')
+          v.write_text(vt2,encoding='utf-8')
+          note=root/'NATIVE_CLIMATE_FINAL_2026-10-05.md'
+          note.write_text("""# PB4Studio CHELSA21K native-climate production decision
+
+This package is the 2026-10-05 production revision for Yongneup wetland ecology,
+palaeoecology, palaeoclimate, and biogeomorphology modelling.
+
+Production policy:
+- CHELSA-TraCE21k/EnviCloud forcing, 21-0 ka BP, 0.1 kyr interval
+- BIOME4 v4.2b2 native PFT5/PFT6 climate limits retained
+- McKenzie soil-depth/AWC coupling retained
+- Jackson-style finite-depth PFT root accessibility retained
+- symmetric 51% majority rule for reduced broadleaf/conifer classification retained
+- dynamic Pelletier vegetation-geomorphology coupling retained
+
+A full 21-0 ka ablation showed that removing the PFT5/PFT6 climate tuning leaves
+Jang et al. (2011) corrected 1% validation unchanged:
+static 24/62 = 38.71%, dynamic 55/62 = 88.71%.
+
+The previous tuned-climate package SHA-256 was:
+bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09
+It remains recoverable from Git history but is no longer the canonical production package.
+""",encoding='utf-8')
+          PY
+          diff -u /tmp/biome4_backend_before.py /tmp/pb4_final_clean/PB4Studio_v6.6.3_CHELSA21K/pb4studio/biome4_backend.py > /tmp/native_climate_final.patch || true
+          echo '=== climate tuning removed ==='
+          grep -n -A4 -B2 'production policy (2026-10-05)' /tmp/pb4_final_clean/PB4Studio_v6.6.3_CHELSA21K/pb4studio/biome4_backend.py
+          echo '=== 51 percent rule retained ==='
+          grep -n '0.51' /tmp/pb4_final_clean/PB4Studio_v6.6.3_CHELSA21K/pb4studio/climate.py | head -10
+          echo '=== version ==='
+          cat /tmp/pb4_final_clean/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py
+
+      - name: Full 21 to 0 ka regression of final source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a /tmp/pb4_final_clean /tmp/pb4_final_test
+          cd /tmp/pb4_final_test/PB4Studio_v6.6.3_CHELSA21K
+          python tools/run_yongneup_21ka_chelsa_selfcontained.py 2>&1 | tee /tmp/final_native_climate_run.log
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import pandas as pd
+          out=Path('outputs_CHELSA21K')
+          target={
+              '95_01':('broadleaf','basin_count_broadleaf'),
+              '95_02':('mixed','basin_count_mixed'),
+              '95_03':('broadleaf','basin_count_broadleaf'),
+              '95_04':('mixed','basin_count_mixed'),
+          }
+          summaries=[]
+          zones=[]
+          for mode,expected in [('static',24),('dynamic',55)]:
+              p=out/f'model_{mode}'/'validation_per_output_time.csv'
+              df=pd.read_csv(p,encoding='utf-8-sig')
+              df=df[df['record_id'].astype(str).isin(target)].copy()
+              df['target_class']=df['record_id'].astype(str).map(lambda x:target[x][0])
+              df['target_count']=df.apply(lambda r:r[target[str(r['record_id'])][1]],axis=1)
+              df['target_fraction']=df['target_count']/df['valid_basin_cell_count']
+              df['correct_1pct']=df['target_fraction'] >= 0.01 - 1e-15
+              n=len(df); c=int(df['correct_1pct'].sum())
+              if n != 62 or c != expected:
+                  raise SystemExit(f'{mode} regression failed: {c}/{n}, expected {expected}/62')
+              summaries.append({
+                  'model':'PB4-McKenzie-nativeClimate-FINAL',
+                  'mode':mode,'n':n,'correct_n':c,
+                  'accuracy_pct':100*c/n,'threshold_fraction':0.01,
+              })
+              for rid,g in df.groupby(df['record_id'].astype(str),sort=False):
+                  zones.append({
+                      'mode':mode,'record_id':rid,'target_class':target[rid][0],
+                      'n':len(g),'correct_n':int(g['correct_1pct'].sum()),
+                      'accuracy_pct':100*float(g['correct_1pct'].mean()),
+                      'target_fraction_min':float(g['target_fraction'].min()),
+                      'target_fraction_max':float(g['target_fraction'].max()),
+                  })
+              keep=['record_id','model_ka_bp','valid_basin_cell_count',
+                    'basin_count_conifer','basin_count_broadleaf','basin_count_mixed',
+                    'basin_count_herbaceous','target_class','target_fraction','correct_1pct']
+              df[keep].to_csv(out/f'FINAL_NATIVECLIMATE_{mode}_JANG1PCT_ROWS.csv',index=False,encoding='utf-8-sig')
+          pd.DataFrame(summaries).to_csv(out/'FINAL_NATIVECLIMATE_JANG1PCT_SUMMARY.csv',index=False,encoding='utf-8-sig')
+          pd.DataFrame(zones).to_csv(out/'FINAL_NATIVECLIMATE_JANG1PCT_BY_ZONE.csv',index=False,encoding='utf-8-sig')
+          prov={
+              'execution_status':'new_full_21ka_final_regression',
+              'model_version':'6.6.3-CHELSA21K-envicloud-nolapse-nativeclimate',
+              'climate':'YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv',
+              'period_ka_bp':'21.0-0.0','interval_kyr':0.1,
+              'retained':['McKenzie AWC','Jackson finite-depth roots','51% majority reduced classification','dynamic Pelletier coupling'],
+              'native_restored':['PFT5 climate limits','PFT6 climate limits'],
+              'validation':'Jang 2011 corrected reduced mapping, n=62, 1% basin presence',
+              'expected_and_observed':{'static':'24/62','dynamic':'55/62'},
+          }
+          (out/'FINAL_NATIVECLIMATE_PROVENANCE.json').write_text(json.dumps(prov,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(pd.DataFrame(summaries).to_string(index=False))
+          print(pd.DataFrame(zones).to_string(index=False))
+          PY
+
+      - name: Build canonical production ZIP and payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/pb4_final_clean
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile
+          root=Path('PB4Studio_v6.6.3_CHELSA21K')
+          out=Path('/tmp/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip')
+          fixed=(2026,10,5,0,0,0)
+          with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for p in sorted(root.rglob('*')):
+                  if not p.is_file(): continue
+                  rel=p.as_posix()
+                  data=p.read_bytes()
+                  info=zipfile.ZipInfo(rel,date_time=fixed)
+                  info.compress_type=zipfile.ZIP_DEFLATED
+                  info.external_attr=(0o644 & 0xFFFF)<<16
+                  z.writestr(info,data,compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+          print(out)
+          PY
+          NEW_SHA=$(sha256sum /tmp/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip | awk '{print $1}')
+          echo "$NEW_SHA" > /tmp/new_model_sha.txt
+          mkdir -p pb4_chelsa21k/model
+          cp /tmp/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip
+          cp /tmp/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip
+          rm -f pb4_chelsa21k/payload/PB4Studio_v6.6.3_CHELSA21K.zip.b64.part*
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          src=Path('/tmp/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip').read_bytes()
+          enc=base64.b64encode(src).decode('ascii')
+          out=Path('pb4_chelsa21k/payload')
+          out.mkdir(parents=True,exist_ok=True)
+          chunk=120000
+          for k,i in enumerate(range(0,len(enc),chunk),1):
+              (out/f'PB4Studio_v6.6.3_CHELSA21K.zip.b64.part{k:03d}').write_text(enc[i:i+chunk],encoding='ascii')
+          print('payload parts',k,'base64 chars',len(enc))
+          PY
+          echo "new model sha256=$NEW_SHA"
+
+      - name: Update archive docs and preserve final regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          NEW_SHA=$(cat /tmp/new_model_sha.txt)
+          python - <<'PY'
+          from pathlib import Path
+          import os, re, shutil
+          sha=Path('/tmp/new_model_sha.txt').read_text().strip()
+          base=Path('pb4_chelsa21k')
+          # Reconstructor canonical SHA.
+          p=base/'reconstruct_pb4.py'
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09',sha)
+          p.write_text(s,encoding='utf-8')
+          # Checksums.
+          old=(base/'SHA256SUMS.txt').read_text(encoding='utf-8').splitlines()
+          keep=[x for x in old if 'PB4Studio_v6.6.3_CHELSA21K.zip' not in x and 'NATIVECLIMATE_FINAL' not in x]
+          lines=[
+              f'{sha}  model/PB4Studio_v6.6.3_CHELSA21K.zip',
+              f'{sha}  model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip',
+          ]+keep
+          (base/'SHA256SUMS.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          # Result archive.
+          src=Path('/tmp/pb4_final_test/PB4Studio_v6.6.3_CHELSA21K/outputs_CHELSA21K')
+          dst=base/'results'/'native_climate_final_20261005'
+          dst.mkdir(parents=True,exist_ok=True)
+          for name in [
+              'FINAL_NATIVECLIMATE_JANG1PCT_SUMMARY.csv',
+              'FINAL_NATIVECLIMATE_JANG1PCT_BY_ZONE.csv',
+              'FINAL_NATIVECLIMATE_static_JANG1PCT_ROWS.csv',
+              'FINAL_NATIVECLIMATE_dynamic_JANG1PCT_ROWS.csv',
+              'FINAL_NATIVECLIMATE_PROVENANCE.json',
+          ]:
+              shutil.copy2(src/name,dst/name)
+          shutil.copy2('/tmp/native_climate_final.patch',dst/'NATIVE_CLIMATE_FINAL.patch')
+          shutil.copy2('/tmp/final_native_climate_run.log',dst/'FINAL_NATIVECLIMATE_21KA_RUN.log')
+          decision=f"""# PB4 CHELSA21K final production decision — 2026-10-05
+
+## 결정
+
+최종 production 모델은 **PB4-McKenzie-nativeClimate**로 채택한다.
+
+- BIOME4 v4.2b2의 PFT5/PFT6 기후제약을 원본 그대로 유지
+- McKenzie 토심별 AWC coupling 유지
+- Jackson 계열 PFT별 finite-depth root accessibility 유지
+- native mixed biome의 broadleaf/conifer reduced classification은 대칭적 **51% 과반 규칙** 유지
+- dynamic Pelletier 식생-지형 coupling 유지
+
+## 근거
+
+동일 CHELSA-TraCE21k/EnviCloud 21-0 ka forcing으로 PFT5/PFT6 기후튜닝만 제거하여 21-0 ka 전체를 새로 실행했다.
+
+Jang et al. (2011) 원문 식생대 reduced mapping, n=62, 유역 1% 출현 기준:
+
+| 모델 | static | dynamic |
+|---|---:|---:|
+| 이전 tunedClimate | 24/62 = 38.71% | 55/62 = 88.71% |
+| 최종 nativeClimate | 24/62 = 38.71% | 55/62 = 88.71% |
+
+따라서 PFT5/PFT6 기후튜닝은 검증 정확도 향상에 필요하지 않았다. 최종 모델에서는 불필요한 기후 niche 조정을 제거한다.
+
+95_03 dynamic의 broadleaf 비율은 31개 시점 모두 1%를 넘으며 범위는 약 1.3423-3.3557%이다.
+
+## 무결성
+
+이 결정 이전 tuned-climate canonical ZIP SHA-256:
+`bc336bdc3232dcfb912cc8f4072565591714064c6446dfb28630f785ee90fb09`
+
+최종 native-climate canonical ZIP SHA-256:
+`{sha}`
+
+과거 tuned-climate 패키지는 Git 이력으로 복구 가능하지만 더 이상 production 기준본이 아니다.
+"""
+          (dst/'FINAL_MODEL_DECISION_KO.md').write_text(decision,encoding='utf-8')
+          # README.
+          rp=base/'README.md'
+          r=rp.read_text(encoding='utf-8')
+          sec=f"""
+
+## 2026-10-05 production model: native BIOME4 climate limits
+
+PFT5/PFT6 climate tuning only was removed and the full 21-0 ka CHELSA21K run was repeated. Jang 2011 corrected 1% validation was unchanged: static **24/62 = 38.71%**, dynamic **55/62 = 88.71%**.
+
+The canonical package is now `PB4-McKenzie-nativeClimate`: McKenzie AWC, finite-depth PFT root coupling, the symmetric 51% majority reduced-class rule, and dynamic Pelletier coupling are retained, while PFT5/PFT6 climate limits are the native BIOME4 v4.2b2 limits.
+
+- Final package: `model/PB4Studio_v6.6.3_CHELSA21K.zip`
+- Explicit final alias: `model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`
+- Final decision/results: `results/native_climate_final_20261005/`
+- Canonical SHA-256: `{sha}`
+"""
+          if '## 2026-10-05 production model: native BIOME4 climate limits' not in r:
+              r+=sec
+          rp.write_text(r,encoding='utf-8')
+          # Main model documentation.
+          mp=base/'PB4_CHELSA21K_MODEL_AND_CLIMATE_KO.md'
+          m=mp.read_text(encoding='utf-8')
+          add=f"""
+
+## 14. 2026-10-05 최종 production 결정: native BIOME4 climate limits
+
+PFT5/PFT6 기후제약 보정만 제거하고 CHELSA21K 21-0 ka 전체를 새로 실행했다. McKenzie AWC, PFT별 finite-depth root accessibility, 51% 과반 reduced-class 규칙, dynamic Pelletier coupling은 그대로 유지했다.
+
+Jang et al. (2011) 원문 식생대, n=62, 유역 1% 기준에서 결과는 이전 tunedClimate와 완전히 동일했다.
+
+- static: **24/62 = 38.71%**
+- dynamic: **55/62 = 88.71%**
+- dynamic 95_03: **31/31**
+- 95_03 broadleaf fraction: 약 **1.3423-3.3557%**
+
+따라서 PFT5/PFT6 기후튜닝은 정확도 향상에 불필요하다고 판정하고 최종 production 모델에서 제거했다. 최종 모델은 **PB4-McKenzie-nativeClimate**이며, BIOME4 v4.2b2의 원래 PFT 기후 niche를 유지하면서 통합 모델에 필요한 토심-AWC-뿌리-지형 coupling만 추가한다.
+
+최종 canonical ZIP SHA-256: `{sha}`
+
+상세 자료: `results/native_climate_final_20261005/`
+"""
+          if '## 14. 2026-10-05 최종 production 결정' not in m:
+              m+=add
+          mp.write_text(m,encoding='utf-8')
+          PY
+          NEW_SHA=$(cat /tmp/new_model_sha.txt)
+          echo "$NEW_SHA  pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip" | sha256sum -c -
+          python pb4_chelsa21k/reconstruct_pb4.py
+          echo "$NEW_SHA  pb4_chelsa21k/PB4Studio_v6.6.3_CHELSA21K.zip" | sha256sum -c -
+          rm -f pb4_chelsa21k/PB4Studio_v6.6.3_CHELSA21K.zip
+
+      - name: Commit final native-climate production package
+        shell: bash
+        run: |
+          set -euo pipefail
+          NEW_SHA=$(cat /tmp/new_model_sha.txt)
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/model \
+                  pb4_chelsa21k/payload \
+                  pb4_chelsa21k/reconstruct_pb4.py \
+                  pb4_chelsa21k/SHA256SUMS.txt \
+                  pb4_chelsa21k/README.md \
+                  pb4_chelsa21k/PB4_CHELSA21K_MODEL_AND_CLIMATE_KO.md \
+                  pb4_chelsa21k/results/native_climate_final_20261005
+          git status --short
+          git commit -m "Finalize PB4 CHELSA21K native climate production model [skip ci]"
+          git push origin HEAD:main
+          echo "FINAL_SHA256=$NEW_SHA"
