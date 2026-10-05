@@ -335,7 +335,7 @@ static에서는 지형과 토심을 갱신하지 않는다.
 
 이는 기존 nativeClimate baseline과 동일하다.
 
-Park et al. (2021)은 이 62개 categorical 총점에 합치지 않는다. 최종모형을 Jang 검증으로 고정한 뒤 수행하는 독립 holdout으로만 사용하며, Park 결과를 이용한 재보정은 하지 않는다. Park의 Supplementary sample-level pollen composition을 100년 window로 집계하되 보간하지 않고, 완전히 발달한 peatland 이후인 69-16 cm 구간을 주 정량 비교구간으로 사용한다. 지역 식생 비교는 conifer와 deciduous broadleaf의 상대조성, arboreal/non-arboreal 변화방향, 2738-2206 cal yr BP의 arboreal 감소와 herbaceous 증가 사건 재현을 중심으로 평가한다. pollen percentage와 model area fraction은 같은 물리량이 아니므로 binary accuracy나 절대 RMSE보다 Spearman 상관과 변화방향 일치도를 주 지표로 사용한다. 세부 정책은 PARK2021_INDEPENDENT_VALIDATION_POLICY_20261006_KO.md를 따른다.
+Park et al. (2021)은 이 62개 categorical 총점에 합치지 않는다. 최종모형을 Jang 검증으로 고정한 뒤 수행하는 독립 holdout으로 사용하며, Park 결과를 이용한 재보정은 하지 않는다. 사용자가 제공한 Supplementary Excel의 sample-level pollen, PCA, temperature reconstruction을 직접 사용하였다. 완전히 발달한 peatland 이후인 16-69 cm, 515-2072 cal yr BP의 53 pollen samples를 17개 100년 window로 집계하고 시료 사이 보간은 하지 않았다. Park PC2와 dynamic PB4 cold-tree PFT fraction은 Spearman rho=0.632, p=0.00644였고, static은 rho=-0.255, p=0.323이었다. pollen broadleaf fraction과 dynamic temperate-deciduous fraction은 rho=0.448, p=0.0713이었다. 2738-2206 cal yr BP의 arboreal 감소와 herbaceous 증가 사건은 open PFT로 재현되지 않았다. 따라서 Park 검증은 dynamic response의 방향을 독립적으로 지지하지만 fine-scale 조성과 local peatland/open-vegetation representation의 한계를 함께 보여주는 holdout으로 보고한다. 세부 결과는 PARK2021_HOLDOUT_RESULT_20261006_KO.md를 따른다.
 
 ## 13. 최종 AGB* 실행 결과
 
