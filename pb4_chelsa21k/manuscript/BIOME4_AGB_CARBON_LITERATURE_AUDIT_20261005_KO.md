@@ -1,3 +1,5 @@
+> **최신 재검증(Section 25): 사용자가 첨부한 Xue 2017 Ecological Modelling 최종 PDF와 GBC 최종 PDF를 직접 대조했다. 최종 Table 1에 35/52 yr 및 allocation 값이 실제 존재하며, 992 calibration + 982 independent validation AGB samples가 확인됐다. Section 10/14/15의 preprint-only 및 2,101-sample 표현은 Section 25로 정정한다. IBIS wood pool의 coarse-root 구조 불확실성은 유지한다.**
+
 > 최신 정정(Section 21): 역사적 평형 생체량 모델은 존재하며 BIOME-BGC는 줄기와 굵은뿌리를 분리한다. 모델의 존재와 BIOME4용 최종 변환계수의 검증을 구분한다.
 
 > **2026-10-05 최종 적용 판정 업데이트(Section 20): JULES 기본계수의 용늪 최종 채택 안 함.** 정적 LAI→AGB 구조는 확인됐지만 BIOME4 LAI로 전이한 정확도는 미검증이며 원 모델도 온대/한대 탄소량 편향을 보고한다.
@@ -1799,3 +1801,168 @@ PFT-IBIS/Xue를 주 후보로 두는 이유는 단순히 AGB가 더 크기 때�
 반대로 JULES-LAI는 같은 NPP에 대한 등가 biomass 규모가 equilibrium model군보다 절반 이하이며, 이는 current landscape average와는 잘 맞지만 성숙 또는 잠재 forest biomass에는 낮을 수 있다.
 
 이 판정은 cross-model transfer의 불확실성을 제거하지 않는다. 논문/보고서에서는 주 결과와 lower-bound sensitivity를 함께 제시하고, 각 결과에 model version, climate file, execution status, validation sample과 판정 기준을 명시한다.
+
+
+# 25. Xue 2017 최종 출판본 직접 재검증: Eq. (3), Table 1, AGB 표본수, ×2 변환
+
+## 25.1 직접 확인한 최종본
+
+사용자가 다음 최종 PDF 두 편을 직접 첨부했고 본문과 표를 다시 대조했다.
+
+1. Xue et al. (2017), *Evaluation of modeled global vegetation carbon dynamics: Analysis based on global carbon flux and above-ground biomass data*, *Ecological Modelling* 355:84-96, DOI 10.1016/j.ecolmodel.2017.04.012.
+2. Xue et al. (2017), *Global patterns of woody residence time and its influence on model simulation of aboveground biomass*, *Global Biogeochemical Cycles* 31:821-835, DOI 10.1002/2016GB005557.
+
+이 절은 이전 Section 10, 14, 15에서 남아 있던 “2016 preprint에만 Table 1이 있다”, “최종 Ecological Modelling PDF 미보유”, “2,101 plot AGB” 표현을 최종본 기준으로 정정한다.
+
+## 25.2 Ecological Modelling 최종 Eq. (3)
+
+최종 본문은 IBIS annual NPP가 leaves, stems (for trees), roots의 세 carbon pool에 배분된다고 명시하고 다음 식을 Eq. (3)으로 제시한다.
+
+\[
+\frac{\partial C_{i,j}}{\partial t}
+=
+a_{i,j}NPP_i-\frac{C_{i,j}}{\tau_{i,j}}.
+\]
+
+따라서 equilibrium 조건을 적용하면
+
+\[
+C_{i,j}=a_{i,j}\tau_{i,j}NPP_i
+\]
+
+가 대수적으로 정확히 도출된다.
+
+이 평형식은 Xue 원문의 별도 numbered equation이 아니라 Eq. (3)의 steady-state solution이다.
+
+## 25.3 Ecological Modelling 최종 Table 1
+
+최종 Table 1은 preprint와 동일하게 PFT별 leaf/root/wood residence time과 allocation coefficient를 실제로 수록한다.
+
+AGB bridge 관련 값:
+
+| IBIS PFT | tau_leaf | tau_root | tau_wood | a_leaf | a_root | a_wood |
+|---:|---:|---:|---:|---:|---:|---:|
+|1|1.01|1|60|0.30|0.30|0.40|
+|2|1|1|60|0.30|0.30|0.40|
+|3|1|1|25|0.30|0.30|0.40|
+|4|2|1|35|0.30|0.40|0.30|
+|5|1|1|35|0.30|0.30|0.40|
+|6|2.5|1|52|0.30|0.40|0.30|
+|7|1|1|52|0.30|0.30|0.40|
+|8|1|1|52|0.30|0.30|0.40|
+|9|1.5|1|5|0.45|0.40|0.15|
+|10|1|1|5|0.45|0.35|0.20|
+|11|1.25|1|wood 없음|0.45|0.55|0|
+|12|1.5|1|wood 없음|0.45|0.55|0|
+
+따라서 35/52 yr 및 allocation values는 더 이상 preprint-only 값이 아니다.
+
+## 25.4 35/52 yr의 정확한 지위
+
+최종 Methods는 대부분의 parameter에는 Foley et al. (1996)과 Kucharik et al. (2000)의 default를 사용하지만 GPP와 AGB에 민감한 parameter를 보정했다고 설명하고, calibrated parameter를 Table 1에 제시한다.
+
+따라서 35/52 yr는 다음처럼 표현해야 한다.
+
+- 올바름: **Xue et al. (2017)의 calibrated PFT parameter**
+- 틀림: **IBIS universal default**
+- 틀림: **GBC meta-analysis observed tau 자체**
+
+별도 GBC Table 2가 요약한 Kucharik et al. IBIS default는 warm-temperate 25 yr, temperate 50 yr, boreal 100 yr이다.
+
+## 25.5 최종 AGB calibration/validation 표본수 정정
+
+Ecological Modelling final Methods는 plot AGB를 필터링한 뒤
+
+- calibration: 992 samples
+- independent validation: 982 samples
+
+를 유지했다고 명시한다.
+
+따라서 최종본에서 직접 확인되는 합계는 1,974 samples이다.
+
+이전 Section 10과 별도 scientific-basis 문서의 2,101 plot 표현은 최종 출판본 기준으로 철회한다.
+
+## 25.6 carbon density -> AGB의 ×2
+
+최종 논문은 다음을 명시한다.
+
+- IBIS model calculates carbon density \((Mg\ C\ ha^{-1})\), not AGB directly.
+- plot AGB와 비교하기 위해 IPCC (2003)의 commonly-used factor 2.0을 곱해 \(Mg\ ha^{-1}\) AGB로 변환한다.
+
+따라서 carbon mass -> dry biomass mass의 변환
+
+\[
+AGB_{\rm dry}=2C
+\]
+
+자체는 Xue 최종 논문에 직접 근거가 있다.
+
+그러나 Eq. (3)의 state에는 leaf, stem/wood, root가 모두 있으므로 total vegetation carbon 전체를 단순히 ×2하여 anatomical AGB라고 부르면 안 된다.
+
+PB4에서 ×2는 **AGB로 정의한 carbon diagnostic에 대한 carbon-to-dry-mass conversion**으로만 사용한다.
+
+## 25.7 wood pool과 coarse-root 불확실성은 해소되지 않음
+
+Xue final은 carbon pools를 leaves, stems (for trees), roots로 표현하고, companion GBC는 stem/branch pool의 residence time을 tau_w와 동일시한다.
+
+반면 Castanho et al. IBIS 관련 author response는 generic woody biomass pool이 all above-ground wood + coarse roots를 포함한다고 명시한다.
+
+따라서 IBIS version/documentation 사이에서 wood-pool anatomical composition의 표현이 완전히 일치하지 않는다.
+
+결론:
+
+- \(C=a\tau NPP\)의 평형 대수: **확정**
+- Table 1 숫자: **최종 출판본에서 확정**
+- Xue AGB calibration/validation 존재: **확정**
+- ×2 carbon-to-dry conversion: **확정**
+- leaf + wood를 모든 IBIS version에서 해부학적으로 순수한 aboveground carbon이라고 부르는 것: **미확정**
+
+따라서 \(0.0286, 0.0327, 0.0422\) 등의 계수는 가장 안전하게 **Xue/IBIS equilibrium AGB diagnostic coefficients**라고 부른다. BIOME4 native coefficients 또는 해부학적으로 완전 검증된 PFT dry-AGB constants라고 부르지 않는다.
+
+## 25.8 companion GBC 논문이 강화하는 부분
+
+GBC 최종 논문은 near-equilibrium mature/old-growth forest에서
+
+\[
+\tau_w=\frac{M_w}{W_p}
+\]
+
+를 사용한다.
+
+여기서 \(M_w\)는 mean AGB, \(W_p\)는 stem + branch를 포함한 aboveground woody productivity이다.
+
+또한 IBIS pool equation을 steady-state context에서 다시 제시한다.
+
+이 논문은 Xue/IBIS bridge의 두 부분을 강화한다.
+
+1. stock = productivity × residence time이라는 equilibrium 해석
+2. woody residence time이 AGB를 크게 좌우한다는 관측/모델 근거
+
+동시에 fixed tau의 보편성을 약화한다. GBC 결과는 tau가 forest age, temperature, precipitation에 따라 공간적으로 크게 달라짐을 보이므로, 35/52 yr를 자연상수로 해석하지 않는다.
+
+## 25.9 현재 용늪 적용 판정
+
+canonical 21-0 ka PFT audit에서 PFT5는 static/dynamic 모두 dominant occurrence 0이므로 이번 용늪 적용에서 PFT5 문제는 실제 결과를 좌우하지 않는다.
+
+실제 주요 forest PFT에 대한 계수의 산술은 최종 Table 1로 다시 계산해도 변하지 않는다.
+
+- BIOME4 PFT4 -> IBIS PFT5: \(2(0.30\times1+0.40\times35)/1000=0.0286\)
+- BIOME4 PFT6 -> IBIS PFT6: \(2(0.30\times2.5+0.30\times52)/1000=0.0327\)
+- BIOME4 PFT7 -> IBIS PFT7/8: \(2(0.30\times1+0.40\times52)/1000=0.0422\)
+
+따라서 **숫자 자체는 유지되지만 명칭과 provenance를 더 엄격하게 수정한다.**
+
+현재 최종 표현:
+
+\[
+BIOME4\ PFT\text{-specific }NPP
+\rightarrow
+Xue2017\ calibrated\ IBIS\ allocation/residence
+\rightarrow
+equilibrium\ carbon\ diagnostic
+\rightarrow
+Xue-style\ dry\ AGB\ diagnostic
+\]
+
+이는 BIOME4 native equation이 아니라 cross-model equilibrium bridge다.
+
