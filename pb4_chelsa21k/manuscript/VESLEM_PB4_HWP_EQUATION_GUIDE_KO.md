@@ -586,39 +586,93 @@ E_{f,reg}=min(E_{f,pot},{H_{avail} OVER Delta t})
 
 ---
 
-# IV. AGB 항: 현재 논문 작성에서 가장 주의할 부분
+# IV. AGB 항: 최신 원문 및 코드 감사
 
-Pelletier 원문은 Eq. (5)
+Pelletier et al. (2013)의 수치모델은 Eq. (5)
 
 \[
 AGB=e\exp(fEEMT)
 \]
 
-을 수치모델에 사용한다.
+을 사용한다.
 
-그러나 현재 PB4 코드는 BIOME4가 standing AGB를 직접 출력하지 않기 때문에
+현재 PB4 production은 BIOME4가 total standing AGB를 직접 prognose하지 않기 때문에
 
 \[
-AGB=s_{AGB}\max(NPP_C,0)
+AGB=s_{AGB}\max(NPP_C,0),\qquad s_{AGB}=0.010
 \]
 
-을 프록시로 사용하며 현재 \(s_{AGB}=0.010\)이다.
+을 coupling proxy로 사용한다. 이 식은 Pelletier 원식이 아니며 현재 provenance 재검토 대상이다.
 
-HWP 입력:
+## IV-1. BIOME3 원문에서 직접 확인되는 sapwood carbon
 
-```text
-AGB=s_{AGB} max(NPP_C,0)
+Haxeltine & Prentice (1996) BIOME3 Eq. (34):
+
+\[
+C_s=LAI\,C_n
+\]
+
+원문은 (C_s)를 total sapwood carbon content, (C_n)을 unit LAI당 sapwood carbon으로 정의하고,
+
+\[
+C_n=1\;{\rm kg\ C\ m^{-2}\ LAI^{-1}}
+\]
+
+을 사용한다.
+
+따라서 BIOME3 원문에서는
+
+\[
+C_s=LAI
+\]
+
+이다.
+
+BIOME3 Eq. (38)의
+
+\[
+L_f=LAI\,L_n
+\]
+
+은 annual leaf litterfall flux이며 standing leaf biomass가 아니다. 따라서 leaf longevity를 곱해 leaf stock을 만드는 경우에는 추가 유도식임을 명시해야 한다.
+
+## IV-2. BIOME4 v4.2b2 source의 실제 값
+
+원본 BIOME4 v4.2b2 `respiration()`은
+
+```fortran
+parameter(Ln=50.,y=0.8,m10=1.6,p1=0.25,stemcarbon=0.5)
 ```
 
-이 식은 **Pelletier et al. (2013)의 원식이 아니다.** 현재 코드 감사에서도 provenance가 미해결인 coupling bridge로 분류되어 있다. 따라서 학술논문에서는 다음 중 하나가 필요하다.
+를 사용하며 `stemcarbon`을 sapwood mass per leaf area로 정의한다.
 
-1. 현행 프록시를 사용하되 명시적인 모델 가정으로 밝히고 근거 문헌을 추가하거나,
-2. Pelletier Eq. (5)로 실제 코드를 변경하고 재검증하거나,
-3. BIOME4 NPP에서 standing AGB를 추정하는 별도 문헌 기반 관계를 채택하고 재검증한다.
+따라서 BIOME4 내부의 sapwood-carbon diagnostic은 사실상
 
-이 문제를 숨기고 “Pelletier et al. (2013)에 따라 AGB를 계산하였다”고 쓰면 방법론적으로 부정확하다.
+\[
+\boxed{C_{sap}=0.5\,LAI}
+\]
 
----
+이다.
+
+PFT4-7은 `allocfact=1.2`이므로 leaf litterfall/minimum allocation은
+
+\[
+L_f=60\,LAI
+\quad [{\rm g\ C\ m^{-2}\ yr^{-1}}]
+\]
+
+이다.
+
+**중요:** (C_{sap}=0.5LAI)는 total AGB가 아니라 sapwood carbon이다. 이를 그대로 “BIOME4 AGB”라고 부르면 안 된다.
+
+현재 해결해야 할 문제:
+
+1. BIOME3의 (C_n=1.0)이 BIOME4 v4.2b2에서 사실상 0.5로 바뀐 문헌적 근거
+2. BIOME4를 사용해 total AGB 또는 vegetation carbon을 추정한 선행연구
+3. sapwood carbon에서 total aboveground biomass로 연결할 수 있는 BIOME4 계열의 공식 또는 allometry
+4. dry biomass 변환에 사용하는 (f_C)의 문헌 근거
+
+이 검토가 끝나기 전에는 production AGB식을 변경하지 않는다. 새 AGB식을 채택하면 CHELSA 21-0 ka 전체 dynamic을 새로 실행하고 Jang n=62, 1% 기준을 재검증해야 한다.
 
 # V. McKenzie 원문과 현재 PB4의 관계를 논문에 쓰는 방식
 
