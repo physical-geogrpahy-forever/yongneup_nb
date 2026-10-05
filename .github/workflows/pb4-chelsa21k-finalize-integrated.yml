@@ -1,0 +1,61 @@
+name: Finalize integrated PB4 production
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-finalize-integrated.yml'
+      - 'pb4_chelsa21k/tools/finalize_integrated_pb4.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '4'
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Syntax check
+        shell: bash
+        run: python -m py_compile pb4_chelsa21k/tools/finalize_integrated_pb4.py
+
+      - name: Build and validate final integrated PB4
+        shell: bash
+        run: python pb4_chelsa21k/tools/finalize_integrated_pb4.py
+
+      - name: Commit final integrated package and results
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/model
+          git add pb4_chelsa21k/payload
+          git add pb4_chelsa21k/reconstruct_pb4.py
+          git add pb4_chelsa21k/SHA256SUMS.txt
+          git add pb4_chelsa21k/results/final_integrated_20261006
+          git status --short
+          git commit -m 'Finalize integrated PB4 production model [skip ci]' || exit 0
+          git push origin HEAD:main
