@@ -52,16 +52,17 @@ The canonical package is now `PB4-McKenzie-nativeClimate`: McKenzie AWC, finite-
 
 ### 2026-10-05 final AGB* decision
 
-Final AGB* equation:
+Final AGB* definition:
 
-[
-AGB^*_{dry,p}
+\[
+AGB^*_{\mathrm{dry},p}
 =
-LAI_p
-left[
-S_p + 0.03630780547701014 L_{m,p}^{0.43}
-ight]
-]
+B_{\mathrm{leaf,dry},p}
++
+B_{\mathrm{sapwood,dry},p}
+\]
+
+Leaf biomass uses the Reich et al. (1992) SLA-life-span equation in its published form, with \(B_{\mathrm{leaf,dry},p}=LAI_p/SLA_p\). The decimal-expanded implementation coefficient is code-level only and is not treated as an independent Methods parameter.
 
 Pelletier coupling:
 
