@@ -38,6 +38,8 @@ jobs:
           echo "ROOT=$root"
           echo '=== embedded inputs all ==='
           find "$root/embedded_inputs" -maxdepth 4 -type f | sed "s#^$root/##" | sort || true
+          echo '=== climate helper top ==='
+          sed -n '1,90p' "$root/pb4studio/climate.py" || true
           echo '=== embedded Beyer climate sample ==='
           python - <<'PY'
           import csv, pathlib, glob
