@@ -1,193 +1,140 @@
-# AGB bridge promotion decision — RETRACTED
+# AGB bridge final decision
 
-> **추가 정정:** Xue et al. (2017, GBC)의 명시적 AGB 식도 용늪 전체 production bridge로 사용할 수 없다. BIOME4의 실제 출현 PFT7에 대해 직접 대응하는 explicit-AGB parameterization이 없고, BoB 또는 BoC를 nearest-class로 대입하는 것은 금지한다. PFT10도 직접 지원되지 않는다. 따라서 Xue GBC는 부분적 구조 근거로만 남긴다.
+Date: 2026-10-05  
+Status: **FINAL**
 
-Date: 2026-10-05
+## Final selection
 
-> **최종 정정:** 이 문서의 기존 Xue/IBIS primary-promotion 결론은 철회한다. Xue et al. (2017)의 Eq. (3)에서 \(C_{i,j}\)는 leaf, stem, root biomass pool의 **carbon stock**이며 AGB 자체가 아니다. 같은 논문은 IBIS가 global AGB를 직접 계산하지 않고 carbon density를 계산한다고 명시하고, Table 3에서 model-derived carbon density를 above- and below-ground biomass를 포함한 forest carbon density와 비교한다. 따라서 \(0.0286/0.0327/0.0422\times NPP\)를 해부학적으로 검증된 dry AGB로 승격한 기존 판단은 근거가 부족하다. candidate 실행 결과는 sensitivity 기록으로만 유지한다.
+The production AGB treatment for the Yongneup PB4 model is fixed to the BIOME4-derived aboveground living biomass proxy \(AGB^*\):
 
-## Current decision
+\[
+\boxed{
+AGB^*_{\mathrm{dry},p}
+=
+LAI_p
+\left[
+S_p
++
+0.03630780547701014\,L_{m,p}^{0.43}
+\right]
+}
+\]
 
-- **Xue/IBIS NPP-turnover bridge: production AGB로 기각/보류.** carbon-pool equilibrium diagnostic으로는 유효하지만 AGB 분리가 입증되지 않았다.
-- **JULES-LAI bridge: sensitivity only.** 별도 cross-model allometry이며 production 확정식 아님.
-- **canonical legacy 0.010×NPP: historical comparator only.** 출처가 충분하지 않으므로 production 과학식으로 승격하지 않는다.
-- **다음 AGB 해결 경로:** aboveground를 정의 자체에 포함하는 자료만 사용한다. 우선 Xue et al. (2017, GBC)의 observed \(\tau_w=AGB/aboveground\ woody\ productivity\) 및 supplementary NPP→aboveground woody NPP 관계를 검토하되, PFT별 residence-time 대응과 leaf 포함 여부를 별도 해결해야 한다.
+where \(LAI_p\) is BIOME4 optimal LAI, \(L_{m,p}\) is BIOME4 v4.2b2 pftpar(pft,7) in months, and
 
-## PFT5 domain status
+\[
+S_p=
+\begin{cases}
+1, & pftpar(p,10)=1\\
+0, & pftpar(p,10)=2
+\end{cases}
+\]
 
-The retained Yongneup evidence distinguishes potential PFT5 activity from actual dominance.
+is a project-defined indicator for whether the BIOME4 source code includes the sapwood-respiration term for that PFT.
 
-- canonical 21-0 ka static: 0/211 timesteps, 0 dominant cell-observations
-- canonical 21-0 ka dynamic: 0/211 timesteps, 0 dominant cell-observations
-- earlier hotfix diagnostics: relaxed climate constraints sometimes gave PFT5 positive NPP, but PFT6 remained the stronger conifer/taiga competitor
-- no retained Yongneup diagnostic currently shows PFT5 becoming selected dominant optPFT
+The leaf term is derived from Reich et al. (1992):
 
-Therefore PFT5 is not used to argue for or against the Xue/IBIS bridge in this domain.
+\[
+\log_{10}(SLA)
+=
+2.44
+-
+0.43\log_{10}(\mathrm{life\mbox{-}span})
+\]
 
-## Evidence hierarchy
+with \(SLA\) in \(\mathrm{cm^2\,g^{-1}}\) and life-span in months, giving
 
-### 1. Model lineage and required state
+\[
+\boxed{
+B_{\mathrm{leaf,dry},p}
+=
+0.03630780547701014\,LAI_p L_{m,p}^{0.43}
+}
+\]
 
-BIOME4 is an equilibrium potential-vegetation model and directly provides PFT, NPP, and optLAI but no standing AGB stock.
+in \(\mathrm{kg\ dry\ biomass\ m^{-2}}\).
 
-Xue/IBIS provides an explicit carbon-pool mass balance:
+The sapwood relation follows Haxeltine and Prentice (1996), BIOME3 Eq. (34):
 
-dC/dt = a*NPP - C/tau
+\[
+C_s=LAI\,C_n
+\]
 
-At equilibrium:
+combined with BIOME4 v4.2b2 source code stemcarbon=0.5 kg C per unit LAI. With the explicit project conversion assumption \(f_C=0.50\),
 
-C = a*tau*NPP
+\[
+\boxed{
+B_{\mathrm{sapwood,dry},p}=S_p\,LAI_p
+}
+\]
 
-For aboveground carbon, the leaf and wood pools give:
+and therefore the final equation above follows directly.
 
-AGB_C = NPP * (a_leaf*tau_leaf + a_wood*tau_wood)
+## Pelletier coupling
 
-Xue then converts modeled carbon density to dry AGB by multiplying by 2.0. This is a cross-model PFT-parameter transfer, but the equilibrium stock-from-NPP structure is not foreign to BIOME4: Wang et al. (2011) independently used Cveg=NPP*tau_veg specifically because BIOME4 assumes steady state. Hoogakker et al. later reused that BIOME4 turnover formulation over a glacial cycle, and Wu et al. (2009) provides an independent precedent for coupling BIOME4 output to a process-based carbon-storage model.
+The Pelletier et al. (2013) geomorphic coupling structure is retained:
 
-JULES provides a published LAI-to-wood allometry:
+\[
+\boxed{
+k_d=cEEMT+dAGB^*
+}
+\]
 
-Cwood = awl * Lbal^(5/3)
+with
 
-This is also a cross-model transfer. It is useful, but a BIOME4 optLAI of about 3.2 produces much less standing wood than observed in several mature Korean forests.
+\[
+c=0.033,\qquad d=0.05.
+\]
 
-### 2. Full 21-ka execution, not post-hoc arithmetic
+Pelletier Eq. (5),
 
-All candidates were executed from the same canonical model:
+\[
+AGB=e\exp(fEEMT),
+\]
 
-- canonical model: PB4-McKenzie-nativeClimate
-- canonical SHA-256: eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d
-- climate: YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv
-- period: 21.0-0.0 ka BP
-- interval: 0.1 kyr
-- modes: static 211 steps, dynamic 211 steps
-- validation: corrected Jang et al. (2011), n=62, 1% basin-presence threshold
+is not used for Yongneup because the Yongneup EEMT range substantially exceeds the source experiment range and direct exponential extrapolation produces physically unusable AGB values.
+
+## Rejected or sensitivity-only alternatives
+
+Legacy \(AGB=0.010NPP\) is retained only as a historical comparator. Xue/IBIS and JULES-derived bridges remain sensitivity experiments and are not the production AGB method. The direct Pelletier EEMT-to-AGB exponential relation is rejected for Yongneup.
+
+## Full 21-0 ka test
+
+The selected AGB* bridge was implemented from the same PB4-McKenzie-nativeClimate baseline and the full 21.0-0.0 ka trajectory was newly rerun at 0.1 kyr intervals.
 
 Results:
 
-| bridge | dynamic mean AGB kg m-2 | 0 ka mean soil depth m | 0 ka relief m | Jang dynamic |
-|---|---:|---:|---:|---:|
-|legacy 0.010*NPP|about 4.01|2.496|68.235|55/62|
-|JULES-LAI-IPCCCF|about 6.16|2.526|68.02|55/62|
-|Xue/IBIS|12.84|2.614|67.445|55/62|
+| metric | static | dynamic |
+|---|---:|---:|
+| steps | 211 | 211 |
+| time-mean basin AGB* kg m-2 | 3.19979 | 3.11600 |
+| 0 ka basin AGB* kg m-2 | 3.48349 | 3.46620 |
+| 0 ka basin AGB* t ha-1 | 34.8349 | 34.6620 |
+| Jang correct / 62 | 24 | 55 |
+| Jang accuracy | 38.71% | 88.71% |
 
-The categorical pollen validation therefore does not discriminate among AGB bridges. AGB selection must be based on biomass provenance and physical magnitude.
+The Jang et al. (2011) corrected reduced-class validation is unchanged from the nativeClimate baseline.
 
-### 3. PFT4: Korean local stock/NPP evidence
+## Interpretation
 
-At 0 ka the model is almost entirely PFT4.
+\(AGB^*\) is not total anatomical aboveground biomass. It is the BIOME4-derived living aboveground proxy that can be defended from explicit published equations and BIOME4 source parameters, comprising foliage and sapwood only.
 
-PB4:
-- NPP about 611-615 g C m-2 yr-1
-- optLAI about 3.2
-- JULES-IPCCCF AGB about 88 Mg dry ha-1
-- Xue/IBIS AGB about 176 Mg dry ha-1
+Manuscript wording at first use:
 
-Korean observations:
-- Mt. Worak Quercus mongolica aboveground C = 81.94 t C ha-1, equivalent to about 171 Mg dry ha-1 at fC=0.48.
-- Mt. Worak annual NPP C fixation = 6.74 t C ha-1 yr-1 = 674 g C m-2 yr-1.
-- observed AGB_C/NPP_C ratio = 12.16 yr.
-- Xue/IBIS model-native equilibrium factor = 14.30 yr.
-- Xue/observed ratio = 1.18.
-- Mt. Gariwang mature Q. mongolica gives still larger AGB.
-- observed Korean Q. mongolica peak/maximum LAI values are commonly above the BIOME4 modern optLAI.
+> BIOME4-derived aboveground living biomass proxy (AGB*), comprising foliage and sapwood.
 
-Thus PB4 NPP is locally credible while transferred JULES standing biomass is low; Xue is close to the local stock/productivity ratio.
+## Authoritative method document
 
-### 4. PFT6: mature evergreen evidence
+pb4_chelsa21k/manuscript/BIOME4_REICH_LAI_SAPWOOD_AGB_FINAL_METHOD_20261005_KO.md
 
-PFT6 dominates a large fraction of the 21-ka trajectory.
+## References
 
-PB4 mean PFT6:
-- NPP about 386 g C m-2 yr-1
-- JULES-IPCCCF AGB about 59 Mg ha-1
-- Xue/IBIS AGB about 126 Mg ha-1
+Kaplan, J. O., et al. (2003). Climate change and Arctic ecosystems: 2. Modeling, paleodata-model comparisons, and future projections. *Journal of Geophysical Research: Atmospheres, 108*(D19), 8171. https://doi.org/10.1029/2002JD002559
 
-Observations and diagnostics:
-- Halla Abies koreana represents a lower-biomass disturbed/subalpine case, about 65-77 Mg dry aboveground ha-1.
-- 27-yr Pinus koraiensis plantation: 59.9 Mg ha-1.
-- natural mixed Korean pine component: 118 Mg ha-1.
-- Taewha class-V Korean pine: 126.53 Mg ha-1.
-- older Korean pine stands can exceed 300 Mg ha-1.
-- ForC >=100 yr boreal-evergreen analogue plots: median AGB_C/NPP_C = 19.66 yr.
-- Xue/IBIS model-native equilibrium factor = 16.35 yr.
-- Xue/observed-median ratio = 0.83.
+Haxeltine, A., & Prentice, I. C. (1996). BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types. *Global Biogeochemical Cycles, 10*(4), 693-709. https://doi.org/10.1029/96GB02344
 
-JULES is reasonable for young/low-biomass stands, while Xue is more representative of mature/equilibrium stock.
+Reich, P. B., Walters, M. B., & Ellsworth, D. S. (1992). Leaf life-span in relation to leaf, plant, and stand characteristics among diverse ecosystems. *Ecological Monographs, 62*(3), 365-392. https://doi.org/10.2307/2937116
 
-### 5. PFT7 and PFT10
+Pelletier, J. D., et al. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. *Journal of Geophysical Research: Earth Surface, 118*, 741-758. https://doi.org/10.1002/jgrf.20046
 
-PFT7:
-- small domain contribution
-- Korean Larix age-class V implies approximately 150 Mg ha-1 aboveground
-- Xue gives about 132 Mg ha-1
-- JULES gives about 60-62 Mg ha-1
-- BIOME4 PFT7 combines broadleaf and needleleaf deciduous forms, so uncertainty remains.
-
-PFT10:
-- extremely small contribution
-- shrub above/below woody partition is poorly constrained for JULES
-- Xue uses an evergreen-shrub structural analogue
-- retain explicit uncertainty; it does not control the basin result.
-
-### 6. Independent current-landscape reference
-
-A current-landscape biomass reference based on Thurner et al. and IPCC conversion gives values close to the JULES sensitivity case.
-
-This does not contradict the Xue choice. It indicates that:
-- JULES approximates lower/current landscape biomass reasonably,
-- Xue targets an equilibrium/mature potential vegetation stock.
-
-Because the parent vegetation model is BIOME4 equilibrium potential vegetation, the latter interpretation is the one used for the primary candidate.
-
-### 7. Pelletier source range
-
-Pelletier et al. (2013):
-- observed AGB in the source sky-island gradient spans from a few to approximately 60-75 kg m-2.
-- Xue/IBIS candidate absolute maximum is about 20.7 kg m-2.
-
-Therefore the Xue AGB magnitude remains inside the source AGB range used to motivate the Pelletier vegetation-transport term.
-
-A separate limitation exists for EEMT:
-- Pelletier experiments: 5-45 MJ m-2 yr-1
-- Yongneup 0 ka: about 93 MJ m-2 yr-1
-
-The major source-domain extrapolation is therefore EEMT, not AGB. This limitation applies to all AGB bridges.
-
-## Promotion status by component
-
-| component | status |
-|---|---|
-|PFT4 Xue coefficient|supported for this domain|
-|PFT6 Xue coefficient|supported for this domain|
-|PFT7 Xue coefficient|usable with uncertainty|
-|PFT10 Xue coefficient|usable only as negligible-contribution structural analogue|
-|PFT5|excluded from Yongneup domain justification: 0 retained dominant-PFT occurrences|
-|JULES-LAI-IPCCCF|retain as sensitivity|
-|legacy 0.010*NPP|superseded scientifically; retain only as historical reference|
-|canonical package replacement|not performed in this decision commit|
-
-## Recommended production rule
-
-If the AGB bridge is promoted to the production package, the only scientific change should be the standing-AGB calculation. NPP, EEMT, BIOME4 competition, climate, soil-depth response, geomorphic equations, and validation mapping must remain unchanged.
-
-Safety rule for a future production promotion:
-- PFT0 -> AGB=0
-- PFT4/6/7 -> Xue/IBIS coefficients supported above
-- PFT10 -> explicitly labelled negligible-contribution evergreen-shrub structural analogue
-- PFT5 -> abort and require a new review if it ever becomes a realized dominant PFT
-- any other newly realized positive-NPP dominant PFT -> abort rather than silently approximate
-
-The already executed 21-ka candidate included a dormant PFT5 lookup, but PFT5 occurred zero times, so removing that dormant branch would not change any value in the completed trajectory.
-
-## Files supporting this decision
-
-- results/pft_ibis_agb_candidate_20261005/
-- results/jules_lai_bdt_agb_candidate_20261005/
-- results/jules_lai_ndt_agb_candidate_20261005/
-- results/jules_lai_ipcccf_agb_candidate_20261005/
-- results/agb_bridge_comparison_20261005/XUE_IBIS_SCIENTIFIC_BASIS_KO.md
-- results/agb_bridge_comparison_20261005/XUE_IBIS_REALIZED_PFT_SCIENTIFIC_BASIS.csv
-- results/agb_bridge_comparison_20261005/AGB_BRIDGE_KOREA_MAGNITUDE_AUDIT_KO.md
-- results/agb_bridge_comparison_20261005/AGB_BRIDGE_EFFECTIVE_RESIDENCE_AUDIT_KO.md
-- results/agb_bridge_comparison_20261005/PELLETIER_AGB_RANGE_AUDIT_KO.md
-- manuscript/AGB_BRIDGE_FINAL_COMPARISON_20261005.csv
+BIOME4 v4.2b2 source code, Jed O. Kaplan: https://github.com/jedokaplan/BIOME4
