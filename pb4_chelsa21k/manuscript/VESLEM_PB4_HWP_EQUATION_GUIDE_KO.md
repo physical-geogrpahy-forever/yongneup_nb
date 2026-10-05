@@ -12,6 +12,8 @@
 
 중요: `원문식`과 `현재 PB4 구현식`은 구분한다. Pelletier 또는 McKenzie에 없는 결합식을 해당 논문의 원식인 것처럼 인용하지 않는다.
 
+**식생 코어 고정 원칙:** 본 연구는 BIOME4 v4.2b2를 사용한다. BIOME3는 최종 모델의 수식, 파라미터 또는 AGB bridge 근거로 사용하지 않는다.
+
 한/글 수식 편집기는 스크립트 입력에서 `OVER`, `SUM`, `INT`, `PARTIAL`, 위첨자 `^`, 아래첨자 `_` 등을 사용할 수 있다. 아래의 `HWP 입력`은 한/글 수식 편집기 하단 스크립트 입력창에 붙여넣는 것을 전제로 작성하였다.
 
 ---
@@ -604,37 +606,9 @@ AGB=s_{AGB}\max(NPP_C,0),\qquad s_{AGB}=0.010
 
 을 coupling proxy로 사용한다. 이 식은 Pelletier 원식이 아니며 현재 provenance 재검토 대상이다.
 
-## IV-1. BIOME3 원문에서 직접 확인되는 sapwood carbon
+## IV-1. BIOME4-only 원칙
 
-Haxeltine & Prentice (1996) BIOME3 Eq. (34):
-
-\[
-C_s=LAI\,C_n
-\]
-
-원문은 (C_s)를 total sapwood carbon content, (C_n)을 unit LAI당 sapwood carbon으로 정의하고,
-
-\[
-C_n=1\;{\rm kg\ C\ m^{-2}\ LAI^{-1}}
-\]
-
-을 사용한다.
-
-따라서 BIOME3 원문에서는
-
-\[
-C_s=LAI
-\]
-
-이다.
-
-BIOME3 Eq. (38)의
-
-\[
-L_f=LAI\,L_n
-\]
-
-은 annual leaf litterfall flux이며 standing leaf biomass가 아니다. 따라서 leaf longevity를 곱해 leaf stock을 만드는 경우에는 추가 유도식임을 명시해야 한다.
+BIOME3 계보는 검토했지만 최종 방법론에서 제외한다. AGB 문제는 BIOME4 v4.2b2의 실제 source와 BIOME4 문헌만으로 해결한다. BIOME3의 biomass 식과 파라미터는 본 연구의 후보식으로 사용하지 않는다.
 
 ## IV-2. BIOME4 v4.2b2 source의 실제 값
 
@@ -667,7 +641,7 @@ L_f=60\,LAI
 
 현재 해결해야 할 문제:
 
-1. BIOME3의 (C_n=1.0)이 BIOME4 v4.2b2에서 사실상 0.5로 바뀐 문헌적 근거
+1. BIOME4 v4.2b2의 `stemcarbon=0.5`에 대한 BIOME4 문헌적 근거
 2. BIOME4를 사용해 total AGB 또는 vegetation carbon을 추정한 선행연구
 3. sapwood carbon에서 total aboveground biomass로 연결할 수 있는 BIOME4 계열의 공식 또는 allometry
 4. dry biomass 변환에 사용하는 (f_C)의 문헌 근거
