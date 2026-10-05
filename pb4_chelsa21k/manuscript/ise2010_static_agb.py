@@ -1,8 +1,10 @@
-"""Equilibrium leaf + aboveground stem biomass from total NPP and BIOME4 PFT.
+"""DIAGNOSTIC ONLY: equilibrium biomass from transferred Ise 2010 coefficients.
 
 Source: Ise et al. (2010), doi:10.1029/2010JG001326,
 Table 1, Appendix A equations A10-A15, and equations 10-11.
 
+The uncalibrated coefficients show substantial disagreement with the
+ForC/Luyssaert mature-forest diagnostic and are not validated for project use.
 This transfers the paper's TEMPERATE/BOREAL pooled VISIT parameterization
 to BIOME4 PFT4/5 and PFT6/7 respectively. It does not supply four distinct
 PFT calibrations and is not native BIOME4 code or a site validation.
@@ -63,6 +65,7 @@ def static_agb(npp: float, pft: int, carbon_fraction: float = 0.5) -> dict:
     conversion = 1000 * carbon_fraction
     coefficient = (a_leaf / p["kf"] + a_stem / p["ks"]) / conversion
     return {
+        "project_application_status": "uncalibrated_transfer_not_validated_for_project_use",
         "pft": pft,
         "parameter_group": group,
         "npp_gC_m2_yr": npp,
@@ -76,7 +79,7 @@ def static_agb(npp: float, pft: int, carbon_fraction: float = 0.5) -> dict:
         "agb_dry_kg_m2": (leaf_c + stem_c) / conversion,
         "coefficient_kgDM_per_gC_per_year": coefficient,
         "source_doi": "10.1029/2010JG001326",
-        "scope": "transferred temperate/boreal pooled equilibrium; not four separate PFT calibrations",
+        "scope": "diagnostic pooled equilibrium; poor ForC agreement; not four separate PFT calibrations",
     }
 
 
