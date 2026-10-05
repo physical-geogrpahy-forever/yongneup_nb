@@ -462,7 +462,11 @@ AGB* 수식과 참고문헌의 최종 기준:
 
     pb4_chelsa21k/manuscript/BIOME4_REICH_LAI_SAPWOOD_AGB_FINAL_METHOD_20261005_KO.md
 
-최종 과학모형 결정:
+최종 통합 package와 실행결과:
+
+    pb4_chelsa21k/results/final_integrated_20261006/FINAL_INTEGRATED_DECISION_KO.md
+
+최종 과학모형 결정 이력:
 
     pb4_chelsa21k/results/native_climate_final_20261005/FINAL_MODEL_DECISION_KO.md
 
@@ -473,6 +477,14 @@ AGB 최종 선택 결정:
 전체 모델 프로세스:
 
     pb4_chelsa21k/PB4_CHELSA21K_MODEL_AND_CLIMATE_KO.md
+
+최종 canonical SHA-256:
+
+    a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34
+
+Park 독립검증 정책:
+
+    pb4_chelsa21k/manuscript/PARK2021_INDEPENDENT_VALIDATION_POLICY_20261006_KO.md
 
 ## 19. 핵심 참고문헌
 
