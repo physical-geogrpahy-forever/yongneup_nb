@@ -1,0 +1,708 @@
+# VeSLEM / PB4 논문용 수식 원전 대조 및 HWP 입력 가이드
+
+작성 기준: 2026-10-05
+
+## 0. 사용 원칙
+
+이 문서는 다음 세 자료를 기준으로 수식을 대조한다.
+
+1. Pelletier et al. (2013), *Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect*.
+2. McKenzie, Gallant, & Gregory (2003), *Estimating Water Storage Capacities in Soil at Catchment Scales*.
+3. 2026 한국지형학회 VeSLEM 발표자료는 식의 조합 방식과 논문 서술 순서를 확인하기 위한 참고자료로만 사용한다.
+
+중요: `원문식`과 `현재 PB4 구현식`은 구분한다. Pelletier 또는 McKenzie에 없는 결합식을 해당 논문의 원식인 것처럼 인용하지 않는다.
+
+한/글 수식 편집기는 스크립트 입력에서 `OVER`, `SUM`, `INT`, `PARTIAL`, 위첨자 `^`, 아래첨자 `_` 등을 사용할 수 있다. 아래의 `HWP 입력`은 한/글 수식 편집기 하단 스크립트 입력창에 붙여넣는 것을 전제로 작성하였다.
+
+---
+
+# I. 논문 본문에 권장하는 최종 수식 체계
+
+## 1. EEMT
+
+### 1.1 Pelletier et al. (2013) 원식
+
+유효 에너지 및 물질 전달량(EEMT)은 유효강수 에너지와 생물생산 에너지의 합으로 정의한다.
+
+**원문 Eq. (1)**
+
+\[
+E_{PPT}=\Delta T\,C_w P_{eff}
+\]
+
+HWP 입력:
+
+```text
+E_{PPT}=Delta T C_w P_{eff}
+```
+
+**원문 Eq. (2)**
+
+\[
+E_{BIO}=NPP\,h_{BIO}
+\]
+
+HWP 입력:
+
+```text
+E_{BIO}=NPP h_{BIO}
+```
+
+따라서 개념적으로
+
+\[
+EEMT=E_{PPT}+E_{BIO}
+\]
+
+HWP 입력:
+
+```text
+EEMT=E_{PPT}+E_{BIO}
+```
+
+여기서 Pelletier 원문의 \(P_{eff}=PPT-ET\)이며, \(h_{BIO}=22\times10^6\,\mathrm{J\,kg^{-1}}\)이다.
+
+### 1.2 현재 PB4에서 실제 계산하는 월별 형태
+
+현재 PB4는 BIOME4의 월별 AET와 기후입력을 이용하여 Pelletier Eq. (1)-(2)를 다음처럼 계산한다.
+
+\[
+EEMT=
+\frac{C_w}{10^6}\sum_{m=1}^{12}T_m(P_m-AET_m)
++
+\frac{h_{BIO}}{10^6}
+\frac{\max(NPP_C,0)}{1000f_C}
+\]
+
+현재 코드에서 \(C_w=4186\,\mathrm{J\,kg^{-1}\,K^{-1}}\), \(h_{BIO}=22\times10^6\,\mathrm{J\,kg^{-1}}\), \(f_C=0.50\)이다. \(NPP_C\)는 BIOME4가 출력하는 탄소 기준 NPP(gC m⁻² yr⁻¹)이므로, dry biomass로 변환하기 위한 \(f_C\)가 들어간다.
+
+HWP 입력:
+
+```text
+EEMT={C_w OVER 10^6} SUM _{m=1}^{12} T_m (P_m-AET_m)+{h_{BIO} OVER 10^6}{max(NPP_C,0) OVER {1000 f_C}}
+```
+
+**논문 주의:** 발표자료의 EEMT 식은 `NPP/1000`만 사용하지만, 현재 PB4 코드는 `NPP/(1000 f_C)`를 사용한다. 따라서 현재 모델을 기술할 논문에서는 위 식을 쓰는 것이 정확하다. \(f_C=0.5\)의 출처 또는 모델 가정을 별도로 명시해야 한다.
+
+---
+
+## 2. 토양 수분보유능: McKenzie 개념 + PB4/BIOME4 층 구조
+
+### 2.1 McKenzie 원개념
+
+Profile available water capacity는 토양 프로파일 깊이에 걸쳐 \(-10\) kPa와 \(-1.5\) MPa에서의 체적수분함량 차이를 적분한 값이다.
+
+\[
+AWC_{profile}(H)=1000\int_0^H
+\left[\theta_{-10}(\xi)-\theta_{-1500}(\xi)\right]d\xi
+\]
+
+HWP 입력:
+
+```text
+AWC_{profile}(H)=1000 INT _0^H [theta_{-10}(xi)-theta_{-1500}(xi)] d xi
+```
+
+### 2.2 현재 PB4의 BIOME4 2층 적분식
+
+현재 PB4는 BIOME4의 native hydraulic depth인 0-0.30 m와 0.30-1.50 m를 유지한다.
+
+\[
+WHC(H,T)=WHC_{top}(H,T)+WHC_{bottom}(H,T)
+\]
+
+\[
+WHC_{top}=1000\int_0^{\min(H,0.30)}
+\left[\theta_{-10}(\xi,T)-\theta_{-1500}(\xi,T)\right]d\xi
+\]
+
+\[
+WHC_{bottom}=1000\int_{0.30}^{\min(\max(H,0.30),1.50)}
+\left[\theta_{-10}(\xi,T)-\theta_{-1500}(\xi,T)\right]d\xi
+\]
+
+HWP 입력:
+
+```text
+WHC(H,T)=WHC_{top}(H,T)+WHC_{bottom}(H,T)
+```
+
+```text
+WHC_{top}(H,T)=1000 INT _0^{min(H,0.30)} [theta_{-10}(xi,T)-theta_{-1500}(xi,T)] d xi
+```
+
+```text
+WHC_{bottom}(H,T)=1000 INT _{0.30}^{min(max(H,0.30),1.50)} [theta_{-10}(xi,T)-theta_{-1500}(xi,T)] d xi
+```
+
+이 식은 McKenzie가 제시한 profile AWC 정의를 SoilGrids 수분특성에 적용하고, BIOME4의 native 2층 수문구조에 맞춘 **PB4 결합식**이다. McKenzie 보고서 자체의 원식이라고 쓰면 안 된다.
+
+---
+
+## 3. 뿌리 접근성
+
+### 3.1 McKenzie 원식
+
+McKenzie 보고서의 깊이에 따른 root-density scaling은
+
+\[
+f(x)=\exp\left(-\frac{x}{X_i}\right)
+\]
+
+이다. \(X_i\)는 그 깊이보다 아래에 37%의 뿌리가 존재하는 특성깊이이다.
+
+HWP 입력:
+
+```text
+f(x)=exp(-{x OVER X_i})
+```
+
+McKenzie의 A horizon과 B horizon plant-available storage 원식은 다음과 같다.
+
+\[
+A_{Total}=AAWC\,X_i\left(1-e^{-d_A/X_i}\right)
+\]
+
+\[
+B_{Total}=BAWC\,X_i\left(e^{-d_A/X_i}-e^{-d_i/X_i}\right)
+\]
+
+HWP 입력:
+
+```text
+A_{Total}=AAWC X_i (1-exp(-{d_A OVER X_i}))
+```
+
+```text
+B_{Total}=BAWC X_i (exp(-{d_A OVER X_i})-exp(-{d_i OVER X_i}))
+```
+
+### 3.2 현재 PB4의 PFT별 finite-depth root coupling
+
+PB4는 BIOME4의 PFT별 상부 30 cm 뿌리비율 \(r_{30,p}\)을 사용하여 McKenzie 지수형식의 특성깊이를 분석적으로 구한다.
+
+\[
+X_p=-\frac{0.30}{\ln(1-r_{30,p})}
+\]
+
+HWP 입력:
+
+```text
+X_p=-{0.30 OVER ln(1-r_{30,p})}
+```
+
+유효 수문 깊이:
+
+\[
+D=\min[\max(H,0),1.50]
+\]
+
+HWP 입력:
+
+```text
+D=min(max(H,0),1.50)
+```
+
+상층 접근 뿌리비율:
+
+\[
+R_{top,p}=1-\exp\left[-\frac{\min(D,0.30)}{X_p}\right]
+\]
+
+HWP 입력:
+
+```text
+R_{top,p}=1-exp(-{min(D,0.30) OVER X_p})
+```
+
+하층 접근 뿌리비율:
+
+\[
+R_{bottom,p}=
+\begin{cases}
+0, & D\le0.30,\\
+\exp(-0.30/X_p)-\exp(-D/X_p), & D>0.30.
+\end{cases}
+\]
+
+HWP 입력:
+
+```text
+R_{bottom,p}=CASES{0 & D<=0.30 # exp(-{0.30 OVER X_p})-exp(-{D OVER X_p}) & D>0.30}
+```
+
+BIOME4 root-zone wetness는
+
+\[
+w_r=R_{top,p}w_{top}+R_{bottom,p}w_{bottom}
+\]
+
+HWP 입력:
+
+```text
+w_r=R_{top,p} w_{top}+R_{bottom,p} w_{bottom}
+```
+
+으로 계산한다.
+
+**출처 구분:** 지수형 root scaling은 McKenzie, \(r_{30,p}\)은 BIOME4/Jackson, \(X_p=-0.30/\ln(1-r_{30,p})\)은 둘을 연결하기 위한 분석적 변환이다. McKenzie (2003)가 BIOME4용으로 직접 제시한 식이 아니다.
+
+---
+
+# II. Pelletier et al. (2013) 원문 수식 전체와 HWP 입력
+
+아래는 원문 번호를 그대로 유지한다. 논문에서 사용 여부도 병기한다.
+
+## Eq. (1): 유효강수 에너지
+
+\[
+E_{PPT}=\Delta T C_w P_{eff}
+\]
+
+```text
+E_{PPT}=Delta T C_w P_{eff}
+```
+
+**PB4:** 사용. 월별 합으로 계산.
+
+## Eq. (2): 생물생산 에너지
+
+\[
+E_{BIO}=NPP\,h_{BIO}
+\]
+
+```text
+E_{BIO}=NPP h_{BIO}
+```
+
+**PB4:** 사용하되 BIOME4 carbon NPP를 dry biomass로 변환.
+
+## Eq. (3): Pelletier 논문의 월별 EEMT 회귀식
+
+\[
+\begin{aligned}
+EEMT_m={}&-3.13+0.00879(T+273.15)+0.562P\\
+&+0.0326(T-17.65)(P-9.0)\\
+&-0.00235VPD+0.00062(P-9.0)(VPD-662)
+\end{aligned}
+\]
+
+```text
+EEMT_m=-3.13+0.00879(T+273.15)+0.562P+0.0326(T-17.65)(P-9.0)-0.00235VPD+0.00062(P-9.0)(VPD-662)
+```
+
+**PB4:** 사용하지 않음. 현재 PB4는 Eq. (1)-(2)를 BIOME4의 AET/NPP로 직접 계산한다.
+
+## Eq. (4): lidar MCH에서 AGB 추정
+
+\[
+AGB=aMCH^b
+\]
+
+```text
+AGB=a MCH^b
+```
+
+**PB4:** 사용하지 않음.
+
+## Eq. (5): EEMT-AGB 관계
+
+\[
+AGB=e\exp(fEEMT)
+\]
+
+```text
+AGB=e exp(f EEMT)
+```
+
+**PB4:** 현재 사용하지 않음. 현재 코드는 `AGB = s_AGB max(NPP_C,0)` 프록시를 사용하므로 논문에서 Pelletier Eq. (5)를 썼다고 쓰면 틀림.
+
+## Eq. (6): 지표고도, 기반암고도, 토심 관계
+
+\[
+z=b+h
+\]
+
+```text
+z=b+h
+```
+
+**PB4:** 사용.
+
+## Eq. (7): 기반암/풍화전선 고도 변화
+
+\[
+\frac{\partial b}{\partial t}=U-\frac{P}{\cos\theta}
+\]
+
+```text
+{PARTIAL b OVER PARTIAL t}=U-{P OVER cos theta}
+```
+
+**PB4:** 기본 구조 사용. 실제 구현에서는 유수에 의한 기반암 침식항도 별도로 차감한다.
+
+## Eq. (8): 토심 변화
+
+\[
+\frac{\partial h}{\partial t}
+=\frac{\rho_b}{\rho_s}\frac{P}{\cos\theta}-E
+\]
+
+```text
+{PARTIAL h OVER PARTIAL t}={rho_b OVER rho_s}{P OVER cos theta}-E
+```
+
+**PB4:** 핵심 질량수지 구조.
+
+## Eq. (9): 토심 의존 토양생산
+
+\[
+P=P_0\exp\left(-\frac{h\cos\theta}{h_0}\right)
+\]
+
+```text
+P=P_0 exp(-{h cos theta OVER h_0})
+```
+
+**PB4:** 사용.
+
+## Eq. (10): EEMT 의존 잠재 토양생산율
+
+\[
+P_0=a\exp(bEEMT)
+\]
+
+```text
+P_0=a exp(b EEMT)
+```
+
+**PB4:** 사용. 기본값 \(a=0.037\), \(b=0.03\)은 Pelletier Table 1 계열.
+
+## Eq. (11): 사면물질수송에 따른 침식/퇴적
+
+\[
+E_c=\nabla\cdot\mathbf q
+\]
+
+```text
+E_c=∇ BULLET q
+```
+
+**PB4:** 질량수지에서 사용.
+
+## Eq. (12): 선형 사면확산
+
+\[
+\mathbf q=-k\nabla z
+\]
+
+```text
+q=-k ∇z
+```
+
+**PB4:** 직접 사용하지 않고 Eq. (14)의 비선형, 토심의존식을 사용.
+
+## Eq. (13): 비선형 사면수송
+
+\[
+\mathbf q=-\frac{k\nabla z}{1-(|\nabla z|/S_c)^2}
+\]
+
+```text
+q=-{k ∇z OVER {1-({|∇z| OVER S_c})^2}}
+```
+
+**PB4:** 중간 원형. 최종은 Eq. (14).
+
+## Eq. (14): 토심의존 비선형 사면수송
+
+\[
+\mathbf q=-\frac{k_d h\cos\theta\,\nabla z}
+{1-(|\nabla z|/S_c)^2}
+\]
+
+```text
+q=-{k_d h cos theta ∇z OVER {1-({|∇z| OVER S_c})^2}}
+```
+
+**PB4:** 사용. 수치구현에서는 face-average \(k_d\), \(h\)와 공급제약을 적용한다.
+
+## Eq. (15): EEMT와 AGB에 따른 사면수송계수
+
+\[
+k_d=c\,EEMT+d\,AGB
+\]
+
+```text
+k_d=c EEMT+d AGB
+```
+
+**PB4:** 사용. \(c=0.033\), \(d=0.05\)를 기본값으로 유지.
+
+## Eq. (16): slope-wash/fluvial erosion
+
+\[
+E_f=K\frac{A}{w}|\nabla z|
+\]
+
+```text
+E_f=K {A OVER w}|∇z|
+```
+
+**PB4:** 사용. 실제 계산에서는 flow-direction slope \(S_f\)를 사용하고 가용토심으로 regolith removal을 제한한다.
+
+## Eq. (17): 유로폭
+
+\[
+w=gA^i
+\]
+
+```text
+w=g A^i
+```
+
+**PB4:** 사용. 다만 hillslope/valley의 \(A/w\) 판정에는 Pelletier (2010)의 격자의존성 분류가 추가된다.
+
+## Eq. (18): EEMT 의존 유수침식계수
+
+\[
+K=\frac{K_0}{EEMT}
+\]
+
+```text
+K={K_0 OVER EEMT}
+```
+
+**PB4:** 사용.
+
+## Eq. (19): 토양생산의 Euler update
+
+\[
+h_{i,j}(t+\Delta t)
+=h_{i,j}(t)
++\Delta t\frac{\rho_b}{\rho_s}\frac{P_0}{\cos\theta}
+\exp\left[-\frac{h(t)\cos\theta}{h_0}\right]
+\]
+
+```text
+h_{i,j}(t+Delta t)=h_{i,j}(t)+Delta t {rho_b OVER rho_s}{P_0 OVER cos theta} exp(-{h(t) cos theta OVER h_0})
+```
+
+**PB4:** 동일 질량수지 원리를 사용.
+
+## Eq. (20): x 방향 face flux
+
+\[
+q_{x,i+1/2,j}=-k_d
+\frac{\frac12(h_{i+1,j}+h_{i,j})
+\left(\frac{z_{i+1,j}-z_{i,j}}{\Delta x}\right)}
+{1-\left[\frac{z_{i+1,j}-z_{i,j}}{\Delta x S_c}\right]^2}
+\]
+
+```text
+q_{x,i+1/2,j}=-k_d {{1 OVER 2}(h_{i+1,j}+h_{i,j}){(z_{i+1,j}-z_{i,j}) OVER Delta x} OVER {1-({z_{i+1,j}-z_{i,j} OVER {Delta x S_c}})^2}}
+```
+
+## Eq. (21): y 방향 face flux
+
+\[
+q_{y,i,j+1/2}=-k_d
+\frac{\frac12(h_{i,j+1}+h_{i,j})
+\left(\frac{z_{i,j+1}-z_{i,j}}{\Delta x}\right)}
+{1-\left[\frac{z_{i,j+1}-z_{i,j}}{\Delta x S_c}\right]^2}
+\]
+
+```text
+q_{y,i,j+1/2}=-k_d {{1 OVER 2}(h_{i,j+1}+h_{i,j}){(z_{i,j+1}-z_{i,j}) OVER Delta x} OVER {1-({z_{i,j+1}-z_{i,j} OVER {Delta x S_c}})^2}}
+```
+
+## Eq. (22): FTCS 질량보존
+
+\[
+\begin{aligned}
+h_{i,j}(t+\Delta t)=h_{i,j}(t)
+&-\frac{\Delta t}{\Delta x}
+(q_{x,i+1/2,j}-q_{x,i-1/2,j})\\
+&-\frac{\Delta t}{\Delta x}
+(q_{y,i,j+1/2}-q_{y,i,j-1/2}).
+\end{aligned}
+\]
+
+```text
+h_{i,j}(t+Delta t)=h_{i,j}(t)-{Delta t OVER Delta x}(q_{x,i+1/2,j}-q_{x,i-1/2,j})-{Delta t OVER Delta x}(q_{y,i,j+1/2}-q_{y,i,j-1/2})
+```
+
+**PB4:** 이 finite-volume/explicit 구조를 따르되, 초임계경사 처리, donor supply positivity constraint, adaptive timestep, open fixed-base-level boundary가 추가된다.
+
+---
+
+# III. 현재 PB4의 지형발달식을 논문에 한 식으로 제시할 경우
+
+발표자료의 결합식은 Pelletier Eqs. (8)-(18)을 하나의 토심 방정식으로 묶은 것이다. 현재 PB4 구조를 설명하는 개념식으로는 다음이 가장 적절하다.
+
+\[
+\frac{\partial H}{\partial t}
+=
+\frac{\rho_r}{\rho_s\cos\theta}
+\left[a\exp(b_E EEMT)\right]
+\exp\left(-\frac{H\cos\theta}{H_0}\right)
++
+\nabla\cdot
+\left[
+\frac{(c_EEEMT+c_AAGB)H\nabla z}
+{1-(|\nabla z|/S_c)^2}
+\right]
+-
+E_{f,reg}
+\]
+
+여기서 PB4의 regolith fluvial erosion은
+
+\[
+E_{f,pot}=\frac{K_0}{EEMT}\frac{A}{w}S_f
+\]
+
+\[
+E_{f,reg}=\min\left(E_{f,pot},\frac{H_{avail}}{\Delta t}\right)
+\]
+
+로 공급제약을 적용한다.
+
+HWP 입력:
+
+```text
+{PARTIAL H OVER PARTIAL t}={rho_r OVER {rho_s cos theta}}[a exp(b_E EEMT)]exp(-{H cos theta OVER H_0})+∇ BULLET [{(c_E EEMT+c_A AGB)H ∇z OVER {1-({|∇z| OVER S_c})^2}}]-E_{f,reg}
+```
+
+```text
+E_{f,pot}={K_0 OVER EEMT}{A OVER w}S_f
+```
+
+```text
+E_{f,reg}=min(E_{f,pot},{H_{avail} OVER Delta t})
+```
+
+**중요:** `min(H_avail/Δt)` 공급제약과 Pelletier (2010) 기반의 \(A/w\) 분류는 Pelletier et al. (2013) 원문 Eq. (16) 자체가 아니라 PB4 수치구현의 확장이다. 논문에는 “following Pelletier et al. (2013), with a finite regolith-supply constraint”와 같이 구분해서 써야 한다.
+
+---
+
+# IV. AGB 항: 현재 논문 작성에서 가장 주의할 부분
+
+Pelletier 원문은 Eq. (5)
+
+\[
+AGB=e\exp(fEEMT)
+\]
+
+을 수치모델에 사용한다.
+
+그러나 현재 PB4 코드는 BIOME4가 standing AGB를 직접 출력하지 않기 때문에
+
+\[
+AGB=s_{AGB}\max(NPP_C,0)
+\]
+
+을 프록시로 사용하며 현재 \(s_{AGB}=0.010\)이다.
+
+HWP 입력:
+
+```text
+AGB=s_{AGB} max(NPP_C,0)
+```
+
+이 식은 **Pelletier et al. (2013)의 원식이 아니다.** 현재 코드 감사에서도 provenance가 미해결인 coupling bridge로 분류되어 있다. 따라서 학술논문에서는 다음 중 하나가 필요하다.
+
+1. 현행 프록시를 사용하되 명시적인 모델 가정으로 밝히고 근거 문헌을 추가하거나,
+2. Pelletier Eq. (5)로 실제 코드를 변경하고 재검증하거나,
+3. BIOME4 NPP에서 standing AGB를 추정하는 별도 문헌 기반 관계를 채택하고 재검증한다.
+
+이 문제를 숨기고 “Pelletier et al. (2013)에 따라 AGB를 계산하였다”고 쓰면 방법론적으로 부정확하다.
+
+---
+
+# V. McKenzie 원문과 현재 PB4의 관계를 논문에 쓰는 방식
+
+권장 서술:
+
+> 토심에 따른 토양 수분저장량은 McKenzie et al. (2003)의 profile available water capacity 정의에 따라, \(-10\) kPa와 \(-1500\) kPa에서의 체적수분함량 차이를 토심까지 적분하여 계산하였다. BIOME4의 기존 2층 수문구조를 유지하기 위해 적분 구간은 0-0.30 m와 0.30-1.50 m로 구분하였다. 뿌리 접근성은 McKenzie et al. (2003)의 지수형 깊이 가중함수와 BIOME4의 PFT별 상부 30 cm 뿌리분율을 결합하여 산정하였다.
+
+피해야 할 서술:
+
+> “McKenzie et al. (2003)의 BIOME4 토심모형을 사용하였다.”
+
+McKenzie 보고서는 BIOME4 확장을 제안한 문헌이 아니므로 이 표현은 틀리다.
+
+---
+
+# VI. 변수 정의 표
+
+| 기호 | 의미 | 대표 단위 | 출처/상태 |
+|---|---|---|---|
+| \(z\) | 지표고도 | m | Pelletier Eq. 6 |
+| \(b\) | 기반암/풍화전선 고도 | m | Pelletier Eq. 6-7 |
+| \(H,h\) | 토심/레골리스 두께 | m | Pelletier Eq. 6-9 |
+| \(U\) | 융기율 | m kyr⁻¹ | Pelletier Eq. 7, 용늪에서는 별도 지역값 |
+| \(P\) | 기반암 풍화/후퇴율 | m kyr⁻¹ | Pelletier Eq. 9 |
+| \(P_0\) | 잠재 풍화율 | m kyr⁻¹ | Pelletier Eq. 10 |
+| \(H_0,h_0\) | 풍화 특성깊이 | m | Pelletier Eq. 9 |
+| \(\rho_r/\rho_s\) | 기반암/레골리스 밀도비 | - | Pelletier Table 1 |
+| EEMT | 유효 에너지 및 물질 전달량 | MJ m⁻² yr⁻¹ | Pelletier Eq. 1-3 |
+| AGB | 지상부 생물량 | kg m⁻² | Pelletier Eq. 4-5, PB4에서는 NPP proxy |
+| \(k_d\) | 토심의존 사면수송계수 | m kyr⁻¹ | Pelletier Eq. 15 |
+| \(S_c\) | 임계경사 | - | Pelletier Eq. 13-14, PB4 지역 설정값 별도 |
+| \(E_f\) | 유수침식률 | m kyr⁻¹ | Pelletier Eq. 16 |
+| \(K\) | 유수침식계수 | kyr⁻¹ | Pelletier Eq. 16, 18 |
+| \(K_0\) | EEMT-유수침식 기준계수 | m² MJ⁻¹ | Pelletier Eq. 18 |
+| \(A\) | 기여면적 | m² | Pelletier Eq. 16-17 |
+| \(w\) | 유효 유로폭 | m | Pelletier Eq. 16-17 |
+| \(S_f\) | 유로방향 경사 | - | PB4 Eq.16 구현 |
+| \(\theta_{-10}\) | -10 kPa 체적수분함량 | m³ m⁻³ | McKenzie/SoilGrids |
+| \(\theta_{-1500}\) | -1500 kPa 체적수분함량 | m³ m⁻³ | McKenzie/SoilGrids |
+| \(X_i\) | root scaling 특성깊이 | m | McKenzie p.13 |
+| \(r_{30,p}\) | PFT p의 상부 30 cm 누적 뿌리분율 | - | BIOME4/Jackson |
+| \(R_{top,p},R_{bottom,p}\) | 실제 토심에서 접근 가능한 PFT별 뿌리비율 | - | PB4 coupling |
+
+---
+
+# VII. 원문 파라미터와 용늪 모델을 혼동하지 말아야 할 항목
+
+Pelletier et al. (2013) Table 1은 원 연구지역의 수치모델에 대해 \(S_c=0.7\), \(U=0.05\,m\,kyr^{-1}\) 등을 사용한다. 용늪 VeSLEM/PB4에서는 지역 설정과 수치 안정성 검증을 통해 다른 값을 사용할 수 있으므로, **수식은 원문을 따르더라도 파라미터 값까지 원문과 동일하다고 쓰면 안 된다.**
+
+반대로 현재 모델에서 원문 기본값을 유지하는 주요 계수는 \(a=0.037\), \(b=0.03\), \(c=0.033\), \(d=0.05\), \(h_0=0.5\), \(K_0=0.02\), \(g=0.005\), \(i=0.5\), \(F=10\), \(\rho_b/\rho_s=1.8\) 계열이다. 실제 제출 논문에서는 최종 실행 configuration을 다시 읽어 최종 숫자를 고정해야 한다.
+
+---
+
+# VIII. 논문 Methods에서 실제로 제시할 수식의 최소 세트
+
+본문이 너무 길어지는 것을 피하려면 다음 8개 묶음을 본문에 제시하고, Pelletier Eq. (19)-(22)는 보충자료로 보내는 구성이 가장 자연스럽다.
+
+1. EEMT: Pelletier Eq. (1)-(2)를 월별 합산한 현재 PB4 식
+2. Profile AWC/WHC: McKenzie 정의 + BIOME4 2층 적분식
+3. PFT별 finite-depth root accessibility
+4. \(z=b+H\), 기반암/토심 질량수지
+5. \(P=P_0e^{-H\cos\theta/H_0}\), \(P_0=ae^{bEEMT}\)
+6. \(q=-k_dH\cos\theta\nabla z/[1-(|\nabla z|/S_c)^2]\), \(k_d=cEEMT+dAGB\)
+7. \(E_f=(K_0/EEMT)(A/w)S_f\), \(w=gA^i\)
+8. 실제 가용토심을 넘지 않는 fluvial supply constraint
+
+---
+
+# IX. 참고문헌 표기
+
+Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorover, J., Durcik, M., Harman, C. J., Huxman, T. E., Lohse, K. A., Lybrand, R., Meixner, T., McIntosh, J. C., Papuga, S. A., Rasmussen, C., Schaap, M., Swetnam, T. L., & Troch, P. A. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. *Journal of Geophysical Research: Earth Surface, 118*(2), 741-758. https://doi.org/10.1002/jgrf.20046
+
+McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). *Estimating water storage capacities in soil at catchment scales* (Technical Report 03/3). Cooperative Research Centre for Catchment Hydrology.
+
+---
+
+# X. 최종 체크리스트
+
+- Pelletier Eq. (1)-(22)와 현재 PB4 식을 동일시하지 않는다.
+- EEMT 회귀식 Eq. (3)은 현재 PB4에서 사용하지 않는다.
+- Pelletier Eq. (5) AGB-EEMT식도 현재 PB4에서 사용하지 않는다.
+- 현재 PB4의 `NPP -> AGB` 프록시는 별도 가정으로 명시한다.
+- McKenzie의 root scaling과 PB4/Jackson 기반 PFT별 root-depth 변환을 구분한다.
+- PPT Eq. (2)의 NPP 생물량 변환은 현재 코드의 carbon fraction 0.5를 반영해 수정한다.
+- PPT Eq. (3)의 WHC 식은 원문 McKenzie 식이 아니라 PB4/BIOME4 결합식으로 표기한다.
+- Pelletier Table 1의 원 연구지역 파라미터와 용늪 최종 configuration을 구분한다.
+- 최종 제출 전에는 `PB4-McKenzie-nativeClimate` 최종 ZIP의 configuration에서 U, Sc, 시간간격, 격자크기 등을 다시 고정한다.
