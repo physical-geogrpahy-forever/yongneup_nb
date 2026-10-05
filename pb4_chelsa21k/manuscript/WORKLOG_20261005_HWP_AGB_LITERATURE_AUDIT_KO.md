@@ -753,7 +753,7 @@ Malhi et al. (2017). New Phytologist. DOI: 10.1111/nph.14189.
 이 문서는 이 지점의 인계 기준이다.
 
 
-# 17. Pelletier Eq. (5) AGB 원식 후보 실험 — 실행 중
+# 17. Pelletier Eq. (5) AGB 원식 후보 실험 — 완료 및 기각
 
 현재 잠정적 최종 baseline은 변경하지 않고 별도 candidate로 AGB bridge만 교체하여 21-0 ka 전체를 새로 실행한다.
 
@@ -833,7 +833,15 @@ GitHub Actions run:
 
 `37261891795`
 
-현재 상태 기록 시점: full 21-0 ka candidate step 실행 중.
+새 21-0 ka 전체 실행 결과를 복구해 확인했다.
+
+- 성공 실행: GitHub Actions run `37261755927`, job `111610259666`
+- 모델 실행 자체는 성공
+- 마지막 원격 push만 non-fast-forward 충돌로 실패했으며, Actions 로그의 실제 출력값을 복구해 원격 저장소에 기록함
+- recovered 결과:
+  - `pb4_chelsa21k/results/pelletier_agb_candidate_20261005/PELLETIER_AGB_EQ5_JANG1PCT_SUMMARY_RECOVERED.csv`
+  - `pb4_chelsa21k/results/pelletier_agb_candidate_20261005/PELLETIER_AGB_EQ5_VS_WANG_SUMMARY_RECOVERED.csv`
+  - `pb4_chelsa21k/results/pelletier_agb_candidate_20261005/PELLETIER_AGB_EQ5_RUN_RECOVERED_KO.md`
 
 예정 핵심 출력:
 
@@ -847,4 +855,42 @@ GitHub Actions run:
 - `PELLETIER_AGB_CANDIDATE.patch`
 - `PELLETIER_AGB_21KA_RUN.log`
 
-**중요:** 이 candidate가 완료되기 전 기존 55/62 = 88.71%를 새 AGB 결과로 간주하지 않는다. 새 실행의 실제 Jang 정확도와 지형결과를 별도로 판정한다.
+## 17.4 새 실행 결과
+
+Jang 1% 검증:
+
+- static: 24/62 = 38.709677%
+- dynamic: 54/62 = 87.096774%
+
+즉 static은 baseline과 동일하지만 dynamic은 baseline 55/62 = 88.709677%보다 1개 시점 낮아졌다.
+
+Pelletier Eq. (5) AGB 규모:
+
+- static, 211시점 유역평균의 시간평균: 3414.11 kg m^-2
+- static, 시간별 유역평균 범위: 172.94-12836.98 kg m^-2
+- static, 전체 셀 절대최대: 13567.40 kg m^-2
+- dynamic, 211시점 유역평균의 시간평균: 3487.47 kg m^-2
+- dynamic, 시간별 유역평균 범위: 153.43-13007.80 kg m^-2
+- dynamic, 전체 셀 절대최대: 23991.11 kg m^-2
+
+Wang et al. (2011) 독립 BIOME4 vegetation-carbon 진단:
+
+- static, 시간별 유역평균의 평균: 4.142 kg C m^-2
+- static 범위: 2.655-6.266 kg C m^-2
+- dynamic, 시간별 유역평균의 평균: 3.780 kg C m^-2
+- dynamic 범위: 2.372-6.171 kg C m^-2
+
+단위와 정의가 다르므로 Pelletier AGB와 Wang Cveg를 직접 같은 값으로 보지는 않는다. 다만 Pelletier Eq. (5)의 Arizona 계수를 현재 PB4 EEMT에 무보정 적용하면 용늪에서 AGB가 수백에서 수만 kg m^-2까지 폭증하므로 물리적으로 사용할 수 없다.
+
+## 17.5 판정
+
+**Pelletier Eq. (5) 원 계수의 용늪 무보정 이식은 기각한다.**
+
+이유:
+
+1. AGB 크기가 비현실적이다.
+2. Wang BIOME4 vegetation-carbon 진단과 규모가 극단적으로 다르다.
+3. Jang dynamic 검증도 88.71%에서 87.10%로 소폭 악화된다.
+4. Pelletier의 (e,f)를 용늪에 맞춰 다시 적합하면 결국 지역 경험보정이 되므로 현재 목표인 누더기 없는 모델과 맞지 않는다.
+
+따라서 기존 canonical baseline은 유지한다. 다음 해결은 BIOME4 자체의 biomass/carbon 체계에서 하나의 일관된 식생상태변수를 정의할 수 있는지 문헌적으로 확인한 뒤 진행한다.
