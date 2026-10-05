@@ -1,0 +1,1496 @@
+{
+  "application_decision": "do_not_adopt_unadjusted_transferred_coefficients_as_validated_project_parameters",
+  "model_source_doi": "10.1029/2010JG001326",
+  "forc_commit": "407c520e6350917bca42e6bf7d5031dbcc551362",
+  "input_pairs_file": "BIOME4_LUYSSAERT_FORC_DIAGNOSTIC_PAIRS_20261005.csv",
+  "input_pairs_sha256": "d66ff1601a07df41b393e129eab4666ca3a3e0a1d5557a801bef63f8e849e736",
+  "input_pair_rows": 44,
+  "fit_performed": false,
+  "method": "median pair prediction/observation ratio per plot, then equal plot weight per PFT",
+  "maturity_note": "both reported ages >=100; 999 is a mature-forest flag, not literal measured age",
+  "caution": "diagnostic mature stands are not certified undisturbed mathematical equilibria; small PFT7 sample",
+  "summaries": {
+    "all_selected": [
+      {
+        "pft": 4,
+        "plots": 8,
+        "median_predicted_over_observed": 0.7834397224538279,
+        "mean_absolute_percent_error_of_plot_ratios": 29.075346420405296,
+        "minimum_predicted_over_observed": 0.5657694536200664,
+        "maximum_predicted_over_observed": 1.7070726390866708
+      },
+      {
+        "pft": 5,
+        "plots": 17,
+        "median_predicted_over_observed": 0.4886370496619212,
+        "mean_absolute_percent_error_of_plot_ratios": 45.56238315271345,
+        "minimum_predicted_over_observed": 0.16231274400750517,
+        "maximum_predicted_over_observed": 1.1765834103399755
+      },
+      {
+        "pft": 6,
+        "plots": 8,
+        "median_predicted_over_observed": 2.272955210663202,
+        "mean_absolute_percent_error_of_plot_ratios": 154.46189316909837,
+        "minimum_predicted_over_observed": 1.3018976503543411,
+        "maximum_predicted_over_observed": 4.976982252530596
+      },
+      {
+        "pft": 7,
+        "plots": 2,
+        "median_predicted_over_observed": 5.144815591587393,
+        "mean_absolute_percent_error_of_plot_ratios": 414.4815591587393,
+        "minimum_predicted_over_observed": 1.8098783549409136,
+        "maximum_predicted_over_observed": 8.479752828233872
+      }
+    ],
+    "calendar_year_overlap": [
+      {
+        "pft": 4,
+        "plots": 7,
+        "median_predicted_over_observed": 0.783974535483884,
+        "mean_absolute_percent_error_of_plot_ratios": 27.025673817892716,
+        "minimum_predicted_over_observed": 0.6926401633636122,
+        "maximum_predicted_over_observed": 1.7070726390866708
+      },
+      {
+        "pft": 5,
+        "plots": 15,
+        "median_predicted_over_observed": 0.4886370496619212,
+        "mean_absolute_percent_error_of_plot_ratios": 48.3059303761531,
+        "minimum_predicted_over_observed": 0.16231274400750517,
+        "maximum_predicted_over_observed": 1.0566190805879596
+      },
+      {
+        "pft": 6,
+        "plots": 8,
+        "median_predicted_over_observed": 2.2473047317165573,
+        "mean_absolute_percent_error_of_plot_ratios": 157.0902614427694,
+        "minimum_predicted_over_observed": 1.5634680701413126,
+        "maximum_predicted_over_observed": 4.976982252530596
+      },
+      {
+        "pft": 7,
+        "plots": 1,
+        "median_predicted_over_observed": 1.8098783549409136,
+        "mean_absolute_percent_error_of_plot_ratios": 80.98783549409137,
+        "minimum_predicted_over_observed": 1.8098783549409136,
+        "maximum_predicted_over_observed": 1.8098783549409136
+      }
+    ],
+    "overlap_and_same_age": [
+      {
+        "pft": 4,
+        "plots": 6,
+        "median_predicted_over_observed": 0.7834397224538279,
+        "mean_absolute_percent_error_of_plot_ratios": 31.455477684824228,
+        "minimum_predicted_over_observed": 0.6926401633636122,
+        "maximum_predicted_over_observed": 1.7070726390866708
+      },
+      {
+        "pft": 5,
+        "plots": 14,
+        "median_predicted_over_observed": 0.48088763544624835,
+        "mean_absolute_percent_error_of_plot_ratios": 49.93660526080692,
+        "minimum_predicted_over_observed": 0.16231274400750517,
+        "maximum_predicted_over_observed": 1.0566190805879596
+      },
+      {
+        "pft": 6,
+        "plots": 8,
+        "median_predicted_over_observed": 2.2473047317165573,
+        "mean_absolute_percent_error_of_plot_ratios": 157.0902614427694,
+        "minimum_predicted_over_observed": 1.5634680701413126,
+        "maximum_predicted_over_observed": 4.976982252530596
+      },
+      {
+        "pft": 7,
+        "plots": 1,
+        "median_predicted_over_observed": 1.8098783549409136,
+        "mean_absolute_percent_error_of_plot_ratios": 80.98783549409137,
+        "minimum_predicted_over_observed": 1.8098783549409136,
+        "maximum_predicted_over_observed": 1.8098783549409136
+      }
+    ]
+  },
+  "plot_scores": [
+    {
+      "subset": "all_selected",
+      "pft": 7,
+      "site": "Aheden",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.8098783549409136
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Andrews 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.23661704907649947
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Andrews 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.4886370496619212
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Andrews 12",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2683417045237001
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Andrews 7",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.9853906211538231
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Andrews 8",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.4731382212305756
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Andrews 9",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.49749163193797885
+    },
+    {
+      "subset": "all_selected",
+      "pft": 4,
+      "site": "Ashu Kyoto",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.783974535483884
+    },
+    {
+      "subset": "all_selected",
+      "pft": 4,
+      "site": "Aubure (Natural regeneration)",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.6926401633636122
+    },
+    {
+      "subset": "all_selected",
+      "pft": 6,
+      "site": "Bonanza FP4",
+      "plot": "unmanaged floodplain forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 2.304281609032627
+    },
+    {
+      "subset": "all_selected",
+      "pft": 6,
+      "site": "Bonanza FP5",
+      "plot": "unmanaged floodplain forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 4.976982252530596
+    },
+    {
+      "subset": "all_selected",
+      "pft": 6,
+      "site": "Bonanza UP3",
+      "plot": "unmanaged upland forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 2.3736515077188383
+    },
+    {
+      "subset": "all_selected",
+      "pft": 4,
+      "site": "Bornhoved Beech",
+      "plot": "Managed",
+      "pair_rows": 2,
+      "plot_median_predicted_over_observed": 0.8588432224312161
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Cascade Head (1)",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.38733389789005107
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Cascade Head 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2537084759217526
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Cascade Head 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.19070214659494902
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Cascade Head 12",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.16231274400750517
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Coulissenhieb",
+      "plot": "planted Picea abies in 1850",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.0566190805879596
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Frazer old",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.1765834103399755
+    },
+    {
+      "subset": "all_selected",
+      "pft": 4,
+      "site": "Gribskov",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.7354206652569459
+    },
+    {
+      "subset": "all_selected",
+      "pft": 4,
+      "site": "Hainich",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.5657694536200664
+    },
+    {
+      "subset": "all_selected",
+      "pft": 4,
+      "site": "Hubbard brook",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.7070726390866708
+    },
+    {
+      "subset": "all_selected",
+      "pft": 6,
+      "site": "Jadraas Class I",
+      "plot": "Managed-120-y",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 3.5985468210997302
+    },
+    {
+      "subset": "all_selected",
+      "pft": 6,
+      "site": "Kuusamo",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.9356745921312297
+    },
+    {
+      "subset": "all_selected",
+      "pft": 4,
+      "site": "Lei-135+15",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.9614919758747508
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Metolius 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.6629586873625553
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Metolius 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2695328999624954
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Metolius 7",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.994038691714944
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "pair_rows": 6,
+      "plot_median_predicted_over_observed": 0.6966009466345693
+    },
+    {
+      "subset": "all_selected",
+      "pft": 6,
+      "site": "Prince Albert SSA (SOBS)",
+      "plot": "natural regeneration after 1879 wildfire",
+      "pair_rows": 2,
+      "plot_median_predicted_over_observed": 2.2416288122937775
+    },
+    {
+      "subset": "all_selected",
+      "pft": 4,
+      "site": "Schacht",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.7829049094237718
+    },
+    {
+      "subset": "all_selected",
+      "pft": 5,
+      "site": "Tharandt",
+      "plot": "Managed",
+      "pair_rows": 2,
+      "plot_median_predicted_over_observed": 0.9207925872933274
+    },
+    {
+      "subset": "all_selected",
+      "pft": 6,
+      "site": "Thompson NSA (NOBS)",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.6242882083667305
+    },
+    {
+      "subset": "all_selected",
+      "pft": 7,
+      "site": "Tura",
+      "plot": "natural regeneration after fire.Larix gmelinii forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 8.479752828233872
+    },
+    {
+      "subset": "all_selected",
+      "pft": 6,
+      "site": "Yenisei/Zotino",
+      "plot": "Managed",
+      "pair_rows": 2,
+      "plot_median_predicted_over_observed": 1.3018976503543411
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 7,
+      "site": "Aheden",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.8098783549409136
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Andrews 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.23661704907649947
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Andrews 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.4886370496619212
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Andrews 12",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2683417045237001
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Andrews 7",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.9853906211538231
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Andrews 8",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.4731382212305756
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Andrews 9",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.49749163193797885
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 4,
+      "site": "Ashu Kyoto",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.783974535483884
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 4,
+      "site": "Aubure (Natural regeneration)",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.6926401633636122
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 6,
+      "site": "Bonanza FP4",
+      "plot": "unmanaged floodplain forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 2.304281609032627
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 6,
+      "site": "Bonanza FP5",
+      "plot": "unmanaged floodplain forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 4.976982252530596
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 6,
+      "site": "Bonanza UP3",
+      "plot": "unmanaged upland forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 2.3736515077188383
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 4,
+      "site": "Bornhoved Beech",
+      "plot": "Managed",
+      "pair_rows": 2,
+      "plot_median_predicted_over_observed": 0.8588432224312161
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Cascade Head 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2537084759217526
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Cascade Head 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.19070214659494902
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Cascade Head 12",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.16231274400750517
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Coulissenhieb",
+      "plot": "planted Picea abies in 1850",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.0566190805879596
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 4,
+      "site": "Gribskov",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.7354206652569459
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 4,
+      "site": "Hubbard brook",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.7070726390866708
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 6,
+      "site": "Jadraas Class I",
+      "plot": "Managed-120-y",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 3.5985468210997302
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 6,
+      "site": "Kuusamo",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.9356745921312297
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 4,
+      "site": "Lei-135+15",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.9614919758747508
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Metolius 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.6629586873625553
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Metolius 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2695328999624954
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Metolius 7",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.994038691714944
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.5826244209262909
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 6,
+      "site": "Prince Albert SSA (SOBS)",
+      "plot": "natural regeneration after 1879 wildfire",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 2.190327854400487
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 4,
+      "site": "Schacht",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.7829049094237718
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 5,
+      "site": "Tharandt",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.7452351800900043
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 6,
+      "site": "Thompson NSA (NOBS)",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.6242882083667305
+    },
+    {
+      "subset": "calendar_year_overlap",
+      "pft": 6,
+      "site": "Yenisei/Zotino",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.5634680701413126
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 7,
+      "site": "Aheden",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.8098783549409136
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Andrews 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.23661704907649947
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Andrews 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.4886370496619212
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Andrews 12",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2683417045237001
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Andrews 7",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.9853906211538231
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Andrews 8",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.4731382212305756
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Andrews 9",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.49749163193797885
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 4,
+      "site": "Ashu Kyoto",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.783974535483884
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 4,
+      "site": "Aubure (Natural regeneration)",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.6926401633636122
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 6,
+      "site": "Bonanza FP4",
+      "plot": "unmanaged floodplain forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 2.304281609032627
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 6,
+      "site": "Bonanza FP5",
+      "plot": "unmanaged floodplain forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 4.976982252530596
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 6,
+      "site": "Bonanza UP3",
+      "plot": "unmanaged upland forest",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 2.3736515077188383
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 4,
+      "site": "Bornhoved Beech",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.8248037044690033
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Cascade Head 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2537084759217526
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Cascade Head 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.19070214659494902
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Cascade Head 12",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.16231274400750517
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Coulissenhieb",
+      "plot": "planted Picea abies in 1850",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.0566190805879596
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 4,
+      "site": "Gribskov",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.7354206652569459
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 4,
+      "site": "Hubbard brook",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.7070726390866708
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 6,
+      "site": "Jadraas Class I",
+      "plot": "Managed-120-y",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 3.5985468210997302
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 6,
+      "site": "Kuusamo",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.9356745921312297
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Metolius 10",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.6629586873625553
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Metolius 11",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.2695328999624954
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Metolius 7",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.994038691714944
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.5826244209262909
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 6,
+      "site": "Prince Albert SSA (SOBS)",
+      "plot": "natural regeneration after 1879 wildfire",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 2.190327854400487
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 4,
+      "site": "Schacht",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 0.7829049094237718
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 6,
+      "site": "Thompson NSA (NOBS)",
+      "plot": "unmanaged",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.6242882083667305
+    },
+    {
+      "subset": "overlap_and_same_age",
+      "pft": 6,
+      "site": "Yenisei/Zotino",
+      "plot": "Managed",
+      "pair_rows": 1,
+      "plot_median_predicted_over_observed": 1.5634680701413126
+    }
+  ],
+  "pair_scores": [
+    {
+      "pft": 7,
+      "site": "Aheden",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "99.0",
+      "measurement_ID_agb": "87.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 301.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 14.86,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 26.894792354421977,
+      "predicted_over_observed": 1.8098783549409136
+    },
+    {
+      "pft": 5,
+      "site": "Andrews 10",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "370.0",
+      "measurement_ID_agb": "379.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 521.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 87.058,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 20.599407058501892,
+      "predicted_over_observed": 0.23661704907649947
+    },
+    {
+      "pft": 5,
+      "site": "Andrews 11",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "394.0",
+      "measurement_ID_agb": "403.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 909.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 73.552,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 35.94023227673363,
+      "predicted_over_observed": 0.4886370496619212
+    },
+    {
+      "pft": 5,
+      "site": "Andrews 12",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "418.0",
+      "measurement_ID_agb": "427.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 636.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 93.71000000000001,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 25.14630113091594,
+      "predicted_over_observed": 0.2683417045237001
+    },
+    {
+      "pft": 5,
+      "site": "Andrews 7",
+      "plot": "Managed",
+      "measurement_ID_npp": "562.0",
+      "measurement_ID_agb": "571.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 836.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 33.544000000000004,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 33.053942995983846,
+      "predicted_over_observed": 0.9853906211538231
+    },
+    {
+      "pft": 5,
+      "site": "Andrews 8",
+      "plot": "Managed",
+      "measurement_ID_npp": "586.0",
+      "measurement_ID_agb": "595.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 926.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 77.382,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 36.6123818352644,
+      "predicted_over_observed": 0.4731382212305756
+    },
+    {
+      "pft": 5,
+      "site": "Andrews 9",
+      "plot": "Managed",
+      "measurement_ID_npp": "610.0",
+      "measurement_ID_agb": "619.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 803.9999999999999,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 63.898,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 31.788720297572976,
+      "predicted_over_observed": 0.49749163193797885
+    },
+    {
+      "pft": 4,
+      "site": "Ashu Kyoto",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "656.0",
+      "measurement_ID_agb": "657.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 545.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 27.486000000000004,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 21.54832408231004,
+      "predicted_over_observed": 0.783974535483884
+    },
+    {
+      "pft": 4,
+      "site": "Aubure (Natural regeneration)",
+      "plot": "Managed",
+      "measurement_ID_npp": "958.0",
+      "measurement_ID_agb": "946.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 432.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 24.66,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 17.080506428546677,
+      "predicted_over_observed": 0.6926401633636122
+    },
+    {
+      "pft": 6,
+      "site": "Bonanza FP4",
+      "plot": "unmanaged floodplain forest",
+      "measurement_ID_npp": "1919.0",
+      "measurement_ID_agb": "1922.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 371.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 14.386000000000003,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 33.14939522754338,
+      "predicted_over_observed": 2.304281609032627
+    },
+    {
+      "pft": 6,
+      "site": "Bonanza FP5",
+      "plot": "unmanaged floodplain forest",
+      "measurement_ID_npp": "1938.0",
+      "measurement_ID_agb": "1941.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 170.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 3.052,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 15.18974983472338,
+      "predicted_over_observed": 4.976982252530596
+    },
+    {
+      "pft": 6,
+      "site": "Bonanza UP3",
+      "plot": "unmanaged upland forest",
+      "measurement_ID_npp": "1976.0",
+      "measurement_ID_agb": "1979.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 381.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 14.341999999999999,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 34.042909923703576,
+      "predicted_over_observed": 2.3736515077188383
+    },
+    {
+      "pft": 4,
+      "site": "Bornhoved Beech",
+      "plot": "Managed",
+      "measurement_ID_npp": "2174.0",
+      "measurement_ID_agb": "2182.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 682.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 30.200000000000003,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 26.965058759881554,
+      "predicted_over_observed": 0.8928827403934289
+    },
+    {
+      "pft": 4,
+      "site": "Bornhoved Beech",
+      "plot": "Managed",
+      "measurement_ID_npp": "2175.0",
+      "measurement_ID_agb": "2182.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 630.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 30.200000000000003,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 24.909071874963903,
+      "predicted_over_observed": 0.8248037044690033
+    },
+    {
+      "pft": 5,
+      "site": "Cascade Head (1)",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "2625.0",
+      "measurement_ID_agb": "2629.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 668.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 68.188,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 26.411523829326804,
+      "predicted_over_observed": 0.38733389789005107
+    },
+    {
+      "pft": 5,
+      "site": "Cascade Head 10",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "2673.0",
+      "measurement_ID_agb": "2682.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 579.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 90.23200000000001,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 22.892623199371585,
+      "predicted_over_observed": 0.2537084759217526
+    },
+    {
+      "pft": 5,
+      "site": "Cascade Head 11",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "2696.0",
+      "measurement_ID_agb": "2705.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 543.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 112.58,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 21.46924766365936,
+      "predicted_over_observed": 0.19070214659494902
+    },
+    {
+      "pft": 5,
+      "site": "Cascade Head 12",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "2719.0",
+      "measurement_ID_agb": "2728.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 442.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 107.668,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 17.47588852180007,
+      "predicted_over_observed": 0.16231274400750517
+    },
+    {
+      "pft": 5,
+      "site": "Coulissenhieb",
+      "plot": "planted Picea abies in 1850",
+      "measurement_ID_npp": "3778.0",
+      "measurement_ID_agb": "3760.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 665.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 24.884,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 26.292909201350785,
+      "predicted_over_observed": 1.0566190805879596
+    },
+    {
+      "pft": 5,
+      "site": "Frazer old",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "5327.0",
+      "measurement_ID_agb": "5331.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 470.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 15.794,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 18.582958382909574,
+      "predicted_over_observed": 1.1765834103399755
+    },
+    {
+      "pft": 4,
+      "site": "Gribskov",
+      "plot": "Managed",
+      "measurement_ID_npp": "5707.0",
+      "measurement_ID_agb": "5695.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 590.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 31.72,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 23.327543501950323,
+      "predicted_over_observed": 0.7354206652569459
+    },
+    {
+      "pft": 4,
+      "site": "Hainich",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "5899.0",
+      "measurement_ID_agb": "5934.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 586.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 40.952,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 23.169390664648958,
+      "predicted_over_observed": 0.5657694536200664
+    },
+    {
+      "pft": 4,
+      "site": "Hubbard brook",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "6570.0",
+      "measurement_ID_agb": "6571.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 539.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 12.484000000000002,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 21.311094826358,
+      "predicted_over_observed": 1.7070726390866708
+    },
+    {
+      "pft": 6,
+      "site": "Jadraas Class I",
+      "plot": "Managed-120-y",
+      "measurement_ID_npp": "7160.0",
+      "measurement_ID_agb": "7161.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 241.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 5.984000000000001,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 21.533704177460788,
+      "predicted_over_observed": 3.5985468210997302
+    },
+    {
+      "pft": 6,
+      "site": "Kuusamo",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "7848.0",
+      "measurement_ID_agb": "7853.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 212.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 9.786000000000001,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 18.942511558596216,
+      "predicted_over_observed": 1.9356745921312297
+    },
+    {
+      "pft": 4,
+      "site": "Lei-135+15",
+      "plot": "Managed",
+      "measurement_ID_npp": "8190.0",
+      "measurement_ID_agb": "8197.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 649.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 26.688000000000002,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 25.66029785214535,
+      "predicted_over_observed": 0.9614919758747508
+    },
+    {
+      "pft": 5,
+      "site": "Metolius 10",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "9177.0",
+      "measurement_ID_agb": "9186.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 409.99999999999994,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 24.452,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 16.210665823389203,
+      "predicted_over_observed": 0.6629586873625553
+    },
+    {
+      "pft": 5,
+      "site": "Metolius 11",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "9200.0",
+      "measurement_ID_agb": "9209.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 214.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 31.392000000000003,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 8.461176795622658,
+      "predicted_over_observed": 0.2695328999624954
+    },
+    {
+      "pft": 5,
+      "site": "Metolius 7",
+      "plot": "Managed",
+      "measurement_ID_npp": "9338.0",
+      "measurement_ID_agb": "9347.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 543.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 21.598,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 21.46924766365936,
+      "predicted_over_observed": 0.994038691714944
+    },
+    {
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "measurement_ID_npp": "9440.0",
+      "measurement_ID_agb": "9425.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 413.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 19.652,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 16.32928045136522,
+      "predicted_over_observed": 0.8309220665258101
+    },
+    {
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "measurement_ID_npp": "9440.0",
+      "measurement_ID_agb": "9474.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 413.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 24.634,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 16.32928045136522,
+      "predicted_over_observed": 0.6628757185745401
+    },
+    {
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "measurement_ID_npp": "9441.0",
+      "measurement_ID_agb": "9425.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 400.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 19.652,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 15.81528373013581,
+      "predicted_over_observed": 0.8047671346496952
+    },
+    {
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "measurement_ID_npp": "9441.0",
+      "measurement_ID_agb": "9474.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 400.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 24.634,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 15.81528373013581,
+      "predicted_over_observed": 0.6420103811859954
+    },
+    {
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "measurement_ID_npp": "9465.0",
+      "measurement_ID_agb": "9425.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 363.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 19.652,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 14.352369985098248,
+      "predicted_over_observed": 0.7303261746945984
+    },
+    {
+      "pft": 5,
+      "site": "Metolius Old Pine",
+      "plot": "mosaic of old growth, young trees, and mixed age stands natural regeneration after fire",
+      "measurement_ID_npp": "9465.0",
+      "measurement_ID_agb": "9474.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 363.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 24.634,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 14.352369985098248,
+      "predicted_over_observed": 0.5826244209262909
+    },
+    {
+      "pft": 6,
+      "site": "Prince Albert SSA (SOBS)",
+      "plot": "natural regeneration after 1879 wildfire",
+      "measurement_ID_npp": "11895.0",
+      "measurement_ID_agb": "11919.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 252.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 9.82,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 22.51657034323701,
+      "predicted_over_observed": 2.2929297701870683
+    },
+    {
+      "pft": 6,
+      "site": "Prince Albert SSA (SOBS)",
+      "plot": "natural regeneration after 1879 wildfire",
+      "measurement_ID_npp": "11895.0",
+      "measurement_ID_agb": "11936.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 252.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 10.280000000000001,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 22.51657034323701,
+      "predicted_over_observed": 2.190327854400487
+    },
+    {
+      "pft": 4,
+      "site": "Schacht",
+      "plot": "Managed",
+      "measurement_ID_npp": "13281.0",
+      "measurement_ID_agb": "13268.0",
+      "dominant_vegetation": "2TDB",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 518.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 26.160000000000004,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 20.480792430525874,
+      "predicted_over_observed": 0.7829049094237718
+    },
+    {
+      "pft": 5,
+      "site": "Tharandt",
+      "plot": "Managed",
+      "measurement_ID_npp": "14450.0",
+      "measurement_ID_agb": "14475.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 567.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 20.448,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 22.41816468746751,
+      "predicted_over_observed": 1.0963499944966504
+    },
+    {
+      "pft": 5,
+      "site": "Tharandt",
+      "plot": "Managed",
+      "measurement_ID_npp": "14450.0",
+      "measurement_ID_agb": "14511.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 567.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 30.082,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 22.41816468746751,
+      "predicted_over_observed": 0.7452351800900043
+    },
+    {
+      "pft": 6,
+      "site": "Thompson NSA (NOBS)",
+      "plot": "unmanaged",
+      "measurement_ID_npp": "14828.0",
+      "measurement_ID_agb": "14821.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 208.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 11.442,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 18.58510568013213,
+      "predicted_over_observed": 1.6242882083667305
+    },
+    {
+      "pft": 7,
+      "site": "Tura",
+      "plot": "natural regeneration after fire.Larix gmelinii forest",
+      "measurement_ID_npp": "15318.0",
+      "measurement_ID_agb": "15314.0",
+      "dominant_vegetation": "2TDN",
+      "time_status": "unknown",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 216.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 2.2760000000000002,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 19.299917437060294,
+      "predicted_over_observed": 8.479752828233872
+    },
+    {
+      "pft": 6,
+      "site": "Yenisei/Zotino",
+      "plot": "Managed",
+      "measurement_ID_npp": "17261.0",
+      "measurement_ID_agb": "17245.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "recorded_years_differ",
+      "same_reported_age": false,
+      "npp_gC_m2_yr": 214.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 18.380000000000003,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 19.121214497828255,
+      "predicted_over_observed": 1.0403272305673696
+    },
+    {
+      "pft": 6,
+      "site": "Yenisei/Zotino",
+      "plot": "Managed",
+      "measurement_ID_npp": "17261.0",
+      "measurement_ID_agb": "17269.0",
+      "dominant_vegetation": "2TEN",
+      "time_status": "calendar_year_overlap",
+      "same_reported_age": true,
+      "npp_gC_m2_yr": 214.0,
+      "observed_agb_kg_dry_m2_if_fC_0_5": 12.23,
+      "predicted_agb_kg_dry_m2_if_fC_0_5": 19.121214497828255,
+      "predicted_over_observed": 1.5634680701413126
+    }
+  ]
+}
