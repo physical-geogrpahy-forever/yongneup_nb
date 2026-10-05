@@ -9,7 +9,7 @@
 
 ## 2.1 연구 설계와 결합모형
 
-본 연구는 대암산 용늪에서 후기 빙기 이후의 기후변화가 식생과 토심, 지형발달의 상호작용을 통해 장기적인 식생사에 미치는 영향을 평가하기 위해 BIOME4 v4.2b2와 식생-토양-지형 상호작용을 모의하는 Pelletier et al. (2013)의 경관발달식을 결합하였다. BIOME4는 기후, 대기 CO2, 토양수분조건에 따라 PFT별 NPP와 NPP를 최대화하는 LAI를 계산하고 PFT 경쟁을 통해 잠재 식생을 판정하는 평형 식생모형이다(Kaplan, 2001). 본 연구에서는 원 BIOME4 v4.2b2의 13개 PFT와 native climate limits를 유지하였다.
+본 연구는 대암산 용늪에서 후기 빙기 이후의 기후변화가 식생과 토심, 지형발달의 상호작용을 통해 장기적인 식생사에 미치는 영향을 평가하기 위해 BIOME4 v4.2b2와 식생-토양-지형 상호작용을 모의하는 Pelletier et al. (2013)의 경관발달식을 결합하였다. BIOME4는 기후, 대기 CO2, 토양수분조건에 따라 PFT별 NPP와 NPP를 최대화하는 LAI를 계산하고 PFT 경쟁을 통해 잠재 식생을 판정하는 평형 식생모형이다(Kaplan, 2001). BIOME4 v4.2b2 source에는 13개의 PFT parameter set이 정의되어 있으나, tropical evergreen PFT1은 source에서 명시적으로 비활성화되어 실제 경쟁계산에서는 제외된다. 따라서 본 연구는 v4.2b2의 13개 원 parameter set과 native climate limits를 수정하지 않은 채 사용하되, 실제 우점 PFT 선택은 source가 허용하는 12개 active PFT를 대상으로 수행하였다(Kaplan, 2001).
 
 모의기간은 21.0 ka BP부터 현재까지이며 결합 간격은 0.1 kyr로 설정하였다. 따라서 기후와 식생은 총 211개 시점에서 계산하였다. 정적 실험에서는 초기 지표고도와 토심을 전체 기간 동안 고정한 채 기후 forcing만 변화시켰다. 동적 실험에서는 각 시점의 BIOME4 결과로부터 EEMT와 \(AGB^*\)를 산정한 뒤 지형발달모형을 100년 동안 적분하고, 갱신된 지표고도와 토심을 다음 시점의 BIOME4 계산에 다시 입력하였다.
 
@@ -53,7 +53,10 @@ T_{\mathrm{absmin}}
 21.9
 \]
 
-여기서 \(T_{\mathrm{cold}}\)는 가장 추운 달의 월평균기온이다. 본 연구에서는 토심에 따라 NPP, LAI 또는 FVC에 직접 곱해지는 별도의 경험계수를 사용하지 않았다. 토심의 영향은 아래에서 설명하는 available-water storage와 PFT별 finite-depth root accessibility를 통해 BIOME4 수문계산으로 전달하였다.
+여기서 \(T_{\mathrm{cold}}\)는 가장 추운 달의 월평균기온이다. 
+또한 Kaplan (2001)은 temperate grass를 C3/C4 잠재형으로 설명하지만, 본 연구가 사용한 v4.2b2 source에서는 C4 photosynthesis를 호출하는 조건이 PFT9와 PFT10으로 제한되어 있고 PFT8은 C3 경로로 계산된다. 따라서 본 연구의 생산실행에서 PFT8은 source label은 C3/C4 temperate grass이지만 실제 생리계산은 C3 temperate grass로 처리되었다. 이는 본 연구에서 추가한 가정이 아니라 사용한 v4.2b2 source의 실제 실행경로이다.
+
+본 연구에서는 토심에 따라 NPP, LAI 또는 FVC에 직접 곱해지는 별도의 경험계수를 사용하지 않았다. 토심의 영향은 아래에서 설명하는 available-water storage와 PFT별 finite-depth root accessibility를 통해 BIOME4 수문계산으로 전달하였다.
 
 ## 2.3 토심에 따른 available-water storage
 
