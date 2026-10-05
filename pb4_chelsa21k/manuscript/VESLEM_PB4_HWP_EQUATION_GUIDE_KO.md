@@ -649,7 +649,9 @@ L_f=60\,LAI
 이 검토가 끝나기 전에는 production AGB식을 변경하지 않는다. 새 AGB식을 채택하면 CHELSA 21-0 ka 전체 dynamic을 새로 실행하고 Jang n=62, 1% 기준을 재검증해야 한다.
 
 
-## IV-3. Xue/IBIS 원문 수식과 용늪 equilibrium AGB bridge
+## IV-3. Xue/IBIS 원문 수식과 용늪 equilibrium carbon-pool diagnostic
+
+> **최종 판정 정정:** 이 절의 Eq. (3) 평형축약은 carbon-pool stock을 계산하는 데는 유효하지만, 그 결과를 곧바로 AGB라고 부르지 않는다. Xue et al. (2017)은 leaf, stem, root pool을 두며, 같은 논문에서 IBIS가 global AGB를 직접 계산하지 않고 carbon density를 계산한다고 명시한다. 따라서 아래의 0.0286/0.0327/0.0422 계수는 production dry-AGB 계수가 아니라 Xue parameterization을 이용한 equilibrium carbon-pool diagnostic이다. AGB로 사용하려면 independently verified aboveground partition이 추가로 필요하다.
 
 ### IV-3.1 원문 보유 및 출처 구분
 
@@ -810,7 +812,7 @@ HWP 입력:
 
 stem 및 branch carbon pool에 대해서는 \(\tau_{i,j}=\tau_w\)이다.
 
-### IV-3.10 PB4에서 사용하는 equilibrium 해: 원문식에서의 분석적 유도
+### IV-3.10 PB4에서의 equilibrium carbon-pool 해: 원문식에서의 분석적 유도
 
 다음은 Xue 논문의 별도 번호식이 아니라 위 원문 mass-balance 식에 BIOME4의 equilibrium 조건을 적용한 유도식이다.
 
@@ -828,7 +830,7 @@ HWP 입력:
 
     C_{i,j}=a_{i,j} tau_{i,j} NPP_i
 
-Xue 최종 논문의 AGB calibration 구조를 재현하기 위한 **Xue-style aboveground diagnostic**은 leaf + wood candidate로 두어
+**과거 candidate에서** leaf + wood를 aboveground diagnostic으로 두었으나, 최종 재검토 후 이 합이 해부학적 AGB임은 확정하지 않는다. 아래 식은 해당 과거 candidate의 계산 기록으로만 남긴다:
 
 \[
 \boxed{
@@ -859,7 +861,7 @@ HWP 입력:
 
     AGB_{dry,i}={2 OVER 1000} NPP_i (a_{leaf,i} tau_{leaf,i}+a_{wood,i} tau_{wood,i})
 
-### IV-3.11 용늪에서 실제 출현한 BIOME4 PFT의 대응식
+### IV-3.11 용늪에서 실제 출현한 BIOME4 PFT의 과거 candidate 계수 — AGB로는 미확정
 
 canonical 21-0 ka full coverage audit에서 실제 dominant PFT는 4, 6, 7, 10이며 PFT5는 0회였다.
 
