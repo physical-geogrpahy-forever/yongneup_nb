@@ -1540,3 +1540,181 @@ PFT10은 dynamic에서 약 185–186 cell-observations에 불과하고 AGB도 �
 - Harper et al. (2016), https://doi.org/10.5194/gmd-9-2415-2016
 - Harper et al. (2018), https://doi.org/10.5194/gmd-11-2857-2018
 - Wolf et al. (2011), https://doi.org/10.1029/2010GB003917
+
+
+## 23. 평형 잠재식생 목표에 대한 독립 AGB 규모 검증과 후보 재판정 (2026-10-05)
+
+### 23.1 검증 목표의 구분
+
+Section 22의 JULES-LAI 실행 뒤 AGB 규모를 검증할 때 현존 경관 평균과 성숙 또는 평형 임분을 같은 기준으로 취급하면 안 된다.
+
+PB4에서 사용하는 BIOME4는 각 기후 시점의 equilibrium potential vegetation을 계산한다. 따라서 AGB bridge의 주 검증 목표도 단순한 현재 관리림 평균이 아니라 **해당 PFT가 기후 조건에서 유지할 수 있는 평형 또는 잠재 생체량 규모**와 일관되어야 한다. 다만 실제 지형 feedback은 경관 평균 biomass에도 민감하므로 현존 경관 자료는 하한 또는 별도 현실성 검증으로 함께 유지한다.
+
+검증축을 다음 세 범주로 나눈다.
+
+1. 현존 경관 평균: 원격탐사 및 산림 inventory 기반 광역 평균
+2. 성숙 또는 비교적 온전한 임분: ForC/Luyssaert 및 한국 성숙림 연구
+3. 독립적인 equilibrium carbon-partitioning model: Ise et al. (2010)의 meta-analysis, Biome-BGC, VISIT 비교
+
+### 23.2 현존 아시아 산림 경관 평균
+
+Thurner et al. (2014)은 북반구 30-80°N 산림의 총 living forest carbon density를 산정했다. Table 3의 아시아 값은 다음과 같다.
+
+- temperate broadleaf and mixed forest: 5.38 kg C m^-2
+- temperate conifer forest: 5.13 kg C m^-2
+- boreal forest: 4.07 kg C m^-2
+
+이 값은 stem+branch+root+foliage의 **총 생체량 탄소**이므로 AGB와 직접 비교하지 않았다.
+
+2019 IPCC Refinement Table 4.4의 아시아 natural forest root:shoot ratio와 2006 IPCC Table 4.3의 carbon fraction을 적용한 단순 환산 diagnostic은 다음과 같다.
+
+- temperate broadleaf: R=0.225, CF=0.48 -> 약 9.15 kg dry AGB m^-2 = 91.5 Mg ha^-1
+- temperate conifer: R=0.243, CF=0.51 -> 약 8.09 kg dry AGB m^-2 = 80.9 Mg ha^-1
+- boreal forest: R=0.390, CF=0.51 -> 약 5.74 kg dry AGB m^-2 = 57.4 Mg ha^-1
+
+이는 Thurner의 개별 pixel을 재계산한 값이 아니라 biome/continent 평균 total C를 IPCC 기본비로 AGB에 환산한 diagnostic이다.
+
+Section 22의 JULES-LAI 결과는 PFT4 약 77.6, PFT6 약 60.1, PFT7 약 59.8-61.7 Mg ha^-1이므로 **현존 광역 경관 평균과 가까운 규모**다.
+
+반면 PFT-IBIS/Xue는 PFT4 약 153, PFT6 약 126, PFT7 약 132 Mg ha^-1로 현존 광역 평균보다 높다.
+
+Primary sources:
+- Thurner et al. (2014), https://doi.org/10.1111/geb.12125
+- 2006 IPCC Guidelines Vol.4 Ch.4 Table 4.3, https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/4_Volume4/V4_04_Ch4_Forest_Land.pdf
+- 2019 IPCC Refinement Vol.4 Ch.4 Table 4.4 updated, https://www.ipcc-nggip.iges.or.jp/public/2019rf/pdf/4_Volume4/19R_V4_Ch04_Forest%20Land.pdf
+
+### 23.3 성숙 임분 및 한국 산림 자료
+
+현존 광역 평균은 BIOME4 equilibrium potential vegetation의 직접 검증값이 아니다.
+
+ForC/Luyssaert-origin의 >=100 yr plot을 plot 단위로 요약하고 IPCC carbon fraction으로 dry AGB를 환산했을 때 중앙값은:
+
+- PFT4 analogue, n=8 plots: 약 282 Mg ha^-1
+- PFT5 analogue, n=17: 약 626 Mg ha^-1
+- PFT6 analogue, n=8: 약 105 Mg ha^-1
+- PFT7 analogue, n=2: 약 89 Mg ha^-1
+
+PFT5는 매우 높은 old-growth site가 포함되어 있고 이번 용늪 21 ka run에서는 dominant PFT로 선택되지 않았으므로 전체 후보 판정의 중심으로 사용하지 않는다.
+
+한국 독립자료도 높은 성숙림 biomass가 실제 존재함을 확인한다.
+
+- Yangyang, Gangwon Pinus densiflora stand: aboveground biomass 161.6 Mg ha^-1.
+- Mt. Worak Quercus mongolica forest: aboveground biomass carbon 81.94 t C ha^-1. CF=0.48 단순 환산 시 약 171 Mg dry ha^-1.
+- Yongneup 주변 현대 식생은 Quercus mongolica 우점 낙엽활엽수림이고, 1,000 m 이상에는 Abies nephrolepis와 Pinus koraiensis가 섞인다.
+
+따라서 JULES-LAI의 약 60-80 Mg ha^-1가 모든 성숙 온대/산지림의 대표값이라고 할 수 없다. 특히 PFT4에서는 성숙 또는 온전한 임분보다 낮은 방향이다.
+
+Sources:
+- Kim et al. (2012), Above-ground Biomass and Crown Fuel Characteristics of Pinus densiflora in Yangyang, Gangwon Province, Journal of Korean Society of Forest Science 101(2):244-250.
+- Wolaksan Quercus mongolica carbon study: https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART001905822
+- Jang et al. (2011), Vegetation history around Yongneup moor at Mt. Daeamsan, Korea.
+
+### 23.4 Ise et al. (2010)의 독립 equilibrium 모델 비교를 AGB 계수로 재표현
+
+Ise et al. (2010) Table 3은 동일한 MODIS GPP 기반 비교에서 model별 평균 NPP와 equilibrium total living biomass를 제시한다.
+
+Meta-analysis partitioning:
+- temperate: NPP 393 g C m^-2 yr^-1, equilibrium biomass 6.5 kg C m^-2
+- boreal: NPP 238, equilibrium biomass 7.7 kg C m^-2
+
+Biome-BGC:
+- temperate: 455, 8.5
+- boreal: 297, 12.9
+
+VISIT:
+- temperate: 392, 9.7
+- boreal: 308, 16.4
+
+이 total biomass carbon을 IPCC root:shoot와 carbon fraction으로 aboveground dry biomass로 변환하고, 다시 NPP에 대한 등가 선형계수
+
+AGB_dry [kg m^-2] = c_eq * NPP [g C m^-2 yr^-1]
+
+로 표현한 diagnostic은 다음과 같다.
+
+| independent equilibrium model | temperate c_eq | boreal c_eq |
+|---|---:|---:|
+| Ise meta-analysis partitioning | 0.02813 | 0.04564 |
+| Biome-BGC partitioning | 0.03177 | 0.06127 |
+| VISIT partitioning | 0.04208 | 0.07511 |
+
+이 계수는 각 논문의 새 regression coefficient가 아니라 Table 3 biome mean output을 동일 단위로 재표현한 **독립 규모 검증용 등가계수**다.
+
+비교할 PFT-IBIS/Xue candidate:
+
+- PFT4 temperate deciduous: 0.0286
+- PFT5 temperate evergreen conifer: 0.0222
+- PFT6 boreal evergreen: 0.0327
+- PFT7 boreal deciduous: 0.0422
+
+따라서 가장 중요한 독립 결과는 다음과 같다.
+
+1. PFT4의 0.0286은 Ise meta-analysis temperate 0.02813과 사실상 일치한다.
+2. PFT7의 0.0422는 Ise meta-analysis boreal 0.04564보다 약간 낮지만 매우 가까운 규모다.
+3. PFT6의 0.0327은 Ise meta-analysis boreal보다도 보수적이며, Biome-BGC/VISIT보다 훨씬 낮다.
+4. 따라서 PFT-IBIS/Xue를 이전처럼 단순히 '과대 상한'으로 규정하는 것은 적절하지 않다. **equilibrium potential vegetation이라는 목표에 대해서는 독립 equilibrium model ensemble의 하단 또는 중앙 하단에 위치한다.**
+
+Primary:
+- Ise et al. (2010), https://doi.org/10.1029/2010JG001326
+
+### 23.5 JULES-LAI를 NPP 등가계수로 비교
+
+Section 22 dynamic run의 PFT별 mean AGB와 같은 실행의 PFT별 mean BIOME4 NPP를 나누면 대략:
+
+- PFT4: 7.762 / 535.5 = 0.0145
+- PFT6: 6.006 / 386.1 = 0.0156
+- PFT7 BDT: 5.978 / 307.9 = 0.0194
+
+이다.
+
+이는 직접 NPP 모델이 아닌 LAI allometry를 단지 비교 목적으로 등가계수로 나타낸 것이다.
+
+Ise equilibrium model군의 temperate 0.028-0.042, boreal 0.046-0.075와 비교하면 JULES-LAI는 평형 woody biomass 규모를 약 절반 이하로 예측한다.
+
+따라서 JULES-LAI는 **현존 경관 평균에 가까운 lower-biomass sensitivity**, PFT-IBIS/Xue는 **BIOME4 equilibrium potential vegetation과 더 일관적인 주 후보**로 해석하는 것이 현재 증거에 더 맞는다.
+
+### 23.6 NPP 관측 대조가 주는 추가 경고
+
+같은 ForC plot subset에서 plot-level median NPP는:
+
+- PFT4: 565.5 g C m^-2 yr^-1
+- PFT6: 227.5
+- PFT7: 258.5
+
+canonical BIOME4의 실제 cell-weighted mean NPP는 대략:
+
+- PFT4: 535.6
+- PFT6: 386.1
+- PFT7: 307.9
+
+따라서 PFT4는 관측과 비슷하지만, PFT6는 BIOME4 NPP가 ForC mature-plot median보다 약 1.70배 높다. 관측 AGB/NPP ratio를 BIOME4 NPP에 그대로 곱하면 PFT6 stock을 자동으로 과대화할 수 있다.
+
+이 때문에 ForC의 empirical stock/NPP ratio를 새로운 production coefficient로 직접 사용하지 않는다. PFT-specific model structure와 관측 stock 검증을 함께 유지한다.
+
+### 23.7 현재 후보 우선순위 정정
+
+Section 22.6의 'JULES-LAI를 주 비교 후보' 판정은 이번 독립 equilibrium 규모 검증으로 수정한다.
+
+현재 우선순위:
+
+1. **주 equilibrium candidate: PFT-IBIS/Xue NPP+PFT bridge**
+   - BIOME4의 equilibrium potential vegetation 목표와 구조적으로 일치
+   - PFT4는 독립 Ise meta-analysis equilibrium coefficient와 거의 동일
+   - PFT7도 독립 boreal coefficient와 가까움
+   - PFT6는 독립 equilibrium model군보다 오히려 보수적
+   - 모든 실제 사용 forest PFT를 동일 allocation-turnover framework에서 처리
+
+2. **lower-biomass sensitivity: JULES-LAI**
+   - 현존 아시아 경관 평균 biomass 규모와 가까움
+   - PFT4 성숙림에서는 낮은 경향
+   - NPP 과대에 직접 비례하지 않는 장점
+   - LAI 포화 뒤 증가하는 woody stock을 충분히 표현하지 못할 수 있음
+
+3. **diagnostic only: Ise/VISIT original two-biome bridge**
+   - 실행 가능한 equilibrium model이지만 PFT5/6 관측 불일치가 커 production에는 사용하지 않음
+
+4. **legacy 0.010*NPP**
+   - 출처 없는 기존 proxy이므로 비교 기준일 뿐 과학적 우선순위가 아님
+
+이 판정은 PFT-IBIS/Xue가 'BIOME4 native equation'이라는 뜻이 아니다. 여전히 BIOME4 PFT와 IBIS PFT 사이의 명시적 cross-model correspondence다. 다만 현재까지 확보한 독립 equilibrium model evidence는 이 candidate의 **AGB 규모 자체가 비정상적인 과대값이라는 주장을 지지하지 않는다.**
+
+Production 승격 전 최종 확인은 PFT mapping provenance와 지형 민감도 결과를 함께 제시하고, JULES-LAI를 lower-bound sensitivity로 병기하는 방식이 적절하다.
