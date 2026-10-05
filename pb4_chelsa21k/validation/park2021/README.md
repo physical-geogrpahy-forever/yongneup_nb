@@ -7,8 +7,11 @@
 확보 원자료:
 
 - 사용자가 제공한 Supplementary Excel: `1-s2.0-S0031018221004909-mmc1(1).xlsx`
-- 파생 100년 window: `PARK2021_YNC_100YR_WINDOWS.csv`
+- source SHA-256: `6d4ad8310434e02e1f963ee36932e30ae66f757d6028260d33ea98e7359c8f97`
+- 전체 파생 100년 window: `PARK2021_YNC_100YR_WINDOWS.csv`
+- 주 정량구간 16-69 cm holdout: `PARK2021_ZONE2_100YR_HOLDOUT.csv`
 - taxon mapping: `PARK2021_TAXON_MAPPING.csv`
+- 최종 결과: `../../results/final_integrated_20261006/PARK2021_HOLDOUT_RESULT_20261006_KO.md`
 
 Park et al. (2021) Supplementary의 sample-level pollen composition을 원자료로 사용하며, Fig. 3을 수작업 digitize하여 정량자료를 만들지 않는다.
 
@@ -32,3 +35,13 @@ local wetland taxa인 Cyperaceae, Apiaceae, Sphagnum은 regional vegetation 면�
 
 세부 정책:
 pb4_chelsa21k/manuscript/PARK2021_INDEPENDENT_VALIDATION_POLICY_20261006_KO.md
+
+
+검증 완료 결과:
+
+- Park PC2 vs dynamic cold-tree PFT fraction: Spearman rho = 0.632, p = 0.00644, n = 17
+- Park PC2 vs static cold-tree PFT fraction: rho = -0.255, p = 0.323
+- pollen broadleaf fraction vs dynamic temperate-deciduous fraction: rho = 0.448, p = 0.0713
+- 2738-2206 cal yr BP open-vegetation event는 PB4 open PFT로 재현되지 않음
+
+따라서 Park holdout은 dynamic response의 방향을 독립적으로 지지하지만, fine-scale 조성과 local peatland/open vegetation 표현에는 한계가 있음을 보여준다.
