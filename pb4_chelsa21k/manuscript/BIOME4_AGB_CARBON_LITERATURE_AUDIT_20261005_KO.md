@@ -716,3 +716,90 @@ PFT10: 0.00285NPP
 ]
 
 따라서 이제 문헌 검색 단계에서 실제 **21-0 ka PFT-specific NPP-to-AGB candidate 실행 단계**로 진행한다.
+
+
+# 12. BIOME4 PFT + NPP → AGB 직접식 재검색 판정
+
+## 12.1 검색 질문
+
+이번 재검색의 질문은 하나로 제한했다.
+
+[
+AGB=f(BIOME4 NPP, BIOME4 PFT)
+]
+
+형태의 total aboveground biomass를 BIOME4 자체 PFT와 NPP에서 직접 산출하는 published 식 또는 published post-processing method가 존재하는가?
+
+BIOME3, IBIS, LPJ 등의 PFT를 BIOME4 PFT에 임의 대응시키는 방법은 직접식으로 인정하지 않았다.
+
+## 12.2 결론
+
+현재까지 확인한 BIOME4 원 논문, Kaplan (2001) 박사논문, BIOME4 v4.2b2 원 코드, BIOME4 응용 논문과 BIOME4-탄소 결합 문헌에서 **BIOME4 PFT별 NPP를 total AGB로 변환하는 직접 published 식은 확인되지 않았다.**
+
+Kaplan et al. (2003)과 후속 BIOME4 설명에서 모델의 직접 식생 산출은 PFT별 최적 NPP와 최적 LAI, dominant/subdominant PFT 및 biome이며, standing total AGB pool은 없다.
+
+Peng et al. (2011)의 Wu et al. (2009) PCM 검토는 BIOME4의 equilibrium design 때문에 terrestrial carbon stocks를 직접 계산할 수 없다고 명시하며, 이를 해결하기 위해 BIOME4의 **NPP + biome type**을 DEMETER에 입력한다.
+
+2026 Scientific Reports PCM-weathering 연구도 동일하게 BIOME4 부분에서 biome과 NPP를 얻고, annual NPP의 leaf/stem/root allocation은 DEMETER scheme을 사용한다.
+
+## 12.3 BIOME4 내부의 Alloc은 AGB allocation fraction이 아님
+
+Kaplan (2001) Table 1.4의 PFT별 `Alloc`은 "relative minimum allocation" 또는 "modifier to the minimum allocation"이다.
+
+BIOME4 v4.2b2 원 코드에서도:
+
+`litterfall = lai * Ln * allocfact(pft)`
+
+`minallocation = litterfall`
+
+로 사용되어, 현재 LAI가 지속가능하려면 NPP가 충족해야 하는 최소 allocation requirement를 조정한다.
+
+따라서 `Alloc=1.2` 등을 leaf/stem/root NPP allocation fraction으로 해석할 수 없고, PFT별 AGB 계수로 사용할 수 없다.
+
+## 12.4 BIOME4 내부 sapwood carbon도 total AGB가 아님
+
+BIOME4 원 코드에는 sapwood maintenance respiration을 계산하기 위한
+
+`stemcarbon = 0.5`
+
+가 있으며, LAI와 결합해 sapwood respiration cost를 계산한다. 이 값은 active sapwood carbon requirement에 해당하는 내부 구조 parameter이지, heartwood, branch 및 전체 woody biomass를 포함하는 standing total AGB pool이 아니다.
+
+따라서 BIOME4 내부 LAI/leaf/sapwood 항을 합해 total AGB라고 부르는 것도 허용하지 않는다.
+
+## 12.5 가장 가까운 published BIOME4 coupling
+
+현재 가장 가까운 직접 선행례는 Wu et al. (2009)의 BIOME4 + DEMETER PCM이다.
+
+구조:
+
+[
+BIOME4 ightarrow (NPP, biome) ightarrow DEMETER ightarrow
+leaf, stem, root, litter, soil carbon
+]
+
+이는 BIOME4 결과를 실제 carbon-allocation model에 연결한 published lineage라는 장점이 있지만, **BIOME4 PFT-specific bridge가 아니라 biome-specific bridge**이다.
+
+따라서 이것을 BIOME4 PFT식이라고 표현해서는 안 된다.
+
+## 12.6 이전 Xue/IBIS candidate의 지위 정정
+
+Section 10-11에서 만든
+
+[
+AGB_{dry}=coefficient(PFT)	imes NPP
+]
+
+candidate는 published BIOME4 equation이 아니다.
+
+이는 IBIS/Xue의 PFT별 allocation/residence-time parameters를 BIOME4 PFT에 cross-model mapping하여 만든 **실험적 cross-model candidate**이다. 따라서 문헌 우선 후보 또는 production 식으로 승격하지 않는다.
+
+해당 실행 결과는 sensitivity experiment로 보존하되, direct BIOME4-compatible 문헌식이 확인되었다고 인용해서는 안 된다.
+
+## 12.7 현재 과학적 선택지
+
+직접 BIOME4 PFT + NPP → total AGB 식이 확인되지 않았으므로, 다음 선택지는 명확히 구분한다.
+
+1. BIOME4 lineage를 최우선할 경우: Wu et al. (2009)의 BIOME4 NPP + biome → DEMETER allocation을 재현한다.
+2. PFT-specific을 최우선할 경우: 관측 기반 또는 독립 PFT-specific NPP/ANPP → AGB 관계를 찾아 BIOME4 PFT 정의와 직접 비교 가능한 경우에만 사용한다.
+3. IBIS/Xue cross-model mapping은 sensitivity candidate로만 유지한다.
+4. BIOME4 내부 Alloc 또는 sapwood respiration parameter를 total AGB로 오해해 사용하지 않는다.
