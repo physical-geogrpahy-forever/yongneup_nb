@@ -376,3 +376,4 @@ jobs:
           git add pb4_chelsa21k
           git commit -m 'chore: remove stale PB4 climate-sieve comments and verify exact regression [skip ci]'
           git push origin HEAD:main
+# retrigger after tracked source-snapshot cleanup
