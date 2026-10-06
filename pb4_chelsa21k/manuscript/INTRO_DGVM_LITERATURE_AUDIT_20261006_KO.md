@@ -81,3 +81,10 @@ Scherstjanoi, M., Kaplan, J. O., Thürig, E., & Lischke, H. (2013). GAPPARD: A c
 Ding, Z., Peng, J., Qiu, S., & Zhao, Y. (2020). Nearly half of global vegetated area experienced inconsistent vegetation growth in terms of greenness, cover, and productivity. *Earth's Future, 8*(10), e2020EF001618. https://doi.org/10.1029/2020EF001618
 
 Li, T., Lü, Y., Fu, B., Comber, A. J., Harris, P., & Wu, L. (2017). Gauging policy-driven large-scale vegetation restoration programmes under a changing environment: Their effectiveness and socio-economic relationships. *Science of the Total Environment, 607-608*, 911-919. https://doi.org/10.1016/j.scitotenv.2017.07.044
+
+
+## 7. 추가 사용 참고문헌 기록
+
+- ScienceON 문헌번호(CN): `JAKO199811920413051`
+- 원문 링크: https://scienceon.kisti.re.kr/srch/selectPORSrchArticle.do?cn=JAKO199811920413051&SITE=CLICK
+- 상태: 본문에서 사용한 국내 참고문헌으로 기록. 현재 ScienceON 상세 페이지 메타데이터를 자동 조회하지 못했으므로 저자, 논문명, 학술지, 권호, 페이지의 APA 서지정보는 원문 메타데이터 확인 후 보완한다.
