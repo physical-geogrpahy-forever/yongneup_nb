@@ -100,3 +100,20 @@ Park et al. (2021) 관련 holdout, PC2 상관, Herbs 비교는 연구과정 기�
 
 최종 방법론 기준:
 `manuscript/FINAL_METHODS_CANONICAL_20261006_KO.md`
+
+
+## 2026-10-06 final production: U009 native-fire succession
+
+최종 production 코드 정의를 **PB4Studio 6.6.3-CHELSA21K-FINAL-FIRE-SUCCESSION-U009**로 승격한다.
+
+- BIOME4 v4.2b2 native fire 계산과 원 fire threshold를 유지한다.
+- PFT4 `firedays > 180`, PFT6 `firedays > 90`을 native fire event로 사용한다.
+- fire event 다음 0.1 kyr step에서 BIOME4가 자체적으로 PFT8을 허용하고 PFT8 NPP/LAI가 양수인 경우에만 post-fire PFT8 상태를 적용한다.
+- 특정 Park/Jang 연대를 강제하거나 기후 forcing을 보정하지 않는다.
+- PFT8 상태의 NPP, LAI, 월별/연간 AET 및 관련 진단량을 같은 BIOME4 PFT8 계산에서 사용한다.
+- 배포 ZIP SHA-256: `b41003b08f9591ca53a64cf33f1c2466fc85517a87fccd15613f2a815efe2520`.
+
+중요: 기존 static 24/62, dynamic 55/62 정확도는 U008/FIREACTIVE baseline이며 **U009 결과로 재사용하지 않는다**. U009의 정량 검증값과 NPP/AGB*/EEMT/지형 결과는 21-0 ka 전체 coupled rerun으로 새로 확정한다.
+
+상세 결정문:
+`results/final_fire_succession_u009_20261006/FINAL_U009_PROMOTION_DECISION_KO.md`
