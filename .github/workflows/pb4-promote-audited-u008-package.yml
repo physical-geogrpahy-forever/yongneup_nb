@@ -1,0 +1,184 @@
+name: PB4 promote audited U008 package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-promote-audited-u008-package.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  audit-promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install audit runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q numpy pandas matplotlib rasterio scipy
+
+      - name: Build audited distribution
+        shell: bash
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/tools/audit_fix_package_v4.py \
+            --source-zip pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip \
+            --output-zip /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_AUDITED.zip \
+            --work-dir /tmp/pb4_u008_audit
+
+          sha=$(sha256sum /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_AUDITED.zip | awk '{print $1}')
+          echo "AUDITED_SHA=$sha" >> "$GITHUB_ENV"
+          echo "AUDITED_SHA=$sha"
+
+      - name: Verify package contract and compile
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4_audited_verify
+          mkdir -p /tmp/pb4_audited_verify
+          unzip -q /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_AUDITED.zip -d /tmp/pb4_audited_verify
+          root=/tmp/pb4_audited_verify/PB4Studio_v6.6.3_CHELSA21K
+
+          PYTHONPATH="$root" python "$root/tools/check_package_contract.py"
+          python -m compileall -q "$root"
+
+          test "$(find "$root" -type d -name __pycache__ | wc -l)" -gt 0
+          # compileall creates caches for verification; the ZIP itself must contain none.
+          test "$(unzip -l /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_AUDITED.zip | grep -E '__pycache__|\.pyc$' | wc -l)" -eq 0
+
+          test ! -e "$root/pb4studio/embedded_data/nationwide_validation.csv"
+          test -e "$root/pb4studio/embedded_data/yongneup_jang2011_primary_validation.csv"
+          test ! -d "$root/embedded_inputs/yongneup"
+          test ! -d "$root/fortran_src/_biome4_fortran_batch_build_mckenzie2003"
+
+      - name: Reproduce final Jang score from existing final 211-step result
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import pandas as pd
+
+          p="pb4_chelsa21k/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv"
+          d=pd.read_csv(p,encoding="utf-8-sig")
+
+          def counts(s):
+              out={0:0,1:0,2:0,3:0,4:0}
+              for tok in str(s).split(";"):
+                  if ":" not in tok:
+                      continue
+                  k,v=tok.split(":",1)
+                  try:
+                      out[int(float(k))]=int(float(v))
+                  except Exception:
+                      pass
+              return out
+
+          records=[
+              ("95_01",[round(5.9-0.1*i,1) for i in range(12)],1),
+              ("95_02",[round(4.8-0.1*i,1) for i in range(15)],2),
+              ("95_03",[round(3.4-0.1*i,1) for i in range(31)],1),
+              ("95_04",[0.3,0.2,0.1,0.0],2),
+          ]
+          expected={"static":24,"dynamic":55}
+
+          for mode in ("static","dynamic"):
+              sub=d[d["mode"]==mode].copy()
+              correct=0
+              n=0
+              by_record={}
+              for rid,ages,target in records:
+                  rc=0
+                  for age in ages:
+                      row=sub[(sub["ka_bp"].astype(float)-age).abs()<1e-9]
+                      assert len(row)==1,(mode,rid,age,len(row))
+                      c=counts(row.iloc[0]["vegetation_class_counts"])
+                      denom=sum(c[k] for k in (0,1,2,3))
+                      frac=(c[target]/denom) if denom else 0.0
+                      ok=frac >= 0.01-1e-15
+                      correct += int(ok)
+                      rc += int(ok)
+                      n += 1
+                  by_record[rid]=f"{rc}/{len(ages)}"
+              assert n==62,(mode,n)
+              assert correct==expected[mode],(mode,correct,n,by_record)
+              print("JANG_PRIMARY_OK",mode,f"{correct}/{n}",by_record)
+          PY
+
+      - name: Verify no stale validation lineage or old standard ages
+        shell: bash
+        run: |
+          set -euo pipefail
+          root=/tmp/pb4_audited_verify/PB4Studio_v6.6.3_CHELSA21K
+          ! grep -R -n -E '66/86|41/86|39/86|100/50/10/1 ka|outputs_hotfix10n10_selfcontained|test_chelsa21k_contract.py' "$root" \
+             --include='*.py' --include='*.txt' --include='*.md' --include='*.bat'
+
+      - name: Promote audited ZIP and update provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          oldsha=$(sha256sum pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip | awk '{print $1}')
+          cp /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_AUDITED.zip pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip
+
+          export OLDSHA="$oldsha"
+          export NEWSHA="$AUDITED_SHA"
+          python - <<'PY'
+          from pathlib import Path
+          import json, os
+
+          oldsha=os.environ["OLDSHA"]
+          newsha=os.environ["NEWSHA"]
+
+          sums=Path("pb4_chelsa21k/SHA256SUMS.txt")
+          lines=sums.read_text(encoding="utf-8").splitlines()
+          out=[]
+          found=False
+          for line in lines:
+              parts=line.split(None,1)
+              if len(parts)==2 and parts[1]=="model/PB4Studio_v6.6.3_CHELSA21K.zip":
+                  out.append(f"{newsha}  model/PB4Studio_v6.6.3_CHELSA21K.zip")
+                  found=True
+              else:
+                  out.append(line)
+          assert found
+          sums.write_text("\n".join(out)+"\n",encoding="utf-8")
+
+          pp=Path("pb4_chelsa21k/results/final_integrated_20261006/FINAL_PROVENANCE.json")
+          p=json.loads(pp.read_text(encoding="utf-8"))
+          p["previous_packaging_sha256"]=oldsha
+          p["final_sha256"]=newsha
+          p["package_full_audit_20261006"]=(
+              "Fixed runtime primary validation to Jang et al. 2011 corrected reduced mapping only "
+              "(n=62; static 24/62; dynamic 55/62), excluded Park 2021 categorical legacy records, "
+              "fixed 21 ka standard-report ages and all-time snapshot defaults, repaired distribution "
+              "paths/launchers/contract checks, and removed stale distribution baggage. "
+              "Science equations and production parameterization unchanged."
+          )
+          pp.write_text(json.dumps(p,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          PY
+
+          # Obsolete v3 package-cleaning machinery is intentionally removed.
+          rm -f pb4_chelsa21k/tools/clean_package_v3.py
+          rm -f .github/workflows/pb4-promote-clean-u008-package.yml
+
+      - name: Commit audited canonical package
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A pb4_chelsa21k .github/workflows
+          git status --short
+          git commit -m "fix: audit PB4 U008 package validation and distribution contract"
+          git pull --rebase origin main
+          git push
