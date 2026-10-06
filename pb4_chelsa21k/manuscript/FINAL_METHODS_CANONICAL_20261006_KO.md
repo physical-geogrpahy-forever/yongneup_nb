@@ -55,6 +55,22 @@ t\rightarrow\tau
 
 중요하게, 각 Pelletier 식은 서로 대입하여 하나의 통합식으로 만들지 않는다. \(P_0\), \(P\), \(k_d\), \(\mathbf q\), \(K\), \(w\), \(E_f\)를 각각 독립식으로 제시한다.
 
+## 2.1 공간 입력자료와 계산격자
+
+- 고도자료: 국토정보플랫폼 수치지형도
+- DEM 생성: QGIS 3.44.5의 IDW로 10 m 연속 고도면 구축
+- 유역 추출: GRASS GIS `r.watershed`
+- 좌표계: Korea 2000/Central Belt 2010, EPSG:5187
+- 최종 계산격자: 모든 공간자료를 20 m로 리샘플링
+- 경계조건: 단일 유출구만 open, 나머지 유역 경계는 closed
+- D8 유출: 지정 유출구에서만 유역 외부로 허용
+- 사면수송: 계산 마스크 내부 인접 셀 사이에서만 계산하며 closed boundary를 가로지르는 flux는 0
+- D8 계산 전 sink filling 적용
+
+따라서 Methods에서는 10 m를 DEM 보간 단계 해상도, 20 m를 실제 VeSLEM 계산 해상도로 구분하여 기술한다.
+
+초기 토심은 SoilGrids1km의 `BDRICM_M_1km_ll`을 사용한다(Hengl et al., 2014).
+
 ## 3. 기후입력과 BIOME4
 
 CHELSA-TraCE21k/EnviCloud의 월별 Tmin, Tmax, 강수를 사용한다. 원자료의 Tmin과 Tmax는 Kelvin이므로 월평균기온은
@@ -153,7 +169,7 @@ d\zeta
 
 이는 **본 연구 구현식**이다.
 
-production code에 사용된 깊이별 available-water density는 다음과 같다.
+production code에 사용된 깊이별 available-water density는 SoilGrids Explore에서 용늪 지점(128.1236 E, 38.2153 N)에 대해 확보한 \(\theta_{-10}-\theta_{-1500}\) profile이며 다음과 같다.
 
 | 깊이 m | mm m\(^{-1}\) |
 |---|---:|
@@ -163,6 +179,8 @@ production code에 사용된 깊이별 available-water density는 다음과 같�
 | 0.30-0.60 | 207 |
 | 0.60-1.00 | 198 |
 | 1.00-2.00 | 179 |
+
+이 값에는 별도의 coarse-fragment correction, pedotransfer function, calibration 또는 pollen-fit coefficient를 적용하지 않았다. 최종 texture raster의 유효 셀은 모두 BIOME4 texture class 2이며, texture class는 native BIOME4 hydraulic conductivity를 선택하는 데 사용한다. 위 available-water density 자체는 sand/silt/clay 비율로부터 본 연구가 다시 추정한 값이 아니다.
 
 BIOME4의 구조적 수문깊이 상한 때문에 실제 적분은 1.50 m까지만 수행한다.
 
