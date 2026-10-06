@@ -30,11 +30,14 @@
 
 ### Scherstjanoi et al. (2013)
 
+업로드한 원문을 직접 재확인하였다.
+
 - LPJ-GUESS를 second-generation DGVM의 사례로 직접 설명한다.
-- LPJ-GUESS의 높은 계산비용의 원인으로 5-50개의 age-based cohorts와 많은 replicate patches의 동시 모의를 제시한다.
-- 이 요구는 first-generation DGVM보다 계산 요구량을 2-3 orders of magnitude 증가시킨다고 보고한다.
-- 계산비용 때문에 고해상도 전지구 LPJ-GUESS 모의는 슈퍼컴퓨터 없이는 현실적으로 어렵다고 명시한다.
-- 주의: 이 논문은 BIOME4와 LPJ-GUESS의 계산시간을 직접 비교한 연구가 아니다.
+- 원문은 LPJ-GUESS의 높은 계산비용에 대해 다음 두 원인을 명시한다: (1) 각 patch의 수직구조를 나타내기 위해 5-50개의 age-based cohorts에서 식물생리를 계산하고, (2) grid-cell 수준에서 확률적 disturbance, establishment, mortality의 변이를 나타내기 위해 많은 replicate patches를 계산한다.
+- 이어서 이 두 요구가 결합되어 first-generation DGVM보다 계산요구량을 2-3 orders of magnitude 증가시킨다고 명시한다.
+- 또한 계산비용 때문에 0.5°와 같은 고해상도 전지구 LPJ-GUESS 모의가 슈퍼컴퓨터 없이는 현실적으로 어렵다고 명시한다.
+- 이 연구의 실제 계산시간 비교에서도 8개 stand, 800년 spin-up + 1900-2100 실험에서 LPJ-GUESS 400 replicate는 7 h 31 min 11 s, 100 replicate는 1 h 15 min 33 s, 25 replicate는 17 min 58 s, GAPPARD는 6 min 56 s였다. 이는 동일 논문 내부에서 replicate-patch 계산비용이 매우 큼을 보여주는 정량적 보조근거다.
+- 주의: 이 논문은 BIOME4와 LPJ-GUESS의 계산시간을 직접 비교한 연구가 아니다. 따라서 2-3 orders of magnitude를 BIOME4 대비 배수로 쓰면 안 된다.
 
 ## 3. APA 참고문헌
 
