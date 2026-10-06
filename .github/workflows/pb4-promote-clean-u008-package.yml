@@ -65,8 +65,7 @@ jobs:
           expected = "6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008"
           assert pb4studio.__version__ == expected, pb4studio.__version__
           text = (root / "gui" / "main.py").read_text(encoding="utf-8")
-          m = re.search(r'EXPECTED_VERSION\\s*=\\s*["\\\']([^"\\\']+)["\\\']', text)
-          assert m and m.group(1) == expected, m.group(1) if m else None
+          assert f'EXPECTED_VERSION = "{expected}"' in text
           print("VERSION_OK", expected)
           PY
 
