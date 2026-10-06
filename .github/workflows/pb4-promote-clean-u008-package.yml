@@ -159,6 +159,7 @@ jobs:
 
           sha=$(sha256sum pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip | awk '{print $1}')
           echo "PACKAGE_SHA=$sha" >> "$GITHUB_ENV"
+          export PACKAGE_SHA="$sha"
           echo "NEW_PACKAGE_SHA=$sha"
 
           python - <<'PY'
