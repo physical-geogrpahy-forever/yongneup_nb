@@ -10,7 +10,7 @@
   "vegetation": "BIOME4 v4.2b2 native climate limits + McKenzie/Jackson soil-root coupling",
   "agb": "BIOME4-derived AGB*: Reich 1992 leaf SLA-life-span + Haxeltine & Prentice 1996 Eq.34 sapwood + BIOME4 stemcarbon=0.5",
   "pelletier_coupling": "kd=0.033*EEMT+0.05*AGB*",
-  "primary_validation": "Jang et al. 2011 corrected reduced mapping, n=62, 1% basin presence",
+  "primary_validation": "Jang et al. 2011 corrected reduced mapping, 62 model output-time evaluation points, 1% basin presence",
   "park2021": "independent holdout only; excluded from tuning and Jang score; raw Supplementary pollen table required",
   "comment_cleanup_baseline_sha256": "a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34",
   "comment_cleanup_regression": "PASS_STRICT_NUMERIC: categorical values exact; all numeric differences <=1e-12"
