@@ -21,7 +21,7 @@
 - 식생모형: BIOME4 v4.2b2
 - production configuration: PB4-McKenzie-nativeClimate + BIOME4-derived AGB*
 - 모델 버전: \`6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB\`
-- 최종 package SHA-256: \`a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34\`
+- 최종 package SHA-256: \`796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86\`
 - 검증자료: Jang et al. (2011)
 - 검증 표본: 62개 100년 output-time
 

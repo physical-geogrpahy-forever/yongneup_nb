@@ -1,6 +1,6 @@
 # PB4 final integrated production result
 
-Final SHA-256: a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34
+Final SHA-256: 796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86
 
 ## Scientific configuration
 

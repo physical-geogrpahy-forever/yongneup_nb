@@ -495,7 +495,7 @@ Park et al. (2021)은 최종 정량검증 점수 산정에 사용하지 않았�
 
 최종 production model은 \`6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB\`이며 package SHA-256은
 
-\`a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34\`
+\`796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86\`
 
 이다. 기후 forcing은 \`YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv\`를 사용하였으며, 21.0-0.0 ka BP의 211개 시점에 대해 static과 dynamic 실험을 동일 forcing으로 수행하였다. 최종 정량검증 대상은 Jang et al. (2011)의 네 LPZ를 100년 모델 출력격자에 대응한 62개 평가시점이다.
 

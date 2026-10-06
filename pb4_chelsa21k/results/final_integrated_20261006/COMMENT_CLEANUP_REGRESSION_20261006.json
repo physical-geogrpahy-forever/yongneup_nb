@@ -1,0 +1,18 @@
+{
+  "status": "PASS_STRICT_NUMERIC",
+  "baseline_package_sha256": "a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34",
+  "jang": {
+    "static": "24/62",
+    "dynamic": "55/62"
+  },
+  "jang_rows": 124,
+  "jang_max_abs_float_diff": 1.1102230246251565e-16,
+  "timeseries_rows_compared": 422,
+  "timeseries_columns_compared": 88,
+  "timeseries_max_abs_float_diff": 2.842170943040401e-14,
+  "timeseries_worst_float_column": "mean_npp",
+  "float_tolerance_abs": 1e-12,
+  "categorical_and_nan_patterns_exact": true,
+  "scope": "elevation, soil depth, slope, NPP, EEMT, vegetation classes, AGB*, legacy diagnostic AGB, PFT diagnostics, geomorph adaptive-step diagnostics",
+  "cleaned_package_sha256": "796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86"
+}
