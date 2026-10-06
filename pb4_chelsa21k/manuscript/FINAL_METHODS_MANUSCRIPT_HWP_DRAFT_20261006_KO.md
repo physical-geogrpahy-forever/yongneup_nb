@@ -37,7 +37,7 @@ H=z-z_b
 
 유역 경계에서는 지정한 단일 유출구만 열린 경계로 두고 나머지 경계는 닫힌 경계로 처리하였다. D8 흐름에서는 유출구 셀에서만 유역 외부로의 유출을 허용하였고, 그 외 경계 셀에서 유역 외부로 향하는 흐름은 허용하지 않았다. 사면 물질수송 역시 계산 마스크 내부의 인접 셀 사이에서만 계산하여 닫힌 경계를 가로지르는 유출량을 0으로 두었다. D8 흐름 계산에서 내부 폐쇄가 발생하지 않도록 흐름경로 계산 전에 싱크 채우기를 적용하였다.
 
-초기 토심은 기반암까지의 깊이를 나타내는 SoilGrids1km의 BDRICM_M_1km_ll 자료를 이용하였다(Hengl et al., 2014). 토양수분 저장량 계산에는 SoilGrids 기반의 용늪 지점 수분특성 profile을 사용하였다. 최종 production source에는 128.1236 E, 38.2153 N 지점에서 확보한 각 깊이구간의 theta_{-10}-theta_{-1500} 값을 직접 입력하였으며, 별도의 pedotransfer function, 자갈함량 보정, 경험적 보정 또는 화분자료 적합계수를 적용하지 않았다. 깊이별 available-water density는 0-0.05 m에서 237 mm m^-1, 0.05-0.15 m에서 232 mm m^-1, 0.15-0.30 m에서 218 mm m^-1, 0.30-0.60 m에서 207 mm m^-1, 0.60-1.00 m에서 198 mm m^-1, 1.00-2.00 m에서 179 mm m^-1을 사용하였다(Poggio et al., 2021). BIOME4의 수문구조상 실제 적분은 최대 1.50 m까지만 수행하였다.
+초기 토심은 SoilGrids250m 자료를 1 km로 집계한 과거 ISRIC 배포본의 기반암 깊이 자료 `BDRICM_M_1km_ll`을 이용하였다(Hengl et al., 2017; Shangguan et al., 2017). 해당 파일은 ISRIC의 2017-03-10 SoilGrids archive의 aggregated/1km 자료에 포함된다. 토양수분 저장량 계산에는 SoilGrids 기반의 용늪 지점 수분특성 profile을 사용하였다. 최종 production source에는 128.1236 E, 38.2153 N 지점에서 확보한 10 kPa와 1500 kPa 체적수분함량의 차이, 즉 theta_{-10}-theta_{-1500}를 각 깊이구간에 직접 입력하였다. SoilGrids에서 wv0010은 10 kPa의 체적수분함량, wv1500은 1500 kPa의 체적수분함량을 의미하며, 두 자료는 0-5, 5-15, 15-30, 30-60, 60-100 및 100-200 cm의 여섯 표준 깊이구간으로 제공된다(Turek et al., 2023). 별도의 pedotransfer function, 자갈함량 보정, 경험적 보정 또는 화분자료 적합계수는 적용하지 않았다. 깊이별 available-water density는 0-0.05 m에서 237 mm m^-1, 0.05-0.15 m에서 232 mm m^-1, 0.15-0.30 m에서 218 mm m^-1, 0.30-0.60 m에서 207 mm m^-1, 0.60-1.00 m에서 198 mm m^-1, 1.00-2.00 m에서 179 mm m^-1을 사용하였다. BIOME4의 수문구조상 실제 적분은 최대 1.50 m까지만 수행하였다.
 
 최종 production에 제공된 토성 격자는 모든 유효 셀에서 BIOME4 texture class 2로 판정되었다. 이 토성정보는 BIOME4의 기존 hydraulic conductivity 값을 선택하는 데 사용하였으며, 위 available-water density profile 자체는 모래, 실트 및 점토 비율로부터 본 연구에서 새롭게 추정한 값이 아니라 SoilGrids에서 확보한 theta_{-10}과 theta_{-1500}의 차이를 사용하였다.
 
@@ -313,7 +313,7 @@ k_d=c EEMT+d AGB^*
 
 Production에서는 c=0.033, d=0.050을 사용하였다. Pelletier et al. (2013)의 원식에서 AGB가 위치한 항에 본 연구의 BIOME4-derived AGB*를 입력하였다.
 
-Pelletier et al. (2013)은 S_c=0.7을 기준값으로 사용하고 0.9를 민감도 실험에 사용하였다. 본 연구에서는 20 m real DEM의 수치수렴시험을 바탕으로 S_c=1.50을 사용하였다. 따라서 S_c=1.50은 Pelletier et al. (2013)의 원 연구값이 아니라 본 연구의 raster 수치설정이다.
+Pelletier et al. (2013)은 S_c=0.7을 기준값으로 사용하고 0.9를 민감도 실험에 사용하였다. 본 연구에서는 20 m real DEM의 수치수렴시험을 바탕으로 S_c=1.50을 사용하였다. 20 m 격자에서 초기 최대 cardinal-face slope는 1.332였으며 S_c=1.50 적용 시 초기 초임계경사 및 threshold adjustment가 발생하지 않았다. 또한 1 kyr 회귀시험에서 수치허용오차를 0.025 m에서 0.0125 m로 절반으로 줄였을 때 최대 토심 차이는 0.008139 m였다. 따라서 S_c=1.50은 Pelletier et al. (2013)의 원 연구값이나 자연사면의 보편적 임계경사가 아니라, 초기 DEM을 인위적으로 재성형하지 않으면서 수치수렴을 확보하기 위해 채택한 본 연구의 20 m raster 수치설정이다.
 
 ### 2.8.3 slope-wash 및 fluvial erosion
 
@@ -428,7 +428,7 @@ Gale, M. R., & Grigal, D. F. (1987). Vertical root distributions of northern tre
 
 Haxeltine, A., & Prentice, I. C. (1996). BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types. *Global Biogeochemical Cycles, 10*, 693-709. https://doi.org/10.1029/96GB02344
 
-Hengl, T., de Jesus, J. M., MacMillan, R. A., Batjes, N. H., Heuvelink, G. B. M., Ribeiro, E., Samuel-Rosa, A., Kempen, B., Leenaars, J. G. B., Walsh, M. G., & Gonzalez, M. R. (2014). SoilGrids1km: Global soil information based on automated mapping. *PLoS ONE, 9*(8), e105992. https://doi.org/10.1371/journal.pone.0105992
+Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S., & Kempen, B. (2017). SoilGrids250m: Global gridded soil information based on machine learning. *PLoS ONE, 12*(2), e0169748. https://doi.org/10.1371/journal.pone.0169748
 
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E., & Schulze, E.-D. (1996). A global analysis of root distributions for terrestrial biomes. *Oecologia, 108*, 389-411. https://doi.org/10.1007/BF00333714
 
@@ -449,3 +449,8 @@ Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorov
 Poggio, L., de Sousa, L. M., Batjes, N. H., Heuvelink, G. B. M., Kempen, B., Ribeiro, E., & Rossiter, D. (2021). SoilGrids 2.0: Producing soil information for the globe with quantified spatial uncertainty. *SOIL, 7*, 217-240. https://doi.org/10.5194/soil-7-217-2021
 
 Reich, P. B., Walters, M. B., & Ellsworth, D. S. (1992). Leaf life-span in relation to leaf, plant, and stand characteristics among diverse ecosystems. *Ecological Monographs, 62*, 365-392. https://doi.org/10.2307/2937116
+
+
+Shangguan, W., Hengl, T., Mendes de Jesus, J., Yuan, H., & Dai, Y. (2017). Mapping the global depth to bedrock for land surface modeling. *Journal of Advances in Modeling Earth Systems, 9*(1), 65-88. https://doi.org/10.1002/2016MS000686
+
+Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., de Sousa, L., & Heuvelink, G. B. M. (2023). Global mapping of volumetric water retention at 100, 330 and 15,000 cm suction using the WoSIS database. *International Soil and Water Conservation Research, 11*(2), 225-239. https://doi.org/10.1016/j.iswcr.2022.08.001
