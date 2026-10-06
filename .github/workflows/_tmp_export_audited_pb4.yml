@@ -1,0 +1,19 @@
+name: TMP export audited PB4
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/_tmp_export_audited_pb4.yml'
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PB4Studio_v6.6.3_CHELSA21K_U008_AUDITED
+          path: pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip
+          if-no-files-found: error
+          retention-days: 7
