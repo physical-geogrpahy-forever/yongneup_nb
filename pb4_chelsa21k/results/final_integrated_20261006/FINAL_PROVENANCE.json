@@ -2,7 +2,7 @@
   "status": "final_integrated_production",
   "source_candidate_sha256": "1a4a7e07b9387c38f21019e9bc781a499b7c5864f949abf7075ea779e435a05c",
   "previous_canonical_sha256": "eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d",
-  "final_sha256": "4b7be121d6d427a5378eb1aab491781f20a1557ee7d646acbef512d230356fd8",
+  "final_sha256": "93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b",
   "model_version": "6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008",
   "climate": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
   "period_ka_bp": "21.0-0.0",
@@ -18,6 +18,7 @@
   "uplift_m_per_kyr": 0.08,
   "uplift_basis": "Lee et al. (2024), 80 mm/kyr regional forcing chosen to equal ca. 22 Ma-to-present Taebaek Mountain exhumation rate",
   "uplift_interpretation": "regional model forcing; not a direct Yongneup uplift measurement",
-  "previous_packaging_sha256": "0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4",
-  "packaging_update_20261006": "science equations unchanged; fixed GUI version contract, 211-step FULL_EXPORT packaging, CHELSA-style 21->0 ka plots, and removed stale audit/debug/reference baggage"
+  "previous_packaging_sha256": "4b7be121d6d427a5378eb1aab491781f20a1557ee7d646acbef512d230356fd8",
+  "packaging_update_20261006": "science equations unchanged; fixed GUI version contract, 211-step FULL_EXPORT packaging, CHELSA-style 21->0 ka plots, and removed stale audit/debug/reference baggage",
+  "package_full_audit_20261006": "Fixed runtime primary validation to Jang et al. 2011 corrected reduced mapping only (n=62; static 24/62; dynamic 55/62), excluded Park 2021 categorical legacy records, fixed 21 ka standard-report ages and all-time snapshot defaults, repaired distribution paths/launchers/contract checks, and removed stale distribution baggage. Science equations and production parameterization unchanged."
 }
