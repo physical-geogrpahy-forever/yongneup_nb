@@ -673,6 +673,10 @@ Park et al. (2021)의 holdout, PC2 상관, Herbs 비교는 최종 Methods와 최
 
 검증의 51% 재분류와 1% 출현 기준은 검증 절에서 문장으로 설명한다.
 
+### 12.1 canonical ZIP 직접 감사
+
+최종 canonical package는 GitHub Actions에서 repository의 ZIP 자체를 직접 압축해제하여 재검증하였다. 세 canonical alias는 모두 SHA-256 `0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4`로 동일하였다. 압축해제 source에서 `U=0.08`, `S_c=1.50`, `g=0.005`, `i=0.50`, `F=10`, valley threshold 1.20, hillslope `w=Delta x`, valley `w=gA^i`, CHELSA production lapse-rate 0, BIOME4 `stemcarbon=0.5` 및 `lai*stemcarbon` 구현을 직접 확인하였다. 강화된 exact assertion은 모두 통과하였다. 따라서 아래 Methods는 추정된 source snapshot이 아니라 최종 canonical ZIP과 직접 대조된 상태이다.
+
 ## 14. 문서 권위순위
 
 1. 이 문서 \`FINAL_METHODS_CANONICAL_20261006_KO.md\`
