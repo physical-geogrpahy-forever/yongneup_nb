@@ -1,0 +1,23 @@
+{
+  "base_canonical_sha256": "4b7be121d6d427a5378eb1aab491781f20a1557ee7d646acbef512d230356fd8",
+  "candidate_sha256": "578923dee512278a64f97d914acc9b1f67af7d13007a099bb2931b17b5e6a49c",
+  "science_change": "none; native BIOME4 fire preserved, diagnostics exported",
+  "forcing": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+  "forcing_interval_kyr": 0.1,
+  "native_fire_contract": {
+    "fire_call": true,
+    "fire_subroutine": true,
+    "pft6_fire_threshold": true,
+    "fire_output": true
+  },
+  "park_fire_windows_ka": [
+    [
+      2.9,
+      2.7
+    ],
+    [
+      2.4,
+      2.3
+    ]
+  ]
+}
