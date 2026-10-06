@@ -1,0 +1,50 @@
+name: Generate Yongneup elevation figure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pb4_chelsa21k/plots/plot_mean_elevation.py'
+      - 'pb4_chelsa21k/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv'
+      - '.github/workflows/pb4-plot-mean-elevation.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  plot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install plotting dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-nanum
+          python -m pip install --upgrade pip
+          python -m pip install pandas matplotlib numpy
+      - name: Generate figure
+        shell: bash
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/plots/plot_mean_elevation.py
+          test -f pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.png
+          test -f pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.svg
+      - name: Commit figure outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.png
+          git add pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.svg
+          if git diff --cached --quiet; then
+            echo "No figure changes."
+            exit 0
+          fi
+          git commit -m 'plots: refresh CHELSA-style mean elevation figure [skip ci]'
+          git push origin HEAD:main
