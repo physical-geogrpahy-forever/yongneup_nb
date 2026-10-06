@@ -423,32 +423,42 @@ Jang et al. (2011) 원문 식생대, n=62, 유역 1% 기준에서 결과는 이�
 
 상세 자료: `results/native_climate_final_20261005/`
 
+## 15. 2026-10-06 폐기된 실험 후보: U009 post-fire state memory
 
-## 15. 2026-10-06 최종 production 결정: native fire + post-fire succession U009
+U009에서는 native fire event 다음 0.1 kyr 시점에 PFT8 상태를 한 번 유지하는 실험을 검토하였다.
+그러나 최종 모델에서는 이 상태기억을 사용하지 않는다. 이유는 BIOME4의 0.1 kyr 출력 간격에서
+각 시점의 기후와 토양조건에 따른 원래 평형경쟁을 그대로 유지하는 편이 가정이 더 적기 때문이다.
 
-최종 production 코드 정의는 **PB4Studio 6.6.3-CHELSA21K-FINAL-FIRE-SUCCESSION-U009**이다.
+U009는 감사와 민감도 기록으로만 보존한다.
 
-BIOME4 v4.2b2의 native fire hydrology와 competition threshold를 그대로 유지하며, 원 모델이 평형 경쟁 때문에 표현하지 못하는 산불 직후의 일시적 개방식생 상태만 상태기억으로 보완한다.
+## 16. 2026-10-06 최종 production 결정: BIOME4 native fire U008
+
+최종 산불 처리는 BIOME4 v4.2b2의 원래 fire 계산과 competition 규칙을 그대로 사용한다.
 
 ```text
 CHELSA(t), H(t)
- -> BIOME4 native soil-water balance
- -> native firedays
- -> PFT4 firedays > 180 또는 PFT6 firedays > 90
- -> fire event
- -> 다음 0.1 kyr에서 PFT8 생리적 적합성 확인
- -> 적합하면 post-fire PFT8 state
- -> NPP/AET/LAI/PFT
+ -> BIOME4 soil-water balance
+ -> native PFT-specific firedays
+ -> native competition2 fire rules
+ -> equilibrium PFT/biome at t
+ -> NPP, LAI, AET
  -> AGB*, EEMT
- -> Pelletier geomorphic update
+ -> [dynamic] Pelletier
  -> H(t+1), z(t+1)
+ -> 다음 0.1 kyr에서 다시 독립 BIOME4 경쟁
 ```
 
-post-fire 상태는 특정 화분 또는 charcoal 연대를 직접 입력하지 않는다. native fire signal과 PFT8의 자체 BIOME4 생리조건만 사용한다. 따라서 Park et al. (2021)은 독립적인 후기 홀로세 비교자료로 유지한다.
+추가적인 post-fire PFT8 유지시간, Park/Jang 연대 기반 fire event, fire threshold 재보정,
+결과에 맞춘 기후 보정은 적용하지 않는다.
 
-제어실험에서 후기 홀로세 CHELSA forcing 하의 0.05 m 토심은 PFT6 native fire threshold를 넘고 다음 100년 시점의 PFT8 전환을 발생시켰으며, 1.5 m 토심에서는 발생하지 않았다.
+FIREACTIVE U008에서 추가된 부분은 firedays 진단 출력뿐이며 과학식은 변경하지 않는다.
+따라서 기존 production 검증값은 그대로 유지한다.
 
-U009 전체 21-0 ka coupled rerun 완료 전까지 U008/FIREACTIVE의 Jang 24/62 및 55/62 값을 U009 검증값으로 사용하지 않는다.
+- static Jang 1%: **24/62 = 38.71%**
+- dynamic Jang 1%: **55/62 = 88.71%**
 
-최종 U009 로컬 ZIP SHA-256:
-`b41003b08f9591ca53a64cf33f1c2466fc85517a87fccd15613f2a815efe2520`
+최종 native-fire 실행 ZIP SHA-256:
+`578923dee512278a64f97d914acc9b1f67af7d13007a099bb2931b17b5e6a49c`
+
+상세 결정:
+`results/final_native_fire_u008_20261006/FINAL_NATIVE_FIRE_U008_DECISION_KO.md`
