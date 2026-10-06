@@ -422,3 +422,33 @@ Jang et al. (2011) 원문 식생대, n=62, 유역 1% 기준에서 결과는 이�
 최종 canonical ZIP SHA-256: `eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d`
 
 상세 자료: `results/native_climate_final_20261005/`
+
+
+## 15. 2026-10-06 최종 production 결정: native fire + post-fire succession U009
+
+최종 production 코드 정의는 **PB4Studio 6.6.3-CHELSA21K-FINAL-FIRE-SUCCESSION-U009**이다.
+
+BIOME4 v4.2b2의 native fire hydrology와 competition threshold를 그대로 유지하며, 원 모델이 평형 경쟁 때문에 표현하지 못하는 산불 직후의 일시적 개방식생 상태만 상태기억으로 보완한다.
+
+```text
+CHELSA(t), H(t)
+ -> BIOME4 native soil-water balance
+ -> native firedays
+ -> PFT4 firedays > 180 또는 PFT6 firedays > 90
+ -> fire event
+ -> 다음 0.1 kyr에서 PFT8 생리적 적합성 확인
+ -> 적합하면 post-fire PFT8 state
+ -> NPP/AET/LAI/PFT
+ -> AGB*, EEMT
+ -> Pelletier geomorphic update
+ -> H(t+1), z(t+1)
+```
+
+post-fire 상태는 특정 화분 또는 charcoal 연대를 직접 입력하지 않는다. native fire signal과 PFT8의 자체 BIOME4 생리조건만 사용한다. 따라서 Park et al. (2021)은 독립적인 후기 홀로세 비교자료로 유지한다.
+
+제어실험에서 후기 홀로세 CHELSA forcing 하의 0.05 m 토심은 PFT6 native fire threshold를 넘고 다음 100년 시점의 PFT8 전환을 발생시켰으며, 1.5 m 토심에서는 발생하지 않았다.
+
+U009 전체 21-0 ka coupled rerun 완료 전까지 U008/FIREACTIVE의 Jang 24/62 및 55/62 값을 U009 검증값으로 사용하지 않는다.
+
+최종 U009 로컬 ZIP SHA-256:
+`b41003b08f9591ca53a64cf33f1c2466fc85517a87fccd15613f2a815efe2520`
