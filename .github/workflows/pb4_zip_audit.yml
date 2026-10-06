@@ -44,12 +44,14 @@ jobs:
           assert gps, 'pelletier_geomorph.py missing'
           s=gps[0].read_text(errors='replace')
           checks={
-            'g_0.005': bool(re.search(r'0\.005',s)),
-            'i_0.5': bool(re.search(r'\b0\.5\b',s)),
-            'F_10_or_factor10': bool(re.search(r'\b10(?:\.0)?\b',s)),
-            'Sc_1.5': bool(re.search(r'1\.5',s)),
-            'U_0.08': bool(re.search(r'0\.08',s)),
-            'valley_logic': bool(re.search(r'valley|tributary|A_over_w|channel',s,re.I)),
+            'g_0.005': bool(re.search(r'channel_width_coeff:\s*float\s*=\s*0\.005',s)),
+            'i_0.5': bool(re.search(r'channel_width_exp:\s*float\s*=\s*0\.50',s)),
+            'F_10': bool(re.search(r'bedrock_erosion_resistance:\s*float\s*=\s*10\.0',s)),
+            'Sc_1.5': bool(re.search(r'hillslope_critical_slope:\s*float\s*=\s*1\.50',s)),
+            'U_0.08': bool(re.search(r'uplift_m_per_kyr:\s*float\s*=\s*0\.08',s)),
+            'valley_threshold_1.2': bool(re.search(r'grid_dependence_valley_threshold:\s*float\s*=\s*1\.20',s)),
+            'valley_formula': bool(re.search(r'width_valley\s*=\s*float\(cfg\.channel_width_coeff\).*?np\.power',s,re.S)),
+            'hillslope_width_dx': bool(re.search(r'width_hill\s*=\s*np\.full_like\(a_native,\s*float\(dx_m\)',s)),
           }
           for k,v in checks.items(): print(f'{k}={v}')
           if not all(checks.values()):
@@ -57,8 +59,11 @@ jobs:
           cps=list(root.rglob('climate.py'))
           if cps:
               cs=cps[0].read_text(errors='replace')
-              print('climate_lapse_zero=', bool(re.search(r'lapse_rate_C_per_m\s*=\s*0\.0',cs)))
-              print('tmin_lapse_zero=', bool(re.search(r'tmin_lapse_rate_C_per_m\s*=\s*0\.0',cs)))
+              cz=bool(re.search(r'df\["lapse_rate_C_per_m"\]\s*=\s*0\.0',cs))
+              tz=bool(re.search(r'df\["tmin_lapse_rate_C_per_m"\]\s*=\s*0\.0',cs))
+              print('climate_lapse_zero=', cz)
+              print('tmin_lapse_zero=', tz)
+              if not (cz and tz): sys.exit('CHELSA lapse zero assertion failed')
           fps=list(root.rglob('biome4*.f'))
           if fps:
               fs=fps[0].read_text(errors='replace')
