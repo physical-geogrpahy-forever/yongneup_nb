@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install -q numpy pandas matplotlib openpyxl
+          python -m pip install -q numpy pandas matplotlib openpyxl rasterio
 
       - name: Build FULL_EXPORT distribution from current canonical
         shell: bash
