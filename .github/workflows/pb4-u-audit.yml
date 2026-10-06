@@ -1,0 +1,22 @@
+name: PB4 U audit
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-u-audit.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Inspect canonical package uplift settings
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4_u_audit
+          mkdir -p /tmp/pb4_u_audit
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4_u_audit
+          echo "=== files ==="
+          find /tmp/pb4_u_audit -type f | sort
+          echo "=== uplift-related text ==="
+          grep -RniE 'uplift|uplift_rate|80[[:space:]]*mm|0\.08|0\.20|0\.2([,);[:space:]]|$)' /tmp/pb4_u_audit --include='*.py' --include='*.json' --include='*.toml' --include='*.yaml' --include='*.yml' --include='*.ini' --include='*.txt' --include='*.md' || true
