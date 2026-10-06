@@ -1,0 +1,179 @@
+name: PB4 build full export package v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-build-full-export-package-v2.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate openpyxl
+
+      - name: Build instrumented distribution
+        shell: bash
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/tools/build_full_export_distribution_v2.py \
+            --source-zip pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip \
+            --work-dir /tmp/pb4_full_export_v2 \
+            --exporter pb4_chelsa21k/tools/export_all_outputs.py
+          root=$(find /tmp/pb4_full_export_v2 -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          test -n "$root"
+          export ROOT="$root"
+          echo "ROOT=$root" >> "$GITHUB_ENV"
+          rm -rf "$root/outputs_CHELSA21K"
+          mkdir -p "$root/outputs_CHELSA21K"
+
+      - name: Run full 21 ka all-time export
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$ROOT"
+          export OMP_NUM_THREADS=4
+          python tools/run_yongneup_21ka_chelsa_selfcontained.py | tee /tmp/full_export_v2_run.log
+          python tools/export_all_outputs.py --root . --outputs outputs_CHELSA21K | tee /tmp/full_export_v2_export.log
+
+      - name: Verify 211 times and science regression
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import os
+          import numpy as np
+          import pandas as pd
+
+          root=Path(os.environ["ROOT"])
+          out=root/"outputs_CHELSA21K"
+          baseline=pd.read_csv(
+              "pb4_chelsa21k/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv",
+              encoding="utf-8-sig"
+          )
+
+          frames=[]
+          for mode in ("static","dynamic"):
+              p=out/f"model_{mode}"/"summary_timeseries.csv"
+              d=pd.read_csv(p,encoding="utf-8-sig")
+              assert len(d)==211, (mode,len(d))
+              assert len(np.unique(d["ka_bp"].astype(float)))==211
+              d=d.copy()
+              d.insert(0,"mode",mode)
+              d.insert(1,"source_csv",f"model_{mode}/summary_timeseries.csv")
+              frames.append(d)
+
+              snaps=[x for x in (out/f"model_{mode}").glob("snapshot_*ka") if x.is_dir()]
+              assert len(snaps)==211, (mode,"snapshots",len(snaps))
+              for check_ka in ("21ka","10ka","0ka"):
+                  sd=out/f"model_{mode}"/f"snapshot_{check_ka}"
+                  for fn in (
+                      "elevation_m.tif","soil_depth_m.tif","npp.tif","eemt.tif",
+                      "agb_reich_lai_sapwood.tif","lai.tif","aet_mm_yr.tif",
+                      "wetness.tif","runoff_mm_yr.tif","annual_mean_temp_C.tif",
+                      "annual_precip_mm.tif","co2_ppm.tif","cell_values.csv"
+                  ):
+                      assert (sd/fn).exists(), (mode,check_ka,fn)
+
+              fp=out/f"model_{mode}"/"monthly_forcing_timeseries.csv"
+              fd=pd.read_csv(fp,encoding="utf-8-sig")
+              assert len(fd)==211*12, (mode,len(fd))
+              assert set(fd["month"].astype(int))==set(range(1,13))
+
+          new=pd.concat(frames,ignore_index=True)
+          assert len(new)==422
+
+          missing=[c for c in baseline.columns if c not in new.columns]
+          assert not missing, missing
+          new=new[baseline.columns].copy()
+
+          # Compare text/categorical columns exactly after normalizing NaN.
+          for c in baseline.columns:
+              a=baseline[c]
+              b=new[c]
+              if pd.api.types.is_numeric_dtype(a) and pd.api.types.is_numeric_dtype(b):
+                  av=pd.to_numeric(a,errors="coerce").to_numpy(float)
+                  bv=pd.to_numeric(b,errors="coerce").to_numpy(float)
+                  assert np.array_equal(np.isnan(av),np.isnan(bv)), ("nan-pattern",c)
+                  m=np.isfinite(av)&np.isfinite(bv)
+                  if np.any(m):
+                      diff=float(np.max(np.abs(av[m]-bv[m])))
+                      assert diff <= 1e-12, (c,diff)
+              else:
+                  aa=a.fillna("<NA>").astype(str).to_numpy()
+                  bb=b.fillna("<NA>").astype(str).to_numpy()
+                  assert np.array_equal(aa,bb), c
+
+          # New diagnostics exist.
+          sample=pd.read_csv(out/"model_dynamic"/"summary_timeseries.csv",encoding="utf-8-sig")
+          for c in (
+              "mean_lai","mean_aet_mm_yr","mean_wetness","mean_runoff_mm_yr",
+              "mean_annual_mean_temp_C","mean_annual_precip_mm","co2_ppm",
+              "mean_annual_effective_precip_mm","pft05_npp_mean","pft08_lai_mean"
+          ):
+              assert c in sample.columns, c
+
+          xlsx=out/"FULL_EXPORT"/"PB4_MAJOR_VARIABLES_211_TIMESTEPS.xlsx"
+          assert xlsx.exists()
+          xl=pd.ExcelFile(xlsx)
+          required={"Major_variables","Dynamic_all","Static_all","Variable_dictionary",
+                    "Validation","Climate_input","Monthly_forcing","Run_config",
+                    "Output_manifest","Charts"}
+          assert required.issubset(set(xl.sheet_names)), (required-set(xl.sheet_names))
+          mf=pd.read_excel(xlsx,sheet_name="Monthly_forcing")
+          assert len(mf)==422*12, len(mf)
+
+          print("PASS_SCIENCE_REGRESSION")
+          print("STATIC=211 DYNAMIC=211 SNAPSHOTS_EACH=211")
+          print("MONTHLY_FORCING_ROWS=",len(mf))
+          print("BASELINE_COLUMNS_VERIFIED=",len(baseline.columns))
+          print("NEW_DYNAMIC_SUMMARY_COLUMNS=",len(sample.columns))
+          PY
+
+      - name: Prepare compact user package
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$ROOT"
+          mkdir -p REFERENCE_FINAL_EXPORT_U008
+          cp -a outputs_CHELSA21K/FULL_EXPORT/. REFERENCE_FINAL_EXPORT_U008/
+          cp outputs_CHELSA21K/model_static/monthly_forcing_timeseries.csv REFERENCE_FINAL_EXPORT_U008/static_monthly_forcing_timeseries.csv
+          cp outputs_CHELSA21K/model_dynamic/monthly_forcing_timeseries.csv REFERENCE_FINAL_EXPORT_U008/dynamic_monthly_forcing_timeseries.csv
+          cp /tmp/full_export_v2_run.log REFERENCE_FINAL_EXPORT_U008/FULL_RUN_VERIFICATION.log
+          cp /tmp/full_export_v2_export.log REFERENCE_FINAL_EXPORT_U008/EXPORT_VERIFICATION.log
+
+          rm -rf outputs_CHELSA21K
+          mkdir -p outputs_CHELSA21K
+          cat > outputs_CHELSA21K/README_RUN_TO_GENERATE.txt <<'TXT'
+          Run RUN_YONGNEUP_21KA_AND_EXPORT_ALL.bat.
+          All 211 time-step raw outputs will be generated here.
+          TXT
+
+          cd /tmp/pb4_full_export_v2
+          zip -q -r /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT_v2.zip "$(basename "$ROOT")"
+          sha256sum /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT_v2.zip \
+            > /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT_v2.sha256
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT_v2
+          path: |
+            /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT_v2.zip
+            /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT_v2.sha256
+          if-no-files-found: error
+          retention-days: 30
