@@ -159,7 +159,9 @@ B_{\rm leaf,dry}
 
 ### 7.2 sapwood
 
-Haxeltine and Prentice (1996)의 BIOME3 sapwood-LAI 관계를 문헌 원전으로 사용한다.
+Haxeltine and Prentice (1996)의 publisher PDF를 직접 시각 확인하였다. **Eq. (34)는 정확히 \(C_s=LAI\,C_n\)이다.** 원문에서 \(C_s\)는 total sapwood carbon content(kg C m^-2), \(C_n\)은 sapwood carbon content per unit LAI이며, BIOME3에서는 여러 자료를 종합하여 \(C_n=1\ {\rm kg\ C\ m^{-2}}\)를 사용한다.
+
+따라서 Haxeltine and Prentice (1996)에서 가져오는 것은 Eq. (34)의 구조이며, 본 연구의 실제 계수 0.5는 해당 논문에서 가져온 값이 아니다.
 
 \[
 C_s=LAI\,C_n
@@ -406,7 +408,7 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 
 ### 제출 전 마지막 확인
 
-1. Haxeltine and Prentice (1996)의 정확한 식 번호를 논문에 쓸 경우 publisher PDF에서 시각 재확인. 다만 식 번호를 생략하고 관계만 인용하면 BIOME4 v4.2b2 source의 `stemcarbon=0.5` 및 `lai*stemcarbon` 구현으로 독립 확인되므로 Methods의 과학적 내용에는 영향 없음
+1. Haxeltine and Prentice (1996) publisher PDF 확인 완료: Eq. (34) = \(C_s=LAI C_n\), BIOME3 원 \(C_n=1\). 본 연구의 \(C_n=0.5\)는 BIOME4 v4.2b2 source에서 가져온 값으로 분리 표기
 2. 최종 canonical ZIP을 로컬에서 직접 압축해제하여 \`pelletier_geomorph.py\`의 \(g=0.005\), \(i=0.5\), \(F=10\), valley classifier source line을 final SHA package와 다시 대조
 3. \(S_c=1.50\) convergence audit 수치는 위 12.1에 확보 완료. 제출 시 Supplementary 표 형태로만 편집
 4. SoilGrids provenance는 BDRICM_M_1km_ll의 ISRIC 2017-03-10 archive 경로와 wv0010/wv1500 정의까지 확인 완료. 제출 시 다운로드 날짜 또는 로컬 원본 파일 metadata가 남아 있으면 Supplementary에 추가
