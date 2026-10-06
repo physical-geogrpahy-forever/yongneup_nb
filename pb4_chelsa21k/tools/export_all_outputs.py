@@ -30,6 +30,12 @@ MAJOR_COLUMNS = [
     "mean_soil_depth_m", "sd_soil_depth_m", "min_soil_depth_m", "max_soil_depth_m",
     "mean_slope", "sd_slope", "min_slope", "max_slope",
     "mean_npp", "sd_npp", "min_npp", "max_npp",
+    "mean_lai", "sd_lai", "min_lai", "max_lai",
+    "mean_aet_mm_yr", "sd_aet_mm_yr", "min_aet_mm_yr", "max_aet_mm_yr",
+    "mean_wetness", "sd_wetness", "min_wetness", "max_wetness",
+    "mean_runoff_mm_yr", "sd_runoff_mm_yr", "min_runoff_mm_yr", "max_runoff_mm_yr",
+    "mean_annual_mean_temp_C", "mean_annual_precip_mm", "co2_ppm",
+    "mean_annual_effective_precip_mm",
     "mean_eemt", "sd_eemt", "min_eemt", "max_eemt",
     "reich_lai_sapwood_agb_mean_kg_m2",
     "reich_lai_sapwood_agb_median_kg_m2",
@@ -60,6 +66,14 @@ VARIABLE_DICTIONARY = [
     ("max_soil_depth_m", "최대 토심", "m", "유효 격자 최대값"),
     ("mean_slope", "평균 경사", "gradient", "PB4 raster slope"),
     ("mean_npp", "평균 NPP", "gC m-2 yr-1", "BIOME4 NPP"),
+    ("mean_lai", "평균 LAI", "m2 m-2", "BIOME4 optimal LAI"),
+    ("mean_aet_mm_yr", "평균 AET", "mm yr-1", "우점 PFT annual AET"),
+    ("mean_wetness", "평균 soil wetness", "index", "BIOME4 wetness"),
+    ("mean_runoff_mm_yr", "평균 runoff", "mm yr-1", "BIOME4 runoff"),
+    ("mean_annual_mean_temp_C", "연평균 기온", "degC", "12개월 평균의 유역 평균"),
+    ("mean_annual_precip_mm", "연강수량", "mm yr-1", "12개월 강수 합의 유역 평균"),
+    ("co2_ppm", "대기 CO2", "ppm", "Bereiter forcing"),
+    ("mean_annual_effective_precip_mm", "유효강수", "mm yr-1", "annual precipitation - AET"),
     ("mean_eemt", "평균 EEMT", "MJ m-2 yr-1", "Pelletier coupling에 사용되는 EEMT"),
     ("reich_lai_sapwood_agb_mean_kg_m2", "평균 AGB*", "kg dry biomass m-2", "Reich leaf + Haxeltine/Prentice living sapwood proxy"),
     ("dominant_vegetation_code", "우점 식생 코드", "code", "검증용 reduced vegetation class"),
@@ -124,6 +138,7 @@ def collect_climate(root: Path) -> pd.DataFrame:
     candidates = [
         root / "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
         root / "data" / "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+        root / "embedded_inputs" / "yongneup_exact20m" / "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
     ]
     for p in candidates:
         if p.exists():
@@ -293,6 +308,15 @@ def main() -> int:
         validation.to_csv(export_dir / "PB4_VALIDATION_ALL_TIMES.csv", index=False, encoding="utf-8-sig")
 
     climate = collect_climate(root)
+    forcing_frames = []
+    for mode in ("static", "dynamic"):
+        fp = outputs / f"model_{mode}" / "monthly_forcing_timeseries.csv"
+        if fp.exists():
+            fd = pd.read_csv(fp, encoding="utf-8-sig")
+            if "mode" not in fd.columns:
+                fd.insert(0, "mode", mode)
+            forcing_frames.append(fd)
+    monthly_forcing = pd.concat(forcing_frames, ignore_index=True) if forcing_frames else pd.DataFrame()
     config = collect_config(outputs)
     manifest = output_manifest(outputs, export_dir)
     manifest.to_csv(export_dir / "PB4_OUTPUT_FILE_MANIFEST.csv", index=False, encoding="utf-8-sig")
@@ -310,6 +334,8 @@ def main() -> int:
         if not climate.empty:
             # Excel row limit guard
             climate.iloc[:1048575].to_excel(writer, sheet_name="Climate_input", index=False)
+        if not monthly_forcing.empty:
+            monthly_forcing.iloc[:1048575].to_excel(writer, sheet_name="Monthly_forcing", index=False)
         if not config.empty:
             config.to_excel(writer, sheet_name="Run_config", index=False)
         manifest.to_excel(writer, sheet_name="Output_manifest", index=False)
@@ -329,6 +355,7 @@ def main() -> int:
         "- PB4_DYNAMIC_211_TIMESTEPS_ALL_VARIABLES.csv : dynamic 211시점 전체 열\n"
         "- PB4_STATIC_211_TIMESTEPS_ALL_VARIABLES.csv : static 211시점 전체 열\n"
         "- PB4_OUTPUT_FILE_MANIFEST.csv : outputs_CHELSA21K 내 모든 원산출물 파일 목록과 SHA-256\n"
+        "- Monthly_forcing sheet : 211시점 x 12개월 T/P/cloud/AET/CO2\n"
         "- *_211times.png : 주요 변수 전체시계열 그래프\n\n"
         "주의: 격자별 GeoTIFF/NPZ/CSV 등 원산출물은 outputs_CHELSA21K 아래 원래 위치에 그대로 보존됩니다.\n",
         encoding="utf-8"
