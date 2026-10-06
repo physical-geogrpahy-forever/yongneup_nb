@@ -317,6 +317,8 @@ def main() -> int:
                 fd.insert(0, "mode", mode)
             forcing_frames.append(fd)
     monthly_forcing = pd.concat(forcing_frames, ignore_index=True) if forcing_frames else pd.DataFrame()
+    if not monthly_forcing.empty:
+        monthly_forcing.to_csv(export_dir / "PB4_MONTHLY_FORCING_211x12.csv", index=False, encoding="utf-8-sig")
     config = collect_config(outputs)
     manifest = output_manifest(outputs, export_dir)
     manifest.to_csv(export_dir / "PB4_OUTPUT_FILE_MANIFEST.csv", index=False, encoding="utf-8-sig")
