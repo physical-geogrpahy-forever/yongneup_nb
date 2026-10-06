@@ -52,26 +52,32 @@ Scherstjanoi, M., Kaplan, J. O., Thürig, E., & Lischke, H. (2013). GAPPARD: A c
 - 따라서 본문에서 `LPJ-GUESS는 BIOME4보다 계산량이 2-3 orders of magnitude 크다`라고 쓰지 않는다.
 - 계산비용에 관한 문장은 LPJ-GUESS 자체의 cohort 및 replicate-patch 구조와 광범위, 고해상도 적용의 제약으로 한정한다.
 
-## 5. 식생피복률과 NPP의 기능적 차이
 
-### 권장 서술
+## 5. 식생피복률과 NPP의 구조적/기능적 차이: 직접 인용 근거
 
-> 기존의 식생피복률은 주로 식생의 공간적 피복 정도를 나타내는 구조적 지표인 반면, NPP는 식생의 생산성과 생물학적 에너지 투입을 나타내는 기능적 지표라는 장점이 있다(Pelletier et al., 2013). 특히 NPP를 식생 유형을 명시적으로 모의하는 식생모델과 연계할 경우, 동일한 식생피복률을 갖더라도 식생 유형에 따라 서로 다른 생산성을 지형 과정에 반영할 수 있다(Istanbulluoglu & Bras, 2005; Pelletier et al., 2013; Quijano-Baron et al., 2022; Schmid et al., 2018).
+### Li et al. (2017)
 
-### 근거 범위
+직접 인용:
+> “FVC provides a basic structural index for assessing vegetation condition and NPP is a functional indicator for vegetation production”
 
-- Pelletier et al. (2013): EEMT에서 생물학적 에너지 항을 NPP로 정의하며, NPP를 biomass production과 연결한다. 또한 AGB, NPP, LAI, below-ground biomass가 서로 다른 식생 지표가 될 수 있음을 논의한다. 따라서 NPP를 생산성 및 생물학적 에너지 투입의 기능적 지표로 서술하는 핵심 근거이다.
-- Istanbulluoglu and Bras (2005): vegetation cover를 균일한 지표피복 변수로 사용하면서, 뿌리 보강 효과가 식물 종, functional type 및 root depth에 따라 달라질 수 있음을 명시한다. 따라서 동일한 피복 변수만으로 식생 기능 차이를 모두 표현하기 어렵다는 근거로 사용할 수 있다.
-- Quijano-Baron et al. (2022): leaves, roots, litter 및 soil carbon이 서로 다른 기작으로 erosion을 조절한다고 명시한다. 단일 vegetation-cover 변수보다 식생 생체량과 구성요소를 세분화할 필요성을 뒷받침한다.
-- Schmid et al. (2018): vegetation cover를 이용해 hillslope diffusion, Manning roughness 및 fluvial erosion 관련 계수를 조절하며, vegetation cover와 roughness의 직접 대응이 단순화라고 명시한다. 식생피복률 기반 결합의 한계를 설명하는 근거로 사용한다.
-- 주의: 위 문헌들이 “동일한 식생피복률에서 서로 다른 PFT의 NPP가 다르다”라는 문장을 그대로 제시하는 것은 아니다. 이 부분은 식생피복률 기반 접근의 단순화와 NPP/biomass의 기능적 의미를 종합한 본 연구의 해석이다. 보다 보수적으로 쓰려면 “동일한 피복률에서도 식생 유형별 생산성 차이를 반영할 수 있다”보다 “식생 유형별 생산성 차이를 추가로 반영할 수 있다”가 안전하다.
+사용 가능한 본문:
+> 식생피복률은 식생 상태를 나타내는 구조적 지표인 반면, NPP는 식생 생산성을 나타내는 기능적 지표이다(Li et al., 2017).
 
-## 6. 추가 APA 참고문헌
+### Ding et al. (2020)
 
-Istanbulluoglu, E., & Bras, R. L. (2005). Vegetation-modulated landscape evolution: Effects of vegetation on landscape processes, drainage density, and topography. *Journal of Geophysical Research: Earth Surface, 110*(F2), F02012. https://doi.org/10.1029/2004JF000249
+직접 인용:
+> “45.6% of global vegetated area experienced inconsistent trends in vegetation greenness, cover and productivity.”
 
-Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorover, J., Durcik, M., Harman, C. J., Huxman, T. E., Lohse, K. A., Lybrand, R., Meixner, T., McIntosh, J. C., Papuga, S. A., Rasmussen, C., Schaap, M., Swetnam, T. L., & Troch, P. A. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. *Journal of Geophysical Research: Earth Surface, 118*(2), 741-758. https://doi.org/10.1002/jgrf.20046
+또한 식생유형별 차이에 대해:
+> “vegetation growth was immensely disparate in different vegetation types”
 
-Quijano-Baron, J., Saco, P. M., & Rodríguez, J. F. (2022). Modelling the effects of above and belowground biomass pools on erosion dynamics. *Catena, 213*, 106123. https://doi.org/10.1016/j.catena.2022.106123
+사용 가능한 본문:
+> 식생피복과 생산성의 변화는 반드시 일치하지 않으며, 이러한 식생 생장 양상은 식생유형에 따라 다르게 나타날 수 있다(Ding et al., 2020).
 
-Schmid, M., Ehlers, T. A., Werner, C., Hickler, T., & Fuentes-Espoz, J.-P. (2018). Effect of changing vegetation and precipitation on denudation – Part 2: Predicted landscape response to transient climate and vegetation cover over millennial to million-year timescales. *Earth Surface Dynamics, 6*, 859-881. https://doi.org/10.5194/esurf-6-859-2018
+주의: “동일한 식생피복률을 갖더라도 식생유형별 생산성이 다르다”는 표현은 위 두 논문에서 그대로 제시한 문장은 아니다. 직접 근거만 사용할 경우 위 두 문장 수준으로 제한한다.
+
+## 6. APA 참고문헌
+
+Ding, Z., Peng, J., Qiu, S., & Zhao, Y. (2020). Nearly half of global vegetated area experienced inconsistent vegetation growth in terms of greenness, cover, and productivity. *Earth's Future, 8*(10), e2020EF001618. https://doi.org/10.1029/2020EF001618
+
+Li, T., Lü, Y., Fu, B., Comber, A. J., Harris, P., & Wu, L. (2017). Gauging policy-driven large-scale vegetation restoration programmes under a changing environment: Their effectiveness and socio-economic relationships. *Science of the Total Environment, 607-608*, 911-919. https://doi.org/10.1016/j.scitotenv.2017.07.044
