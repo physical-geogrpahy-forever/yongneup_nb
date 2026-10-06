@@ -131,9 +131,9 @@ jobs:
               written.append(out_path)
           '''
 
-          if old not in s:
-              raise SystemExit("expected old make_timeseries_figures block not found")
-          p.write_text(s.replace(old,new,1),encoding="utf-8")
+          start=s.index("    specs = [", s.index('ts["yr_bp"]'))
+          end=s.index("    # 식생유형 비율 시계열", start)
+          p.write_text(s[:start]+new+"\n"+s[end:],encoding="utf-8")
           print("patched",p)
           PY
 
