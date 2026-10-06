@@ -123,13 +123,53 @@ def zip_tree(root: Path) -> None:
 
 
 def run_depth_audit(root: Path) -> Path:
+    """Run the current package BIOME4 core directly; no legacy helper required."""
     out=Path("/tmp/NATIVE_FIRE_DEPTH_SWEEP.csv")
-    climate=root/"embedded_inputs"/"yongneup_exact20m"/"YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv"
-    if not climate.is_file():
-        raise SystemExit(f"embedded CHELSA forcing missing: {climate}")
-    args=[sys.executable,"tools/mckenzie2003_depth_sensitivity.py",
-          "--climate",str(climate),"--elevation-m","1162.08","--depths"]+[str(x) for x in DEPTHS]+["--ages"]+[str(x) for x in FIRE_AGES]+["--threads","2","--output",str(out)]
-    run(args,cwd=root)
+    climate_path=root/"embedded_inputs"/"yongneup_exact20m"/"YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv"
+    if not climate_path.is_file():
+        raise SystemExit(f"embedded CHELSA forcing missing: {climate_path}")
+
+    sys.path.insert(0,str(root))
+    from pb4studio import biome4_backend
+    from pb4studio.climate import load_climate, climate_arrays_for_time, build_soil_arrays, run_biome4_dynamic_step
+    from pb4studio.config import ScienceConfig, _LegacyCfgShim
+
+    biome4_backend.FORTRAN_SOURCE_DIR=root/"fortran_src"
+    climate=load_climate(climate_path,lon_value=128.1236,lat_value=38.2153)
+    available=np.asarray(sorted(climate["ka_bp"].unique()),float)
+    land=np.array([[True]])
+    tex=np.array([[2.0]])
+    lat=np.array([[38.2153]])
+    lon=np.array([[128.1236]])
+    elev=np.array([[1162.08]],float)
+    sci=ScienceConfig(biome4_variant="mckenzie2003")
+    cfg=_LegacyCfgShim(sci,2)
+    rows=[]
+    for target in FIRE_AGES:
+        age=float(available[np.argmin(np.abs(available-float(target)))])
+        temp,prec,cloud,tmin,co2=climate_arrays_for_time(cfg,climate,age,elev,land)
+        for h in DEPTHS:
+            soil=build_soil_arrays(cfg,np.array([[float(h)]],float),land,tex)
+            veg=run_biome4_dynamic_step(cfg,temp,prec,cloud,tmin,co2,soil,lat,lon,elev,land)
+            row={
+                "variant":"mckenzie2003","target_age_ka":float(target),"climate_age_ka":age,"depth_m":float(h),
+                "whc_top_mm":float(soil["whc_top_mm"][0,0]),"whc_bottom_mm":float(soil["whc_bottom_mm"][0,0]),
+                "whc_total_mm":float(soil["whc_top_mm"][0,0]+soil["whc_bottom_mm"][0,0]),
+                "biome_id":int(veg["biome4_full_id_node"][0,0]),"optpft":int(veg["optpft_node"][0,0]),
+                "npp_gC_m2_yr":float(veg["npp_node"][0,0]),"lai":float(veg["lai_node"][0,0]),
+                "firedays":float(veg.get("firedays_node",np.array([[np.nan]]))[0,0]),
+            }
+            for pft in range(1,14):
+                for src,sfx in ((f"pft{pft:02d}_raw_npp_node","npp"),
+                                (f"pft{pft:02d}_raw_lai_node","lai"),
+                                (f"pft{pft:02d}_wetness_node","wetness"),
+                                (f"pft{pft:02d}_aet_node","aet"),
+                                (f"pft{pft:02d}_firedays_node","firedays"),
+                                (f"pft{pft:02d}_greendays_node","greendays")):
+                    if src in veg:
+                        row[f"pft{pft:02d}_{sfx}"]=float(veg[src][0,0])
+            rows.append(row)
+    pd.DataFrame(rows).to_csv(out,index=False,encoding="utf-8-sig")
     return out
 
 
