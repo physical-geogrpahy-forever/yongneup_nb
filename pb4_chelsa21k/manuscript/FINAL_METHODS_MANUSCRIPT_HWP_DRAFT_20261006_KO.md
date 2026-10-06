@@ -217,7 +217,7 @@ log_{10}(SLA_p)=2.44-0.43 log_{10}(L_{m,p})
 B_{leaf,dry,p}={LAI_p OVER SLA_p}
 ```
 
-변재는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 사용하였다.
+변재는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 사용하였다. Haxeltine and Prentice (1996)의 Eq. (34)는 다음과 같다.
 
 식 (21)
 
@@ -225,7 +225,7 @@ B_{leaf,dry,p}={LAI_p OVER SLA_p}
 C_s=LAI C_n
 ```
 
-BIOME4 v4.2b2 source에서 stemcarbon=0.5는 sapwood carbon per unit LAI로 사용되므로 sapwood가 활성화된 PFT에 이를 적용하였다. 변재 dry biomass는 다음과 같이 계산하였다.
+여기서 C_s는 총 sapwood carbon content(kg C m^-2), C_n은 단위 LAI당 sapwood carbon content(kg C m^-2)이다. Haxeltine and Prentice (1996)의 BIOME3에서는 여러 자료를 종합하여 C_n=1 kg C m^-2를 사용하였다. 반면 본 연구에서 실제로 실행한 BIOME4 v4.2b2 source는 동일한 구조의 sapwood-LAI 관계를 유지하면서 `stemcarbon=0.5`를 사용하고, 월별 stem respiration 계산에서 `lai*stemcarbon`으로 적용한다. 따라서 본 연구에서는 Haxeltine and Prentice (1996)에서 관계식의 구조를, BIOME4 v4.2b2 source에서 실제 계수 C_n=0.5를 가져와 사용하였다. 즉 C_n=0.5를 Haxeltine and Prentice (1996)의 값으로 해석하지 않는다. 변재 dry biomass는 다음과 같이 계산하였다.
 
 식 (22)
 
