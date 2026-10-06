@@ -1,0 +1,136 @@
+name: PB4 build full export package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-build-full-export-package.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build user package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4_export_pkg
+          mkdir -p /tmp/pb4_export_pkg
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4_export_pkg
+          root=$(find /tmp/pb4_export_pkg -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          test -n "$root"
+
+          cp pb4_chelsa21k/tools/export_all_outputs.py "$root/tools/export_all_outputs.py"
+
+          python - "$root" <<'PY'
+          from pathlib import Path
+          import sys
+          root=Path(sys.argv[1])
+          req=root/"requirements.txt"
+          lines=[x.strip() for x in req.read_text(encoding="utf-8").splitlines() if x.strip()]
+          if not any(x.lower().startswith("openpyxl") for x in lines):
+              lines.append("openpyxl>=3.1")
+          req.write_text("\n".join(lines)+"\n",encoding="utf-8")
+
+          bat=root/"RUN_YONGNEUP_21KA_AND_EXPORT_ALL.bat"
+          bat.write_text(
+              "@echo off\r\n"
+              "setlocal\r\n"
+              "cd /d %~dp0\r\n"
+              "echo [1/2] Running PB4 Yongneup 21 ka static/dynamic...\r\n"
+              "python tools\\run_yongneup_21ka_chelsa_selfcontained.py\r\n"
+              "if errorlevel 1 goto :fail\r\n"
+              "echo [2/2] Exporting all 211-time-step data, Excel and figures...\r\n"
+              "python tools\\export_all_outputs.py --root . --outputs outputs_CHELSA21K\r\n"
+              "if errorlevel 1 goto :fail\r\n"
+              "echo.\r\n"
+              "echo DONE. See outputs_CHELSA21K\\FULL_EXPORT\r\n"
+              "pause\r\n"
+              "exit /b 0\r\n"
+              ":fail\r\n"
+              "echo.\r\n"
+              "echo FAILED. Check the console message above.\r\n"
+              "pause\r\n"
+              "exit /b 1\r\n",
+              encoding="utf-8"
+          )
+
+          readme=root/"README_FULL_EXPORT_KO.txt"
+          readme.write_text(
+              "PB4Studio v6.6.3 CHELSA21K U008 FULL EXPORT\n"
+              "============================================\n\n"
+              "과학모델: current canonical U=0.08 m/kyr production과 동일합니다.\n"
+              "추가된 기능은 실행 후 산출물을 정리하는 후처리 exporter뿐입니다.\n\n"
+              "권장 실행 순서\n"
+              "1. FIRST_RUN_SETUP.bat 를 최초 1회 실행\n"
+              "2. RUN_YONGNEUP_21KA_AND_EXPORT_ALL.bat 실행\n\n"
+              "실행 완료 후:\n"
+              "outputs_CHELSA21K\\FULL_EXPORT\\PB4_MAJOR_VARIABLES_211_TIMESTEPS.xlsx\n"
+              "outputs_CHELSA21K\\FULL_EXPORT\\PB4_ALL_TIMESTEPS_ALL_VARIABLES.csv\n"
+              "outputs_CHELSA21K\\FULL_EXPORT\\PB4_DYNAMIC_211_TIMESTEPS_ALL_VARIABLES.csv\n"
+              "outputs_CHELSA21K\\FULL_EXPORT\\PB4_STATIC_211_TIMESTEPS_ALL_VARIABLES.csv\n"
+              "outputs_CHELSA21K\\FULL_EXPORT\\PB4_OUTPUT_FILE_MANIFEST.csv\n"
+              "outputs_CHELSA21K\\FULL_EXPORT\\*_211times.png\n\n"
+              "Excel 주요 변수:\n"
+              "- ka BP\n"
+              "- 평균/표준편차/최소/최대 고도와 relief\n"
+              "- 평균/표준편차/최소/최대 토심\n"
+              "- 평균/표준편차/최소/최대 경사\n"
+              "- NPP\n"
+              "- EEMT\n"
+              "- BIOME4-derived AGB*\n"
+              "- 우점 식생코드, 식생분류 수와 격자수\n"
+              "- geomorphic adaptive substep 및 fluvial 수치진단\n"
+              "- 전체 recorded summary columns는 Dynamic_all/Static_all sheet에 빠짐없이 포함\n"
+              "- Climate_input, Validation, Run_config, Output_manifest sheet 포함\n\n"
+              "원래 outputs_CHELSA21K 아래 격자별 GeoTIFF/NPZ/CSV/JSON 파일은 삭제하거나 축약하지 않습니다.\n",
+              encoding="utf-8"
+          )
+          PY
+
+          echo "PACKAGE_ROOT=$root" >> "$GITHUB_ENV"
+
+      - name: Test exporter on embedded final outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q pandas matplotlib openpyxl numpy
+          cd "$PACKAGE_ROOT"
+          python tools/export_all_outputs.py --root . --outputs outputs_CHELSA21K | tee /tmp/export_test.log
+          test -f outputs_CHELSA21K/FULL_EXPORT/PB4_MAJOR_VARIABLES_211_TIMESTEPS.xlsx
+          test -f outputs_CHELSA21K/FULL_EXPORT/PB4_ALL_TIMESTEPS_ALL_VARIABLES.csv
+          python - <<'PY'
+          import pandas as pd
+          p="outputs_CHELSA21K/FULL_EXPORT/PB4_ALL_TIMESTEPS_ALL_VARIABLES.csv"
+          d=pd.read_csv(p,encoding="utf-8-sig")
+          assert len(d[d["mode"]=="static"])==211
+          assert len(d[d["mode"]=="dynamic"])==211
+          assert d.shape[1] >= 80
+          print("VERIFIED",d.shape)
+          PY
+
+      - name: Zip package
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/pb4_export_pkg
+          root=$(basename "$PACKAGE_ROOT")
+          zip -q -r /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT.zip "$root"
+          sha256sum /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT.zip | tee /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT.sha256
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT
+          path: |
+            /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT.zip
+            /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_FULL_EXPORT.sha256
+            /tmp/export_test.log
+          if-no-files-found: error
+          retention-days: 30
