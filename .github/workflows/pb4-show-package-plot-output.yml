@@ -1,0 +1,86 @@
+name: PB4 show package plot output
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-show-package-plot-output.yml'
+
+jobs:
+  show:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install plotting runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install -q numpy pandas matplotlib rasterio
+
+      - name: Unpack canonical PB4 package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4_package
+          mkdir -p /tmp/pb4_package
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4_package
+          root=$(find /tmp/pb4_package -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          test -n "$root"
+          echo "ROOT=$root" >> "$GITHUB_ENV"
+          echo "=== package plotting code ==="
+          sed -n '220,310p' "$root/pb4studio/figures.py"
+
+      - name: Feed existing final outputs to package plotting code
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT/outputs_CHELSA21K/model_static" "$ROOT/outputs_CHELSA21K/model_dynamic"
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd, os
+          root=Path(os.environ["ROOT"])
+          src=pd.read_csv("pb4_chelsa21k/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv",encoding="utf-8-sig")
+          for mode in ("static","dynamic"):
+              d=src[src["mode"]==mode].copy()
+              drop=[c for c in ("mode","source_csv") if c in d.columns]
+              d=d.drop(columns=drop)
+              d.to_csv(root/"outputs_CHELSA21K"/f"model_{mode}"/"summary_timeseries.csv",index=False,encoding="utf-8-sig")
+          PY
+
+      - name: Run package code exactly
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          from pb4studio.figures import make_timeseries_figures
+          root=Path(".").resolve()
+          outs=root/"outputs_CHELSA21K"
+          figdir=outs/"PACKAGE_CODE_FIGURES"
+          result=make_timeseries_figures(
+              outs/"model_static",
+              outs/"model_dynamic",
+              figdir,
+              static_label="정적모델",
+              dynamic_label="동적모델",
+          )
+          print("PACKAGE_FIGURES")
+          for p in result:
+              print(p)
+          PY
+          find outputs_CHELSA21K/PACKAGE_CODE_FIGURES -maxdepth 1 -type f -print
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PB4_PACKAGE_CODE_FIGURES
+          path: |
+            /tmp/pb4_package/*/outputs_CHELSA21K/PACKAGE_CODE_FIGURES/*.png
+          if-no-files-found: error
+          retention-days: 30
