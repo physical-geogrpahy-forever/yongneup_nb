@@ -33,9 +33,13 @@ H=z-z_b
 
 ## 2.2 공간 입력자료와 전처리
 
-고도자료는 국토정보플랫폼에서 제공하는 수치지형도를 이용하였다. QGIS 3.44.5에서 역거리가중법(Inverse Distance Weighting, IDW)으로 연속 고도면을 구축하고, GRASS GIS의 r.watershed를 이용하여 대암산 용늪을 포함하는 소유역을 추출하였다. 최종 VeSLEM 지형발달 계산은 20 m 격자의 real DEM을 사용하였다.
+고도자료는 국토정보플랫폼에서 제공하는 수치지형도를 이용하였다. QGIS 3.44.5에서 역거리가중법(Inverse Distance Weighting, IDW)을 이용하여 10 m 해상도의 연속 고도면을 구축하고, GRASS GIS의 r.watershed를 이용하여 대암산 용늪을 포함하는 소유역을 추출하였다. 이후 고도, 토심 및 토양 관련 공간자료를 Korea 2000/Central Belt 2010 좌표계(EPSG:5187)로 통일하고 20 m 격자로 리샘플링하여 최종 VeSLEM 계산격자를 구성하였다. 따라서 10 m는 수치지형도 보간 단계의 해상도이고, 실제 지형발달모델의 계산 해상도는 20 m이다.
 
-초기 토심은 기반암까지의 깊이를 나타내는 SoilGrids1km의 BDRICM_M_1km_ll 자료를 이용하였다(Hengl et al., 2014). 토양의 깊이별 수분특성을 구성하기 위한 토성 정보는 SoilGrids 2.0의 모래, 실트 및 점토 비율 자료를 사용하였다(Poggio et al., 2021). 최종 production에서는 용늪 지점의 깊이별 available-water density profile을 구축하여 BIOME4의 2층 수문구조에 적용하였다. 깊이별 available-water density는 0-0.05 m에서 237 mm m^-1, 0.05-0.15 m에서 232 mm m^-1, 0.15-0.30 m에서 218 mm m^-1, 0.30-0.60 m에서 207 mm m^-1, 0.60-1.00 m에서 198 mm m^-1, 1.00-2.00 m에서 179 mm m^-1을 사용하였으며, BIOME4 계산에서는 최대 1.50 m까지만 적분하였다.
+유역 경계에서는 지정한 단일 유출구만 열린 경계로 두고 나머지 경계는 닫힌 경계로 처리하였다. D8 흐름에서는 유출구 셀에서만 유역 외부로의 유출을 허용하였고, 그 외 경계 셀에서 유역 외부로 향하는 흐름은 허용하지 않았다. 사면 물질수송 역시 계산 마스크 내부의 인접 셀 사이에서만 계산하여 닫힌 경계를 가로지르는 유출량을 0으로 두었다. D8 흐름 계산에서 내부 폐쇄가 발생하지 않도록 흐름경로 계산 전에 싱크 채우기를 적용하였다.
+
+초기 토심은 기반암까지의 깊이를 나타내는 SoilGrids1km의 BDRICM_M_1km_ll 자료를 이용하였다(Hengl et al., 2014). 토양수분 저장량 계산에는 SoilGrids 기반의 용늪 지점 수분특성 profile을 사용하였다. 최종 production source에는 128.1236 E, 38.2153 N 지점에서 확보한 각 깊이구간의 theta_{-10}-theta_{-1500} 값을 직접 입력하였으며, 별도의 pedotransfer function, 자갈함량 보정, 경험적 보정 또는 화분자료 적합계수를 적용하지 않았다. 깊이별 available-water density는 0-0.05 m에서 237 mm m^-1, 0.05-0.15 m에서 232 mm m^-1, 0.15-0.30 m에서 218 mm m^-1, 0.30-0.60 m에서 207 mm m^-1, 0.60-1.00 m에서 198 mm m^-1, 1.00-2.00 m에서 179 mm m^-1을 사용하였다(Poggio et al., 2021). BIOME4의 수문구조상 실제 적분은 최대 1.50 m까지만 수행하였다.
+
+최종 production에 제공된 토성 격자는 모든 유효 셀에서 BIOME4 texture class 2로 판정되었다. 이 토성정보는 BIOME4의 기존 hydraulic conductivity 값을 선택하는 데 사용하였으며, 위 available-water density profile 자체는 모래, 실트 및 점토 비율로부터 본 연구에서 새롭게 추정한 값이 아니라 SoilGrids에서 확보한 theta_{-10}과 theta_{-1500}의 차이를 사용하였다.
 
 ## 2.3 기후 및 대기 CO2 forcing
 
