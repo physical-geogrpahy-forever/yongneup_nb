@@ -453,7 +453,7 @@ K_{\mathrm{bed}}
 
 ### 2.7.4 융기
 
-Pelletier et al. (2013)의 원 실험에서는 \(U=0.05\ {\rm m\,kyr^{-1}}\)을 사용하였다. 본 연구에서는 동해안 중부의 장기적인 후기 제4기 융기율을 참고하여 \(U=0.20\ {\rm m\,kyr^{-1}}\)을 일정한 regional forcing으로 사용하였다. Park et al. (2017)은 고성에서 삼척까지 동해안 중부의 해안단구를 검토하고 당시 해수면을 고려했을 때 MIS 5 이후의 융기율을 약 0.16-0.28 m kyr\(^{-1}\)로 제시하였다. 따라서 0.20 m kyr\(^{-1}\)은 이 범위 안에 위치한다. 다만 이 값은 용늪 자체에서 직접 측정한 융기율이 아니라 인접 동해안 중부의 장기 지각융기를 대표하기 위해 적용한 지역값이다.
+Pelletier et al. (2013)의 원 실험에서는 \(U=0.05\ {\rm m\,kyr^{-1}}\)을 사용하였다. 본 연구에서는 \(U=0.08\ {\rm m\,kyr^{-1}}\), 즉 80 mm kyr\(^{-1}\)를 일정한 regional forcing으로 사용하였다. Lee et al. (2024)은 한반도 태백산맥의 약 22 Ma 이후 장기 삭박 및 exhumation rate와 동일하도록 landscape-evolution model의 regional uplift를 80 mm kyr\(^{-1}\)로 설정하였다. 본 연구도 장기 지형발달의 regional background forcing으로 이 값을 채택하였다. 이는 용늪에서 직접 측정된 지각융기율이 아니며, 장기 삭박 및 exhumation rate를 regional uplift forcing의 대표값으로 사용하는 모델 가정이다.
 
 ## 2.8 수치 적분과 결합 순서
 
@@ -495,7 +495,7 @@ Park et al. (2021)은 최종 정량검증 점수 산정에 사용하지 않았�
 
 최종 production model은 \`6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB\`이며 package SHA-256은
 
-\`796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86\`
+\`0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4\`
 
 이다. 기후 forcing은 \`YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv\`를 사용하였으며, 21.0-0.0 ka BP의 211개 시점에 대해 static과 dynamic 실험을 동일 forcing으로 수행하였다. 최종 정량검증 대상은 Jang et al. (2011)의 네 LPZ를 100년 모델 출력격자에 대응한 62개 평가시점이다.
 
@@ -521,7 +521,7 @@ Karger, D. N., Nobis, M. P., Normand, S., Graham, C. H., & Zimmermann, N. E. (20
 
 McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). *Estimating water storage capacities in soil at catchment scales*. CRC for Catchment Hydrology Technical Report 03/3.
 
-Park, C.-S., Kim, Y.-H., Nam, W.-H., & Lee, G.-R. (2017). Formative age of coastal terraces and uplift rate in the East Coast of South Korea. *Journal of the Korean Geomorphological Association, 24*, 43-55.
+Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E., & Yu, B. Y. (2024). Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea. *Earth Surface Dynamics, 12*, 1091-1120. https://doi.org/10.5194/esurf-12-1091-2024
 
 Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorover, J., Durcik, M., et al. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. *Journal of Geophysical Research: Earth Surface, 118*, 741-758. https://doi.org/10.1002/jgrf.20046
 

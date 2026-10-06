@@ -25,7 +25,7 @@
 | Pelletier \(K_0=0.020\) | 원문은 EEMT=10에서 mean distance-to-valley를 맞추도록 trial-and-error로 calibration했다고 명시 | 용늪에서 새로 보정한 값처럼 서술하지 않음 | 확인 |
 | Pelletier \(g=0.005,i=0.5,F=10\) | Table 1과 본문에서 확인 | project equation guide에서는 동일값 유지로 기록. 최종 binary package config 직접 재대조는 제출 전 확인 항목 | 부분 확인 |
 | \(S_c\) | Pelletier 기본값 0.7, sensitivity 0.9 확인 | 용늪 production의 1.50은 20 m real-DEM 수치수렴 설정으로 명확히 분리 | 확인 |
-| \(U\) | Pelletier 원 연구는 0.05 m kyr-1 | 용늪 production은 0.20 m kyr-1이나 project source에는 지역 참고값이라는 주석만 존재 | 문헌 보강 필요 |
+| \(U\) | Pelletier 원 연구는 0.05 m kyr-1. Lee et al. (2024)은 태백산맥 약 22 Ma 이후 장기 삭박 및 exhumation rate와 동일한 80 mm kyr-1를 regional uplift로 채택 | 용늪 production은 0.08 m kyr-1. 용늪 직접 측정값이 아니라 regional background forcing을 위한 모델 가정 | 확인 |
 | Jang pollen data | Jang et al. (2011)은 61 pollen samples, 5 radiocarbon samples, 4 LPZ를 보고 | 본 연구의 n=62는 61개 pollen sample 수가 아니라 4 LPZ를 100년 model output에 대응시킨 검증시점 수라고 명시 | 확인 |
 | Jang LPZ mapping | 5.9-4.8 ka deciduous, 4.8-3.4 ka mixed, 3.4-0.39 ka deciduous, 0.39-0 ka mixed | corrected reduced mapping과 일치 | 확인 |
 | 51% rule | 원 Jang 또는 BIOME4 생리식에 없음 | 검증용 output reclassification이라고 명시 | 확인 |
@@ -51,5 +51,6 @@ McKenzie et al. (2003)의 AWC 및 root scaling과 PB4의 BIOME4 2층 구현은 �
 - Reich et al. (1992): https://doi.org/10.2307/2937116
 - Haxeltine and Prentice (1996): https://doi.org/10.1029/96GB02344
 - Pelletier et al. (2013): https://doi.org/10.1002/jgrf.20046
+- Lee et al. (2024): https://doi.org/10.5194/esurf-12-1091-2024
 - Poggio et al. (2021): https://doi.org/10.5194/soil-7-217-2021
 - Jang et al. (2011): https://doi.org/10.5141/JEFB.2011.028

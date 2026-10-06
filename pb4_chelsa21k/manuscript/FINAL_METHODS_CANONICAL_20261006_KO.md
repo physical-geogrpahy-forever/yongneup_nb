@@ -576,9 +576,9 @@ PB4는 hillslope와 valley를 구분하기 위해 Pelletier et al. (2013)이 기
 | \(i\) | 0.5 | 원 구조 유지 |
 | \(F\) | 10 | 원 구조 유지 |
 | \(S_c\) | 0.7, 0.9 sensitivity | **1.50** |
-| \(U\) | 0.05 m kyr\(^{-1}\) | **0.20 m kyr\(^{-1}\)** |
+| \(U\) | 0.05 m kyr\(^{-1}\) | **0.08 m kyr\(^{-1}\)** |
 
-따라서 \(S_c=1.50\)과 \(U=0.20\)은 Pelletier et al. (2013)의 원 연구값이라고 쓰면 안 된다. \(S_c=1.50\)은 용늪 20 m real-DEM 수치수렴시험을 거쳐 채택된 모델별 수치설정이다. \(U=0.20\ {\rm m\,kyr^{-1}}\)은 Park et al. (2017)이 고성-삼척의 동해안 중부 해안단구에서 제시한 약 0.16-0.28 m kyr\(^{-1}\)의 후기 제4기 융기율 범위 안에 놓이므로 지역 참고값으로 사용할 수 있다. 다만 이 값은 용늪 자체에서 직접 측정한 융기율이 아니므로, 본 연구에서는 동해안 중부의 장기 지각융기를 대표하는 일정한 regional forcing으로 취급한다.
+따라서 \(S_c=1.50\)과 \(U=0.08\)은 Pelletier et al. (2013)의 원 연구값이라고 쓰면 안 된다. \(S_c=1.50\)은 용늪 20 m real-DEM 수치수렴시험을 거쳐 채택된 모델별 수치설정이다. \(U=0.08\ {\rm m\,kyr^{-1}}\)은 Lee et al. (2024)이 태백산맥의 약 22 Ma 이후 장기 삭박 및 exhumation rate와 동일하도록 landscape-evolution model의 regional uplift로 채택한 80 mm kyr\(^{-1}\)를 따른다. 이는 용늪 자체의 직접 측정값이 아니라 regional background forcing을 위한 모델 가정이다.
 
 또한 Pelletier의 모델실험 EEMT 범위는 대략 5-45 MJ m\(^{-2}\) yr\(^{-1}\)였으나 용늪 PB4에서는 이 범위를 넘는 EEMT가 발생한다. 따라서 EEMT 관련 계수의 외삽은 한계로 명시한다.
 
@@ -679,7 +679,7 @@ McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). Estimating water stora
 Pelletier, J. D., et al. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. Journal of Geophysical Research: Earth Surface, 118, 741-758. https://doi.org/10.1002/jgrf.20046
 
 
-Park, C.-S., Kim, Y.-H., Nam, W.-H., & Lee, G.-R. (2017). Formative age of coastal terraces and uplift rate in the East Coast of South Korea. Journal of the Korean Geomorphological Association, 24(4), 43-55.
+Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E., & Yu, B. Y. (2024). Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea. Earth Surface Dynamics, 12, 1091-1120. https://doi.org/10.5194/esurf-12-1091-2024
 
 Karger, D. N., et al. (2023). Climatologies at high resolution for the Earth's land surface areas. Climate of the Past, 19, 439-456.
 

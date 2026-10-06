@@ -300,10 +300,10 @@ U=0.05\ {\rm m\,kyr^{-1}}
 용늪 production:
 
 \[
-U=0.20\ {\rm m\,kyr^{-1}}
+U=0.08\ {\rm m\,kyr^{-1}}
 \]
 
-Park et al. (2017)은 고성-삼척 동해안 중부에서 당시 해수면을 고려한 MIS 5 이후 융기율을 0.16-0.28 m kyr\(^{-1}\)로 정리하였다. 따라서 0.20은 이 범위에 포함된다.
+Lee et al. (2024)은 landscape-evolution model의 regional uplift를 80 mm kyr\(^{-1}\)로 설정했으며, 이 값을 태백산맥의 약 22 Ma 이후 장기 삭박 및 exhumation rate와 동일하게 선택했다고 명시하였다. 용늪에서는 이 0.08 m kyr\(^{-1}\)를 regional background forcing으로 채택하며, 용늪 직접 측정 융기율로 해석하지 않는다.
 
 판정: **지역 문헌에 근거한 본 연구 forcing**. 용늪 자체의 site-specific uplift measurement가 아니므로 이 점을 Methods와 Limitations에 명시한다.
 
@@ -355,7 +355,7 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 - Pelletier EEMT, soil production, nonlinear hillslope transport
 - Pelletier conditional fluvial width 구조
 - Pelletier \(K_0\), \(F\), \(g\), \(i\) 원값
-- 동해안 중부 regional uplift 문헌
+- 태백산맥 장기 삭박 및 exhumation 기반 regional uplift 문헌
 - Jang 61 pollen samples, 5 radiocarbon samples 및 네 LPZ
 - BIOME4 v4.2b2의 13 parameter sets, PFT1 비활성화 및 PFT8 C3 실제 실행경로
 
@@ -387,7 +387,7 @@ Karger, D. N., et al. (2023). CHELSA-TraCE21k: high-resolution (1 km) downscaled
 
 McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). *Estimating water storage capacities in soil at catchment scales*. CRC for Catchment Hydrology Technical Report 03/3.
 
-Park, C.-S., Kim, Y.-H., Nam, W.-H., & Lee, G.-R. (2017). Formative age of coastal terraces and uplift rate in the East Coast of South Korea. *Journal of the Korean Geomorphological Association, 24*, 43-55.
+Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E., & Yu, B. Y. (2024). Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea. *Earth Surface Dynamics, 12*, 1091-1120. https://doi.org/10.5194/esurf-12-1091-2024
 
 Pelletier, J. D., et al. (2013). Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona. *Journal of Geophysical Research: Earth Surface, 118*, 741-758. https://doi.org/10.1002/jgrf.20046
 

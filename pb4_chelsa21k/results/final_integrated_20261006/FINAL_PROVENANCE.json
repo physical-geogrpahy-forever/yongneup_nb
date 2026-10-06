@@ -2,8 +2,8 @@
   "status": "final_integrated_production",
   "source_candidate_sha256": "1a4a7e07b9387c38f21019e9bc781a499b7c5864f949abf7075ea779e435a05c",
   "previous_canonical_sha256": "eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d",
-  "final_sha256": "796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86",
-  "model_version": "6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB",
+  "final_sha256": "0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4",
+  "model_version": "6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008",
   "climate": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
   "period_ka_bp": "21.0-0.0",
   "interval_kyr": 0.1,
@@ -11,7 +11,11 @@
   "agb": "BIOME4-derived AGB*: Reich 1992 leaf SLA-life-span + Haxeltine & Prentice 1996 Eq.34 sapwood + BIOME4 stemcarbon=0.5",
   "pelletier_coupling": "kd=0.033*EEMT+0.05*AGB*",
   "primary_validation": "Jang et al. 2011 corrected reduced mapping, 62 model output-time evaluation points, 1% basin presence",
-  "park2021": "independent holdout only; excluded from tuning and Jang score; raw Supplementary pollen table required",
+  "park2021": "independent holdout completed from supplied Supplementary pollen/PCA/temperature; excluded from tuning and Jang score",
   "comment_cleanup_baseline_sha256": "a1d0df12eb8f3644ff4aae41588bfaaa171b45d5ff69cb86f69864e1fb9bff34",
-  "comment_cleanup_regression": "PASS_STRICT_NUMERIC: categorical values exact; all numeric differences <=1e-12"
+  "comment_cleanup_regression": "PASS_STRICT_NUMERIC: categorical values exact; all numeric differences <=1e-12",
+  "previous_u020_canonical_sha256": "796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86",
+  "uplift_m_per_kyr": 0.08,
+  "uplift_basis": "Lee et al. (2024), 80 mm/kyr regional forcing chosen to equal ca. 22 Ma-to-present Taebaek Mountain exhumation rate",
+  "uplift_interpretation": "regional model forcing; not a direct Yongneup uplift measurement"
 }

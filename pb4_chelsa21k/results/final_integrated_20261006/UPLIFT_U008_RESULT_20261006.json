@@ -1,0 +1,34 @@
+{
+  "uplift_m_per_kyr": 0.08,
+  "uplift_mm_per_kyr": 80.0,
+  "jang": {
+    "static": "24/62",
+    "dynamic": "55/62"
+  },
+  "dynamic": {
+    "mean_elev_21ka": 1163.0774822875155,
+    "mean_elev_0ka": 1163.8455025199175,
+    "delta_mean_elev_m": 0.7680202324020229,
+    "mean_soil_21ka": 1.940387676626244,
+    "mean_soil_0ka": 2.4996032969955184,
+    "delta_mean_soil_m": 0.5592156203692744,
+    "time_mean_npp": 401.0027036483349,
+    "time_mean_eemt": 75.69761967559653,
+    "time_mean_agb": 3.116480679367465
+  },
+  "park": {
+    "pc2_dynamic_rho": 0.7537783614444091,
+    "pc2_dynamic_p": 0.00047466274245809966,
+    "pc2_static_rho": -0.2551551815399144,
+    "pc2_static_p": 0.32296297491455117,
+    "broad_dynamic_rho": 0.42714107148516517,
+    "broad_dynamic_p": 0.08725316493928131,
+    "broad_static_rho": 0.2551551815399144,
+    "broad_static_p": 0.32296297491455117,
+    "dynamic_tempdec_mean": 0.9877615475720491,
+    "dynamic_tempdec_min": 0.9865771812080537,
+    "dynamic_tempdec_max": 0.9899328859060402,
+    "open_pft_8_13_total_cells_2p2_2p7ka": 0.0,
+    "n_windows": 17
+  }
+}

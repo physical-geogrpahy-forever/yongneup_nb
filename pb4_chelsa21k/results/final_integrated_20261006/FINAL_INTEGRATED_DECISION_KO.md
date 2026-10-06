@@ -1,6 +1,6 @@
 # PB4 final integrated production result
 
-Final SHA-256: 796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86
+Final SHA-256: 0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4
 
 ## Scientific configuration
 
@@ -8,24 +8,31 @@ Final SHA-256: 796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86
 - McKenzie AWC and finite-depth root coupling
 - BIOME4-derived AGB*
 - Pelletier geomorphic coupling with kd=0.033 EEMT + 0.05 AGB*
-- Pelletier direct exponential EEMT-to-AGB equation not used
+- regional uplift U=0.08 m kyr^-1 = 80 mm kyr^-1, Lee et al. (2024) 기반
+- U는 용늪 직접 측정값이 아니라 regional background forcing을 위한 모델 가정
 
 ## Primary Jang validation
 
-| model                             | mode    |   n |   correct_n |   accuracy_pct |   threshold_fraction |
-|:----------------------------------|:--------|----:|------------:|---------------:|---------------------:|
-| PB4-FINAL-nativeClimate-BIOME4AGB | static  |  62 |          24 |        38.7097 |                 0.01 |
-| PB4-FINAL-nativeClimate-BIOME4AGB | dynamic |  62 |          55 |        88.7097 |                 0.01 |
+- static: 24/62 = 38.7097%
+- dynamic: 55/62 = 88.7097%
 
-## AGB
+## 21 ka dynamic geomorphic change
 
-| mode    |   n_timesteps |   time_mean_agb_kg_m2 |   min_time_mean_agb_kg_m2 |   max_time_mean_agb_kg_m2 |   absolute_max_agb_kg_m2 |   modern_0ka_agb_kg_m2 |   modern_0ka_agb_t_ha |
-|:--------|--------------:|----------------------:|--------------------------:|--------------------------:|-------------------------:|-----------------------:|----------------------:|
-| dynamic |           211 |               3.116   |                   2.52364 |                   3.5319  |                  4.26113 |                3.4662  |               34.662  |
-| static  |           211 |               3.19979 |                   2.63126 |                   3.53755 |                  3.59854 |                3.48349 |               34.8349 |
+- mean elevation: 1163.077482 -> 1163.845503 m
+- change: +0.768020 m
+- mean soil depth: 1.940388 -> 2.499603 m
+- change: +0.559216 m
+
+## AGB*
+
+- dynamic time mean: 3.116480679 kg m^-2
+- dynamic modern 0 ka: 3.467422244 kg m^-2
+- static time mean: 3.199793926 kg m^-2
+- static modern 0 ka: 3.483490511 kg m^-2
 
 ## Park et al. (2021)
 
-Park et al. (2021)은 independent holdout으로 완료하였다. 사용자가 제공한 Supplementary Excel의 sample-level pollen, PCA, temperature reconstruction을 직접 사용했고, 주 정량구간 16-69 cm의 53 samples를 17개 100년 window로 집계하였다. Park PC2와 dynamic PB4 cold-tree PFT fraction은 Spearman rho=0.632, p=0.00644로 유의한 같은 방향의 관계를 보였으나 static은 rho=-0.255, p=0.323이었다. pollen broadleaf fraction과 dynamic model fraction은 rho=0.448, p=0.0713으로 양의 경향이나 0.05 기준에서 유의하지 않았다. 2738-2206 cal yr BP open-vegetation event는 open PFT로 재현되지 않았다. Park 결과는 모델 재보정에 사용하지 않는다.
-
-상세: `PARK2021_HOLDOUT_RESULT_20261006_KO.md`
+- PC2 vs dynamic cold-tree fraction: rho=0.754, p=0.00047466
+- PC2 vs static cold-tree fraction: rho=-0.255, p=0.32296
+- broadleaf pollen vs dynamic temperate-deciduous fraction: rho=0.427, p=0.087253
+- Park 자료는 독립 holdout이며 모델 재보정에 사용하지 않음
