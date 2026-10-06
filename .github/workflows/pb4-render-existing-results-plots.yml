@@ -1,0 +1,53 @@
+name: PB4 render existing results plots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-render-existing-results-plots.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install plotting runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-nanum
+          python -m pip install -q pandas matplotlib numpy
+
+      - name: Render from existing 21 ka results only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/plots/plot_mean_elevation.py
+          python pb4_chelsa21k/plots/plot_mean_soil_depth.py
+          python pb4_chelsa21k/plots/plot_mean_npp.py
+
+          test -f pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.png
+          test -f pb4_chelsa21k/plots/YONGNEUP_U008_mean_soil_depth_CHELSA_style.png
+          test -f pb4_chelsa21k/plots/YONGNEUP_U008_mean_npp_CHELSA_style.png
+
+      - name: Commit rendered plots
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/plots/*.png pb4_chelsa21k/plots/*.svg
+          git rm .github/workflows/pb4-render-existing-results-plots.yml
+          git commit -m 'plots: render elevation soil depth and NPP from existing U008 results [skip ci]'
+          git push origin HEAD:main
