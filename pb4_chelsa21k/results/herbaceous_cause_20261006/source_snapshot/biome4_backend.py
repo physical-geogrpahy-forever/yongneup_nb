@@ -2,15 +2,9 @@
 """
 biome4_backend.py — BIOME4 v4.2b2 Fortran 배치 백엔드.
 
-이 배포판의 과학 실행 경로는 ``original`` 하나만 허용한다. 토심은 Python 측에서
-BIOME4 원래 0–0.3 m / 0.3–1.5 m 토양층의 WHC로만 변환되며, NPP·LAI·FVC에
-별도의 토심 계수를 곱하지 않는다.
-
-의도적 생태학적 climate-sieve 변경은 두 가지다. PFT5는 산자부 12-3에서
-확정한 reference trial 조건(TCM >= -19 °C, GDD5 >= 900)을 사용한다. PFT6 BoNE는
-Sitch et al. (2003)의 LPJ PFT bioclimatic limits(TCM -32.5~-2 °C, GDD5>=600,
-TWM<=23 °C)를 사용한다. 토심 결과에 맞추기 위한 NPP·LAI·FVC 또는 physiology
-튜닝은 없다.
+이 배포판의 production 과학 실행 경로는 BIOME4 v4.2b2의 native PFT
+climate limits를 유지한다. 토심은 McKenzie/Jackson finite-depth soil-water/root
+coupling으로 전달하며 NPP·LAI·FVC에 별도의 토심 경험계수를 곱하지 않는다.
 
 PB4Studio 결합에 필요한 월별 AET와 PFT 진단값을 Python으로 전달하기 위한
 출력 대입문 계측은 유지한다. 레거시 variant 코드는 과거 결과 재현용으로 소스에
@@ -381,34 +375,19 @@ def _patch_fortran_source(src: Path, dst: Path, biome4_variant: str = BIOME4_VAR
     """Create the compilable batch source without changing ecological equations.
 
     All variants receive output-only instrumentation required by the Python
-    coupling: monthly AET and PFT diagnostics. The climate-sieve patches retain
-    the reference-based PFT5 TCM/GDD5 limits and the Sitch-2003 PFT6 BoNE
-    limits.  The Yongneup production variant (mckenzie2003) additionally limits
-    the native BIOME4 PFT competition set (PFT2--13; PFT1 remains disabled by
-    the original BIOME4 v4.2b2 source itself). No soil-depth NPP/LAI/FVC
-    multiplier is added.
+    coupling: monthly AET and PFT diagnostics. The Yongneup production variant
+    (mckenzie2003) retains the native BIOME4 v4.2b2 climate limits and competition
+    set (PFT2--13; PFT1 remains disabled by the original source). No soil-depth
+    NPP/LAI/FVC multiplier or climate-sieve tuning is added.
     """
     variant = normalize_biome4_variant(biome4_variant)
     text = src.read_bytes().decode("latin-1")
 
-    # hotfix10n6: use the reference-trial PFT5 occurrence limits fixed in
-    # 산자부 12-3 (TCM >= -19 C, GDD5 >= 900), while retaining the published
-    # Sitch et al. PFT6 BoNE limits introduced in hotfix10n5.
-    #
-    # The obsolete PFT6 warmest-month relaxation is replaced with the published Sitch et al.
-    # (2003) BoNE climatic occurrence sieve used by LPJ:
-    #   TCM -32.5 <= TCM < -2 C; GDD5 >= 600; TWM <= 23 C.
-    # No soil-depth response, PFT override, or palaeovegetation-fitted coefficient.
     # PB4 CHELSA21K production policy (2026-10-05):
-    # retain native BIOME4 v4.2b2 PFT5/PFT6 climate limits.
-    # McKenzie/Jackson finite-depth soil-water/root coupling remains active;
-    # climate-sieve tuning is intentionally not applied.
-    # hotfix10n10: restore the native BIOME4 v4.2b2 competition set for the
-    # 120 ka production run. The original source already disables PFT1
-    # (Tropical Evergreen) with pfts(1)=0; no additional PFTs are force-disabled.
-    # Thus PFT2--13 may enter competition whenever their native/reference
-    # climate constraints are satisfied. PFT5 and PFT6 retain the explicit
-    # reference climate-sieve patches above.
+    # retain native BIOME4 v4.2b2 PFT climate limits and the native competition
+    # set. The original source disables PFT1 (Tropical Evergreen) with pfts(1)=0;
+    # no additional PFTs are force-disabled. McKenzie/Jackson finite-depth
+    # soil-water/root coupling remains active without climate-sieve tuning.
 
     if variant == BIOME4_VARIANT_MCKENZIE2003:
         # BIOME4-SD reference-derived root-depth adapter.
