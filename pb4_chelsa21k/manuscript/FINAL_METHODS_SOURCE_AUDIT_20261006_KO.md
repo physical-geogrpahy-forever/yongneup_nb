@@ -406,13 +406,54 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 - Jang 61 pollen samples, 5 radiocarbon samples 및 네 LPZ
 - BIOME4 v4.2b2의 13 parameter sets, PFT1 비활성화 및 PFT8 C3 실제 실행경로
 
+## 14.1 canonical ZIP 직접 압축해제 감사
+
+GitHub Actions에서 repository의 canonical ZIP 자체를 checkout한 뒤 직접 압축해제하여 source를 재검증하였다. 감사 run은 `37414681328`이며 성공적으로 완료되었다.
+
+세 canonical alias의 SHA-256은 모두 동일하였다.
+
+- `PB4Studio_v6.6.3_CHELSA21K.zip`: `0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4`
+- `PB4Studio_v6.6.3_CHELSA21K_FINAL_INTEGRATED.zip`: `0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4`
+- `PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`: `0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4`
+
+압축해제한 `pb4studio/pelletier_geomorph.py`에서 다음을 직접 확인하였다.
+
+- `uplift_m_per_kyr: float = 0.08`
+- `hillslope_critical_slope: float = 1.50`
+- `channel_width_coeff: float = 0.005`
+- `channel_width_exp: float = 0.50`
+- `grid_dependence_valley_threshold: float = 1.20`
+- `bedrock_erosion_resistance: float = 10.0`
+- hillslope width는 `dx_m`을 사용
+- valley width는 `channel_width_coeff * A ** channel_width_exp` 구조
+- valley/hillslope 분류 후 `np.where(valley, width_valley, width_hill)`로 적용
+- uplift는 `cfg.uplift_m_per_kyr * dt_kyr`로 실제 적분에 사용
+
+압축해제한 `pb4studio/climate.py`에서 CHELSA production branch의
+
+- `df["lapse_rate_C_per_m"] = 0.0`
+- `df["tmin_lapse_rate_C_per_m"] = 0.0`
+
+을 직접 확인하였다. 파일 상단에는 다른 기후경로용 비영(非零) lapse-rate 함수가 남아 있으나, CHELSA21K production converter는 두 값을 명시적으로 0으로 덮어쓰므로 최종 production에는 추가 고도감률이 적용되지 않는다.
+
+압축해제한 `fortran_src/biome4_original_4_2b2.f`에서는
+
+- `stemcarbon=0.5`
+- `mstemresp(m) = lai*stemcarbon*...`
+
+를 직접 확인하였다.
+
+강화된 exact assertion은 `g=0.005`, `i=0.5`, `F=10`, `S_c=1.5`, `U=0.08`, valley threshold 1.2, valley-width 식, hillslope-width 식, CHELSA lapse-rate 0, BIOME4 stemcarbon 0.5에 대해 모두 `True`로 통과하였다.
+
+따라서 **최종 canonical ZIP 자체와 Methods/canonical 문서 사이의 핵심 지형, 기후 및 AGB source 설정 불일치는 발견되지 않았다.**
+
 ### 제출 전 마지막 확인
 
 1. Haxeltine and Prentice (1996) publisher PDF 확인 완료: Eq. (34) = \(C_s=LAI C_n\), BIOME3 원 \(C_n=1\). 본 연구의 \(C_n=0.5\)는 BIOME4 v4.2b2 source에서 가져온 값으로 분리 표기
 2. 최종 canonical ZIP을 로컬에서 직접 압축해제하여 \`pelletier_geomorph.py\`의 \(g=0.005\), \(i=0.5\), \(F=10\), valley classifier source line을 final SHA package와 다시 대조
 3. \(S_c=1.50\) convergence audit 수치는 위 12.1에 확보 완료. 제출 시 Supplementary 표 형태로만 편집
 4. SoilGrids provenance는 BDRICM_M_1km_ll의 ISRIC 2017-03-10 archive 경로와 wv0010/wv1500 정의까지 확인 완료. 제출 시 다운로드 날짜 또는 로컬 원본 파일 metadata가 남아 있으면 Supplementary에 추가
-5. 51%와 1% validation rule이 최종 결과 선택 전에 고정되었는지 연구이력상 시점을 다시 기록하여 reviewer가 tuning으로 오해하지 않도록 설명
+5. 완료: 1% 기준은 2026-08-12 validation export에서 확인되었고, 51% 기준은 최종 ablation 이전 retained rule임을 확인하였다. 51%는 preregistered라고 과장하지 않고 최종 고정 후처리 규칙으로 서술
 
 ## 15. 핵심 참고문헌
 
