@@ -1,3 +1,7 @@
+> **SUPERSEDED / 폐기된 실험 후보 (2026-10-06)**  
+> 최종 production은 U009가 아니라 BIOME4 v4.2b2 native fire를 그대로 사용하는 U008이다.  
+> 현재 결정문: `../final_native_fire_u008_20261006/FINAL_NATIVE_FIRE_U008_DECISION_KO.md`
+
 # PB4 U009 native-fire succession 최종 승격 결정
 
 업데이트: 2026-10-06
