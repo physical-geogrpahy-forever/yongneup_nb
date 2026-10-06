@@ -75,11 +75,13 @@ McKenzie et al. (2003), Technical Report 03/3은 profile available water capacit
 | \(W_{\rm top}(H)\) 적분식 | McKenzie의 AWC 개념 + BIOME4 0-0.30 m layer | 본 연구 구현 |
 | \(W_{\rm bottom}(H)\) 적분식 | McKenzie의 AWC 개념 + BIOME4 0.30-1.50 m layer | 본 연구 구현 |
 | 1.50 m cap | BIOME4 native hydraulic profile | source 직접 |
-| 용늪 water-density profile 237, 232, 218, 207, 198, 179 mm m\(^{-1}\) | production source 주석상 SoilGrids Explore에서 128.1236 E, 38.2153 N에 대해 확보한 \(\theta_{-10}-\theta_{-1500}\) profile | project 입력 + source 직접 |
+| 용늪 water-density profile 237, 232, 218, 207, 198, 179 mm m\(^{-1}\) | production source 주석상 SoilGrids Explore에서 128.1236 E, 38.2153 N에 대해 확보한 \(\theta_{-10}-\theta_{-1500}\) profile. SoilGrids의 wv0010 및 wv1500 정의와 6개 표준 깊이구간은 Turek et al. (2023) 및 ISRIC layer documentation과 일치 | project 입력 + source 직접 + 원문 직접 |
 | AWC profile 생성 방식 | 위 SoilGrids 수분함량 차이를 깊이구간별로 직접 적분. coarse-fragment correction, PTF, calibration, pollen-fit coefficient 없음 | source 직접 |
 | texture class | supplied texture raster의 모든 유효셀은 BIOME4 texture class 2. McKenzie profile 적용 전 source에서 이를 검사 | source 직접 |
 | texture의 역할 | McKenzie production에서는 native BIOME4 hydraulic conductivity 선택에 사용. AWC 저장량 자체는 위 SoilGrids 수분 profile에서 계산 | source 직접 |
-| SoilGrids 일반 자료체계 | Poggio et al. (2021), 250 m global product | 원문 직접 |
+| BDRICM_M_1km_ll | ISRIC former/2017-03-10/aggregated/1km archive에 파일명이 그대로 존재. SoilGrids250m의 depth-to-bedrock 예측은 Hengl et al. (2017), 세부 DTB 모델은 Shangguan et al. (2017) | 자료 archive 직접 + 원문 직접 |
+| SoilGrids water retention | wv0010=10 kPa, wv1500=1500 kPa. Turek et al. (2023)의 global volumetric water-retention mapping | 자료 정의 + 원문 직접 |
+| SoilGrids 2.0 일반 자료체계 | Poggio et al. (2021) | 보조 일반근거 |
 
 주의: Poggio et al. (2021)이 용늪의 특정 \(\theta_{-10}\), \(\theta_{-1500}\) 수치를 논문에서 직접 제시한 것으로 쓰지 않는다. 또한 현재 production의 237-179 mm m\(^{-1}\) 값은 sand/silt/clay에서 본 연구가 PTF로 재계산한 값이 아니다.
 
@@ -340,6 +342,24 @@ Lee et al. (2024)은 landscape-evolution model의 regional uplift를 80 mm kyr\(
 | open outlet fixed base level | PB4 boundary implementation | 수치구현 |
 | geomorph substep 사이 BIOME4 미재실행 | production runner | source 직접 |
 
+## 12.1 S_c=1.50 수치수렴 감사
+
+보존된 `HILLSLOPE_SC15_AUDIT_2026-08-17.md`를 재확인하였다. 이는 20 m real DEM에서 1 kyr 경로를 대상으로 한 독립 수치감사이며, S_c=1.50을 자연사면의 보편적인 임계경사로 주장하는 근거가 아니다.
+
+- 초기 land-land face: 552
+- 초기 최대 cardinal-face slope: 약 1.332
+- 초기 S>S_c: 0
+- 초기 threshold adjustment: 0 cell
+- tolerance 0.025 m에서 accepted substep: 120, dt=6.25-12.5 yr
+- 최종 H min/mean/max: 0.104840/1.836665/3.267830 m
+- 최종 최대 cardinal-face slope: 1.182459
+- 최종 S>S_c: 0
+- outlet drift: 0 m
+- tolerance 0.025 -> 0.0125 m에서 max |Delta H|=0.008139 m, p99 |Delta H|=0.002596 m, mean |Delta H|=0.000299 m
+- max |Delta z|=0.008139 m, max |Delta z_b|=0.000602 m
+
+판정: **S_c=1.50은 20 m Yongneup production을 위한 본 연구 수치설정이며 수치수렴 근거가 보존되어 있다. 외부 논문으로 1.50 자체를 정당화할 필요는 없다. Pelletier et al. (2013)은 원 과정식 및 원 연구의 S_c 값 0.7/0.9를 설명하는 문헌으로만 인용한다.**
+
 ## 13. Jang et al. (2011) validation
 
 원문 확인:
@@ -361,6 +381,11 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 
 둘 다 BIOME4 process equation으로 쓰지 않는다.
 
+### 검증 기준의 연구이력
+
+- **유역 1% 출현 기준:** 2026-08-12에 생성된 `PB4Studio_v663_corrected_dynamic_validation_rows.csv`에 이미 `basin_presence_min_fraction=0.01`, `basin_presence_min_percent=1.0`이 기록되어 있다. 따라서 최종 CHELSA21K U008 결과를 선택하기 전에 사용되고 있던 검증기준임을 직접 확인하였다.
+- **51% reduced-class majority rule:** 2026-10-05의 `NATIVE_CLIMATE_ABLATION_PROVENANCE.json`에서 PFT5/PFT6 climate tuning을 제거하는 최종 ablation 이전부터 `51% majority reduced classification`을 retained rule로 명시한다. 그러나 현재 보존자료만으로는 이 규칙이 모든 초기 결과 탐색보다 앞서 정해졌다고까지 입증하지 않는다. 논문에서는 preregistered threshold라고 표현하지 않고 **본 연구의 고정된 최종 후처리 규칙**이라고 기술한다.
+
 ## 14. 현재 추가 검토 상태
 
 ### 완료
@@ -381,10 +406,10 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 
 ### 제출 전 마지막 확인
 
-1. Haxeltine and Prentice (1996) publisher PDF에서 \(C_s=LAI\,C_n\)의 Eq. (34) 번호와 표기 시각 재확인
+1. Haxeltine and Prentice (1996)의 정확한 식 번호를 논문에 쓸 경우 publisher PDF에서 시각 재확인. 다만 식 번호를 생략하고 관계만 인용하면 BIOME4 v4.2b2 source의 `stemcarbon=0.5` 및 `lai*stemcarbon` 구현으로 독립 확인되므로 Methods의 과학적 내용에는 영향 없음
 2. 최종 canonical ZIP을 로컬에서 직접 압축해제하여 \`pelletier_geomorph.py\`의 \(g=0.005\), \(i=0.5\), \(F=10\), valley classifier source line을 final SHA package와 다시 대조
-3. \(S_c=1.50\) convergence audit의 실험조건과 선택근거를 Supplementary 표로 정리
-4. 용늪 SoilGrids point profile의 원 다운로드 metadata와 SoilGrids version을 Supplementary provenance에 명시. production source에서 사용 좌표 128.1236 E, 38.2153 N은 확인됨
+3. \(S_c=1.50\) convergence audit 수치는 위 12.1에 확보 완료. 제출 시 Supplementary 표 형태로만 편집
+4. SoilGrids provenance는 BDRICM_M_1km_ll의 ISRIC 2017-03-10 archive 경로와 wv0010/wv1500 정의까지 확인 완료. 제출 시 다운로드 날짜 또는 로컬 원본 파일 metadata가 남아 있으면 Supplementary에 추가
 5. 51%와 1% validation rule이 최종 결과 선택 전에 고정되었는지 연구이력상 시점을 다시 기록하여 reviewer가 tuning으로 오해하지 않도록 설명
 
 ## 15. 핵심 참고문헌
@@ -414,3 +439,10 @@ Pelletier, J. D., et al. (2013). Coevolution of nonlinear trends in vegetation, 
 Poggio, L., et al. (2021). SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty. *SOIL, 7*, 217-240. https://doi.org/10.5194/soil-7-217-2021
 
 Reich, P. B., Walters, M. B., & Ellsworth, D. S. (1992). Leaf life-span in relation to leaf, plant, and stand characteristics among diverse ecosystems. *Ecological Monographs, 62*, 365-392. https://doi.org/10.2307/2937116
+
+
+Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S., & Kempen, B. (2017). SoilGrids250m: Global gridded soil information based on machine learning. *PLoS ONE, 12*(2), e0169748. https://doi.org/10.1371/journal.pone.0169748
+
+Shangguan, W., Hengl, T., Mendes de Jesus, J., Yuan, H., & Dai, Y. (2017). Mapping the global depth to bedrock for land surface modeling. *Journal of Advances in Modeling Earth Systems, 9*(1), 65-88. https://doi.org/10.1002/2016MS000686
+
+Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., de Sousa, L., & Heuvelink, G. B. M. (2023). Global mapping of volumetric water retention at 100, 330 and 15,000 cm suction using the WoSIS database. *International Soil and Water Conservation Research, 11*(2), 225-239. https://doi.org/10.1016/j.iswcr.2022.08.001
