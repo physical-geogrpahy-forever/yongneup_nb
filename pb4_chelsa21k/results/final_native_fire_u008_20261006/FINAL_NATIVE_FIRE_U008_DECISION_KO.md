@@ -70,3 +70,23 @@ FIREACTIVE U008은 과학식을 변경하지 않는 diagnostics-only 판이므�
 `578923dee512278a64f97d914acc9b1f67af7d13007a099bb2931b17b5e6a49c`
 
 U009는 실험 후보로만 보존하고 production에서는 사용하지 않는다.
+
+
+## Park et al. (2021) 독립 화재추세 점검
+
+후기 홀로세 3.2–2.0 ka에서 native PFT6 최대 firedays와 Park et al. (2021)의
+macrocharcoal 화재기를 비교하였다.
+
+- Park 주요 화재기: 2.9–2.7 ka, 2.4–2.3 ka
+- 모델은 첫 화재기에 116 -> 119 -> 134일로 상승하고 2.7 ka에서 최대값을 보임
+- 두 번째 화재기에 120 -> 124일로 재상승
+- 2.2 ka에는 104일로 감소
+- 단, 2.1 ka에 129일의 추가 고점이 있어 완전한 일대일 대응은 아님
+- 3.2–2.0 ka 탐색 비교에서 Park 화재시점 평균 122.6일, 나머지 시점 평균 112.625일
+- point-biserial r = 0.542 (n=13, 탐색값)
+
+상세:
+`PARK2021_NATIVE_FIRE_TREND_AUDIT_KO.md`
+
+원자료:
+`NATIVE_FIRE_SPATIAL_3P5_2P0.csv`
