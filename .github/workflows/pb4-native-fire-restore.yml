@@ -1,0 +1,69 @@
+name: Audit and expose native BIOME4 fire
+
+on:
+  push:
+    branches:
+      - fix/biome4-native-fire-20261006
+    paths:
+      - '.github/workflows/pb4-native-fire-restore.yml'
+      - 'pb4_chelsa21k/tools/activate_native_fire_diagnostics.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  fire-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '4'
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Syntax check
+        shell: bash
+        run: python -m py_compile pb4_chelsa21k/tools/activate_native_fire_diagnostics.py
+
+      - name: Build candidate and run native-fire audit
+        shell: bash
+        run: python pb4_chelsa21k/tools/activate_native_fire_diagnostics.py
+
+      - name: Upload audit artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pb4-native-fire-audit-20261006
+          path: |
+            pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_FIREACTIVE.zip
+            pb4_chelsa21k/results/native_fire_20261006
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit candidate and audit results to branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_FIREACTIVE.zip
+          git add pb4_chelsa21k/results/native_fire_20261006
+          git status --short
+          git commit -m 'Add BIOME4 native-fire diagnostic candidate [skip ci]' || exit 0
+          git push origin HEAD:fix/biome4-native-fire-20261006
