@@ -48,6 +48,23 @@ BIOME4 source 확인 파일:
 
 \`pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/biome4_original_4_2b2.f\`
 
+## 3.1 공간 입력자료 및 계산격자 감사
+
+과거 기술보고서의 공간 전처리 기록과 현재 production의 20 m real-DEM 설정을 대조하였다.
+
+| 항목 | 확인 내용 | 판정 |
+|---|---|---|
+| 원 고도자료 | 국토정보플랫폼 수치지형도 | project 입력 |
+| DEM 생성 | QGIS 3.44.5 IDW로 10 m 연속 고도면 생성 | project 전처리 기록 직접 |
+| 유역 추출 | GRASS GIS r.watershed로 용늪 포함 소유역 추출 | project 전처리 기록 직접 |
+| 최종 좌표계 | Korea 2000/Central Belt 2010, EPSG:5187 | project 전처리 기록 직접 |
+| 최종 계산격자 | 모든 공간자료를 20 m로 리샘플링 | project 전처리 기록 직접 + production 20 m 설정과 일치 |
+| 경계조건 | 단일 유출구만 open, 나머지 유역 경계 closed | project 전처리 기록 직접 |
+| D8 처리 | 유출구 외 경계로의 flow receiver 금지, 계산 전 sink filling | project 전처리 기록 직접 |
+| 사면수송 경계 | final mask 내부 인접 셀 사이에서만 계산, closed boundary flux=0 | project 전처리 기록 직접 |
+
+따라서 Methods에서는 “DEM을 10 m로 보간하였다”와 “모델 해상도는 20 m이다”를 충돌하는 문장으로 쓰지 않고, **10 m IDW 보간 후 모든 공간입력을 20 m 계산격자로 리샘플링하였다**고 단계적으로 기술한다.
+
 ## 4. 토심과 available-water storage
 
 McKenzie et al. (2003), Technical Report 03/3은 profile available water capacity를 field capacity와 wilting point에 대응하는 \(-10\) kPa와 \(-1.5\) MPa의 체적수분함량 차이로 설명하고, plant available water를 계산할 때 root distribution을 별도로 고려한다.
@@ -58,10 +75,13 @@ McKenzie et al. (2003), Technical Report 03/3은 profile available water capacit
 | \(W_{\rm top}(H)\) 적분식 | McKenzie의 AWC 개념 + BIOME4 0-0.30 m layer | 본 연구 구현 |
 | \(W_{\rm bottom}(H)\) 적분식 | McKenzie의 AWC 개념 + BIOME4 0.30-1.50 m layer | 본 연구 구현 |
 | 1.50 m cap | BIOME4 native hydraulic profile | source 직접 |
-| 용늪 water-density profile 237, 232, 218, 207, 198, 179 mm m\(^{-1}\) | 용늪 SoilGrids 기반 project point profile | project 입력 |
+| 용늪 water-density profile 237, 232, 218, 207, 198, 179 mm m\(^{-1}\) | production source 주석상 SoilGrids Explore에서 128.1236 E, 38.2153 N에 대해 확보한 \(\theta_{-10}-\theta_{-1500}\) profile | project 입력 + source 직접 |
+| AWC profile 생성 방식 | 위 SoilGrids 수분함량 차이를 깊이구간별로 직접 적분. coarse-fragment correction, PTF, calibration, pollen-fit coefficient 없음 | source 직접 |
+| texture class | supplied texture raster의 모든 유효셀은 BIOME4 texture class 2. McKenzie profile 적용 전 source에서 이를 검사 | source 직접 |
+| texture의 역할 | McKenzie production에서는 native BIOME4 hydraulic conductivity 선택에 사용. AWC 저장량 자체는 위 SoilGrids 수분 profile에서 계산 | source 직접 |
 | SoilGrids 일반 자료체계 | Poggio et al. (2021), 250 m global product | 원문 직접 |
 
-주의: Poggio et al. (2021)이 용늪의 \(\theta_{-10}\) 및 \(\theta_{-1500}\) 값을 직접 제시한 것으로 쓰지 않는다.
+주의: Poggio et al. (2021)이 용늪의 특정 \(\theta_{-10}\), \(\theta_{-1500}\) 수치를 논문에서 직접 제시한 것으로 쓰지 않는다. 또한 현재 production의 237-179 mm m\(^{-1}\) 값은 sand/silt/clay에서 본 연구가 PTF로 재계산한 값이 아니다.
 
 ## 5. 뿌리분포와 finite-depth accessibility
 
@@ -364,7 +384,7 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 1. Haxeltine and Prentice (1996) publisher PDF에서 \(C_s=LAI\,C_n\)의 Eq. (34) 번호와 표기 시각 재확인
 2. 최종 canonical ZIP을 로컬에서 직접 압축해제하여 \`pelletier_geomorph.py\`의 \(g=0.005\), \(i=0.5\), \(F=10\), valley classifier source line을 final SHA package와 다시 대조
 3. \(S_c=1.50\) convergence audit의 실험조건과 선택근거를 Supplementary 표로 정리
-4. 용늪 SoilGrids point profile의 원 다운로드 metadata와 좌표, SoilGrids version을 Supplementary provenance에 명시
+4. 용늪 SoilGrids point profile의 원 다운로드 metadata와 SoilGrids version을 Supplementary provenance에 명시. production source에서 사용 좌표 128.1236 E, 38.2153 N은 확인됨
 5. 51%와 1% validation rule이 최종 결과 선택 전에 고정되었는지 연구이력상 시점을 다시 기록하여 reviewer가 tuning으로 오해하지 않도록 설명
 
 ## 15. 핵심 참고문헌
