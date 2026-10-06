@@ -1,0 +1,246 @@
+name: PB4 package CHELSA-style timeseries plots
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-package-chelsa-timeseries-plots.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-render-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install plotting runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-nanum
+          python -m pip install -q numpy pandas matplotlib rasterio
+
+      - name: Unpack current PB4 package
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4_chelsa_plots
+          mkdir -p /tmp/pb4_chelsa_plots
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4_chelsa_plots
+          root=$(find /tmp/pb4_chelsa_plots -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
+          test -n "$root"
+          export ROOT="$root"
+          echo "ROOT=$root" >> "$GITHUB_ENV"
+
+      - name: Patch package figure code only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import os
+
+          root=Path(os.environ["ROOT"])
+          p=root/"pb4studio"/"figures.py"
+          s=p.read_text(encoding="utf-8")
+
+          old='''    specs = [
+              ("mean_elevation_m", "평균 고도 변화", "평균 고도 (m)", "timeseries_mean_elevation.png"),
+              ("mean_soil_depth_m", "평균 토심 변화", "평균 토심 (m)", "timeseries_mean_soil_depth.png"),
+              ("mean_npp", "평균 NPP 변화", "평균 NPP", "timeseries_mean_npp.png"),
+          ]
+          for col, title, ylabel, fname in specs:
+              if col not in ts.columns:
+                  continue
+              fig, ax = plt.subplots(figsize=(8, 4.5))
+              for case_label, sub in ts.groupby("case_label", sort=False):
+                  sub = sub.sort_values("yr_bp", ascending=False)
+                  ax.plot(sub["yr_bp"], sub[col], label=str(case_label), linewidth=1.5)
+              ax.set_title(title)
+              ax.set_xlabel("시간 (yr BP, 1000년 간격)")
+              ax.set_ylabel(ylabel)
+              ax.invert_xaxis()
+              ax.grid(True, alpha=0.3)
+              ax.legend()
+              fig.tight_layout()
+              out_path = fig_dir / fname
+              fig.savefig(out_path, dpi=300)
+              plt.close(fig)
+              written.append(out_path)
+          '''
+
+          new='''    # Main PB4 time-series figures use the exact visual conventions of
+          # plots/plot_chelsa_climate.py: 8.2 x 4.8 inch canvas, firebrick 1.6
+          # and royalblue 1.4 lines, 21 -> 0 ka BP, 3-kyr ticks, no title,
+          # no grid, upper-left frameless legend, 600 dpi.
+          specs = [
+              ("mean_elevation_m", "평균 고도 (m)", "timeseries_mean_elevation.png"),
+              ("mean_soil_depth_m", "평균 토심 (m)", "timeseries_mean_soil_depth.png"),
+              ("mean_npp", r"평균 NPP (g C m$^{-2}$ yr$^{-1}$)", "timeseries_mean_npp.png"),
+          ]
+          for col, ylabel, fname in specs:
+              if col not in ts.columns:
+                  continue
+
+              fig, ax = plt.subplots(figsize=(8.2, 4.8))
+
+              dynamic = ts[ts["case_label"] == dynamic_label].sort_values("ka_bp", ascending=False)
+              static = ts[ts["case_label"] == static_label].sort_values("ka_bp", ascending=False)
+
+              dynamic_line, = ax.plot(
+                  dynamic["ka_bp"], dynamic[col],
+                  color="firebrick", linewidth=1.6, linestyle="-", label=dynamic_label
+              )
+              static_line, = ax.plot(
+                  static["ka_bp"], static[col],
+                  color="royalblue", linewidth=1.4, linestyle="-", label=static_label
+              )
+
+              ax.set_xlabel("연대 (ka BP)")
+              ax.set_ylabel(ylabel)
+              ax.set_xlim(21, 0)
+              ax.set_xticks(np.arange(21, -0.1, -3))
+
+              if col == "mean_elevation_m":
+                  from matplotlib.ticker import ScalarFormatter
+                  formatter = ScalarFormatter(useOffset=False)
+                  formatter.set_scientific(False)
+                  ax.yaxis.set_major_formatter(formatter)
+
+              ax.legend(
+                  [dynamic_line, static_line],
+                  [dynamic_label, static_label],
+                  loc="upper left", frameon=False
+              )
+
+              fig.tight_layout()
+              out_path = fig_dir / fname
+              fig.savefig(out_path, dpi=600, bbox_inches="tight")
+              plt.close(fig)
+              written.append(out_path)
+          '''
+
+          if old not in s:
+              raise SystemExit("expected old make_timeseries_figures block not found")
+          p.write_text(s.replace(old,new,1),encoding="utf-8")
+          print("patched",p)
+          PY
+
+          mkdir -p "$ROOT/plots"
+          cp pb4_chelsa21k/plots/plot_chelsa_climate.py "$ROOT/plots/plot_chelsa_climate.py"
+          cp pb4_chelsa21k/plots/plot_mean_elevation.py "$ROOT/plots/plot_mean_elevation.py"
+          cp pb4_chelsa21k/plots/plot_mean_soil_depth.py "$ROOT/plots/plot_mean_soil_depth.py"
+          cp pb4_chelsa21k/plots/plot_mean_npp.py "$ROOT/plots/plot_mean_npp.py"
+
+      - name: Feed existing U008 results to package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$ROOT/outputs_CHELSA21K/model_static" "$ROOT/outputs_CHELSA21K/model_dynamic"
+          mkdir -p "$ROOT/results/final_integrated_20261006"
+          cp pb4_chelsa21k/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv              "$ROOT/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv"
+
+          python - <<'PY'
+          from pathlib import Path
+          import os
+          import pandas as pd
+
+          root=Path(os.environ["ROOT"])
+          src=pd.read_csv(
+              "pb4_chelsa21k/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv",
+              encoding="utf-8-sig",
+          )
+          for mode in ("static","dynamic"):
+              d=src[src["mode"]==mode].copy()
+              d=d.drop(columns=[c for c in ("mode","source_csv") if c in d.columns])
+              d.to_csv(
+                  root/"outputs_CHELSA21K"/f"model_{mode}"/"summary_timeseries.csv",
+                  index=False,encoding="utf-8-sig",
+              )
+          PY
+
+      - name: Run package plotting code on existing results
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$ROOT"
+          python - <<'PY'
+          from pathlib import Path
+          from pb4studio.figures import make_timeseries_figures
+
+          root=Path(".").resolve()
+          out=root/"outputs_CHELSA21K"
+          figdir=out/"PACKAGE_CODE_FIGURES"
+          paths=make_timeseries_figures(
+              out/"model_static",
+              out/"model_dynamic",
+              figdir,
+              static_label="정적모델",
+              dynamic_label="동적모델",
+          )
+          print("PACKAGE_CODE_OUTPUTS")
+          for p in paths:
+              print(p)
+          PY
+
+          python plots/plot_mean_elevation.py
+          python plots/plot_mean_soil_depth.py
+          python plots/plot_mean_npp.py
+
+          test -f outputs_CHELSA21K/PACKAGE_CODE_FIGURES/timeseries_mean_elevation.png
+          test -f outputs_CHELSA21K/PACKAGE_CODE_FIGURES/timeseries_mean_soil_depth.png
+          test -f outputs_CHELSA21K/PACKAGE_CODE_FIGURES/timeseries_mean_npp.png
+
+      - name: Save package-generated plots to repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p pb4_chelsa21k/plots/package_generated
+          cp "$ROOT/outputs_CHELSA21K/PACKAGE_CODE_FIGURES/timeseries_mean_elevation.png"              pb4_chelsa21k/plots/package_generated/timeseries_mean_elevation.png
+          cp "$ROOT/outputs_CHELSA21K/PACKAGE_CODE_FIGURES/timeseries_mean_soil_depth.png"              pb4_chelsa21k/plots/package_generated/timeseries_mean_soil_depth.png
+          cp "$ROOT/outputs_CHELSA21K/PACKAGE_CODE_FIGURES/timeseries_mean_npp.png"              pb4_chelsa21k/plots/package_generated/timeseries_mean_npp.png
+
+          cp "$ROOT/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.png"              pb4_chelsa21k/plots/package_generated/YONGNEUP_U008_mean_elevation_CHELSA_style.png
+          cp "$ROOT/plots/YONGNEUP_U008_mean_soil_depth_CHELSA_style.png"              pb4_chelsa21k/plots/package_generated/YONGNEUP_U008_mean_soil_depth_CHELSA_style.png
+          cp "$ROOT/plots/YONGNEUP_U008_mean_npp_CHELSA_style.png"              pb4_chelsa21k/plots/package_generated/YONGNEUP_U008_mean_npp_CHELSA_style.png
+
+      - name: Build plot-updated PB4 package
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/pb4_chelsa_plots
+          root_name=$(basename "$ROOT")
+          zip -q -r /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_CHELSA_PLOTS.zip "$root_name"
+          sha256sum /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_CHELSA_PLOTS.zip             > /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_CHELSA_PLOTS.sha256
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PB4_U008_CHELSA_PLOTS_PACKAGE_AND_OUTPUTS
+          path: |
+            /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_CHELSA_PLOTS.zip
+            /tmp/PB4Studio_v6.6.3_CHELSA21K_U008_CHELSA_PLOTS.sha256
+            pb4_chelsa21k/plots/package_generated/*.png
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Commit package-generated plots
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/plots/package_generated
+          git rm .github/workflows/pb4-package-chelsa-timeseries-plots.yml
+          git commit -m 'plots: save PB4 package-generated CHELSA-style time series [skip ci]'
+          git push origin HEAD:main
