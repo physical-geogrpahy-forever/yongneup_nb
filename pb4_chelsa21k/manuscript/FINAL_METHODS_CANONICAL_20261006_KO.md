@@ -69,7 +69,7 @@ t\rightarrow\tau
 
 따라서 Methods에서는 10 m를 DEM 보간 단계 해상도, 20 m를 실제 VeSLEM 계산 해상도로 구분하여 기술한다.
 
-초기 토심은 SoilGrids1km의 `BDRICM_M_1km_ll`을 사용한다(Hengl et al., 2014).
+초기 토심은 ISRIC의 2017-03-10 SoilGrids archive에서 1 km로 집계되어 배포된 `BDRICM_M_1km_ll`을 사용한다. 이 자료의 기반이 되는 SoilGrids250m과 depth-to-bedrock 예측은 Hengl et al. (2017)과 Shangguan et al. (2017)을 인용한다.
 
 ## 3. 기후입력과 BIOME4
 
@@ -169,7 +169,7 @@ d\zeta
 
 이는 **본 연구 구현식**이다.
 
-production code에 사용된 깊이별 available-water density는 SoilGrids Explore에서 용늪 지점(128.1236 E, 38.2153 N)에 대해 확보한 \(\theta_{-10}-\theta_{-1500}\) profile이며 다음과 같다.
+production code에 사용된 깊이별 available-water density는 SoilGrids Explore에서 용늪 지점(128.1236 E, 38.2153 N)에 대해 확보한 \(\theta_{-10}-\theta_{-1500}\) profile이며 다음과 같다. SoilGrids의 wv0010은 10 kPa, wv1500은 1500 kPa에서의 체적수분함량을 뜻하며 여섯 표준 깊이구간으로 제공된다(Turek et al., 2023).
 
 | 깊이 m | mm m\(^{-1}\) |
 |---|---:|
@@ -369,7 +369,7 @@ B_{\mathrm{leaf,dry},p}
 
 ### 7.2 변재
 
-Haxeltine and Prentice (1996) Eq. (34)의 원식은
+Haxeltine and Prentice (1996)에 근거하여 사용하는 sapwood-LAI 관계는
 
 \[
 \boxed{
@@ -596,7 +596,7 @@ PB4는 hillslope와 valley를 구분하기 위해 Pelletier et al. (2013)이 기
 | \(S_c\) | 0.7, 0.9 sensitivity | **1.50** |
 | \(U\) | 0.05 m kyr\(^{-1}\) | **0.08 m kyr\(^{-1}\)** |
 
-따라서 \(S_c=1.50\)과 \(U=0.08\)은 Pelletier et al. (2013)의 원 연구값이라고 쓰면 안 된다. \(S_c=1.50\)은 용늪 20 m real-DEM 수치수렴시험을 거쳐 채택된 모델별 수치설정이다. \(U=0.08\ {\rm m\,kyr^{-1}}\)은 Lee et al. (2024)이 태백산맥의 약 22 Ma 이후 장기 삭박 및 exhumation rate와 동일하도록 landscape-evolution model의 regional uplift로 채택한 80 mm kyr\(^{-1}\)를 따른다. 이는 용늪 자체의 직접 측정값이 아니라 regional background forcing을 위한 모델 가정이다.
+따라서 \(S_c=1.50\)과 \(U=0.08\)은 Pelletier et al. (2013)의 원 연구값이라고 쓰면 안 된다. \(S_c=1.50\)은 용늪 20 m real-DEM 수치수렴시험을 거쳐 채택된 모델별 수치설정이다. 초기 최대 cardinal-face slope는 약 1.332로 S_c=1.50에서 초기 초임계경사가 없었고, 1 kyr 회귀시험의 tolerance를 0.025 m에서 0.0125 m로 절반으로 줄였을 때 max |Delta H|는 0.008139 m였다. \(U=0.08\ {\rm m\,kyr^{-1}}\)은 Lee et al. (2024)이 태백산맥의 약 22 Ma 이후 장기 삭박 및 exhumation rate와 동일하도록 landscape-evolution model의 regional uplift로 채택한 80 mm kyr\(^{-1}\)를 따른다. 이는 용늪 자체의 직접 측정값이 아니라 regional background forcing을 위한 모델 가정이다.
 
 또한 Pelletier의 모델실험 EEMT 범위는 대략 5-45 MJ m\(^{-2}\) yr\(^{-1}\)였으나 용늪 PB4에서는 이 범위를 넘는 EEMT가 발생한다. 따라서 EEMT 관련 계수의 외삽은 한계로 명시한다.
 
@@ -710,3 +710,10 @@ Gale, M. R., & Grigal, D. F. (1987). Vertical root distributions of northern tre
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E., & Schulze, E.-D. (1996). A global analysis of root distributions for terrestrial biomes. Oecologia, 108, 389-411.
 
 Poggio, L., de Sousa, L. M., Batjes, N. H., Heuvelink, G. B. M., Kempen, B., Ribeiro, E., & Rossiter, D. (2021). SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty. SOIL, 7, 217-240.
+
+
+Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S., & Kempen, B. (2017). SoilGrids250m: Global gridded soil information based on machine learning. *PLoS ONE, 12*(2), e0169748. https://doi.org/10.1371/journal.pone.0169748
+
+Shangguan, W., Hengl, T., Mendes de Jesus, J., Yuan, H., & Dai, Y. (2017). Mapping the global depth to bedrock for land surface modeling. *Journal of Advances in Modeling Earth Systems, 9*(1), 65-88. https://doi.org/10.1002/2016MS000686
+
+Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., de Sousa, L., & Heuvelink, G. B. M. (2023). Global mapping of volumetric water retention at 100, 330 and 15,000 cm suction using the WoSIS database. *International Soil and Water Conservation Research, 11*(2), 225-239. https://doi.org/10.1016/j.iswcr.2022.08.001
