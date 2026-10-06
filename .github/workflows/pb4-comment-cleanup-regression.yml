@@ -41,6 +41,7 @@ jobs:
           unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4_comment_clean
           root=$(find /tmp/pb4_comment_clean -maxdepth 1 -type d -name 'PB4Studio*' | head -1)
           test -n "$root"
+          export ROOT="$root"
           echo "ROOT=$root" >> "$GITHUB_ENV"
 
           python - <<'PY'
@@ -50,7 +51,6 @@ jobs:
           root=Path(os.environ["ROOT"])
           targets=[
               root/"pb4studio"/"biome4_backend.py",
-              Path("pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/biome4_backend.py"),
           ]
 
           old_header='''이 배포판의 과학 실행 경로는 ``original`` 하나만 허용한다. 토심은 Python 측에서
@@ -128,6 +128,13 @@ jobs:
                   raise SystemExit(f"no change made to {p}")
               p.write_text(s,encoding="utf-8")
               print("cleaned",p)
+
+          snapshot=Path("pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/biome4_backend.py")
+          ss=snapshot.read_text(encoding="utf-8")
+          for forbidden in ("TCM >= -19", "GDD5 >= 900", "TCM -32.5", "GDD5>=600"):
+              if forbidden in ss:
+                  raise SystemExit(f"tracked source snapshot still contains stale text: {forbidden}")
+          print("tracked source snapshot already clean",snapshot)
           PY
 
       - name: Run full 21 ka regression
@@ -376,4 +383,4 @@ jobs:
           git add pb4_chelsa21k
           git commit -m 'chore: remove stale PB4 climate-sieve comments and verify exact regression [skip ci]'
           git push origin HEAD:main
-# retrigger after tracked source-snapshot cleanup
+# retry after ROOT environment fix
