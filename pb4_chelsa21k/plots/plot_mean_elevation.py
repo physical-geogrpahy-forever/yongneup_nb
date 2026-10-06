@@ -26,41 +26,34 @@ def set_korean_font() -> None:
 
 
 def main() -> None:
-    df = pd.read_csv(DATA_PATH, encoding="utf-8-sig")
+    raw = pd.read_csv(DATA_PATH, encoding="utf-8-sig")
+    dynamic = raw[raw["mode"] == "dynamic"].sort_values("ka_bp", ascending=False)
+    static = raw[raw["mode"] == "static"].sort_values("ka_bp", ascending=False)
     set_korean_font()
 
-    dynamic = df[df["mode"] == "dynamic"].sort_values("ka_bp", ascending=False)
-    static = df[df["mode"] == "static"].sort_values("ka_bp", ascending=False)
+    fig, ax1 = plt.subplots(figsize=(8.2, 4.8))
 
-    fig, ax = plt.subplots(figsize=(8.2, 4.8))
-
-    dyn_line, = ax.plot(
+    dynamic_line, = ax1.plot(
         dynamic["ka_bp"], dynamic["mean_elevation_m"],
         color="firebrick", linewidth=1.6, linestyle="-", label="동적모델"
     )
-    sta_line, = ax.plot(
+    ax1.set_xlabel("연대 (ka BP)")
+    ax1.set_ylabel(r"평균 고도 (m)")
+    ax1.set_xlim(21, 0)
+    ax1.set_xticks(np.arange(21, -0.1, -3))
+
+    static_line, = ax1.plot(
         static["ka_bp"], static["mean_elevation_m"],
         color="royalblue", linewidth=1.4, linestyle="-", label="정적모델"
     )
 
-    ax.set_xlabel("연대 (ka BP)")
-    ax.set_ylabel("평균 고도 (m)")
-    ax.set_xlim(21, 0)
-    ax.set_xticks(np.arange(21, -0.1, -3))
-
     formatter = ScalarFormatter(useOffset=False)
     formatter.set_scientific(False)
-    ax.yaxis.set_major_formatter(formatter)
+    ax1.yaxis.set_major_formatter(formatter)
 
-    values = pd.concat(
-        [dynamic["mean_elevation_m"], static["mean_elevation_m"]]
-    ).dropna()
-    margin = max((values.max() - values.min()) * 0.08, 0.03)
-    ax.set_ylim(values.min() - margin, values.max() + margin)
-
-    # No title, matching plot_chelsa_climate.py.
-    ax.legend(
-        [dyn_line, sta_line],
+    # No figure title by design, matching plot_chelsa_climate.py.
+    ax1.legend(
+        [dynamic_line, static_line],
         ["동적모델", "정적모델"],
         loc="upper left", frameon=False
     )
