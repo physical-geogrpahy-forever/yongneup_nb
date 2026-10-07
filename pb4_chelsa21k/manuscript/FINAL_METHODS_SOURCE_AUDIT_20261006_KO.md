@@ -78,7 +78,7 @@ McKenzie et al. (2003), Technical Report 03/3은 profile available water capacit
 | 용늪 water-density profile 237, 232, 218, 207, 198, 179 mm m\(^{-1}\) | production source 주석상 SoilGrids Explore에서 128.1236 E, 38.2153 N에 대해 확보한 \(\theta_{-10}-\theta_{-1500}\) profile. SoilGrids의 wv0010 및 wv1500 정의와 6개 표준 깊이구간은 Turek et al. (2023) 및 ISRIC layer documentation과 일치 | project 입력 + source 직접 + 원문 직접 |
 | AWC profile 생성 방식 | 위 SoilGrids 수분함량 차이를 깊이구간별로 직접 적분. coarse-fragment correction, PTF, calibration, pollen-fit coefficient 없음 | source 직접 |
 | texture class | supplied texture raster의 모든 유효셀은 BIOME4 texture class 2. McKenzie profile 적용 전 source에서 이를 검사 | source 직접 |
-| texture의 역할 | McKenzie production에서는 native BIOME4 hydraulic conductivity 선택에 사용. AWC 저장량 자체는 위 SoilGrids 수분 profile에서 계산 | source 직접 |
+| texture의 역할 | McKenzie production에서는 native BIOME4 상층 percolation coefficient를 선택하며 texture class 2에서 활성식은 `Perc=K_1 omega_top^4`, `K_1=4.0`. 원 source의 `k(2)` 입력은 현재 활성 일별 branch의 하층 drainage 식에는 사용되지 않음. AWC 저장량 자체는 위 SoilGrids 수분 profile에서 계산 | source 직접 |
 | BDRICM_M_1km_ll | ISRIC former/2017-03-10/aggregated/1km archive에 파일명이 그대로 존재. SoilGrids250m의 depth-to-bedrock 예측은 Hengl et al. (2017), 세부 DTB 모델은 Shangguan et al. (2017) | 자료 archive 직접 + 원문 직접 |
 | SoilGrids water retention | wv0010=10 kPa, wv1500=1500 kPa. Turek et al. (2023)의 global volumetric water-retention mapping | 자료 정의 + 원문 직접 |
 | SoilGrids 2.0 일반 자료체계 | Poggio et al. (2021) | 보조 일반근거 |
@@ -460,6 +460,7 @@ GitHub Actions에서 repository의 canonical ZIP 자체를 checkout한 뒤 직�
 - Jackson 식의 `beta`는 production에서 새로 추정하지 않는다. native BIOME4의 `pftpar(pft,6)`에 저장된 top-30-cm root fraction을 직접 McKenzie exponential profile과 analytical matching한다.
 - BIOME4의 `pftpar(pft,10)`은 sapwood respiration의 적용 여부를 제어한다. 따라서 Methods에서는 이 flag가 꺼진 PFT를 '변재가 해부학적으로 없는 PFT'라고 확대해석하지 않고 'sapwood respiration이 비활성화되는 PFT'라고 기술한다.
 - `a,b,H0,rho_b/rho_s,c,d,K0,g,i,F`는 Pelletier et al. (2013)의 값을 변경 없이 이전하며 Jang 화분자료나 용늪 지형에 맞춘 재보정은 하지 않는다. 이 가운데 `Sc`와 `U`만 용늪 production에서 별도로 설정한다.
+- texture class를 단순히 '상층과 하층 Ksat 각각 4.0 mm h^-1'이라고 서술하면 활성 코드경로를 과장한다. 실제 일별 층간 이동은 `Perc=k(1)*w(1)^4`이며, 하층 과포화수는 `k(6)`인 WHC를 이용해 overflow drainage로 제거된다. `k(2)`는 초기화되지만 해당 active branch에서는 사용되지 않는다.
 - 토심에 따른 PFT별 root fraction은 root-zone wetness 계산뿐 아니라 AET의 상층 및 하층 추출가중치에도 사용된다.
 - SoilGrids의 깊이별 가용수분 밀도는 외부 논문에 용늪값으로 제시된 수치가 아니라 SoilGrids water-retention product에서 용늪 지점을 추출하여 계산한 값이다.
 - 비선형 사면수송은 격자 경계면에서 Pelletier et al. (2013)의 FTCS 이산형식을 적용하며, 실제 flux 식은 face-average \(H\)와 \(k_d\) 및 face slope를 사용한다.
