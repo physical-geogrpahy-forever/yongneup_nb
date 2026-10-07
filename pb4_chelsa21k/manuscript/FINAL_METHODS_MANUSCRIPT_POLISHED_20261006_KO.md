@@ -253,10 +253,10 @@ C_{s,p}=LAI_p C_{n,p}
 식 (25)
 
 ```
-B_{sapwood,dry,p}=CASES{{C_{s,p} OVER f_C} & p in {2,3,4,5,6,7,10,11,13} # 0 & p in {8,9,12}}
+B_{sapwood,dry,p}={C_{s,p} OVER f_C}
 ```
 
-여기서 (f_C=0.50)이다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
+여기서 (f_C=0.50)이다. 식 (25)는 PFT2-7, PFT10, PFT11 및 PFT13에 적용하였으며, PFT8, PFT9 및 PFT12의 (B_{sapwood,dry,p})는 0으로 정의하였다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
 
 ## 2.8 지형발달모델
 
