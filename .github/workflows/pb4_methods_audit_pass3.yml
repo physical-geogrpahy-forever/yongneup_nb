@@ -1,0 +1,33 @@
+name: PB4 methods audit pass3
+on:
+  push:
+    paths:
+      - '.github/workflows/pb4_methods_audit_pass3.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit exact production config and runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP=pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip
+          echo "=== SHA256 ==="
+          sha256sum "$ZIP"
+          rm -rf /tmp/pb4pass3 && mkdir -p /tmp/pb4pass3
+          unzip -q "$ZIP" -d /tmp/pb4pass3
+          ROOT="$(find /tmp/pb4pass3 -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
+          echo "=== CONFIG RELEVANT ==="
+          grep -nE "bare_bedrock_tolerance_m|eemt_cw_j_kg_k|eemt_hbio_j_kg|eemt_carbon_fraction|coupling|time_step|geomorph|max.*change|light_input_kind|biome4_variant|whc_max_depth_m|whc_top_layer_m|texture2_perc_top_mm_hr|texture_bottom_mm_hr" "$ROOT/pb4studio/config.py" | head -250
+          echo "=== RUNNER INIT STATIC DYNAMIC ==="
+          grep -nE "def run_|static|dynamic|soil0|dem0|bedrock|b =|h =|z =|times =" "$ROOT/pb4studio/runner.py" | head -350
+          echo "=== RUNNER CORE LOOP ==="
+          L=$(grep -n "for i, ka in enumerate(times)" "$ROOT/pb4studio/runner.py" | head -1 | cut -d: -f1)
+          sed -n "$((L-90)),$((L+260))p" "$ROOT/pb4studio/runner.py"
+          echo "=== SOIL MCKENZIE BRANCH ==="
+          L=$(grep -n "def build_soil_arrays" "$ROOT/pb4studio/climate.py" | head -1 | cut -d: -f1)
+          sed -n "$L,$((L+80))p" "$ROOT/pb4studio/climate.py"
+          echo "=== LIGHT TRANSFORM ==="
+          L=$(grep -n "def _prepare_sun_percent" "$ROOT/pb4studio/biome4_backend.py" | head -1 | cut -d: -f1)
+          sed -n "$L,$((L+30))p" "$ROOT/pb4studio/biome4_backend.py"
