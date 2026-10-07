@@ -12,9 +12,9 @@
 
 식 (1)
 
-```
+\[
 H=z-z_b
-```
+\]
 
 모의 연대는 (t_{BP})로, 21.0 ka BP에서 0.0 ka BP로 진행하는 적분 시간은 (tau)로 표기하였다.
 
@@ -32,9 +32,9 @@ H=z-z_b
 
 식 (2)
 
-```
-Perc=K_1 omega_{top}^4
-```
+\[
+\mathrm{Perc}=K_1\omega_{\mathrm{top}}^4
+\]
 
 BIOME4에서 \(K_1\)은 상층 토양의 포화수리전도도(Ksat)로 정의되며, 토성 등급 2에는 \(K_1=4.0\) mm h^-1을 적용하였다.
 
@@ -44,9 +44,9 @@ BIOME4에서 \(K_1\)은 상층 토양의 포화수리전도도(Ksat)로 정의�
 
 식 (3)
 
-```
-T_m={(T_{min,m}+T_{max,m}) OVER 2}-273.15
-```
+\[
+T_m=\frac{T_{\min,m}+T_{\max,m}}{2}-273.15
+\]
 
 여기서 (T_m)은 월 (m)의 평균기온이며, (T_{min,m})과 (T_{max,m})은 각각 K 단위의 월별 최저기온과 최고기온이다.
 
@@ -56,9 +56,9 @@ PFT의 저온 한계 판정에 사용되는 절대최저기온은 다음의 BIOM
 
 식 (4)
 
-```
-T_{absmin}=0.006 T_{cold}^2+1.316 T_{cold}-21.9
-```
+\[
+T_{\mathrm{absmin}}=0.006T_{\mathrm{cold}}^2+1.316T_{\mathrm{cold}}-21.9
+\]
 
 여기서 (T_{absmin})은 절대최저기온, (T_{cold})는 최한월 평균기온이다.
 
@@ -66,9 +66,9 @@ T_{absmin}=0.006 T_{cold}^2+1.316 T_{cold}-21.9
 
 식 (5)
 
-```
-p(z)=101325(1-2.25577 TIMES 10^{-5} z)^{5.25588}
-```
+\[
+p(z)=101325\left(1-2.25577\times10^{-5}z\right)^{5.25588}
+\]
 
 여기서 (p(z))는 고도 (z)에서의 대기압(Pa)이다. 대기압은 BIOME4의 CO2 및 O2 분압 계산에, 위도는 일장과 일사량 계산에 사용하였다. 월평균기온, 월강수량 및 월별 일조율은 일 단위로 보간한 뒤 적설과 융설을 포함한 생리 및 수문 계산에 이용하였다.
 
@@ -78,9 +78,9 @@ p(z)=101325(1-2.25577 TIMES 10^{-5} z)^{5.25588}
 
 식 (6)
 
-```
-AWC(zeta)=theta_{-10}(zeta)-theta_{-1500}(zeta)
-```
+\[
+AWC(\zeta)=\theta_{-10}(\zeta)-\theta_{-1500}(\zeta)
+\]
 
 여기서 (theta_{-10})과 (theta_{-1500})은 각각 10 kPa와 1500 kPa에서의 체적수분함량이다(McKenzie et al., 2003).
 
@@ -90,15 +90,15 @@ BIOME4의 수문 구조에 따라 토양층은 상층 0–0.30 m와 하층 0.30�
 
 식 (7)
 
-```
-W_{top}(H)=1000 INT _0^{min(H,0.30)} [theta_{-10}(zeta)-theta_{-1500}(zeta)] d zeta
-```
+\[
+W_{\mathrm{top}}(H)=1000\int_0^{\min(H,0.30)}\left[\theta_{-10}(\zeta)-\theta_{-1500}(\zeta)\right]\,d\zeta
+\]
 
 식 (8)
 
-```
-W_{bottom}(H)=1000 INT _{0.30}^{min(max(H,0.30),1.50)} [theta_{-10}(zeta)-theta_{-1500}(zeta)] d zeta
-```
+\[
+W_{\mathrm{bottom}}(H)=1000\int_{0.30}^{\min(\max(H,0.30),1.50)}\left[\theta_{-10}(\zeta)-\theta_{-1500}(\zeta)\right]\,d\zeta
+\]
 
 여기서 (W_{top})과 (W_{bottom})은 각각 상층과 하층의 가용수분 저장량(mm)이다. 수문 계산에 사용하는 최대 토심은 1.50 m로 설정하였다. 깊이별 수분보유 특성과 토성 등급은 모의 기간 동안 일정한 값으로 설정하였으며, 각 깊이 구간의 포함 두께는 토심 (H)에 따라 계산하였다.
 
@@ -108,9 +108,9 @@ BIOME4에서 사용하는 PFT별 상부 0.30 m 뿌리분율은 Gale and Grigal (
 
 식 (9)
 
-```
-Y(d)=1-beta^d
-```
+\[
+Y(d)=1-\beta^d
+\]
 
 여기서 (Y(d))는 지표에서 깊이 (d)까지의 누적 뿌리분율이며, (beta)는 뿌리의 수직분포를 나타내는 계수이다. BIOME4의 PFT별 상부 0.30 m 뿌리분율을 (r_{30,p})로 표기하였다.
 
@@ -118,61 +118,65 @@ Y(d)=1-beta^d
 
 식 (10)
 
-```
-f(x)=exp(-{x OVER X_i})
-```
+\[
+f(x)=\exp\left(-\frac{x}{X_i}\right)
+\]
 
 여기서 (X_i)는 지수형 깊이 함수의 특성 깊이이다(McKenzie et al., 2003). (r_{30,p})와 식 (10)을 일치시켜 PFT별 특성 깊이 (X_p)를 다음과 같이 계산하였다.
 
 식 (11)
 
-```
-X_p=-{0.30 OVER ln(1-r_{30,p})}
-```
+\[
+X_p=-\frac{0.30}{\ln(1-r_{30,p})}
+\]
 
 BIOME4의 수문 계산에 이용되는 유효 토심은 다음과 같이 정의하였다.
 
 식 (12)
 
-```
-D=min(max(H,0),1.50)
-```
+\[
+D=\min\!\left[\max(H,0),1.50\right]
+\]
 
 유효 토심 내에서 접근 가능한 상층과 하층의 PFT별 뿌리분율은 각각 다음과 같이 계산하였다.
 
 식 (13)
 
-```
-R_{top,p}=1-exp(-{min(D,0.30) OVER X_p})
-```
+\[
+R_{\mathrm{top},p}=1-\exp\left[-\frac{\min(D,0.30)}{X_p}\right]
+\]
 
 식 (14)
 
-```
-R_{bottom,p}=CASES{0 & D<=0.30 # exp(-{0.30 OVER X_p})-exp(-{D OVER X_p}) & D>0.30}
-```
+\[
+R_{\mathrm{bottom},p}=
+\begin{cases}
+0, & D\le 0.30,\\
+\exp\left(-\frac{0.30}{X_p}\right)-\exp\left(-\frac{D}{X_p}\right), & D>0.30,
+\end{cases}
+\]
 
 PFT별 근권 토양수분 상태는 다음과 같이 계산하였다.
 
 식 (15)
 
-```
-omega_{r,p}=R_{top,p} omega_{top}+R_{bottom,p} omega_{bottom}
-```
+\[
+\omega_{r,p}=R_{\mathrm{top},p}\omega_{\mathrm{top}}+R_{\mathrm{bottom},p}\omega_{\mathrm{bottom}}
+\]
 
 여기서 (omega_{top})과 (omega_{bottom})은 각각 상층과 하층의 토양수분 상태이다. 근권 토양수분 상태가 0보다 큰 경우 실제증발산량(Actual Evapotranspiration, AET)의 상층과 하층 토양 추출 가중치는 각각 다음과 같이 계산하였다.
 
 식 (16a)
 
-```
-F_{top,p}=R_{top,p}{omega_{top} OVER omega_{r,p}}
-```
+\[
+F_{\mathrm{top},p}=R_{\mathrm{top},p}\frac{\omega_{\mathrm{top}}}{\omega_{r,p}}
+\]
 
 식 (16b)
 
-```
-F_{bottom,p}=R_{bottom,p}{omega_{bottom} OVER omega_{r,p}}
-```
+\[
+F_{\mathrm{bottom},p}=R_{\mathrm{bottom},p}\frac{\omega_{\mathrm{bottom}}}{\omega_{r,p}}
+\]
 
 (omega_{r,p}=0)인 경우 두 추출 가중치는 모두 0으로 설정하였다.
 
@@ -184,31 +188,31 @@ Pelletier et al. (2013)의 EEMT를 식생 및 수문 조건과 지형발달을 �
 
 식 (17)
 
-```
-E_{PPT}=Delta T C_w P_{eff}
-```
+\[
+E_{\mathrm{PPT}}=\Delta T\,C_w\,P_{\mathrm{eff}}
+\]
 
 식 (18)
 
-```
-E_{BIO}=NPP h_{BIO}
-```
+\[
+E_{\mathrm{BIO}}=NPP\,h_{\mathrm{BIO}}
+\]
 
 EEMT는 두 성분의 합으로 정의하였다.
 
 식 (19)
 
-```
-EEMT=E_{PPT}+E_{BIO}
-```
+\[
+EEMT=E_{\mathrm{PPT}}+E_{\mathrm{BIO}}
+\]
 
 여기서 (PPT)와 (ET)는 각각 강수량과 증발산량이며, (P_{eff}=PPT-ET)이다(Pelletier et al., 2013). 격자별 EEMT는 BIOME4의 일별 AET를 월별 총량으로 집계한 값과 연간 탄소 NPP를 이용하여 다음과 같이 계산하였다.
 
 식 (20)
 
-```
-EEMT={C_w OVER 10^6} SUM _{m=1}^{12} T_m (R_m-AET_m)+{h_{BIO} OVER 10^6}{max(NPP_C,0) OVER {1000 f_C}}
-```
+\[
+EEMT=\frac{C_w}{10^6}\sum_{m=1}^{12}T_m(R_m-AET_m)+\frac{h_{\mathrm{BIO}}}{10^6}\frac{\max(NPP_C,0)}{1000f_C}
+\]
 
 여기서 (R_m)은 월강수량(mm), (AET_m)은 BIOME4의 일별 AET를 월별로 합산한 값(mm month^-1), (C_w=4186) J kg^-1 K^-1은 물의 비열, (h_{BIO}=22 TIMES 10^6) J kg^-1은 단위 건조생체량당 에너지 함량이며, (NPP_C)는 BIOME4가 산출한 연간 탄소 NPP(g C m^-2 yr^-1)이다. 식 (20)의 (T_m)은 Pelletier et al. (2013)의 (Delta T)에 해당하는 섭씨 월평균기온이다.
 
@@ -220,41 +224,41 @@ EEMT={C_w OVER 10^6} SUM _{m=1}^{12} T_m (R_m-AET_m)+{h_{BIO} OVER 10^6}{max(NPP
 
 식 (21)
 
-```
-AGB^*=B_{leaf,dry,p^*}+B_{sapwood,dry,p^*}
-```
+\[
+AGB^*=B_{\mathrm{leaf,dry},p^*}+B_{\mathrm{sapwood,dry},p^*}
+\]
 
 잎 건조생체량은 Reich et al. (1992)의 잎수명과 비엽면적(Specific Leaf Area, SLA)의 관계를 이용하였다.
 
 식 (22)
 
-```
-log_{10}(SLA_p)=2.44-0.43 log_{10}(L_{m,p})
-```
+\[
+\log_{10}(SLA_p)=2.44-0.43\log_{10}(L_{m,p})
+\]
 
 여기서 (L_{m,p})는 BIOME4에 정의된 PFT (p)의 잎수명(개월)이다. SLA를 cm^2 g^-1에서 m^2 kg^-1로 변환한 뒤, 잎 건조생체량을 다음과 같이 계산하였다.
 
 식 (23)
 
-```
-B_{leaf,dry,p}={LAI_p OVER SLA_p}
-```
+\[
+B_{\mathrm{leaf,dry},p}=\frac{LAI_p}{SLA_p}
+\]
 
 변재 탄소량은 Haxeltine and Prentice (1996)의 관계식으로 계산하였다.
 
 식 (24)
 
-```
-C_{s,p}=LAI_p C_{n,p}
-```
+\[
+C_{s,p}=LAI_p\,C_{n,p}
+\]
 
 여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이며, BIOME4의 변재 탄소계수 (C_{n,p}=0.5) kg C m^-2 LAI^-1을 사용하였다. 변재 건조생체량은 다음과 같이 계산하였다.
 
 식 (25)
 
-```
-B_{sapwood,dry,p}={C_{s,p} OVER f_C}
-```
+\[
+B_{\mathrm{sapwood,dry},p}=\frac{C_{s,p}}{f_C}
+\]
 
 여기서 (f_C=0.50)이다. PFT 2–7, PFT 10, PFT 11 및 PFT 13의 변재 건조생체량은 식 (25)로 계산하였고, PFT 8, PFT 9 및 PFT 12에서는 (B_{sapwood,dry,p}=0)으로 설정하였다. AGB*의 단위는 kg dry biomass m^-2이다.
 
@@ -264,25 +268,25 @@ B_{sapwood,dry,p}={C_{s,p} OVER f_C}
 
 식 (26)
 
-```
+\[
 z=z_b+H
-```
+\]
 
 기반암 또는 풍화전선 고도의 변화는 다음과 같이 계산하였다.
 
 식 (27)
 
-```
-{PARTIAL z_b OVER PARTIAL tau}=U-{P OVER cos theta}
-```
+\[
+\frac{\partial z_b}{\partial\tau}=U-\frac{P}{\cos\theta}
+\]
 
 토심 변화는 다음과 같이 계산하였다.
 
 식 (28)
 
-```
-{PARTIAL H OVER PARTIAL tau}={rho_b OVER rho_s}{P OVER cos theta}-E
-```
+\[
+\frac{\partial H}{\partial\tau}=\frac{\rho_b}{\rho_s}\frac{P}{\cos\theta}-E
+\]
 
 여기서 (U)는 지역 융기율, (P)는 토양생산률, (theta)는 사면경사각, (rho_b/rho_s)는 기반암과 토양의 밀도비, (E)는 사면수송과 유수침식에 따른 순 침식률이며 퇴적이 우세한 경우 음의 값을 갖는다.
 
@@ -292,17 +296,17 @@ z=z_b+H
 
 식 (29)
 
-```
-P=P_0 exp(-{H cos theta OVER H_0})
-```
+\[
+P=P_0\exp\left(-\frac{H\cos\theta}{H_0}\right)
+\]
 
 잠재 토양생산률 (P_0)는 EEMT의 함수로 계산하였다. 여기서 (H_0)는 토양생산이 감소하는 특성 토심이며, (a)와 (b)는 경험계수이다.
 
 식 (30)
 
-```
-P_0=a exp(b EEMT)
-```
+\[
+P_0=a\exp(b\,EEMT)
+\]
 
 (a=0.037) m kyr^-1, (b=0.030), (H_0=0.50) m, (rho_b/rho_s=1.8)을 사용하였다(Pelletier et al., 2013).
 
@@ -312,25 +316,25 @@ P_0=a exp(b EEMT)
 
 식 (31)
 
-```
-E_c=nabla BULLET q
-```
+\[
+E_c=\nabla\cdot\mathbf{q}
+\]
 
 토심과 임계경사를 고려한 비선형 사면수송은 Pelletier et al. (2013)의 Forward-Time-Centered-Space (FTCS) 이산화 방식에 따라 각 셀 경계면에서 계산하였다. 토심과 사면수송계수의 경계면 값은 인접한 두 셀의 산술평균으로 정의하였으며, 경계면 (f)의 토사유속은 다음과 같다.
 
 식 (32)
 
-```
-q_f=-{k_{d,f} H_f S_f OVER {1-({|S_f| OVER S_c})^2}}
-```
+\[
+q_f=-\frac{k_{d,f}H_fS_f}{1-\left(\frac{|S_f|}{S_c}\right)^2}
+\]
 
 여기서 (S_f)는 인접한 두 셀 사이의 경사이며, (H_f)와 (k_{d,f})는 각각 경계면 토심과 사면수송계수이다. 사면수송계수 (k_d)는 EEMT와 AGB*의 함수로 계산하였다.
 
 식 (33)
 
-```
-k_d=c EEMT+d AGB^*
-```
+\[
+k_d=c\,EEMT+d\,AGB^*
+\]
 
 (c=0.033), (d=0.050)을 사용하였다(Pelletier et al., 2013). 임계경사 (S_c)는 20 m 계산 격자에서 1.50으로 설정하였다.
 
@@ -340,25 +344,25 @@ k_d=c EEMT+d AGB^*
 
 식 (34)
 
-```
-E_f=K {A OVER w}|nabla z|
-```
+\[
+E_f=K\frac{A}{w}|\nabla z|
+\]
 
 여기서 (E_f)는 사면세류 및 하천침식률, (A)는 기여면적, (w)는 유효 유로폭, (K)는 침식계수이다. 사면 셀에서는 격자폭을 유효 유로폭으로 사용하였다.
 
 식 (35)
 
-```
-w=Delta x
-```
+\[
+w=\Delta x
+\]
 
 곡저 셀에서는 기여면적에 따른 유로폭을 다음과 같이 계산하였다.
 
 식 (36)
 
-```
-w=g A^i
-```
+\[
+w=gA^i
+\]
 
 여기서 (g)와 (i)는 유로폭-기여면적 관계의 계수이며, (g=0.005), (i=0.5)를 사용하였다(Pelletier et al., 2013). 기여면적은 Freeman (1991)의 다중흐름 방향(Multiple Flow Direction, MFD) 방법을 이용하여 계산하였으며, 흐름분배의 경사지수는 1.10으로 설정하였다.
 
@@ -366,9 +370,9 @@ w=g A^i
 
 식 (37)
 
-```
-f={A_{Delta x} OVER A_{Delta x/2}^{max}}
-```
+\[
+f=\frac{A_{\Delta x}}{A_{\Delta x/2}^{\max}}
+\]
 
 (f<1.20)인 셀은 곡저로, (f>=1.20)인 셀은 사면으로 분류하였다. 식 (34)의 (A)는 기준 격자에서 계산한 MFD 기여면적을 사용하였으며, (|nabla z|)에는 D8 방식으로 결정한 하류 수신셀 방향의 경사를 사용하였다.
 
@@ -376,17 +380,17 @@ EEMT가 양수인 셀에서 레골리스의 침식계수는 EEMT의 역수에 �
 
 식 (38)
 
-```
-K_{reg}={K_0 OVER EEMT}
-```
+\[
+K_{\mathrm{reg}}=\frac{K_0}{EEMT}
+\]
 
 기반암의 침식계수는 다음과 같이 계산하였다.
 
 식 (39)
 
-```
-K_{bed}={K_{reg} OVER F}
-```
+\[
+K_{\mathrm{bed}}=\frac{K_{\mathrm{reg}}}{F}
+\]
 
 여기서 (K_0)는 기준 침식계수, (F)는 기반암의 상대 침식저항을 나타내는 계수이며, (K_0=0.020) m^2 MJ^-1, (F=10)을 사용하였다(Pelletier et al., 2013). 레골리스 침식량은 가용 레골리스량으로 제한하였다.
 
@@ -396,9 +400,9 @@ K_{bed}={K_{reg} OVER F}
 
 식 (40)
 
-```
-U=0.08 m kyr^{-1}=80 mm kyr^{-1}
-```
+\[
+U=0.08\ \mathrm{m\,kyr^{-1}}=80\ \mathrm{mm\,kyr^{-1}}
+\]
 
 ## 2.9 수치 적분과 순차 결합
 
@@ -406,9 +410,9 @@ U=0.08 m kyr^{-1}=80 mm kyr^{-1}
 
 식 (41)
 
-```
-Delta tau=0.01 {Delta x^2 OVER {2 k_{d,max}}}
-```
+\[
+\Delta\tau=0.01\frac{\Delta x^2}{2k_{d,\max}}
+\]
 
 여기서 (Delta tau)는 수치 적분 시간 간격, (Delta x)는 격자 크기, (k_{d,max})는 각 시점의 최대 사면수송계수이다. 각 수치 적분 단계의 최대 지형 변화가 0.025 m를 초과하면 시간 간격을 절반으로 줄여 해당 단계를 재적분하였으며, 최대 지형 변화가 0.025 m 이하인 단계 이후에는 다음 시간 간격을 최대 0.1 kyr 범위에서 2배까지 증가시켰다.
 
