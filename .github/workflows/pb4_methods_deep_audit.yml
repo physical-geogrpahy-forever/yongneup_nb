@@ -1,0 +1,35 @@
+name: PB4 methods deep audit
+on:
+  push:
+    paths:
+      - '.github/workflows/pb4_methods_deep_audit.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect final ZIP methods source
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4methods && mkdir -p /tmp/pb4methods
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip -d /tmp/pb4methods
+          ROOT="$(find /tmp/pb4methods -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
+          echo "ROOT=$ROOT"
+          echo "=== FILE LIST ==="
+          find "$ROOT/pb4studio" -maxdepth 1 -type f -printf '%f\n' | sort
+          echo "=== EEMT/AGB/COUPLING SEARCH ==="
+          grep -RniE 'EEMT|effective.*energy|h_bio|4186|22000000|22e6|22\.0e6|AGB|stemcarbon|sapwood|leaf.*biom|carbon_fraction|f_C|AET|annaet|NPP_C|coupling|100\.0|0\.1' "$ROOT/pb4studio" "$ROOT"/*.py 2>/dev/null | head -n 700 || true
+          echo "=== GEOMORPH FULL CONFIG HEAD ==="
+          sed -n '1,150p' "$ROOT/pb4studio/pelletier_geomorph.py"
+          echo "=== GEOMORPH EEMT/EROSION REGION ==="
+          grep -nE 'def .*eemt|def .*fluvial|def .*soil|def .*hill|k0_regolith|kd_|eemt|agb|channel_width|grid_dependence' "$ROOT/pb4studio/pelletier_geomorph.py" | head -n 300
+          echo "=== CLIMATE MCKENZIE/ROOT REGION ==="
+          grep -nE 'mckenzie|available|water|root|r30|pftpar|theta|wv0010|wv1500|1\.50|0\.30' "$ROOT/pb4studio/climate.py" | head -n 400 || true
+          echo "=== RUNNER/COUPLING CANDIDATES ==="
+          for f in "$ROOT"/pb4studio/*.py "$ROOT"/*.py; do
+            if grep -qiE 'pelletier|geomorph|EEMT|AGB' "$f"; then
+              echo "--- $f ---"
+              grep -nE 'EEMT|eemt|AGB|agb|geomorph|pelletier|for .*ka|ka_bp|dt_kyr|0\.1|100' "$f" | head -n 250 || true
+            fi
+          done
