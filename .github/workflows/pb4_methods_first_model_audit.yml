@@ -45,6 +45,10 @@ jobs:
           VFILE="$(find "$ROOT" -maxdepth 2 -type f -name '*.py' | xargs grep -l 'basin_presence_min_fraction' | grep -v -E 'gui|standard_report|runner' | head -n1 || true)"
           echo "VALIDATION=$VFILE"
           if [ -n "$VFILE" ]; then grep -nE '0\.51|51|majority|conifer|broadleaf|mixed|potential|npp|presence|fraction|expected_vegetation' "$VFILE" | head -n 700; fi
+          echo "=== VALIDATION.PY EXACT ==="
+          sed -n '1,360p' "$ROOT/pb4studio/validation.py"
+          echo "=== ALL 0.51 / 51 CLASSIFICATION SEARCH ==="
+          grep -RniE '0\.51|51%|majority|mixed.*npp|broadleaf.*npp|conifer.*npp|reduced.*class' "$ROOT/pb4studio" "$ROOT/tools" | head -n 900 || true
           echo "=== COUPLING RUNNER ==="
           RNR="$(find "$ROOT" -maxdepth 2 -type f -name '*.py' | xargs grep -l 'compute_eemt_and_agb' | grep -v 'climate.py' | head -n1 || true)"
           echo "RUNNER=$RNR"
