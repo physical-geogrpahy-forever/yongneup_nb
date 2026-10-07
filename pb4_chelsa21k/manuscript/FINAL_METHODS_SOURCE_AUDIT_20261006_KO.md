@@ -410,11 +410,7 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 
 GitHub Actions에서 repository의 canonical ZIP 자체를 checkout한 뒤 직접 압축해제하여 source를 재검증하였다. 감사 run은 `37414681328`이며 성공적으로 완료되었다.
 
-세 canonical alias의 SHA-256은 모두 동일하였다.
-
-- `PB4Studio_v6.6.3_CHELSA21K.zip`: `0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4`
-- `PB4Studio_v6.6.3_CHELSA21K_FINAL_INTEGRATED.zip`: `0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4`
-- `PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip`: `0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4`
+현재 canonical ZIP은 `PB4Studio_v6.6.3_CHELSA21K.zip`이며, `FINAL_PROVENANCE.json`과 package audit에서 확인한 SHA-256은 `93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b`이다.
 
 압축해제한 `pb4studio/pelletier_geomorph.py`에서 다음을 직접 확인하였다.
 
