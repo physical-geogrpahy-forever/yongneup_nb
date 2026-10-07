@@ -212,7 +212,7 @@ EEMT={C_w OVER 10^6} SUM _{m=1}^{12} T_m (R_m-AET_m)+{h_{BIO} OVER 10^6}{max(NPP
 
 여기서 (R_m)은 월강수량(mm), (AET_m)은 BIOME4의 일별 AET를 월별로 합산한 값(mm month^-1), (C_w=4186) J kg^-1 K^-1, (h_{BIO}=22 TIMES 10^6) J kg^-1이며, (NPP_C)는 BIOME4가 산출한 연간 탄소 NPP(g C m^-2 yr^-1)이다. 식 (20)의 (T_m)은 Pelletier et al. (2013)의 (Delta T)에 해당하는 섭씨 월평균기온이다.
 
-탄소질량분율은 (f_C=0.50)으로 설정하였다. 월별 유효강수는 (P_{eff,m}=R_m-AET_m)으로 정의하였으며, EEMT의 단위는 MJ m^-2 yr^-1로 하였다.
+탄소질량분율은 (f_C=0.50)으로 설정하였다. 월별 유효강수는 (P_{eff,m}=R_m-AET_m)으로 정의하였으며, EEMT의 단위는 MJ m^-2 yr^-1이다.
 
 ## 2.7 BIOME4 기반 지상부 생물량 대리변수 AGB*
 
@@ -256,7 +256,7 @@ C_{s,p}=LAI_p C_{n,p}
 B_{sapwood,dry,p}={C_{s,p} OVER f_C}
 ```
 
-여기서 (f_C=0.50)이다. PFT2–7, PFT10, PFT11 및 PFT13의 변재 건조생체량은 식 (25)로 계산하였고, PFT8, PFT9 및 PFT12에서는 (B_{sapwood,dry,p}=0)으로 설정하였다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
+여기서 (f_C=0.50)이다. PFT2–7, PFT10, PFT11 및 PFT13의 변재 건조생체량은 식 (25)로 계산하였고, PFT8, PFT9 및 PFT12에서는 (B_{sapwood,dry,p}=0)으로 설정하였다. AGB*의 단위는 kg dry biomass m^-2이다.
 
 ## 2.8 지형발달 모델
 
