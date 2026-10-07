@@ -238,7 +238,7 @@ B_{leaf,dry,p}={LAI_p OVER SLA_p}
 C_{s,p}=LAI_p C_{n,p}
 ```
 
-여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. (C_{n,p})는 BIOME4 v4.2b2의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 Haxeltine and Prentice (1996)의 식 (24)에 따라 다음과 같이 계산하였다.
+여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 따르며, (C_{n,p})는 BIOME4 v4.2b2의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 다음과 같이 계산하였다.
 
 식 (25)
 
