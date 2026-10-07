@@ -37,6 +37,14 @@ jobs:
           sed -n '1020,1090p' "$ROOT/pb4studio/pelletier_geomorph.py"
           echo "=== FLUVIAL ==="
           sed -n '900,990p' "$ROOT/pb4studio/pelletier_geomorph.py"
+          echo "=== GRID RESAMPLING ==="
+          sed -n '110,260p' "$ROOT/pb4studio/grid.py"
+          echo "=== SCIENCE CONFIG ==="
+          grep -RniE 'class ScienceConfig|texture2_perc|texture_bottom|whc_max_depth|geomorph_substep_kyr|geomorph_min_substep_kyr|geomorph_fluvial_max_change_m|basin_presence_min_fraction|validation_accuracy_method' "$ROOT/pb4studio" "$ROOT/tools" | head -n 800 || true
+          echo "=== VALIDATION CLASSIFICATION ==="
+          VFILE="$(find "$ROOT" -maxdepth 2 -type f -name '*.py' | xargs grep -l 'basin_presence_min_fraction' | grep -v -E 'gui|standard_report|runner' | head -n1 || true)"
+          echo "VALIDATION=$VFILE"
+          if [ -n "$VFILE" ]; then grep -nE '0\.51|51|majority|conifer|broadleaf|mixed|potential|npp|presence|fraction|expected_vegetation' "$VFILE" | head -n 700; fi
           echo "=== COUPLING RUNNER ==="
           RNR="$(find "$ROOT" -maxdepth 2 -type f -name '*.py' | xargs grep -l 'compute_eemt_and_agb' | grep -v 'climate.py' | head -n1 || true)"
           echo "RUNNER=$RNR"
