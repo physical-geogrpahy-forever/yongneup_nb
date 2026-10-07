@@ -178,9 +178,9 @@ F_{\mathrm{top},p}=R_{\mathrm{top},p}\frac{\omega_{\mathrm{top}}}{\omega_{r,p}}
 F_{\mathrm{bottom},p}=R_{\mathrm{bottom},p}\frac{\omega_{\mathrm{bottom}}}{\omega_{r,p}}
 \]
 
-\(\omega_{r,p}=0\)인 경우 두 추출 가중치는 모두 0으로 설정하였다.
+\(\omega_{r,p}=0\)인 경우 두 추출 가중치는 모두 0으로 정의하였다.
 
-토심이 \(1\times10^{-6}\) m 이하인 셀은 노출 기반암으로 정의하였다. 노출 기반암 셀의 NPP, AET 및 AGB*는 0으로 설정하고, EEMT는 강수에 의한 물리적 에너지 성분으로 계산하였다.
+토심이 \(1\times10^{-6}\) m 이하인 셀은 노출 기반암으로 정의하였다. 노출 기반암 셀의 NPP, AET 및 AGB*는 0으로 정의하고, EEMT는 강수에 의한 물리적 에너지 성분으로 계산하였다.
 
 ## 2.6 EEMT 산정
 
@@ -260,7 +260,7 @@ C_{s,p}=LAI_p\,C_{n,p}
 B_{\mathrm{sapwood,dry},p}=\frac{C_{s,p}}{f_C}
 \]
 
-PFT 2–7, 10, 11, 13의 변재 건조생체량은 식 (25)로 계산하였고, PFT 8, 9, 12에서는 \(B_{\mathrm{sapwood,dry},p}=0\)으로 설정하였다. AGB*의 단위는 kg dry biomass m⁻²이다.
+PFT 2–7, 10, 11, 13의 변재 건조생체량은 식 (25)로 계산하였고, PFT 8, 9, 12에서는 \(B_{\mathrm{sapwood,dry},p}=0\)으로 정의하였다. AGB*의 단위는 kg dry biomass m⁻²이다.
 
 ## 2.8 지형발달 모델
 
