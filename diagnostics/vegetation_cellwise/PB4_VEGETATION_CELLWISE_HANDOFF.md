@@ -19,7 +19,7 @@ For the 8 dynamic broadleaf cells at 4.3 ka:
 - corresponding static cells have soil depth 1.94 m, WHC 298.55 mm, wetness 78.7, firedays 0 d
 - 4 cells change native BIOME4 from Cool mixed forest to Temperate deciduous forest
 - 4 cells retain native Cool mixed forest but cross the reduced-class 51% broadleaf-vs-conifer competition threshold
-- the detailed per-cell values and PFT competition values are in the 4.3 ka diagnostic CSVs
+- detailed per-cell values and PFT competition values are stored below
 
 Mismatch counts in 4.3-3.9 ka:
 - 4.3 ka: 8 cells
@@ -28,23 +28,28 @@ Mismatch counts in 4.3-3.9 ka:
 - 4.0 ka: 0 cells
 - 3.9 ka: 8 cells
 
+The 298-cell 4.3 ka PFT diagnostic table is split into three CSVs only for GitHub transfer size. Each part repeats the same header. To reconstruct the original table, keep the header of part 1 and append data rows from parts 2 and 3.
+
 ## Early conifer-related differences
-The early mismatch CSV currently contains mismatches at:
+The early mismatch CSV contains mismatches at:
 - 19.8 ka: 4 cells total = 1 herb/open + 3 bare in dynamic, all conifer in static
 - 18.4 ka: 19 cells total = 1 herb/open + 18 bare in dynamic, all conifer in static
 - 18.3 ka: 19 cells total = 19 bare in dynamic, all conifer in static
 
-At 17.2 ka, direct process diagnostics were additionally generated for all 298 cells:
+At 17.2 ka, direct process diagnostics were additionally generated:
 - dynamic groups: 271 conifer, 1 herb/open, 26 bare
 - conifer cells: mean soil depth 1.8194 m, mean WHC 260.764 mm, mean wetness 76.906, mean firedays 1.646 d, mean NPP 275.705
 - herb/open cell: soil depth 0.00930 m, WHC 2.203 mm, wetness 56.7, firedays 34 d, NPP 6
 - bare cells: essentially zero soil depth; 26 cells, many in valley/channel positions
 - corresponding static cells use soil depth 1.94 m and are conifer forest
 
-The next analysis task is to quantify, cell by cell and by process group, exactly how geomorphic soil stripping/channel incision lowers soil depth and WHC, changes wetness/firedays/PFT NPP, and produces the conifer -> herb/open or conifer -> bare differences. Distinguish:
+## Next analysis task
+Quantify, cell by cell and by process group, exactly how geomorphic soil stripping/channel incision lowers soil depth and WHC, changes wetness/firedays/PFT NPP, and produces the conifer -> herb/open or conifer -> bare differences.
+
+Distinguish:
 1. true vegetation competition shifts with residual soil,
 2. near-zero-soil/bare-bedrock outcomes caused by geomorphic stripping,
-3. any role of valley/channel position, fluvial erosion, hillslope transport, and elevation difference.
+3. the role of valley/channel position, contributing area, fluvial erosion, hillslope transport, and elevation difference.
 
 Do not compress these into a generic “soil moisture effect”; identify the mechanism and magnitude from the CSVs.
 
@@ -54,5 +59,7 @@ Do not compress these into a generic “soil moisture effect”; identify the me
 - `PB4_17p2_CONIFER_MISMATCH_CELL_PROCESS_DIAGNOSTICS.csv`
 - `PB4_17p2_CONIFER_PROCESS_GROUP_DIAGNOSTICS.csv`
 - `PB4_4p3ka_broadleaf_cells_static_dynamic_full_diagnostics.csv`
-- `PB4_4p3ka_all_cells_PFT_diagnostics.csv`
+- `PB4_4p3ka_all_cells_PFT_diagnostics_part1.csv`
+- `PB4_4p3ka_all_cells_PFT_diagnostics_part2.csv`
+- `PB4_4p3ka_all_cells_PFT_diagnostics_part3.csv`
 - `PB4_4p3_3p9_mismatch_only.csv`
