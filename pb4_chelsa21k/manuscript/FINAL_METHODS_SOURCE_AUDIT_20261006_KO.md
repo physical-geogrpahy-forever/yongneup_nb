@@ -527,7 +527,7 @@ Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., d
 - BIOME4 v4.2b2는 13개 PFT parameter set을 정의하지만 `pfts(1)=0`으로 tropical evergreen PFT1을 비활성화한다. 따라서 실제 경쟁에는 PFT2-13이 참여한다.
 - `pftpar(pft,6)`은 원 Fortran source에서 명시적으로 “fraction of roots in top soil layer, 30 cm from Jackson et al.”로 정의된다.
 - finite-depth root fraction은 root-zone wetness뿐 아니라 AET의 상층 및 하층 추출가중치에도 적용된다.
-- texture class 2의 활성 일별 층간 수분이동은 `Perc=K_1 omega_top^4`, `K_1=4.0 mm d^-1`이다.
+- BIOME4 source는 `K_1`을 상층 토양의 Ksat(mm h^-1)로 정의하며 texture class 2에는 `K_1=4.0`을 사용한다. 일별 수분수지에서 층간 이동량은 `Perc=K_1 omega_top^4`로 계산된다.
 - CHELSA-TraCE21k 시계열은 용늪 중심좌표 128.122518 E, 38.214643 N에서 21-0 ka BP를 100년 간격으로 추출한 단일지점 월별 forcing이다. 원 추출 R 기록과 일치한다.
 - 지표고도는 별도 기온감률 보정에는 사용하지 않지만, 대기압 `p(z)=101325(1-2.25577e-5 z)^5.25588` 계산을 통해 BIOME4 광합성 계산에 전달된다.
 - Pelletier et al. (2013)의 인쇄된 FTCS Eq. (20)-(21)은 face flux에 별도의 `cos theta` 항을 포함하지 않는다. 현재 구현은 이 FTCS 구조를 사용하며, 공간가변 \(H\)와 \(k_d\)는 인접 셀 평균으로 face 값에 전달한다.
@@ -535,3 +535,13 @@ Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., d
 - 하천침식에는 native-grid MFD contributing area와 D8 receiver slope를 함께 사용한다.
 - Jang 1% 검증의 분모는 reduced vegetation class 0-3으로 분류된 유역셀이고 class 4 비식생지는 제외한다.
 - 동일한 검증 재분류 및 1% 판정규칙은 static과 dynamic 결과에 각각 적용한다.
+
+
+### 14.4 PFT 기후제약 재확인
+
+현재 canonical ZIP `PB4Studio_v6.6.3_CHELSA21K.zip`을 직접 압축해제하여 BIOME4 backend와 원 Fortran source를 다시 확인하였다.
+
+- 실제 `mckenzie2003` 실행경로는 BIOME4 v4.2b2의 PFT 기후제약과 competition 구조를 유지한다.
+- 원 Fortran source는 `pfts(1)=0`으로 tropical evergreen PFT1을 비활성화하므로 실제 경쟁에는 PFT2-13이 참여한다.
+- backend의 현재 실행경로에는 PFT5 또는 PFT6에 대한 별도의 climate-sieve tuning이 추가되지 않는다.
+- `config.py`의 PFT5/PFT6 관련 일부 주석은 과거 개발이력의 잔여 주석이며 현재 backend 실행경로를 설명하지 않는다. 논문 Methods에는 현재 실행경로만 반영한다.
