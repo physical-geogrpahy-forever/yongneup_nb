@@ -20,6 +20,14 @@ jobs:
           find "$ROOT/pb4studio" -maxdepth 1 -type f -printf '%f\n' | sort
           echo "=== EEMT/AGB/COUPLING SEARCH ==="
           grep -RniE 'EEMT|effective.*energy|h_bio|4186|22000000|22e6|22\.0e6|AGB|stemcarbon|sapwood|leaf.*biom|carbon_fraction|f_C|AET|annaet|NPP_C|coupling|100\.0|0\.1' "$ROOT/pb4studio" "$ROOT"/*.py 2>/dev/null | head -n 700 || true
+          echo "=== CLIMATE EEMT AGB EXACT ==="
+          sed -n '784,878p' "$ROOT/pb4studio/climate.py"
+          echo "=== BIOME4 ROOT PATCH EXACT ==="
+          sed -n '430,620p' "$ROOT/pb4studio/biome4_backend.py"
+          echo "=== RUNNER COUPLING EXACT ==="
+          RNR="$(find "$ROOT" -maxdepth 2 -type f -name '*.py' | xargs grep -l 'compute_eemt_and_agb' | grep -v 'climate.py' | head -n1 || true)"
+          echo "RUNNER=$RNR"
+          if [ -n "$RNR" ]; then sed -n '500,790p' "$RNR"; fi
           echo "=== GEOMORPH FULL CONFIG HEAD ==="
           sed -n '1,150p' "$ROOT/pb4studio/pelletier_geomorph.py"
           echo "=== GEOMORPH EEMT/EROSION REGION ==="
