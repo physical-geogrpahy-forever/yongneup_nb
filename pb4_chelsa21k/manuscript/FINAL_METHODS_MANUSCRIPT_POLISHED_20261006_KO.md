@@ -6,7 +6,7 @@
 
 식생 계산에는 BIOME4의 식물 기능형(Plant Functional Type, PFT) 가운데 PFT 2–13의 12개 유형을 사용하였다. 각 PFT의 순일차생산량(Net Primary Production, NPP)과 엽면적지수(Leaf Area Index, LAI)는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후 제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심에 따라 토양수분 저장량과 PFT별 뿌리 접근성을 계산하였다.
 
-모의 기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생 모델과 지형발달 모델의 결합 간격은 0.1 kyr, 즉 100년으로 설정하였다. 각 결합 시점의 기후, 지표고도 및 토심으로 식생을 계산하고 유효 에너지 및 물질 전달량(Effective Energy and Mass Transfer, EEMT)과 지상부 생물량 대리변수(aboveground biomass proxy, AGB*)를 산정하여 지형발달 계산에 사용하였다. 갱신된 지표고도와 토심은 다음 결합 시점의 식생 계산에 반영하였다.
+모의 기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생 모델과 지형발달 모델의 결합 간격은 0.1 kyr, 즉 100년으로 설정하였다. 각 결합 시점의 기후, 지표고도 및 토심으로 식생을 계산하고 유효 에너지 및 물질 전달량(Effective Energy and Mass Transfer, EEMT)과 지상부 생물량 대리변수(Aboveground Biomass Proxy, AGB*)를 산정하여 지형발달 계산에 사용하였다. 갱신된 지표고도와 토심은 다음 결합 시점의 식생 계산에 반영하였다.
 
 지표고도 \(z\), 기반암 또는 풍화전선 고도 \(z_b\), 토심 \(H\)의 관계는 다음과 같이 정의하였다.
 
@@ -260,7 +260,7 @@ C_{s,p}=LAI_p\,C_{n,p}
 B_{\mathrm{sapwood,dry},p}=\frac{C_{s,p}}{f_C}
 \]
 
-여기서 \(f_C=0.50\)이다. PFT 2–7, 10, 11, 13의 변재 건조생체량은 식 (25)로 계산하였고, PFT 8, 9, 12에서는 \(B_{\mathrm{sapwood,dry},p}=0\)으로 설정하였다. AGB*의 단위는 kg dry biomass m⁻²이다.
+PFT 2–7, 10, 11, 13의 변재 건조생체량은 식 (25)로 계산하였고, PFT 8, 9, 12에서는 \(B_{\mathrm{sapwood,dry},p}=0\)으로 설정하였다. AGB*의 단위는 kg dry biomass m⁻²이다.
 
 ## 2.8 지형발달 모델
 
@@ -396,7 +396,7 @@ K_{\mathrm{bed}}=\frac{K_{\mathrm{reg}}}{F}
 
 ### 2.8.4 지역 융기율
 
-지역 융기율 \(U\)는 80 mm kyr⁻¹로 설정하였다(Lee et al., 2024).
+지역 융기율 \(U\)는 Lee et al. (2024)을 따라 다음과 같이 설정하였다.
 
 식 (40)
 
