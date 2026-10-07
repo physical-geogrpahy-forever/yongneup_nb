@@ -1,0 +1,43 @@
+name: PB4 methods first-model audit
+on:
+  push:
+    paths:
+      - '.github/workflows/pb4_methods_first_model_audit.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect canonical PB4 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP=pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip
+          rm -rf /tmp/pb4audit && mkdir -p /tmp/pb4audit
+          unzip -q "$ZIP" -d /tmp/pb4audit
+          ROOT="$(find /tmp/pb4audit -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
+          echo "ROOT=$ROOT"
+          echo "=== SHA ==="
+          sha256sum "$ZIP"
+          echo "=== CONFIGS ==="
+          find "$ROOT" -maxdepth 3 -type f \( -name '*.json' -o -name '*.yml' -o -name '*.yaml' \) -print
+          echo "=== ACTIVE SETTINGS SEARCH ==="
+          grep -RniE 'biome4_variant|mckenzie|time_slices|resolution_m|resolution|basin_presence_min_fraction|validation_accuracy_method|geomorph_substep|geomorph_min_substep|geomorph_fluvial_max_change|uplift_m_per_kyr|hillslope_critical_slope' "$ROOT" --include='*.json' --include='*.yml' --include='*.yaml' --include='*.py' | head -n 900 || true
+          echo "=== CLIMATE CONFIG CLASS ==="
+          grep -nE 'class YongneupConfig|eemt_cw|eemt_hbio|eemt_carbon|soil|available|water|237|232|218|207|198|179|lapse_rate' "$ROOT/pb4studio/climate.py" | head -n 700 || true
+          echo "=== WHC EXACT ==="
+          grep -nE '237|232|218|207|198|179|whc_top|whc_bottom|available_water|soil_depth_m|texture' "$ROOT/pb4studio/"*.py | head -n 900 || true
+          echo "=== ROOT EXACT ==="
+          sed -n '400,620p' "$ROOT/pb4studio/biome4_backend.py"
+          echo "=== EEMT AGB EXACT ==="
+          sed -n '780,880p' "$ROOT/pb4studio/climate.py"
+          echo "=== GEOMORPH CONFIG ==="
+          sed -n '35,90p' "$ROOT/pb4studio/pelletier_geomorph.py"
+          echo "=== GEOMORPH PROCESS ==="
+          sed -n '1020,1090p' "$ROOT/pb4studio/pelletier_geomorph.py"
+          echo "=== FLUVIAL ==="
+          sed -n '900,990p' "$ROOT/pb4studio/pelletier_geomorph.py"
+          echo "=== COUPLING RUNNER ==="
+          RNR="$(find "$ROOT" -maxdepth 2 -type f -name '*.py' | xargs grep -l 'compute_eemt_and_agb' | grep -v 'climate.py' | head -n1 || true)"
+          echo "RUNNER=$RNR"
+          if [ -n "$RNR" ]; then sed -n '500,790p' "$RNR"; fi
