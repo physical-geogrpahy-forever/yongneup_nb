@@ -460,7 +460,7 @@ GitHub Actions에서 repository의 현재 canonical ZIP 자체를 checkout한 �
 ### 제출 전 마지막 확인
 
 1. Haxeltine and Prentice (1996) publisher PDF 확인 완료: Eq. (34) = \(C_s=LAI C_n\), BIOME3 원 \(C_n=1\). 본 연구의 \(C_n=0.5\)는 BIOME4 v4.2b2 source에서 가져온 값으로 분리 표기
-2. 최종 canonical ZIP을 로컬에서 직접 압축해제하여 \`pelletier_geomorph.py\`의 \(g=0.005\), \(i=0.5\), \(F=10\), valley classifier source line을 final SHA package와 다시 대조
+2. 완료: 최종 canonical ZIP을 GitHub Actions에서 직접 압축해제하여 `pelletier_geomorph.py`의 \(g=0.005\), \(i=0.5\), \(F=10\), valley classifier source line을 final SHA package와 대조
 3. \(S_c=1.50\) convergence audit 수치는 위 12.1에 확보 완료. 제출 시 Supplementary 표 형태로만 편집
 4. SoilGrids provenance는 BDRICM_M_1km_ll의 ISRIC 2017-03-10 archive 경로와 wv0010/wv1500 정의까지 확인 완료. 제출 시 다운로드 날짜 또는 로컬 원본 파일 metadata가 남아 있으면 Supplementary에 추가
 5. 완료: 1% 기준은 2026-08-12 validation export에서 확인되었고, 51% 기준은 최종 ablation 이전 retained rule임을 확인하였다. 51%는 preregistered라고 과장하지 않고 최종 고정 후처리 규칙으로 서술
