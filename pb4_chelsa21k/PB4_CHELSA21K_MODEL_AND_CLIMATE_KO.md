@@ -91,16 +91,11 @@ CHELSA 결과와 Beyer 결과를 같은 실행 결과로 취급하지 않는다.
 
 두 활성 경로 모두 보존된 `fortran_src/biome4_original_4_2b2.f`를 원천 소스로 사용하고, 컴파일 전에 Python backend가 필요한 계측과 선택된 coupling patch를 생성한다.
 
-### 매우 중요한 주의: 현재 `original`은 순수 native-v4.2b2 climate control이 아니다
+### 현재 production의 BIOME4 기후제약
 
-`pb4studio/biome4_backend.py::_patch_fortran_source()`를 직접 확인하면 현재 CHELSA21K에서는 `original`과 `mckenzie2003` 양쪽 모두에 다음 climate-sieve patch가 적용된다.
+과거 CHELSA21K 후보판에는 PFT5/PFT6 climate-sieve 조정이 포함된 시점이 있었으나, 2026-10-05 native-climate ablation 이후 이 조정은 최종 production에서 제거하였다. 현재 `PB4Studio_v6.6.3_CHELSA21K.zip`의 `original`과 `mckenzie2003` 활성 경로는 모두 BIOME4 v4.2b2의 native PFT climate limits를 유지한다. `mckenzie2003` 경로는 기후한계를 수정하지 않고 McKenzie/Jackson soil-water/root coupling만 추가한다.
 
-- PFT5: `TCM >= -19 C`, `GDD5 >= 900`
-- PFT6: `-32.5 <= TCM < -2 C`, `GDD5 >= 600`, `TWM <= 23 C`
-
-즉 GUI/API에서 단순히 `variant="original"`을 선택하는 것만으로는 사용자가 요구한 **온도범위 조정이 전혀 없는 순수 BIOME4 v4.2b2 대조군**이 되지 않는다.
-
-향후 순수 원본 대조실험에서는 별도의 `native_v4.2b2` control을 만들어 PFT5/PFT6 climate-sieve replacement를 건너뛰고, 원 소스의 기후제약을 그대로 유지해야 한다. 출력 계측과 PB4 I/O 연결만 허용한다.
+따라서 아래의 과거 PFT5/PFT6 조정값(`TCM >= -19 C`, `GDD5 >= 900`; `-32.5 <= TCM < -2 C`, `GDD5 >= 600`, `TWM <= 23 C`)은 최종 production 설정으로 사용하지 않는다.
 
 ## 5. production `mckenzie2003` 식생-토심 경로
 
