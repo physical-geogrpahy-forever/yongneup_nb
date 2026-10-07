@@ -377,27 +377,27 @@ artifact:
 
 GitHub Actions artifact는 만료될 수 있으므로 장기 근거는 저장소의 CSV와 문서를 우선한다.
 
-## 14. 다음 채팅에서 바로 해야 할 작업
+## 14. 17.2 ka 초기 침엽수림 원인 분석 완료
 
-첫 작업은 초기 침엽수림 차이의 셀 단위 원인 분석을 완결하는 것이다.
+기존의 첫 작업이었던 17.2 ka 침엽수림 셀 단위 원인 분석은 2026-10-07에 완료하였다.
 
-반드시 `PB4_17p2_CONIFER_MISMATCH_CELL_PROCESS_DIAGNOSTICS.csv`와 `PB4_17p2_CONIFER_PROCESS_GROUP_DIAGNOSTICS.csv`를 직접 읽고:
-- 침엽수림 유지 271셀
-- 초본/개방식생 1셀
-- 무식생 26셀
+새 핵심 파일:
+- `diagnostics/vegetation_cellwise/PB4_17p2_CONIFER_MECHANISM_ANALYSIS_20261007_KO.md`
+- `diagnostics/vegetation_cellwise/PB4_17p2_CUMULATIVE_PROCESS_GROUP_SUMMARY.csv`
+- `diagnostics/vegetation_cellwise/PB4_17p2_HERB_OPEN_PFT_DIAGNOSTICS.csv`
 
-사이의 토심, WHC, wetness, firedays, NPP, 기여면적, valley, flow slope, fluvial regolith erosion, fluvial bedrock erosion, hillslope dz, 동적-정적 고도차를 실제 수치로 비교한다.
+완료된 핵심 결론:
+- 17.2 ka dynamic = 침엽수림 271셀, 초본/개방식생 1셀, 무식생 26셀.
+- 비침엽수 27셀 중 24셀이 valley에 있으며, valley 셀의 비침엽수 비율은 24/77 = 31.17%, 비-valley는 3/221 = 1.36%이다.
+- 무식생 26셀 중 23셀은 valley 경로이다. 21.0-17.2 ka 누적 하천 토양침식 평균은 3.245 m, 누적 토양생성 평균은 1.171 m였고 최종 토심은 0 m이다.
+- 비-valley 무식생 3셀은 별도 사면수송 경로이다. 누적 사면 토심변화는 -2.586~-3.196 m이고 누적 하천 토양침식은 0.021-0.030 m에 불과하다.
+- 초본/개방식생 1셀(row 14, col 9)은 초기 1.94 m 토심에서 누적 토양생성 +0.547 m, 사면 토심변화 +0.005 m, 하천 토양침식 -2.483 m를 거쳐 최종 0.0093 m의 잔존토양이 남았다.
+- 이 셀의 WHC는 2.203 mm, NPP는 6, optPFT는 10이다. PFT 6 NPP는 56.72, PFT 7 NPP는 92.37로 BIOME4의 각각 140, 120 경쟁기준 아래로 떨어졌다. PFT 8도 0으로 감소하여 PFT 10이 남고 native biome 21 Desert가 된다. PB4 축약분류에서 이것이 code 3 초본/개방식생 범주로 들어간다.
+- 따라서 해당 1셀은 실제 초본 PFT 우점이라고 쓰지 말고 "초본/개방식생 범주" 또는 "개방식생"으로 표현한다.
+- 침엽수림 유지 셀 중 최저 토심은 0.0461 m, WHC 10.93 mm, firedays 83 d, PFT 7 NPP 226.37이었다. 초본/개방식생 셀의 firedays는 34 d이므로 firedays 단독으로 전환을 설명할 수 없다.
+- 17.2 ka의 메커니즘은 4.3 ka 활엽수림/혼효림 차이와 다르다. 17.2 ka는 토양 고갈 또는 극얕은 잔존토양 경로이고, 4.3 ka는 산림 PFT가 유지된 상태에서 native biome 또는 51% 상대생산성 경계를 넘는 경쟁 경로이다.
 
-그 후 다음을 답한다.
-1. 침엽수림이 유지되지 않은 셀은 정확히 어디에 집중되는가.
-2. 토심이 얼마나 감소해야 초본 또는 무식생으로 넘어가는가.
-3. 수문변수와 firedays는 얼마나 바뀌는가.
-4. 초본 셀에서는 어떤 PFT가 남고 침엽수 PFT NPP가 얼마나 감소하는가.
-5. 무식생 셀은 PFT 경쟁 패배인지, 토양 자체가 소실된 결과인지.
-6. 하천과 수렴지형의 역할은 수치상 얼마나 명확한가.
-7. 이 결과를 4 ka 부근 활엽수림/혼효림 전환 메커니즘과 구분하여 논문용 해석으로 작성한다.
-
-최종 산출은 짧은 "결과" 문단과 별도의 "해석" 문단이어야 한다.
+다음 작업은 이 완료된 진단을 이용해 식생 결과 및 해석 문단을 최종 원고 문체에 통합하고, 211개 시점의 우점식생 구간을 최종 검산하는 것이다.
 
 ## 15. 금지할 오류
 
