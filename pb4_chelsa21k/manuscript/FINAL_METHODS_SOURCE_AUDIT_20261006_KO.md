@@ -374,6 +374,21 @@ Lee et al. (2024)은 landscape-evolution model의 regional uplift를 80 mm kyr\(
 
 판정: **S_c=1.50은 20 m Yongneup production을 위한 본 연구 수치설정이며 수치수렴 근거가 보존되어 있다. 외부 논문으로 1.50 자체를 정당화할 필요는 없다. Pelletier et al. (2013)은 원 과정식 및 원 연구의 S_c 값 0.7/0.9를 설명하는 문헌으로만 인용한다.**
 
+### 12.2 최종 runner 순차결합 감사
+
+최종 U008 canonical ZIP의 `runner.py`를 직접 대조하였다.
+
+- 21.0-0.0 ka BP에서 211개 output time을 순회한다.
+- 각 output time에서 현재 (z)와 (H)를 이용해 기후의 대기압 입력, bare-bedrock mask, available-water storage, BIOME4, EEMT, AGB*를 계산한다.
+- dynamic case에서만 `i < len(times)-1`일 때 다음 output time까지 지형발달을 적분하므로 지형발달 구간은 210개이다.
+- 0.0 ka BP는 최종 출력만 수행하며 이후 geomorphic interval은 없다.
+- 한 0.1 kyr 구간의 adaptive substep에서는 해당 구간 시작 시 계산한 EEMT와 AGB*를 그대로 유지하고 BIOME4를 다시 실행하지 않는다.
+- static case는 (z), (z_b), (H)를 갱신하지 않는다.
+
+adaptive geomorphic source도 직접 대조하였다. 기본 안정시간 추정 (Delta t=0.01Delta x^2/(2k_{d,max}))과 별도로, trial의 사면수송 변화, 유수침식, threshold adjustment 가운데 최대 변화가 0.025 m를 넘으면 해당 trial을 폐기하고 (Delta t/2)로 다시 계산한다. 0.025 m는 과정량의 cap이 아니라 본 연구 convergence audit에서 정한 수치오차 허용기준이다.
+
+한 accepted geomorphic substep의 실제 순서는 threshold closure, 토양생산, 비선형 사면수송, 유수침식, 최종 threshold closure이다. 토양생산으로 새로 생성된 레골리스는 같은 substep의 사면수송에 즉시 포함되고, 유수침식에는 사면수송 뒤 남은 가용토심이 전달된다.
+
 ## 13. Jang et al. (2011) validation
 
 원문 확인:
@@ -389,9 +404,17 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 
 네 LPZ 연대구간을 0.1-kyr model output grid에 대응하여 생성된 **모델 평가시점이 62개**이다. 따라서 manuscript에서 “Jang n=62 samples”라고 쓰면 틀리며 “Jang의 네 LPZ에 대응한 62개 model output-time”이라고 쓴다.
 
-51% mixed-class majority rule은 **본 연구 postprocessing**이다.
+51% mixed-class majority rule은 **본 연구 postprocessing**이다. Production의 `vegetation_array()`를 대조한 결과 이 규칙은 BIOME4 mixed biome 6, 7, 9에만 적용되며, 활엽수 PFT 2-4의 NPP 최댓값과 침엽수 PFT 5-7의 NPP 최댓값을 비교한다. 기능군 내 PFT NPP를 합산하지 않는다.
 
-1% basin-presence criterion은 **본 연구 validation rule**이다.
+5개 reduced class의 production 매핑은 다음과 같다.
+
+- class 0 침엽수림: biome 5, 8, 10, 11
+- class 1 활엽수림: biome 1-4
+- class 2 혼효림: biome 6, 7, 9의 51% 후처리에서 어느 쪽도 임계값에 도달하지 않은 경우
+- class 3 초본 및 개방식생: biome 12-20, 22-26, 그리고 우점 PFT가 존재하면서 NPP 또는 LAI가 양수인 biome 21
+- class 4 비식생지: biome 27, 28, 노출 기반암, 그리고 식생활성이 없는 biome 21
+
+1% basin-presence criterion은 **본 연구 validation rule**이며 분모는 class 0-3으로 분류된 식생 셀이다. class 4는 분모에서 제외한다.
 
 둘 다 BIOME4 process equation으로 쓰지 않는다.
 
@@ -417,6 +440,9 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 - 태백산맥 장기 삭박 및 exhumation 기반 regional uplift 문헌
 - Jang 61 pollen samples, 5 radiocarbon samples 및 네 LPZ
 - BIOME4 v4.2b2의 13 parameter sets, PFT1 비활성화 및 PFT8 C3 실제 실행경로
+- 최종 U008 runner의 211 output-time, 210 geomorphic interval 및 0 ka 종료조건
+- adaptive geomorphic trial rejection과 과정순서
+- Jang 검증용 5분류, mixed biome 6/7/9의 51% 규칙 및 class 0-3 기준 1% 분모
 
 ## 14.1 canonical ZIP 직접 압축해제 감사
 
