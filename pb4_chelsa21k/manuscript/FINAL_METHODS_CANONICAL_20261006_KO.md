@@ -63,9 +63,9 @@ t\rightarrow\tau
 - 좌표계: Korea 2000/Central Belt 2010, EPSG:5187
 - 최종 계산격자: 모든 공간자료를 20 m로 리샘플링
 - 경계조건: 단일 유출구만 open, 나머지 유역 경계는 closed
-- D8 유출: 지정 유출구에서만 유역 외부로 허용
+- 외부 유출 경계: 지정 유출구에서만 유역 외부로의 흐름을 허용
 - 사면수송: 계산 마스크 내부 인접 셀 사이에서만 계산하며 closed boundary를 가로지르는 flux는 0
-- D8 계산 전 sink filling 적용
+- 유동경로 계산 전 sink filling을 적용하되, 채운 지형면은 routing 계산에만 사용하고 지형 상태변수 자체는 변경하지 않음
 
 따라서 Methods에서는 10 m를 DEM 보간 단계 해상도, 20 m를 실제 VeSLEM 계산 해상도로 구분하여 기술한다.
 
@@ -97,7 +97,9 @@ T_{\mathrm{absmin}}
 21.9
 \]
 
-CHELSA-TraCE21k Centennial 자료에 cloud가 없으므로 BIOME4 광입력에 필요한 cloud만 Beyer 계열 자료에서 시간 보간한다. Beyer의 기온과 강수는 사용하지 않는다. CO2는 PB4Studio에 포함된 Bereiter 계열 기록을 사용한다.
+production에서는 이 BIOME4 원 회귀식을 CHELSA 월평균기온에서 얻은 가장 추운 달의 기온에 적용하여 절대최저기온 입력값을 계산하고, 이를 BIOME4의 `tminin` 입력으로 전달한다.
+
+CHELSA-TraCE21k Centennial 자료에 cloud가 없으므로 BIOME4 광입력에 필요한 cloud만 Beyer 계열 자료에서 시간 보간한다. production backend에서는 월별 운량 \(C_m\)을 \(S_m=100-C_m\)으로 변환하여 BIOME4의 월별 일조율 입력으로 전달한다. Beyer의 기온과 강수는 사용하지 않는다. CO2는 PB4Studio에 포함된 Bereiter 계열 기록을 사용한다.
 
 식생 코어는 BIOME4 v4.2b2이다. 13개 PFT parameter set 가운데 원 source에서 PFT1 tropical evergreen은 `pfts(1)=0`으로 비활성화되며 PFT2-13이 경쟁에 참여한다. production에서는 native PFT climate limits를 사용한다. 토심에 따른 NPP, LAI 또는 FVC의 직접적인 경험 multiplier는 사용하지 않는다.
 
