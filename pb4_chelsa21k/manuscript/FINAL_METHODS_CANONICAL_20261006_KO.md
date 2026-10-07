@@ -17,7 +17,7 @@
 
 - 기후자료: \`YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv\`
 - 기간: 21.0-0.0 ka BP
-- 간격: 0.1 kyr, 총 211 시점
+- 간격: 0.1 kyr, 총 211개 기후 및 식생 출력시점, 210개 지형발달 구간
 - 식생모형: BIOME4 v4.2b2
 - production configuration: PB4-McKenzie-nativeClimate + BIOME4-derived AGB*
 - 모델 버전: \`6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB\`
@@ -69,7 +69,7 @@ t\rightarrow\tau
 
 따라서 Methods에서는 10 m를 DEM 보간 단계 해상도, 20 m를 실제 VeSLEM 계산 해상도로 구분하여 기술한다.
 
-초기 토심은 ISRIC의 2017-03-10 SoilGrids archive에서 1 km로 집계되어 배포된 `BDRICM_M_1km_ll`을 사용한다. 이 자료의 기반이 되는 SoilGrids250m과 depth-to-bedrock 예측은 Hengl et al. (2017)과 Shangguan et al. (2017)을 인용한다.
+21.0 ka BP의 초기 지표고도와 토심은 각각 현재 수치지형도와 ISRIC의 2017-03-10 SoilGrids archive에서 1 km로 집계되어 배포된 `BDRICM_M_1km_ll`을 사용한다. 별도의 21 ka 지형 또는 토심 복원자료는 초기조건에 적용하지 않는다. 초기 기반암고도는 `z_b=z-H`로 계산한다. 이 자료의 기반이 되는 SoilGrids250m과 depth-to-bedrock 예측은 Hengl et al. (2017)과 Shangguan et al. (2017)을 인용한다.
 
 ## 3. 기후입력과 BIOME4
 
@@ -182,7 +182,7 @@ production code에 사용된 깊이별 available-water density는 SoilGrids Expl
 
 이 값에는 별도의 coarse-fragment correction, pedotransfer function, calibration 또는 pollen-fit coefficient를 적용하지 않았다. 최종 texture raster의 유효 셀은 모두 BIOME4 texture class 2이며, texture class는 native BIOME4 hydraulic conductivity를 선택하는 데 사용한다. 위 available-water density 자체는 sand/silt/clay 비율로부터 본 연구가 다시 추정한 값이 아니다.
 
-BIOME4의 구조적 수문깊이 상한 때문에 실제 적분은 1.50 m까지만 수행한다.
+BIOME4의 구조적 수문깊이 상한 때문에 실제 적분은 1.50 m까지만 수행한다. 깊이별 water-retention profile과 texture class는 21-0 ka 동안 고정하고, 각 시점의 현재 토심 `H`가 어느 깊이구간까지 포함되는지만 동적으로 바뀐다.
 
 ## 5. PFT별 finite-depth root accessibility
 
@@ -407,7 +407,7 @@ B_{\mathrm{sapwood,dry},p}
 
 로 dry biomass로 변환한다. \(f_C=0.50\)은 본 연구의 명시적 변환 가정이다.
 
-BIOME4 source에서 sapwood respiration을 제거하는 PFT에는 sapwood term을 적용하지 않는다. 이를 위해 코드에서 indicator를 사용할 수 있지만, 논문 원식에 새로운 생태 파라미터처럼 제시하지 않는다.
+BIOME4 source의 `pftpar(pft,10)` 설정에 따라 sapwood respiration이 비활성화되는 PFT에는 sapwood term을 적용하지 않는다. 이를 위해 코드에서 indicator를 사용할 수 있지만, 이를 해당 PFT에 해부학적 sapwood가 존재하지 않는다는 별도 생태 가정으로 확대해석하거나 논문 원식의 새로운 파라미터처럼 제시하지 않는다.
 
 ## 8. Pelletier 지형발달
 
@@ -637,7 +637,7 @@ PB4는 hillslope와 valley를 구분하기 위해 Pelletier et al. (2013)이 기
 | \(S_c\) | 0.7, 0.9 sensitivity | **1.50** |
 | \(U\) | 0.05 m kyr\(^{-1}\) | **0.08 m kyr\(^{-1}\)** |
 
-따라서 \(S_c=1.50\)과 \(U=0.08\)은 Pelletier et al. (2013)의 원 연구값이라고 쓰면 안 된다. \(S_c=1.50\)은 용늪 20 m real-DEM 수치수렴시험을 거쳐 채택된 모델별 수치설정이다. 초기 최대 cardinal-face slope는 약 1.332로 S_c=1.50에서 초기 초임계경사가 없었고, 1 kyr 회귀시험의 tolerance를 0.025 m에서 0.0125 m로 절반으로 줄였을 때 max |Delta H|는 0.008139 m였다. \(U=0.08\ {\rm m\,kyr^{-1}}\)은 Lee et al. (2024)이 태백산맥의 약 22 Ma 이후 장기 삭박 및 exhumation rate와 동일하도록 landscape-evolution model의 regional uplift로 채택한 80 mm kyr\(^{-1}\)를 따른다. 이는 용늪 자체의 직접 측정값이 아니라 regional background forcing을 위한 모델 가정이다.
+용늪 production은 \(a,b,h_0,\rho_b/\rho_s,c,d,K_0,g,i,F\)를 Pelletier et al. (2013)의 값에서 변경하지 않았으며, Jang 화분자료나 용늪 지형에 맞추어 재보정하지 않았다. 따라서 이 계수들은 원 연구의 Arizona sky-island parameterization을 본 연구에 이전한 값으로 구분한다. 반면 \(S_c=1.50\)과 \(U=0.08\)은 Pelletier et al. (2013)의 원 연구값이라고 쓰면 안 된다. \(S_c=1.50\)은 용늪 20 m real-DEM 수치수렴시험을 거쳐 채택된 모델별 수치설정이다. 초기 최대 cardinal-face slope는 약 1.332로 S_c=1.50에서 초기 초임계경사가 없었고, 1 kyr 회귀시험의 tolerance를 0.025 m에서 0.0125 m로 절반으로 줄였을 때 max |Delta H|는 0.008139 m였다. \(U=0.08\ {\rm m\,kyr^{-1}}\)은 Lee et al. (2024)이 태백산맥의 약 22 Ma 이후 장기 삭박 및 exhumation rate와 동일하도록 landscape-evolution model의 regional uplift로 채택한 80 mm kyr\(^{-1}\)를 따른다. 이는 용늪 자체의 직접 측정값이 아니라 regional background forcing을 위한 모델 가정이다.
 
 또한 Pelletier의 모델실험 EEMT 범위는 대략 5-45 MJ m\(^{-2}\) yr\(^{-1}\)였으나 용늪 PB4에서는 이 범위를 넘는 EEMT가 발생한다. 따라서 EEMT 관련 계수의 외삽은 한계로 명시한다.
 
@@ -683,7 +683,7 @@ Pelletier et al. (2013)의 물리식과 별개로 PB4에는 다음 수치 구현
 -> 다음 t_BP
 \`\`\`
 
-각 100년 구간에서 BIOME4를 한 번 계산하고, 그 구간의 geomorphic adaptive substep 동안 동일한 EEMT와 AGB* forcing을 사용한다.
+21.0-0.0 ka BP의 211개 출력시점에서 BIOME4를 계산하고, 인접한 출력시점 사이의 210개 100년 구간에서만 지형발달을 적분한다. 각 지형발달 구간에서는 BIOME4를 한 번 계산하고, 그 구간의 geomorphic adaptive substep 동안 동일한 EEMT와 AGB* forcing을 사용한다. 0.0 ka BP는 최종 출력시점이며 그 이후의 지형발달 구간은 없다.
 
 static 실험에서는 초기 지형과 토심을 고정한다. dynamic 실험에서는 변화한 지형과 토심이 다음 시점의 수문과 BIOME4 계산으로 다시 들어간다.
 
