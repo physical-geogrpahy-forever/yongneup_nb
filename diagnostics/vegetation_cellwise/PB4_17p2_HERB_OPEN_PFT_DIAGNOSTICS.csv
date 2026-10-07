@@ -1,0 +1,14 @@
+pft,pft_name,dynamic_mod_npp,static_mod_npp,dynamic_raw_npp,static_raw_npp,dynamic_lai,static_lai,dynamic_wetness,static_wetness,dynamic_firedays,static_firedays,dynamic_constraint_pass,static_constraint_pass
+1,tropical evergreen tree,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+2,tropical drought-deciduous tree,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+3,temperate broadleaved evergreen,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+4,temperate deciduous,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+5,cool conifer,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+6,boreal evergreen,56.716965,275.99683,56.716965,275.99683,0.338125,2.4475,56.5,77.1,21.0,0.0,1.0,1.0
+7,boreal deciduous,92.36688,260.55563,92.36688,260.55563,0.744375,2.806875,56.4,76.5,34.0,0.0,1.0,1.0
+8,temperate C3/C4 grass,0.0,166.14832,0.0,166.14832,0.0,2.60375,0.0,76.4,0.0,1.0,1.0,1.0
+9,tropical C4 grass,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+10,woody desert,5.9721966,77.30884,5.9721966,77.30884,0.10374999,1.51,56.7,78.2,2.0,0.0,1.0,1.0
+11,tundra shrub,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+12,cold herbaceous,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+13,lichen/forb,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
