@@ -1,0 +1,27 @@
+name: PB4 PFT limits check
+on:
+  push:
+    paths:
+      - '.github/workflows/pb4_pft_limits_check.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check active PFT climate constraints
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP=pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip
+          sha256sum "$ZIP"
+          rm -rf /tmp/pb4pft && mkdir -p /tmp/pb4pft
+          unzip -q "$ZIP" -d /tmp/pb4pft
+          ROOT="$(find /tmp/pb4pft -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
+          echo "=== CONFIG ==="
+          grep -nE 'biome4_variant|PFT5|PFT6|TCM|BoNE|Sitch|climate' "$ROOT/pb4studio/config.py" | head -n 200 || true
+          echo "=== BACKEND PATCHES ==="
+          grep -nE 'PFT5|PFT6|TCM|BoNE|Sitch|climate|replace|pftpar' "$ROOT/pb4studio/biome4_backend.py" | head -n 500 || true
+          echo "=== BACKEND PATCH BLOCKS ==="
+          sed -n '320,470p' "$ROOT/pb4studio/biome4_backend.py"
+          echo "=== FORTRAN PFT PARAMS ==="
+          grep -nE 'pftpar\(|tcm|gdd|twmin|twmax' "$ROOT/fortran_src/biome4_original_4_2b2.f" | head -n 500 || true
