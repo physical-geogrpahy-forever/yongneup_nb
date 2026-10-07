@@ -463,6 +463,17 @@ GitHub Actions에서 repository의 canonical ZIP 자체를 checkout한 뒤 직�
 - 혼효림 재분류는 biome 6, 7, 9에만 적용하고 broadleaf PFT2-4와 conifer PFT5-7의 각 최대 potential NPP를 비교한다.
 - Jang 1% criterion의 분모는 reduced vegetation class 0-3의 식생 셀이며 비식생 class 4는 제외한다.
 
+### 14.3 Jang LPZ 경계 중복 민감도
+
+현재 검증은 각 LPZ를 양 끝점을 포함하는 closed interval로 처리하므로 4.8 ka BP와 3.4 ka BP 출력이 인접한 두 LPZ에 각각 한 번씩 포함된다. 따라서 62는 62개의 고유한 시간점이 아니라 62개의 output-time x LPZ 대응항목이며, 고유한 모델 시간은 60개이다.
+
+현재 62항목 기준 정확도는 static 24/62=38.71%, dynamic 55/62=88.71%이다. 경계출력을 하나의 LPZ에만 배정하는 민감도는 다음과 같다.
+
+- 경계출력을 오래된 쪽 LPZ에만 배정: static 24/60=40.00%, dynamic 54/60=90.00%
+- 경계출력을 젊은 쪽 LPZ에만 배정: static 22/60=36.67%, dynamic 53/60=88.33%
+
+따라서 경계처리 방식에 따라 절대 정확도는 소폭 변하지만 동적 실험이 정적 실험보다 높은 결론은 변하지 않는다. 본문에서 62를 독립 표본수로 표현하지 않으며, 필요하면 이 민감도를 Supplementary에 제시한다.
+
 ## 15. 핵심 참고문헌
 
 Beyer, R. M., Krapp, M., & Manica, A. (2020). High-resolution terrestrial climate, bioclimate and vegetation for the last 120,000 years. *Scientific Data, 7*, 236. https://doi.org/10.1038/s41597-020-0552-1
