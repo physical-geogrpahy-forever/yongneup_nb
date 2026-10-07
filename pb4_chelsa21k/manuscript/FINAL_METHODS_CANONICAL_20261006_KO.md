@@ -322,7 +322,7 @@ E_{\mathrm{BIO}}
 
 ### 6.2 PB4의 월별 구현
 
-BIOME4가 월별 AET와 탄소 기준 NPP를 제공하므로 PB4에서는 위 원식을 다음과 같이 구현한다.
+production backend가 BIOME4 수문계산의 일별 AET를 월별 총량으로 집계하여 노출하고 BIOME4가 탄소 기준 NPP를 제공하므로 PB4에서는 위 원식을 다음과 같이 구현한다.
 
 \[
 EEMT
