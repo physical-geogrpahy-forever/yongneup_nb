@@ -2,7 +2,7 @@
 
 ## 2.1 VeSLEM의 구성과 결합 방식
 
-본 연구에서는 후기 빙기 이후의 기후변화에 따른 식생, 토양 및 지형의 상호작용을 모의하기 위하여 평형 식생모델 BIOME4 v4.2b2와 수치지형발달모델을 결합한 식생-토양-지형발달모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. BIOME4 v4.2b2는 13개의 식물 기능형(Plant Functional Type, PFT) 매개변수군을 정의하고, 기후, 대기 CO2, 대기압 및 토양수분 조건에서 존재 가능한 PFT의 NPP와 LAI를 계산한 뒤 PFT 간 경쟁을 통해 잠재 식생을 결정한다(Kaplan, 2001; Kaplan et al., 2003). 식생 계산에는 BIOME4 v4.2b2의 기후한계와 경쟁구조를 적용하였으며, 토심은 토양수분 저장량과 PFT별 뿌리 접근성을 통해 식생 계산에 반영하였다.
+본 연구에서는 후기 빙기 이후의 기후변화에 따른 식생, 토양 및 지형의 상호작용을 모의하기 위하여 평형 식생모델 BIOME4 v4.2b2와 수치지형발달모델을 결합한 식생-토양-지형발달모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. BIOME4 v4.2b2는 13개의 식물 기능형(Plant Functional Type, PFT) 매개변수군을 정의하며, 이 가운데 열대상록 PFT1은 계산에서 비활성화되어 있다. 본 연구에서는 PFT2-13에 대해 기후, 대기 CO2, 대기압 및 토양수분 조건에서 존재 가능한 PFT의 NPP와 LAI를 계산하고, PFT 간 경쟁을 통해 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). PFT의 존재 가능성은 BIOME4 v4.2b2에 정의된 기후제약을 이용하여 판정하였으며, 토심은 토양수분 저장량과 PFT별 뿌리 접근성을 통해 식생 계산에 반영하였다.
 
 분석기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생모델과 지형발달모델의 결합간격은 0.1 kyr, 즉 100년으로 설정하였다. 이에 따라 총 211개 시간시점을 계산하였다. 각 100년 구간의 시작에서 해당 시점의 기후, 지표고도 및 토심을 이용하여 BIOME4를 실행하였다. 지표고도는 대기압 계산에, 토심은 토양수분 저장량과 PFT별 뿌리 접근성 계산에 이용하였다. BIOME4에서 산출된 NPP, 실제증발산량(Actual Evapotranspiration, AET), LAI 및 우점 PFT로부터 유효 에너지 및 물질 전달량(Effective Energy and Mass Transfer, EEMT)과 지상부 생물량 대리변수 AGB*를 산정하고, 이를 같은 100년 구간의 지형발달 계산에 입력하였다. 구간 말에 갱신된 지표고도와 토심은 다음 시간시점의 식생 계산에 이용하였다.
 
