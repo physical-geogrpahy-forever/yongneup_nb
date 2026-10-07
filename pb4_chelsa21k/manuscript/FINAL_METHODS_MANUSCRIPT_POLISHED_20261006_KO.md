@@ -246,7 +246,7 @@ C_{s,p}=LAI_p C_{n,p}
 B_{sapwood,dry,p}=I_{sap,p}{C_{s,p} OVER f_C}
 ```
 
-여기서 (f_C=0.50)이며, (I_{sap,p})는 BIOME4 v4.2b2에서 변재호흡 항이 정의된 PFT에서 1, 정의되지 않은 PFT에서 0이다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
+여기서 (f_C=0.50)이며, (I_{sap,p}=1)은 PFT2-7, PFT10, PFT11 및 PFT13에, (I_{sap,p}=0)은 PFT8, PFT9 및 PFT12에 적용하였다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
 
 ## 2.8 지형발달모델
 
