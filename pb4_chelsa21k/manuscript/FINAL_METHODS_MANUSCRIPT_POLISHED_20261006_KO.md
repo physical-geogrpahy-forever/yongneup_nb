@@ -114,7 +114,7 @@ McKenzie et al. (2003)의 지수형 뿌리밀도 함수를 이용하여 깊이�
 f(x)=exp(-{x OVER X_i})
 ```
 
-여기서 (X_i)는 그 깊이보다 아래에 전체 뿌리의 37%가 존재하는 깊이이다(McKenzie et al., 2003). (r_{30,p})와 식 (10)을 일치시키면 PFT별 특성깊이 (X_p)는 다음과 같이 계산된다.
+여기서 (X_i)는 뿌리 또는 수분추출의 약 37%가 그보다 깊은 곳에 놓이는 특성깊이이다(McKenzie et al., 2003). (r_{30,p})와 식 (10)을 일치시키면 PFT별 특성깊이 (X_p)는 다음과 같이 계산된다.
 
 식 (11)
 
@@ -202,7 +202,7 @@ EEMT=E_{PPT}+E_{BIO}
 EEMT={C_w OVER 10^6} SUM _{m=1}^{12} T_m (R_m-AET_m)+{h_{BIO} OVER 10^6}{max(NPP_C,0) OVER {1000 f_C}}
 ```
 
-여기서 (R_m)은 월강수량(mm), (AET_m)은 월 AET(mm), (C_w=4186) J kg^-1 K^-1, (h_{BIO}=22 TIMES 10^6) J kg^-1, (NPP_C)는 BIOME4가 산출한 연간 carbon NPP(g C m^-2 yr^-1)이다. 탄소량을 건조생체량으로 환산하기 위한 탄소질량분율은 (f_C=0.50)으로 설정하였다. 월별 유효강수 (R_m-AET_m)는 양과 음의 부호를 유지한 상태로 합산하였으며, EEMT의 단위는 MJ m^-2 yr^-1로 하였다.
+여기서 (R_m)은 월강수량(mm), (AET_m)은 BIOME4의 일별 AET를 월내 합산한 월 AET(mm month^-1), (C_w=4186) J kg^-1 K^-1, (h_{BIO}=22 TIMES 10^6) J kg^-1, (NPP_C)는 BIOME4가 산출한 연간 carbon NPP(g C m^-2 yr^-1)이다. 식 (20)의 (T_m)은 섭씨로 변환한 월평균기온으로 Pelletier et al. (2013)의 (Delta T) 항에 적용하였다. 탄소량을 건조생체량으로 환산하기 위한 탄소질량분율은 (f_C=0.50)으로 설정하였다. 월별 유효강수 (R_m-AET_m)는 양과 음의 부호를 유지한 상태로 합산하였으며, EEMT의 단위는 MJ m^-2 yr^-1로 하였다.
 
 ## 2.7 BIOME4 기반 지상부 생물량 대리변수
 
@@ -238,7 +238,7 @@ B_{leaf,dry,p}={LAI_p OVER SLA_p}
 C_{s,p}=LAI_p C_{n,p}
 ```
 
-여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. BIOME4 v4.2b2의 변재 탄소계수에 따라 (C_{n,p}=0.5) kg C m^-2 LAI^-1을 적용하였다. 변재 건조생체량은 다음과 같이 계산하였다.
+여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)의 관계식 구조는 Haxeltine and Prentice (1996)를 따랐고, 실제 계산에 사용한 계수는 BIOME4 v4.2b2 source의 `stemcarbon=0.5`에 따라 (C_{n,p}=0.5) kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 다음과 같이 계산하였다.
 
 식 (25)
 
@@ -246,7 +246,7 @@ C_{s,p}=LAI_p C_{n,p}
 B_{sapwood,dry,p}={C_{s,p} OVER f_C}
 ```
 
-여기서 (f_C=0.50)이다. BIOME4에서 변재호흡이 0으로 처리되는 PFT에는 변재항을 포함하지 않았다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
+여기서 (f_C=0.50)이다. BIOME4 v4.2b2 source의 `pftpar(pft,10)` 설정에 따라 변재호흡이 비활성화되는 PFT에는 본 연구의 AGB* 계산에서 변재항을 적용하지 않았다. 이는 해당 PFT에 해부학적 변재가 존재하지 않는다는 별도 가정을 뜻하지 않는다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
 
 ## 2.8 지형발달모델
 
