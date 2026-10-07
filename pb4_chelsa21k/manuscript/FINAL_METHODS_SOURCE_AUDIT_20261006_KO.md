@@ -111,6 +111,7 @@ BIOME4 v4.2b2 source에서 \`pftpar(pft,6)\`은 PFT-specific root parameter로 �
 | \(R_{\rm top,p}\), \(R_{\rm bottom,p}\) | exponential profile을 BIOME4 2층에 적분 | 본 연구 구현 |
 | \(\omega_{r,p}=R_{\rm top,p}\omega_{\rm top}+R_{\rm bottom,p}\omega_{\rm bottom}\) | production hydrology adapter | 본 연구 구현 |
 | shallow soil에서 root fraction 미재정규화 | production code | source 직접 |
+| 노출 기반암 기준 | \(H\le10^{-6}\) m이면 BIOME4 활성 마스크에서 제외하고 NPP, AET, AGB*=0. EEMT는 물리적 강수-기온 성분만 유지 | source 직접 |
 
 ## 6. EEMT
 
@@ -133,6 +134,8 @@ EEMT=E_{\rm PPT}+E_{\rm BIO}
 | \(C_w=4186\) J kg\(^{-1}\) K\(^{-1}\) | Pelletier et al. (2013) | 원문 직접 |
 | \(h_{\rm BIO}=22\times10^6\) J kg\(^{-1}\) | Pelletier et al. (2013) | 원문 직접 |
 | 월별 \(\sum T_m(R_m-AET_m)\) | Pelletier 원 구조를 BIOME4 monthly AET에 적용 | 본 연구 구현 |
+| \(AET_m\) 단위 | BIOME4 hydrology의 일별 AET를 월별로 누적하도록 batch instrumentation이 `meanaet(m) * days(m)`을 출력하며 backend가 이를 mm month\(^{-1}\)로 읽음 | source 직접 |
+| \(T_m\)의 EEMT 역할 | CHELSA Kelvin Tmin/Tmax로부터 계산한 섭씨 월평균기온을 Pelletier의 \(\Delta T\) 항에 사용 | source 직접 + 본 연구 자료변환 |
 | \(NPP_C/(1000f_C)\) | BIOME4 carbon NPP를 dry biomass로 변환 | 본 연구 구현 |
 | \(f_C=0.50\) | study-wide carbon fraction | 본 연구 가정 |
 | \(P_{\rm eff}\) zero clipping 없음 | production code | source 직접 |
@@ -180,7 +183,7 @@ BIOME4 v4.2b2 source에서는
 
 | 항목 | 판정 |
 |---|---|
-| \(C_s=LAI C_n\) | 문헌식, 제출 전 publisher PDF에서 Eq. 34 번호와 기호를 마지막으로 시각 대조할 것 |
+| \(C_s=LAI C_n\) | Haxeltine and Prentice (1996) publisher PDF Eq. (34) 직접 확인 완료 |
 | \`stemcarbon=0.5\` | BIOME4 source 직접 |
 | \`pftpar(pft,10)\`에 따른 sapwood term on/off | BIOME4 source 직접 |
 | \(B_{\rm sapwood,dry}=C_{\rm sapwood}/f_C\) | 본 연구 dry-mass conversion |
@@ -203,6 +206,10 @@ B_{\rm sapwood,dry,p^*}
 확인 파일:
 
 \`pb4_chelsa21k/results/reich_lai_sapwood_agb_candidate_20261005/REICH_LAI_SAPWOOD_AGB.patch\`
+
+\`pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/climate.py\`
+
+최종 integrated production builder는 선택된 Reich-LAI-sapwood candidate ZIP의 SHA를 확인하고, `climate.py`에 Reich, Haxeltine Eq. 34, `leaf_months`, `sapwood_present`, `leaf_dry_coef` 구현이 존재하는지 검사한다. 또한 legacy `agb = max(NPP,0) * agb_from_npp_scale` 경로가 남아 있으면 최종 package 생성을 중단하도록 되어 있다. 이후 U008 packaging audit은 과학식과 production parameterization을 변경하지 않은 채 배포구조와 검증 contract만 정리하였다. 따라서 최종 U008의 AGB 항은 legacy 0.010 x NPP가 아니라 Reich-LAI-sapwood 기반 \(AGB^*\)이다.
 
 논문에는 \`0.0363078055...\` 또는 PFT별 \(AGB^*/LAI\) 파생 소수계수를 쓰지 않는다.
 
@@ -416,6 +423,8 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 GitHub Actions에서 repository의 현재 canonical ZIP 자체를 checkout한 뒤 직접 압축해제하여 source를 재검증하였다. 최근 재감사 run `37570067369`가 성공적으로 완료되었다.
 
 현재 canonical ZIP은 `PB4Studio_v6.6.3_CHELSA21K.zip`이며, `FINAL_PROVENANCE.json`과 package audit에서 확인한 SHA-256은 `93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b`이다.
+
+이 canonical U008은 AGB 확정 전 nativeClimate package를 그대로 재명명한 파일이 아니다. final integrated builder가 SHA `1a4a7e07b9387c38f21019e9bc781a499b7c5864f949abf7075ea779e435a05c`의 Reich-LAI-sapwood candidate를 입력으로 사용하여 21.0-0.0 ka 전체 재실행과 Jang 검증을 통과시킨 뒤 production package로 승격했고, 이후 U008 배포감사에서도 science equations unchanged 조건을 유지하였다.
 
 압축해제한 `pb4studio/pelletier_geomorph.py`에서 다음을 직접 확인하였다.
 
