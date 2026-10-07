@@ -6,7 +6,7 @@
 
 식생 계산에는 BIOME4의 식물 기능형(Plant Functional Type, PFT) 가운데 PFT 2–13의 12개 유형을 사용하였다. 각 PFT의 순일차생산량(Net Primary Production, NPP)과 엽면적지수(Leaf Area Index, LAI)는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후 제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심에 따라 토양수분 저장량과 PFT별 뿌리 접근성을 계산하였다.
 
-모의 기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생 모델과 지형발달 모델의 결합 간격은 0.1 kyr, 즉 100년으로 설정하였다. 각 결합 시점의 기후, 지표고도 및 토심으로 식생을 계산하고 유효 에너지 및 물질 전달량(Effective Energy and Mass Transfer, EEMT)과 지상부 생물량 대리변수 AGB*를 산정하여 지형발달 계산에 사용하였다. 갱신된 지표고도와 토심은 다음 결합 시점의 식생 계산에 반영하였다.
+모의 기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생 모델과 지형발달 모델의 결합 간격은 0.1 kyr, 즉 100년으로 설정하였다. 각 결합 시점의 기후, 지표고도 및 토심으로 식생을 계산하고 유효 에너지 및 물질 전달량(Effective Energy and Mass Transfer, EEMT)과 지상부 생물량 대리변수(aboveground biomass proxy, AGB*)를 산정하여 지형발달 계산에 사용하였다. 갱신된 지표고도와 토심은 다음 결합 시점의 식생 계산에 반영하였다.
 
 지표고도 \(z\), 기반암 또는 풍화전선 고도 \(z_b\), 토심 \(H\)의 관계는 다음과 같이 정의하였다.
 
@@ -180,7 +180,7 @@ F_{\mathrm{bottom},p}=R_{\mathrm{bottom},p}\frac{\omega_{\mathrm{bottom}}}{\omeg
 
 \(\omega_{r,p}=0\)인 경우 두 추출 가중치는 모두 0으로 설정하였다.
 
-토심이 1×10^-6 m 이하인 셀은 노출 기반암으로 정의하였다. 노출 기반암 셀의 NPP, AET 및 AGB*는 0으로 설정하고, EEMT는 강수에 의한 물리적 에너지 성분으로 계산하였다.
+토심이 \(1\times10^{-6}\) m 이하인 셀은 노출 기반암으로 정의하였다. 노출 기반암 셀의 NPP, AET 및 AGB*는 0으로 설정하고, EEMT는 강수에 의한 물리적 에너지 성분으로 계산하였다.
 
 ## 2.6 EEMT 산정
 
@@ -396,7 +396,7 @@ K_{\mathrm{bed}}=\frac{K_{\mathrm{reg}}}{F}
 
 ### 2.8.4 지역 융기율
 
-지역 융기율 \(U\)은 80 mm kyr^-1로 설정하였다(Lee et al., 2024).
+지역 융기율 \(U\)는 80 mm kyr^-1로 설정하였다(Lee et al., 2024).
 
 식 (40)
 
