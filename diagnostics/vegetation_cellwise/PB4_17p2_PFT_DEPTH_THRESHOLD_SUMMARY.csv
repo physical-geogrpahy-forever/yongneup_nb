@@ -1,0 +1,7 @@
+scenario,age_ka,depth_m,whc_mm,biome4_native,reduced_code,optpft,total_npp,lai,wetness,firedays,pft06_npp,pft07_npp,pft10_npp,interpretation
+static_like_reference,17.2,1.94,298.55,8,0,6,276,2.45,77.1,0,276.005768,260.563812,77.332565,deep-soil conifer reference matching static cell state
+observed_dynamic_herb_cell_14_9,17.2,0.009295447,2.203021,21,3,10,6,0.10,56.7,34,56.716705,92.366493,5.972180,actual dynamic herb/open mismatch cell
+controlled_open_side,17.2,0.01400,3.318000,21,3,10,7,,,74.020966,119.996445,7.430921,PFT7 remains just below BIOME4 120 threshold
+controlled_conifer_side,17.2,0.01410,3.341700,9,0,7,121,,,74.414719,120.568428,7.466412,PFT7 exceeds 120 and conifer class returns
+controlled_barren_side,17.2,0.000200,0.047400,27,4,0,0,,,,7.502983,9.811709,0,native BIOME4 remains barren
+controlled_open_side_low,17.2,0.000210,0.049770,21,3,10,0,,,,7.502983,9.811709,0.434441,native BIOME4 switches from barren to desert/open
