@@ -2,7 +2,7 @@
 
 ## 2.1 VeSLEM의 구성과 결합 방식
 
-본 연구에서는 21.0 ka BP 이후 기후 변화에 따른 식생, 토양 및 지형의 상호작용을 모의하는 식생-토양-지형발달 모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. VeSLEM은 평형 식생 모델 BIOME4 v4.2b2와 수치 지형발달 모델을 결합하였다.
+본 연구에서는 21.0 ka BP 이후 기후 변화에 따른 식생, 토양 및 지형의 상호작용을 모의하는 식생-토양-지형발달 모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. VeSLEM은 평형 식생 모델 BIOME4 v4.2b2와 수치 지형발달 모델을 결합한 구조이다.
 
 식생 계산에는 BIOME4의 식물 기능형(Plant Functional Type, PFT) 가운데 PFT 2–13의 12개 유형을 사용하였다. 각 PFT의 순일차생산량(Net Primary Production, NPP)과 엽면적지수(Leaf Area Index, LAI)는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후 제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심에 따라 토양수분 저장량과 PFT별 뿌리 접근성을 계산하였다.
 
@@ -28,7 +28,7 @@ H=z-z_b
 
 21.0 ka BP의 초기 지표고도에는 수치지형도로부터 구축한 고도면을, 초기 토심에는 ISRIC SoilGrids의 기반암 깊이 자료 BDRICM_M_1km_ll을 사용하였다(Hengl et al., 2017; Shangguan et al., 2017). 초기 기반암고도는 지표고도에서 토심을 뺀 값으로 산정하였다.
 
-토성 자료는 SoilGrids 기반의 3개 등급 자료를 사용하였으며(Poggio et al., 2021), 연구 유역의 토성은 BIOME4 토성 등급(texture class) 2로 설정하였다. 상층의 상대 토양수분 상태를 \(\omega_{\mathrm{top}}\)이라고 하면 일별 침루량 \(\mathrm{Perc}\)는 다음과 같이 계산하였다.
+토성에는 SoilGrids 기반의 3개 등급 자료를 사용하였으며(Poggio et al., 2021), 연구 유역의 토성은 BIOME4 토성 등급(texture class) 2로 설정하였다. 상층의 상대 토양수분 상태를 \(\omega_{\mathrm{top}}\)이라고 하면 일별 침루량 \(\mathrm{Perc}\)는 다음과 같이 계산하였다.
 
 식 (2)
 
@@ -114,7 +114,7 @@ Y(d)=1-\beta^d
 
 여기서 \(Y(d)\)는 지표에서 깊이 \(d\)까지의 누적 뿌리분율이며, \(\beta\)는 뿌리의 수직분포를 나타내는 계수이다. BIOME4의 PFT별 상부 0.30 m 뿌리분율을 \(r_{30,p}\)로 표기하였다.
 
-뿌리 접근성의 수직분포는 McKenzie et al. (2003)의 지수형 깊이 함수로 계산하였다.
+깊이에 따른 뿌리 접근성은 McKenzie et al. (2003)의 지수형 함수로 계산하였다.
 
 식 (10)
 
@@ -184,7 +184,7 @@ F_{\mathrm{bottom},p}=R_{\mathrm{bottom},p}\frac{\omega_{\mathrm{bottom}}}{\omeg
 
 ## 2.6 EEMT 산정
 
-Pelletier et al. (2013)의 EEMT를 식생 및 수문 조건과 지형발달을 연결하는 변수로 사용하였다. 유효강수에 의해 토양계로 전달되는 에너지와 생물생산에 저장되는 에너지는 각각 다음과 같이 계산하였다.
+식생 및 수문 조건과 지형발달의 결합에는 Pelletier et al. (2013)의 EEMT를 사용하였다. 유효강수에 의해 토양계로 전달되는 에너지와 생물생산에 저장되는 에너지는 각각 다음과 같이 계산하였다.
 
 식 (17)
 
