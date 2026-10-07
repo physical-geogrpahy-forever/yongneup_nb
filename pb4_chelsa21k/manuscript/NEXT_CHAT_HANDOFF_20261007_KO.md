@@ -396,6 +396,7 @@ GitHub Actions artifact는 만료될 수 있으므로 장기 근거는 저장소
 - `diagnostics/vegetation_cellwise/PB4_17p2_CONIFER_MECHANISM_ANALYSIS_20261007_KO.md`
 - `diagnostics/vegetation_cellwise/PB4_17p2_CUMULATIVE_PROCESS_GROUP_SUMMARY.csv`
 - `diagnostics/vegetation_cellwise/PB4_17p2_HERB_OPEN_PFT_DIAGNOSTICS.csv`
+- `diagnostics/vegetation_cellwise/PB4_17p2_NONCONIFER_CUMULATIVE_CELL_DIAGNOSTICS.csv`
 
 완료된 핵심 결론:
 - 17.2 ka dynamic = 침엽수림 271셀, 초본/개방식생 1셀, 무식생 26셀.
