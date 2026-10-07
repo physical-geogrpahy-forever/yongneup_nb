@@ -1,0 +1,32 @@
+name: PB4 methods audit fire
+on:
+  push:
+    paths:
+      - '.github/workflows/pb4_methods_audit_fire.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit native BIOME4 fire path in final package
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP=pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip
+          sha256sum "$ZIP"
+          rm -rf /tmp/pb4fire && mkdir -p /tmp/pb4fire
+          unzip -q "$ZIP" -d /tmp/pb4fire
+          ROOT="$(find /tmp/pb4fire -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
+          F="$ROOT/pb4studio/fortran_src/biome4_original_4_2b2.f"
+          B="$ROOT/pb4studio/biome4_backend.py"
+          echo "=== FIRE SUBROUTINE ==="
+          L=$(grep -n -i "subroutine fire" "$F" | head -1 | cut -d: -f1)
+          sed -n "$L,$((L+70))p" "$F"
+          echo "=== FIRE IN COMPETITION ==="
+          grep -n -E "firedays|subfiredays" "$F" | head -80
+          echo "=== COMPETITION CONTEXT ==="
+          sed -n '500,680p' "$F"
+          echo "=== FIRE CALL CONTEXT ==="
+          sed -n '1788,1810p' "$F"
+          echo "=== BACKEND FIRE EXPORT ==="
+          grep -n -E "firedays_node|pft.*firedays|output\(275|out\[273" "$B" | head -80
