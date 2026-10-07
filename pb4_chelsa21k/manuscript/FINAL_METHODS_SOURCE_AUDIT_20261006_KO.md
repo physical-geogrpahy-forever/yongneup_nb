@@ -1,8 +1,8 @@
 # 용늪 PB4 최종 Methods 원문 및 코드 출처 감사
 
 작성일: 2026-10-06  
-상태: **추가 검토 계속**  
-대상 문서: \`FINAL_METHODS_MANUSCRIPT_DRAFT_20261006_KO.md\`  
+상태: **Methods 2.1-2.11 production source audit 완료**  
+대상 문서: \`FINAL_METHODS_MANUSCRIPT_POLISHED_20261006_KO.md\`  
 목적: 논문 Methods의 각 식, 계수, 결합규칙이 원문, BIOME4 source code, PB4 production implementation 중 어디에서 유래하는지 분리하여 기록한다.
 
 ## 1. 판정 기준
