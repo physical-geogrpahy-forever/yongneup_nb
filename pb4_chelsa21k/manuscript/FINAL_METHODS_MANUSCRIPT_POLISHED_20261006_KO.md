@@ -91,13 +91,13 @@ BIOME4의 수문 구조에 따라 토양층은 상층 0–0.30 m와 하층 0.30�
 식 (7)
 
 \[
-W_{\mathrm{top}}\(H\)=1000\int_0^{\min(H,0.30)}\left[\theta_{-10}(\zeta)-\theta_{-1500}(\zeta)\right]\,d\zeta
+W_{\mathrm{top}}(H)=1000\int_0^{\min(H,0.30)}\left[\theta_{-10}(\zeta)-\theta_{-1500}(\zeta)\right]\,d\zeta
 \]
 
 식 (8)
 
 \[
-W_{\mathrm{bottom}}\(H\)=1000\int_{0.30}^{\min(\max(H,0.30),1.50)}\left[\theta_{-10}(\zeta)-\theta_{-1500}(\zeta)\right]\,d\zeta
+W_{\mathrm{bottom}}(H)=1000\int_{0.30}^{\min(\max(H,0.30),1.50)}\left[\theta_{-10}(\zeta)-\theta_{-1500}(\zeta)\right]\,d\zeta
 \]
 
 여기서 \(W_{\mathrm{top}}\)과 \(W_{\mathrm{bottom}}\)은 각각 상층과 하층의 가용수분 저장량(mm)이다. 수문 계산에 사용하는 최대 토심은 1.50 m로 설정하였다. 깊이별 수분보유 특성과 토성 등급은 모의 기간 동안 일정한 값으로 설정하였으며, 각 깊이 구간의 포함 두께는 토심 \(H\)에 따라 계산하였다.
