@@ -1,6 +1,10 @@
 # PB4 final integrated production result
 
-Final SHA-256: 0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4
+Scientific-run package SHA-256: 0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4
+
+Current canonical U008 distribution SHA-256: 93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b
+
+The later U008 packaging audits changed distribution and validation-contract files only; science equations and production parameterization were unchanged.
 
 ## Scientific configuration
 
