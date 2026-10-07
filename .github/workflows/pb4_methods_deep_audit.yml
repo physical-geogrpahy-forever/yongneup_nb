@@ -27,7 +27,12 @@ jobs:
           echo "=== RUNNER COUPLING EXACT ==="
           RNR="$(find "$ROOT" -maxdepth 2 -type f -name '*.py' | xargs grep -l 'compute_eemt_and_agb' | grep -v 'climate.py' | head -n1 || true)"
           echo "RUNNER=$RNR"
-          if [ -n "$RNR" ]; then sed -n '500,790p' "$RNR"; fi
+          if [ -n "$RNR" ]; then
+            echo "=== RUNNER ADAPTIVE EXACT ==="
+            sed -n '80,285p' "$RNR"
+            echo "=== RUNNER LOOP EXACT ==="
+            sed -n '500,790p' "$RNR"
+          fi
           echo "=== GEOMORPH FULL CONFIG HEAD ==="
           sed -n '1,150p' "$ROOT/pb4studio/pelletier_geomorph.py"
           echo "=== GEOMORPH EEMT/EROSION REGION ==="
