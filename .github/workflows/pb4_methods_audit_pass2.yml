@@ -1,0 +1,35 @@
+name: PB4 methods audit pass2
+on:
+  push:
+    paths:
+      - '.github/workflows/pb4_methods_audit_pass2.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect unresolved numerical methods
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4pass2 && mkdir -p /tmp/pb4pass2
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4pass2
+          ROOT="$(find /tmp/pb4pass2 -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
+          G="$ROOT/pb4studio/pelletier_geomorph.py"
+          echo "=== PELLETIER2010 UNIT AREA ==="
+          grep -n "def pelletier2010_unit_contributing_area" "$G" || true
+          L=$(grep -n "def pelletier2010_unit_contributing_area" "$G" | head -1 | cut -d: -f1 || true)
+          if [ -n "$L" ]; then sed -n "$((L-20)),$((L+180))p" "$G"; fi
+          echo "=== THRESHOLD SLOPE ==="
+          grep -n "def threshold_slope_adjustment" "$G" || true
+          L=$(grep -n "def threshold_slope_adjustment" "$G" | head -1 | cut -d: -f1 || true)
+          if [ -n "$L" ]; then sed -n "$((L-20)),$((L+240))p" "$G"; fi
+          echo "=== MFD FUNCTIONS ==="
+          grep -nE "def .*mfd|mfd_slope_exponent|Freeman" "$G" | head -100
+          echo "=== EXACT GRID JSON ==="
+          cat "$ROOT/embedded_inputs/yongneup_exact20m/PB4STUDIO_EXACT_GRID.json"
+          echo "=== INPUT MANIFEST / SOIL TEXTURE ==="
+          find "$ROOT/embedded_inputs" -maxdepth 3 -type f -printf '%p\n' | sort
+          grep -RniE "texture|BDRICM|soil_depth|dem|source" "$ROOT/embedded_inputs" --include='*.json' --include='*.csv' --include='*.txt' | head -400 || true
+          echo "=== CLIMATE CSV HEADER/COORDS ==="
+          find "$ROOT" -type f -name '*CHELSA*RAW*WIDE*.csv' -print -exec sh -c 'head -3 "$1"' sh {} \;
