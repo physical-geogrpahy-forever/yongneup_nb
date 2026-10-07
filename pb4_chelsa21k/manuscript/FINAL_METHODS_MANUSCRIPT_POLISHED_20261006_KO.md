@@ -2,7 +2,7 @@
 
 ## 2.1 VeSLEM의 구성과 결합 방식
 
-본 연구에서는 21.0 ka BP 이후 기후 변화에 따른 식생, 토양 및 지형의 상호작용을 모의하기 위하여 평형 식생모델 BIOME4 v4.2b2와 수치지형발달모델을 결합한 식생-토양-지형발달모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. 식생 계산에는 BIOME4 v4.2b2의 12개 PFT(PFT2-13)를 사용하였다. 각 PFT의 NPP와 LAI는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심은 토양수분 저장량과 PFT별 뿌리 접근성을 통해 식생 계산에 반영하였다.
+본 연구에서는 21.0 ka BP 이후 기후 변화에 따른 식생, 토양 및 지형의 상호작용을 모의하기 위하여 평형 식생모델 BIOME4 v4.2b2와 수치지형발달모델을 결합한 식생-토양-지형발달모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. 식생 계산에는 BIOME4의 12개 PFT(PFT2-13)를 사용하였다. 각 PFT의 NPP와 LAI는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심은 토양수분 저장량과 PFT별 뿌리 접근성을 통해 식생 계산에 반영하였다.
 
 분석 기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생모델과 지형발달모델의 결합 간격은 0.1 kyr, 즉 100년으로 설정하였다. 각 100년 구간의 시작 시점에서 기후, 지표고도 및 토심을 이용하여 BIOME4를 계산하였다. 지표고도는 대기압 계산에, 토심은 토양수분 저장량과 PFT별 뿌리 접근성 계산에 이용하였다. BIOME4의 NPP와 실제증발산량(Actual Evapotranspiration, AET)으로 EEMT를, LAI와 우점 PFT의 생체량 매개변수로 AGB*를 산정하여 지형발달 계산에 입력하였다. 갱신된 지표고도와 토심은 다음 시점의 식생 계산에 이용하였다.
 
@@ -30,7 +30,7 @@ H=z-z_b
 Perc=K_1 omega_{top}^4
 ```
 
-BIOME4 v4.2b2에서 \(K_1\)은 상층 토양의 포화수리전도도(Ksat)로 정의되며, 토성등급 2에는 \(K_1=4.0\) mm h^-1을 적용하였다.
+BIOME4에서 \(K_1\)은 상층 토양의 포화수리전도도(Ksat)로 정의되며, 토성등급 2에는 \(K_1=4.0\) mm h^-1을 적용하였다.
 
 ## 2.3 기후, 대기 CO2 및 대기압 입력
 
@@ -44,7 +44,7 @@ T_m={(T_{min,m}+T_{max,m}) OVER 2}-273.15
 
 여기서 (T_m)은 월 (m)의 평균기온이며, (T_{min,m})과 (T_{max,m})은 각각 Kelvin 단위의 월별 최저기온과 최고기온이다. PFT의 절대최저기온 제약에는 식 (4)로 추정한 (T_{absmin})을 사용하였다.
 
-BIOME4의 광환경 계산에는 Beyer et al. (2020)의 월별 운량(cloudiness)을 각 시점에 선형보간한 뒤, (S_m=100-C_m)으로 변환한 월별 일조율을 사용하였다. 여기서 (C_m)은 월별 운량(%), (S_m)은 BIOME4에 입력되는 월별 일조율(%)이다. 대기 CO2 농도는 Bereiter et al. (2015)의 Antarctic composite를 이용하여 각 시점 (t_{BP})에 선형보간하였다. PFT의 저온한계 판정에 사용되는 절대최저기온은 BIOME4 v4.2b2의 관계식을 이용하였다.
+BIOME4의 광환경 계산에는 Beyer et al. (2020)의 월별 운량(cloudiness)을 각 시점에 선형보간한 뒤, (S_m=100-C_m)으로 변환한 월별 일조율을 사용하였다. 여기서 (C_m)은 월별 운량(%), (S_m)은 BIOME4에 입력되는 월별 일조율(%)이다. 대기 CO2 농도는 Bereiter et al. (2015)의 Antarctic composite를 이용하여 각 시점 (t_{BP})에 선형보간하였다. PFT의 저온한계 판정에 사용되는 절대최저기온은 BIOME4의 관계식을 이용하였다.
 
 식 (4)
 
@@ -96,7 +96,7 @@ W_{bottom}(H)=1000 INT _{0.30}^{min(max(H,0.30),1.50)} [theta_{-10}(zeta)-theta_
 
 ## 2.5 PFT별 뿌리 접근성과 BIOME4 계산
 
-BIOME4 v4.2b2의 PFT별 상부 0.30 m 뿌리분율은 Gale and Grigal (1987)이 제시하고 Jackson et al. (1996)이 전 지구 생물군계에 적용한 누적 뿌리분포 관계에 근거하였다.
+BIOME4의 PFT별 상부 0.30 m 뿌리분율은 Gale and Grigal (1987)이 제시하고 Jackson et al. (1996)이 전 지구 생물군계에 적용한 누적 뿌리분포 관계에 근거하였다.
 
 식 (9)
 
@@ -104,7 +104,7 @@ BIOME4 v4.2b2의 PFT별 상부 0.30 m 뿌리분율은 Gale and Grigal (1987)이 
 Y(d)=1-beta^d
 ```
 
-여기서 (Y(d))는 지표에서 깊이 (d)까지 존재하는 누적 뿌리분율이며, (beta)는 뿌리의 수직분포를 나타내는 계수이다. PFT별 상부 0.30 m 누적 뿌리분율 (r_{30,p})은 BIOME4 v4.2b2에 정의된 값을 사용하였다.
+여기서 (Y(d))는 지표에서 깊이 (d)까지 존재하는 누적 뿌리분율이며, (beta)는 뿌리의 수직분포를 나타내는 계수이다. PFT별 상부 0.30 m 누적 뿌리분율 (r_{30,p})은 BIOME4에 정의된 값을 사용하였다.
 
 McKenzie et al. (2003)의 지수형 깊이 함수를 이용하여 뿌리 접근성의 수직분포를 계산하였다.
 
@@ -222,7 +222,7 @@ AGB^*=B_{leaf,dry,p^*}+B_{sapwood,dry,p^*}
 log_{10}(SLA_p)=2.44-0.43 log_{10}(L_{m,p})
 ```
 
-여기서 (L_{m,p})는 BIOME4 v4.2b2에 정의된 PFT (p)의 잎수명(month)이다. SLA를 cm^2 g^-1에서 m^2 kg^-1로 변환한 뒤, 잎 건조생체량을 다음과 같이 계산하였다.
+여기서 (L_{m,p})는 BIOME4에 정의된 PFT (p)의 잎수명(month)이다. SLA를 cm^2 g^-1에서 m^2 kg^-1로 변환한 뒤, 잎 건조생체량을 다음과 같이 계산하였다.
 
 식 (23)
 
@@ -238,7 +238,7 @@ B_{leaf,dry,p}={LAI_p OVER SLA_p}
 C_{s,p}=LAI_p C_{n,p}
 ```
 
-여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 따르며, (C_{n,p})는 BIOME4 v4.2b2의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 다음과 같이 계산하였다.
+여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 따르며, (C_{n,p})는 BIOME4의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 다음과 같이 계산하였다.
 
 식 (25)
 
