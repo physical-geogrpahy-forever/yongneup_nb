@@ -2,7 +2,7 @@
 
 ## 2.1 VeSLEM의 구성과 결합 방식
 
-본 연구에서는 21.0 ka BP 이후 기후 변화에 따른 식생, 토양 및 지형의 상호작용을 모의하기 위하여 평형 식생 모델 BIOME4 v4.2b2와 수치 지형발달 모델을 결합한 식생-토양-지형발달 모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다.
+본 연구에서는 21.0 ka BP 이후 기후 변화에 따른 식생, 토양 및 지형의 상호작용을 모의하는 식생-토양-지형발달 모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. VeSLEM은 평형 식생 모델 BIOME4 v4.2b2와 수치 지형발달 모델을 결합하였다.
 
 식생 계산에는 BIOME4의 식물 기능형(Plant Functional Type, PFT) 가운데 PFT 2–13의 12개 유형을 사용하였다. 각 PFT의 순일차생산량(Net Primary Production, NPP)과 엽면적지수(Leaf Area Index, LAI)는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후 제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심에 따라 토양수분 저장량과 PFT별 뿌리 접근성을 계산하였다.
 
@@ -214,7 +214,7 @@ EEMT=E_{\mathrm{PPT}}+E_{\mathrm{BIO}}
 EEMT=\frac{C_w}{10^6}\sum_{m=1}^{12}T_m(R_m-AET_m)+\frac{h_{\mathrm{BIO}}}{10^6}\frac{\max(NPP_C,0)}{1000f_C}
 \]
 
-여기서 \(R_m\)은 월강수량(mm), \(AET_m\)은 BIOME4의 일별 AET를 월별로 합산한 값(mm month⁻¹), \(C_w=4186\) J kg⁻¹ K⁻¹은 물의 비열, \(h_{\mathrm{BIO}}=22\times10^6\) J kg⁻¹은 단위 건조생체량당 에너지 함량이며, \(NPP_C\)는 BIOME4가 산출한 연간 탄소 NPP(g C m⁻² yr⁻¹)이다. 식 (20)의 \(T_m\)은 Pelletier et al. (2013)의 \(\Delta T\)에 해당하는 섭씨 월평균기온이다.
+여기서 \(R_m\)은 월강수량(mm), \(AET_m\)은 BIOME4의 일별 AET를 월별로 합산한 값(mm month⁻¹)이다. \(C_w=4186\) J kg⁻¹ K⁻¹은 물의 비열, \(h_{\mathrm{BIO}}=22\times10^6\) J kg⁻¹은 단위 건조생체량당 에너지 함량이며, \(NPP_C\)는 BIOME4가 산출한 연간 탄소 NPP(g C m⁻² yr⁻¹)이다. 식 (20)의 \(T_m\)은 Pelletier et al. (2013)의 \(\Delta T\)에 해당하는 섭씨 월평균기온이다.
 
 탄소질량분율은 \(f_C=0.50\)으로 설정하였다. 월별 유효강수는 \(P_{\mathrm{eff},m}=R_m-AET_m\)으로 정의하였으며, EEMT의 단위는 MJ m⁻² yr⁻¹이다.
 
