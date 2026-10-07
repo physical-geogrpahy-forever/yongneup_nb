@@ -188,7 +188,7 @@ production code에 사용된 깊이별 available-water density는 SoilGrids Expl
 | 0.60-1.00 | 198 |
 | 1.00-2.00 | 179 |
 
-이 값에는 별도의 coarse-fragment correction, pedotransfer function, calibration 또는 pollen-fit coefficient를 적용하지 않았다. 최종 texture raster의 유효 셀은 모두 BIOME4 texture class 2이다. production hydrology에서 texture class 2는 native BIOME4의 상층 percolation coefficient를 선택하며, 활성식은 `Perc=K_1 omega_top^4`, `K_1=4.0`이다. 원 source에는 하층용 `k(2)`도 입력되지만 현재 활성 일별 water-balance branch에서는 하층 과포화수는 `(omega_bottom-1)W_bottom` 방식으로 drainage되므로 `k(2)`를 별도의 활성 하층 투수율 식으로 서술하지 않는다. 위 available-water density 자체는 sand/silt/clay 비율로부터 본 연구가 다시 추정한 값이 아니다.
+이 값에는 별도의 coarse-fragment correction, pedotransfer function, calibration 또는 pollen-fit coefficient를 적용하지 않았다. 최종 texture raster의 유효 셀은 모두 BIOME4 texture class 2이다. production hydrology에서 texture class 2는 native BIOME4의 상층 percolation coefficient를 선택하며, 활성식은 `Perc=K_1 omega_top^4`, `K_1=4.0 mm d^-1`이다. 원 source에는 하층용 `k(2)`도 입력되지만 현재 활성 일별 water-balance branch에서는 하층 과포화수는 `(omega_bottom-1)W_bottom` 방식으로 drainage되므로 `k(2)`를 별도의 활성 하층 투수율 식으로 서술하지 않는다. 위 available-water density 자체는 sand/silt/clay 비율로부터 본 연구가 다시 추정한 값이 아니다.
 
 BIOME4의 구조적 수문깊이 상한 때문에 실제 적분은 1.50 m까지만 수행한다. 깊이별 water-retention profile과 texture class는 21-0 ka 동안 고정하고, 각 시점의 현재 토심 `H`가 어느 깊이구간까지 포함되는지만 동적으로 바뀐다.
 
