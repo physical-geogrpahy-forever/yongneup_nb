@@ -1,0 +1,32 @@
+name: PB4 PFT climate-limit audit
+on:
+  push:
+    paths:
+      - '.github/workflows/pb4_pft_climate_audit.yml'
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect active BIOME4 climate-limit code
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/pb4pft && mkdir -p /tmp/pb4pft
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4pft
+          ROOT="$(find /tmp/pb4pft -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
+          B="$ROOT/pb4studio/biome4_backend.py"
+          F="$ROOT/fortran_src/biome4_original_4_2b2.f"
+          C="$ROOT/pb4studio/config.py"
+          echo "=== CONFIG VARIANT ==="
+          grep -nE 'biome4_variant|PFT5|PFT6|TCM|Sitch|BoNE|climate' "$C" | head -n 250 || true
+          echo "=== BACKEND CLIMATE MODIFICATIONS ==="
+          grep -nE 'PFT5|PFT6|pft5|pft6|TCM|tcm|Sitch|BoNE|climate|replace\(' "$B" | head -n 800 || true
+          echo "=== BACKEND PATCH REGION 250-430 ==="
+          sed -n '250,430p' "$B"
+          echo "=== FORTRAN PFT PARAMETER REGION ==="
+          grep -nE 'subroutine pft|pftpar|tcm|gdd|twmin|twmax|pft 5|pft 6' "$F" | head -n 500 || true
+          echo "=== EXACT CLIMATE CONSTRAINT REGION ==="
+          grep -n "subroutine constraints" "$F" || true
+          L=$(grep -n "subroutine constraints" "$F" | head -1 | cut -d: -f1 || true)
+          if [ -n "$L" ]; then sed -n "$L,$((L+190))p" "$F"; fi
