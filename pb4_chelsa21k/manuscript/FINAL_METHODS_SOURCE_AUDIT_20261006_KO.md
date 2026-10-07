@@ -23,13 +23,18 @@
 | CHELSA-TraCE21k | Karger et al. (2023), *Climate of the Past* 19:439-456. LGM 이후 월별 기온 및 강수, 1 km 하향화 자료 | \`YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv\` | 원문 직접 + source 직접 |
 | 월평균기온 | 입력 Tmin/Tmax를 이용한 산술평균 | \(T_m=(T_{\min,m}+T_{\max,m})/2-273.15\) | 본 연구 자료변환 |
 | 추가 lapse correction | CHELSA 입력은 이미 downscaled forcing | \`lapse_rate_C_per_m=0\`, \`tmin_lapse_rate_C_per_m=0\` | source 직접 |
-| cloudiness | Beyer et al. (2020), *Scientific Data* 7:236. 후기 제4기 월별 cloudiness 포함 | \`AUX_BEYER_CLOUD_0_21KA.csv\`를 month별 선형보간. Beyer T/P는 미사용 | 원문 직접 + source 직접 |
+| cloudiness 및 BIOME4 광입력 | Beyer et al. (2020), *Scientific Data* 7:236. 후기 제4기 월별 cloudiness 포함 | \`AUX_BEYER_CLOUD_0_21KA.csv\`를 month별 선형보간한 뒤 backend의 \`_prepare_sun_percent()\`에서 \(S_m=100-C_m\)으로 월별 일조율을 계산하여 BIOME4 \`vars_in(29:40)\`에 전달. Beyer T/P는 미사용 | 원문 직접 + source 직접 |
 | CO2 | Bereiter et al. (2015), GRL 42:542-549, revised Antarctic composite | package의 NOAA/NCEI \`antarctica2015co2composite-noaa.txt\`를 model age에 직접 선형보간 | 원문 직접 + source 직접 |
-| BIOME4 absolute Tmin | BIOME4 v4.2b2 source regression | \(T_{\rm absmin}=0.006T_{\rm cold}^2+1.316T_{\rm cold}-21.9\) | source 직접 |
+| 고도-대기압 결합 | PB4 production wrapper의 고도-기압식 | \(p(z)=101325(1-2.25577\times10^{-5}z)^{5.25588}\)로 셀별 대기압을 계산하여 backend \`vars_in(3)\`에 전달. BIOME4 광합성 source에서 \(p\)는 \(O_2\) 및 \(CO_2\) 분압 계산에 사용됨. CHELSA 기온에는 별도 고도감률을 적용하지 않음 | production source 직접 + BIOME4 source 직접 |
+| BIOME4 absolute Tmin | BIOME4 v4.2b2 \`climdata\`에 동일 회귀식이 존재 | production \`climate.py\`가 CHELSA 월평균기온의 최저 월값으로 \(T_{\rm absmin}=0.006T_{\rm cold}^2+1.316T_{\rm cold}-21.9\)를 계산하고, backend가 이를 Fortran \`vars_in(4)=tminin\`으로 전달. 원 v4.2b2의 \`constraints\`는 내부 \`alttmin\`이 아니라 입력 \`tminin\`을 사용하므로 이 전처리 경로를 명시 | source 직접 + production 구현 직접 |
 
 기후 source 확인 파일:
 
 \`pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/climate.py\`
+
+\`pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/biome4_backend.py\`
+
+월별 기온, 운량 및 강수는 BIOME4 v4.2b2의 \`daily\` 서브루틴에서 월 중간값으로부터 quasi-daily 값으로 선형보간되며, 강수는 \`snow\` 서브루틴에서 일별 물공급량으로 변환되어 적설 및 융설 계산에 들어간다.
 
 ## 3. BIOME4
 
@@ -60,7 +65,7 @@ BIOME4 source 확인 파일:
 | 최종 좌표계 | Korea 2000/Central Belt 2010, EPSG:5187 | project 전처리 기록 직접 |
 | 최종 계산격자 | 모든 공간자료를 20 m로 리샘플링 | project 전처리 기록 직접 + production 20 m 설정과 일치 |
 | 경계조건 | 단일 유출구만 open, 나머지 유역 경계 closed | project 전처리 기록 직접 |
-| D8 처리 | 유출구 외 경계로의 flow receiver 금지, 계산 전 sink filling | project 전처리 기록 직접 |
+| 외부 유출 경계와 routing surface | 지정 유출구 외 경계로의 외부 flow receiver를 금지하며, 내부 폐쇄 제거를 위한 sink filling은 유동경로 계산용 지형면에만 적용하고 지형 상태변수 자체는 변경하지 않음 | project 전처리 기록 직접 + production source 직접 |
 | 사면수송 경계 | final mask 내부 인접 셀 사이에서만 계산, closed boundary flux=0 | project 전처리 기록 직접 |
 
 따라서 Methods에서는 “DEM을 10 m로 보간하였다”와 “모델 해상도는 20 m이다”를 충돌하는 문장으로 쓰지 않고, **10 m IDW 보간 후 모든 공간입력을 20 m 계산격자로 리샘플링하였다**고 단계적으로 기술한다.
