@@ -22,7 +22,7 @@ H=z-z_b
 
 유역 경계조건은 지정 유출구의 열린 경계와 유역 외곽의 무유출 경계로 정의하였다. 흐름 방향 계산에서는 지정 유출구를 통해 유역 외부로 배수되도록 하였으며, 사면 물질수송은 계산영역 내부의 인접 셀 사이에서 계산하였다. 흐름 방향과 기여면적은 싱크를 채운 지형면에서 계산하였다.
 
-21.0 ka BP의 초기 지표고도에는 현대 수치지형도를, 초기 토심에는 ISRIC SoilGrids의 기반암 깊이 자료 BDRICM_M_1km_ll을 사용하였다(Hengl et al., 2017; Shangguan et al., 2017). 초기 기반암고도는 지표고도에서 토심을 뺀 값으로 산정하였다. 토성은 SoilGrids 기반의 3분류 토성 자료를 사용하였으며(Poggio et al., 2021), 연구 유역의 토성등급은 BIOME4의 texture class 2로 설정하였다. 상층의 상대 토양수분 상태를 \(omega_{top}\)이라고 하면 일별 층간 이동량은 다음과 같이 계산하였다.
+21.0 ka BP의 초기 지표고도에는 현대 수치지형도를, 초기 토심에는 ISRIC SoilGrids의 기반암 깊이 자료 BDRICM_M_1km_ll을 사용하였다(Hengl et al., 2017; Shangguan et al., 2017). 초기 기반암고도는 지표고도에서 토심을 뺀 값으로 산정하였다. 토성은 SoilGrids 기반의 3분류 토성 자료를 사용하였으며(Poggio et al., 2021), 연구 유역의 토성등급은 BIOME4 토성등급(texture class) 2로 설정하였다. 상층의 상대 토양수분 상태를 \(omega_{top}\)이라고 하면 일별 층간 이동량은 다음과 같이 계산하였다.
 
 식 (2)
 
@@ -44,7 +44,7 @@ T_m={(T_{min,m}+T_{max,m}) OVER 2}-273.15
 
 여기서 (T_m)은 월 (m)의 평균기온이며, (T_{min,m})과 (T_{max,m})은 각각 Kelvin 단위의 월별 최저기온과 최고기온이다. PFT의 절대최저기온 제약에는 식 (4)로 추정한 (T_{absmin})을 사용하였다.
 
-BIOME4의 광환경 계산에는 Beyer et al. (2020)의 월별 운량(cloudiness)을 각 시점에 선형보간한 뒤, (S_m=100-C_m)으로 변환한 월별 일조율을 사용하였다. 여기서 (C_m)은 월별 운량(%), (S_m)은 월별 일조율(%)이다. 대기 CO2 농도는 Bereiter et al. (2015)의 Antarctic composite를 이용하여 각 시점 (t_{BP})에 선형보간하였다. PFT의 저온한계 판정에 사용되는 절대최저기온은 BIOME4의 관계식을 이용하였다.
+BIOME4의 광환경 계산에는 Beyer et al. (2020)의 월별 운량(cloudiness)을 각 시점에 선형보간한 뒤, (S_m=100-C_m)으로 변환한 월별 일조율을 사용하였다. 여기서 (C_m)은 월별 운량(%), (S_m)은 월별 일조율(%)이다. 대기 CO2 농도는 Bereiter et al. (2015)의 남극 복합기록(Antarctic composite)을 이용하여 각 시점 (t_{BP})에 선형보간하였다. PFT의 저온한계 판정에 사용되는 절대최저기온은 BIOME4의 관계식을 이용하였다.
 
 식 (4)
 
@@ -222,7 +222,7 @@ AGB^*=B_{leaf,dry,p^*}+B_{sapwood,dry,p^*}
 log_{10}(SLA_p)=2.44-0.43 log_{10}(L_{m,p})
 ```
 
-여기서 (L_{m,p})는 BIOME4에 정의된 PFT (p)의 잎수명(month)이다. SLA를 cm^2 g^-1에서 m^2 kg^-1로 변환한 뒤, 잎 건조생체량을 다음과 같이 계산하였다.
+여기서 (L_{m,p})는 BIOME4에 정의된 PFT (p)의 잎수명(개월)이다. SLA를 cm^2 g^-1에서 m^2 kg^-1로 변환한 뒤, 잎 건조생체량을 다음과 같이 계산하였다.
 
 식 (23)
 
@@ -230,7 +230,7 @@ log_{10}(SLA_p)=2.44-0.43 log_{10}(L_{m,p})
 B_{leaf,dry,p}={LAI_p OVER SLA_p}
 ```
 
-변재 탄소량은 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 이용하였다.
+변재 탄소량은 Haxeltine and Prentice (1996)의 변재 탄소량-LAI 관계(sapwood-LAI relationship)를 이용하였다.
 
 식 (24)
 
@@ -238,7 +238,7 @@ B_{leaf,dry,p}={LAI_p OVER SLA_p}
 C_{s,p}=LAI_p C_{n,p}
 ```
 
-여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 따르며, (C_{n,p})는 BIOME4의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 다음과 같이 계산하였다.
+여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 변재 탄소량-LAI 관계를 따르며, (C_{n,p})는 BIOME4의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 다음과 같이 계산하였다.
 
 식 (25)
 
