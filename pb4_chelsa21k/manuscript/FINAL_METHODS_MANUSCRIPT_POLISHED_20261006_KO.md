@@ -4,7 +4,7 @@
 
 본 연구에서는 후기 빙기 이후의 기후변화에 따른 식생, 토양 및 지형의 상호작용을 모의하기 위하여 평형 식생모델 BIOME4 v4.2b2와 수치지형발달모델을 결합한 식생-토양-지형발달모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. BIOME4 v4.2b2는 13개의 식물 기능형(Plant Functional Type, PFT) 매개변수군을 정의하며, 이 가운데 열대상록 PFT1은 계산에서 비활성화되어 있다. 본 연구에서는 PFT2-13에 대해 기후, 대기 CO2, 대기압 및 토양수분 조건에서 존재 가능한 PFT의 NPP와 LAI를 계산하고, PFT 간 경쟁을 통해 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). PFT의 존재 가능성은 BIOME4 v4.2b2에 정의된 기후제약을 이용하여 판정하였으며, 토심은 토양수분 저장량과 PFT별 뿌리 접근성을 통해 식생 계산에 반영하였다.
 
-분석기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생모델과 지형발달모델의 결합간격은 0.1 kyr, 즉 100년으로 설정하였다. 이에 따라 총 211개 시간시점을 계산하였다. 각 100년 구간의 시작에서 해당 시점의 기후, 지표고도 및 토심을 이용하여 BIOME4를 실행하였다. 지표고도는 대기압 계산에, 토심은 토양수분 저장량과 PFT별 뿌리 접근성 계산에 이용하였다. BIOME4에서 산출된 NPP, 실제증발산량(Actual Evapotranspiration, AET), LAI 및 우점 PFT로부터 유효 에너지 및 물질 전달량(Effective Energy and Mass Transfer, EEMT)과 지상부 생물량 대리변수 AGB*를 산정하고, 이를 같은 100년 구간의 지형발달 계산에 입력하였다. 구간 말에 갱신된 지표고도와 토심은 다음 시간시점의 식생 계산에 이용하였다.
+분석기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생모델과 지형발달모델의 결합간격은 0.1 kyr, 즉 100년으로 설정하였다. 이에 따라 기후와 식생은 총 211개 출력시점에서 계산하였고, 인접한 출력시점 사이의 지형발달은 210개의 0.1 kyr 구간에서 계산하였다. 각 지형발달 구간의 시작에서 해당 시점의 기후, 지표고도 및 토심을 이용하여 BIOME4를 실행하였다. 지표고도는 대기압 계산에, 토심은 토양수분 저장량과 PFT별 뿌리 접근성 계산에 이용하였다. BIOME4에서 산출된 NPP, 실제증발산량(Actual Evapotranspiration, AET), LAI 및 우점 PFT로부터 유효 에너지 및 물질 전달량(Effective Energy and Mass Transfer, EEMT)과 지상부 생물량 대리변수 AGB*를 산정하고, 이를 같은 100년 구간의 지형발달 계산에 입력하였다. 구간 말에 갱신된 지표고도와 토심은 다음 시간시점의 식생 계산에 이용하였다.
 
 지표고도 (z), 기반암 또는 풍화전선 고도 (z_b), 토심 (H)의 관계는 다음과 같이 정의하였다.
 
@@ -22,7 +22,7 @@ H=z-z_b
 
 유역경계는 하나의 유출구만 열린 경계로 설정하고 나머지 경계는 닫힌 경계로 처리하였다. 흐름방향 계산에서는 지정된 유출구에서만 유역 외부로의 흐름을 허용하였으며, 사면 물질수송은 계산영역 내부의 인접 셀 사이에서만 계산하였다. 흐름경로 계산에 앞서 내부 폐쇄를 제거하기 위하여 싱크 채우기를 적용하였다.
 
-초기 토심은 ISRIC SoilGrids의 기반암 깊이 자료 `BDRICM_M_1km_ll`을 이용하였다(Hengl et al., 2017; Shangguan et al., 2017). 초기 기반암고도는 지표고도에서 토심을 뺀 값으로 산정하였다. 토성은 SoilGrids 기반의 3분류 토성자료를 사용하였으며(Poggio et al., 2021), 연구유역의 유효 셀은 모두 BIOME4의 texture class 2로 분류되었다. 이 토성등급은 BIOME4 수문계산의 층별 포화투수계수를 설정하는 데 사용하였으며, 상층과 하층의 값은 각각 4.0 mm h^-1로 설정하였다.
+21.0 ka BP의 초기 지표고도와 토심은 각각 현재 수치지형도와 ISRIC SoilGrids의 기반암 깊이 자료 `BDRICM_M_1km_ll`을 이용하여 설정하였다(Hengl et al., 2017; Shangguan et al., 2017). 따라서 별도의 21 ka 지형 또는 토심 복원자료는 초기조건에 적용하지 않았다. 초기 기반암고도는 지표고도에서 토심을 뺀 값으로 산정하였다. 토성은 SoilGrids 기반의 3분류 토성자료를 사용하였으며(Poggio et al., 2021), 연구유역의 유효 셀은 모두 BIOME4의 texture class 2로 분류되었다. 이 토성등급은 BIOME4 수문계산의 층별 포화투수계수를 설정하는 데 사용하였으며, 상층과 하층의 값은 각각 4.0 mm h^-1로 설정하였다.
 
 ## 2.3 기후, 대기 CO2 및 고도자료의 식생모델 입력
 
@@ -84,11 +84,11 @@ W_{top}(H)=1000 INT _0^{min(H,0.30)} [theta_{-10}(zeta)-theta_{-1500}(zeta)] d z
 W_{bottom}(H)=1000 INT _{0.30}^{min(max(H,0.30),1.50)} [theta_{-10}(zeta)-theta_{-1500}(zeta)] d zeta
 ```
 
-여기서 (W_{top})과 (W_{bottom})은 각각 상층과 하층의 가용수분 저장량(mm)이다. 최대 수문깊이는 1.50 m로 설정하였다.
+여기서 (W_{top})과 (W_{bottom})은 각각 상층과 하층의 가용수분 저장량(mm)이다. 최대 수문깊이는 1.50 m로 설정하였다. 깊이별 수분보유 특성과 토성등급은 모의기간 동안 고정하였으며, 시간에 따라 변화하는 것은 각 깊이구간 중 현재 토심 (H) 안에 실제로 포함되는 토양의 두께이다.
 
 ## 2.5 PFT별 뿌리 접근성과 BIOME4 계산
 
-뿌리의 수직분포는 Gale and Grigal (1987)이 제시하고 Jackson et al. (1996)이 전지구 생물군계에 적용한 누적분포 관계를 이용하였다.
+BIOME4 v4.2b2의 PFT별 상부 0.30 m 뿌리분율은 Gale and Grigal (1987)이 제시하고 Jackson et al. (1996)이 전지구 생물군계에 적용한 누적 뿌리분포 관계에 근거한다.
 
 식 (8)
 
@@ -96,7 +96,7 @@ W_{bottom}(H)=1000 INT _{0.30}^{min(max(H,0.30),1.50)} [theta_{-10}(zeta)-theta_
 Y(d)=1-beta^d
 ```
 
-여기서 (Y(d))는 지표에서 깊이 (d)까지 존재하는 누적 뿌리분율이며, (beta)는 뿌리의 수직분포를 나타내는 계수이다. BIOME4에 정의된 PFT별 상부 0.30 m 누적 뿌리분율을 (r_{30,p})로 표기하였다.
+여기서 (Y(d))는 지표에서 깊이 (d)까지 존재하는 누적 뿌리분율이며, (beta)는 뿌리의 수직분포를 나타내는 계수이다. 본 구현에서는 (beta)를 새로 추정하지 않고 BIOME4 v4.2b2에 이미 정의된 PFT별 상부 0.30 m 누적 뿌리분율 (r_{30,p})을 직접 사용하였다.
 
 McKenzie et al. (2003)의 지수형 뿌리밀도 함수를 이용하여 깊이에 따른 뿌리 접근성을 계산하였다.
 
@@ -224,7 +224,7 @@ C_{s,p}=LAI_p C_{n,p}
 B_{sapwood,dry,p}={C_{s,p} OVER f_C}
 ```
 
-여기서 (f_C=0.50)이다. BIOME4의 PFT별 변재호흡 설정에 따라 변재가 없는 PFT에는 변재항을 포함하지 않았다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
+여기서 (f_C=0.50)이다. BIOME4의 `pftpar(p,10)` 설정에 따라 sapwood respiration이 비활성화되는 PFT에는 변재항을 포함하지 않았다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
 
 ## 2.8 지형발달모델
 
@@ -354,11 +354,11 @@ K_{reg}={K_0 OVER EEMT}
 K_{bed}={K_{reg} OVER F}
 ```
 
-(K_0=0.020) m^2 MJ^-1, (F=10)을 사용하였다(Pelletier et al., 2013). 유수침식의 경사는 D8 흐름방향을 따라 계산하였으며, 한 시간단계에서 공급 가능한 레골리스보다 많은 토양이 제거되지 않도록 유한공급 조건을 적용하였다.
+(K_0=0.020) m^2 MJ^-1, (F=10)을 사용하였다(Pelletier et al., 2013). 유수침식의 경사는 D8 흐름방향을 따라 계산하였으며, 한 시간단계에서 공급 가능한 레골리스보다 많은 토양이 제거되지 않도록 유한공급 조건을 적용하였다. 본 연구에서 (a), (b), (H_0), (rho_b/rho_s), (c), (d), (K_0), (g), (i), (F)는 Pelletier et al. (2013)의 값을 변경 없이 사용하였으며, Jang et al. (2011)의 화분자료 또는 용늪의 지형에 맞추어 재보정하지 않았다. (S_c)와 (U)만 각각 수치수렴시험과 지역적 융기 강제력의 근거에 따라 별도로 설정하였다.
 
 ### 2.8.4 Regional uplift
 
-Regional uplift는 Lee et al. (2024)이 태백산맥의 장기 삭박 및 exhumation rate에 대응하여 적용한 80 mm kyr^-1을 사용하였다.
+Regional uplift는 Lee et al. (2024)이 태백산맥의 약 22 Ma 이후 장기 exhumation rate와 동일하도록 지형발달모델의 배경 융기율로 설정한 80 mm kyr^-1을 사용하였다.
 
 식 (38)
 
@@ -412,7 +412,7 @@ Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kili
 
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E., & Schulze, E.-D. (1996). A global analysis of root distributions for terrestrial biomes. *Oecologia, 108*, 389-411. https://doi.org/10.1007/BF00333714
 
-Jang, B.-O., Kang, S.-J., & Choi, K.-R. (2011). Vegetation history around Yongneup moor at Mt. Daeamsan, Korea. *Journal of Ecology and Environment, 34*, 259-267. https://doi.org/10.5141/JEFB.2011.028
+Jang, B.-O., Kang, S.-J., & Choi, K.-R. (2011). Vegetation history around Yongneup moor at Mt. Daeamsan, Korea. *Journal of Ecology and Field Biology, 34*(3), 259-267. https://doi.org/10.5141/JEFB.2011.028
 
 Kaplan, J. O. (2001). *Geophysical applications of vegetation modeling*. Doctoral dissertation, Lund University.
 
