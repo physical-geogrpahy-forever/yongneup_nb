@@ -254,7 +254,25 @@ R_{\mathrm{bottom},p}\omega_{\mathrm{bottom}}
 
 으로 계산한다.
 
-위 네 식은 McKenzie와 Jackson의 관계를 BIOME4 2층 수문구조에 연결한 **본 연구 구현식**이다. 얕은 토양에서 \(R_{\mathrm{top},p}+R_{\mathrm{bottom},p}<1\)이어도 1로 재정규화하지 않는다.
+근권 토양수분상태가 양수일 때 AET의 층별 추출가중치는
+
+\[
+F_{\mathrm{top},p}
+=
+R_{\mathrm{top},p}
+\frac{\omega_{\mathrm{top}}}{\omega_{r,p}}
+\]
+
+\[
+F_{\mathrm{bottom},p}
+=
+R_{\mathrm{bottom},p}
+\frac{\omega_{\mathrm{bottom}}}{\omega_{r,p}}
+\]
+
+로 계산하며, \(\omega_{r,p}=0\)이면 두 값 모두 0으로 둔다. 따라서 finite-depth root fraction은 수분스트레스와 실제 층별 수분추출에 모두 반영된다.
+
+위 관계는 McKenzie와 Jackson의 관계를 BIOME4 2층 수문구조에 연결한 **본 연구 구현식**이다. 얕은 토양에서 \(R_{\mathrm{top},p}+R_{\mathrm{bottom},p}<1\)이어도 1로 재정규화하지 않는다.
 
 ## 6. EEMT
 
@@ -484,10 +502,9 @@ E_c
 
 로 둔다.
 
-본 연구에서 사용하는 depth-dependent nonlinear transport는 Pelletier Eq. (14)의 구조를 그대로 사용한다.
+Pelletier Eq. (14)의 연속식은
 
 \[
-\boxed{
 \mathbf q
 =
 -
@@ -496,8 +513,24 @@ k_dH\cos\theta\,\nabla z
 }{
 1-(|\nabla z|/S_c)^2
 }
+\]
+
+이다. 실제 격자계산은 Pelletier et al. (2013)의 Eqs. (20)-(21)과 같은 face-based 이산형식을 사용한다.
+
+\[
+\boxed{
+q_f
+=
+-
+\frac{
+k_{d,f}H_fS_f
+}{
+1-(|S_f|/S_c)^2
+}
 }
 \]
+
+여기서 \(S_f\)는 인접 셀 경계면의 signed slope이고, \(H_f\)와 \(k_{d,f}\)는 인접 두 셀의 산술평균이다. 즉 코드에서 continuum Eq. (14)의 \(\cos\theta\)를 face flux에 별도로 다시 곱하지 않는다.
 
 기후와 식생에 따른 transport coefficient는 Pelletier Eq. (15)를 별도 식으로 둔다.
 
@@ -548,6 +581,14 @@ w=gA^i
 \]
 
 원 연구는 \(g=0.005\), \(i=0.5\)를 사용하였다.
+
+본 구현에서 식 (16)의 기여면적 \(A\)는 Freeman (1991)의 MFD 방식으로 계산하며 경사지수는 1.10이다. Pelletier (2010)의 grid-resolution classifier를 위해 현재 격자와 bilinear interpolation으로 만든 half-cell 격자에서 동일한 MFD 계산을 수행한다. 원 격자셀 하나에 대응하는 2x2 fine cells 가운데 최대 기여면적 \(A_{\Delta x/2}^{\max}\)을 사용하여
+
+\[
+f=\frac{A_{\Delta x}}{A_{\Delta x/2}^{\max}}
+\]
+
+를 계산하고, \(f<1.20\)을 valley, \(f\ge1.20\)을 hillslope로 분류한다. 식 (16)의 경사는 D8 receiver 방향의 slope를 사용한다.
 
 regolith에 대한 erodibility는 Pelletier Eq. (18)을 별도 식으로
 
@@ -675,7 +716,7 @@ Park et al. (2021)의 holdout, PC2 상관, Herbs 비교는 최종 Methods와 최
 
 ### 12.1 canonical ZIP 직접 감사
 
-최종 canonical package는 GitHub Actions에서 repository의 ZIP 자체를 직접 압축해제하여 재검증하였다. 세 canonical alias는 모두 SHA-256 `0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4`로 동일하였다. 압축해제 source에서 `U=0.08`, `S_c=1.50`, `g=0.005`, `i=0.50`, `F=10`, valley threshold 1.20, hillslope `w=Delta x`, valley `w=gA^i`, CHELSA production lapse-rate 0, BIOME4 `stemcarbon=0.5` 및 `lai*stemcarbon` 구현을 직접 확인하였다. 강화된 exact assertion은 모두 통과하였다. 따라서 아래 Methods는 추정된 source snapshot이 아니라 최종 canonical ZIP과 직접 대조된 상태이다.
+현재 canonical package `PB4Studio_v6.6.3_CHELSA21K.zip`을 직접 압축해제하여 재검증하였다. `FINAL_PROVENANCE.json`과 package audit에서 확인한 SHA-256은 `93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b`이다. 압축해제 source에서 `U=0.08`, `S_c=1.50`, `g=0.005`, `i=0.50`, `F=10`, valley threshold 1.20, hillslope `w=Delta x`, valley `w=gA^i`, CHELSA production lapse-rate 0, BIOME4 `stemcarbon=0.5` 및 `lai*stemcarbon` 구현을 직접 확인하였다. 강화된 exact assertion은 모두 통과하였다. 따라서 아래 Methods는 추정된 source snapshot이 아니라 최종 canonical ZIP과 직접 대조된 상태이다.
 
 ## 14. 문서 권위순위
 
@@ -708,6 +749,8 @@ Karger, D. N., et al. (2023). Climatologies at high resolution for the Earth's l
 Beyer, R. M., Krapp, M., & Manica, A. (2020). High-resolution terrestrial climate, bioclimate and vegetation for the last 120,000 years. Scientific Data, 7, 236.
 
 Bereiter, B., et al. (2015). Revision of the EPICA Dome C CO2 record from 800 to 600 kyr before present. Geophysical Research Letters, 42, 542-549.
+
+Freeman, T. G. (1991). Calculating catchment area with divergent flow based on a regular grid. Computers & Geosciences, 17(3), 413-422. https://doi.org/10.1016/0098-3004(91)90048-I
 
 Gale, M. R., & Grigal, D. F. (1987). Vertical root distributions of northern tree species in relation to successional status. Canadian Journal of Forest Research, 17, 829-834.
 
