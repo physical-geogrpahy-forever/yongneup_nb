@@ -43,21 +43,33 @@ At 17.2 ka, direct process diagnostics were additionally generated:
 - bare cells: essentially zero soil depth; 26 cells, many in valley/channel positions
 - corresponding static cells use soil depth 1.94 m and are conifer forest
 
-## Next analysis task
-Quantify, cell by cell and by process group, exactly how geomorphic soil stripping/channel incision lowers soil depth and WHC, changes wetness/firedays/PFT NPP, and produces the conifer -> herb/open or conifer -> bare differences.
+## 17.2 ka conifer mechanism analysis: completed 2026-10-07
+Read first:
+- `PB4_17p2_CONIFER_MECHANISM_COMPLETION_20261007_KO.md`
+- `PB4_17p2_PFT_DEPTH_THRESHOLD_SUMMARY.csv`
 
-Distinguish:
-1. true vegetation competition shifts with residual soil,
-2. near-zero-soil/bare-bedrock outcomes caused by geomorphic stripping,
-3. the role of valley/channel position, contributing area, fluvial erosion, hillslope transport, and elevation difference.
+Key completed findings:
+- bare cells: 23/26 valley, versus 53/271 among conifer cells
+- bare-cell median contributing area = 5,311.6 m2 versus 816.4 m2 in conifer cells
+- bare-cell median A/w = 14,486.2 versus 43.77 in conifer cells
+- all 26 bare cells show positive fluvial bedrock erosion, while only one retains positive regolith erosion
+- current hillslope dz is positive in 23/26 bare cells, so the present bare state must not be attributed to current hillslope stripping
+- 19.8 ka mismatch 4 cells and 18.4-18.3 ka mismatch 19 cells all persist inside the 17.2 ka bare set
+- tracked herb/open cells become bare after their residual soil reaches zero
+- direct 17.2 ka BIOME4-SD soil-depth sweep locates the conifer/open transition near H=0.01401 m and the native barren/open transition near H=0.000201 m under that fixed climate/soil setting
+- the actual 17.2 ka herb/open cell has H=0.009295 m, WHC=2.203 mm, optPFT=10 and NPP=6
+- at that cell PFT6 NPP falls from 276.006 to 56.717 and PFT7 from 260.564 to 92.366 relative to the 1.94 m reference
+- BIOME4 source logic explains the transition: PFT7 below 120 moves to the open branch, after which low grass LAI with PFT10 present selects optPFT10
 
-Do not compress these into a generic “soil moisture effect”; identify the mechanism and magnitude from the CSVs.
+The remaining task is manuscript integration, not additional mechanism discovery unless a reviewer requires another sensitivity test.
 
 ## Files
 - `PB4_EARLY_CONIFER_MISMATCH_CELL_DIAGNOSTICS.csv`
 - `PB4_EARLY_CONIFER_MISMATCH_GROUP_SUMMARY.csv`
 - `PB4_17p2_CONIFER_MISMATCH_CELL_PROCESS_DIAGNOSTICS.csv`
 - `PB4_17p2_CONIFER_PROCESS_GROUP_DIAGNOSTICS.csv`
+- `PB4_17p2_CONIFER_MECHANISM_COMPLETION_20261007_KO.md`
+- `PB4_17p2_PFT_DEPTH_THRESHOLD_SUMMARY.csv`
 - `PB4_4p3ka_broadleaf_cells_static_dynamic_full_diagnostics.csv`
 - `PB4_4p3ka_all_cells_PFT_diagnostics_part1.csv`
 - `PB4_4p3ka_all_cells_PFT_diagnostics_part2.csv`
