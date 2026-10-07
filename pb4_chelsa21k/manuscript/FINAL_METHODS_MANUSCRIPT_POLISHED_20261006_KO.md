@@ -238,15 +238,15 @@ B_{leaf,dry,p}={LAI_p OVER SLA_p}
 C_{s,p}=LAI_p C_{n,p}
 ```
 
-여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 따르며, (C_{n,p})는 BIOME4 v4.2b2의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 다음과 같이 계산하였다.
+여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 따르며, (C_{n,p})는 BIOME4 v4.2b2의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 PFT별 변재항 지시변수 (I_{sap,p})를 이용하여 다음과 같이 계산하였다.
 
 식 (25)
 
 ```
-B_{sapwood,dry,p}={C_{s,p} OVER f_C}
+B_{sapwood,dry,p}=I_{sap,p}{C_{s,p} OVER f_C}
 ```
 
-여기서 (f_C=0.50)이다. PFT별 변재 건조생체량 (B_{sapwood,dry,p})은 BIOME4 v4.2b2의 변재호흡 매개변수에 따라 식 (25)의 값 또는 0으로 정의하였다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
+여기서 (f_C=0.50)이며, (I_{sap,p})는 BIOME4 v4.2b2에서 변재호흡 항이 정의된 PFT에서 1, 정의되지 않은 PFT에서 0이다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
 
 ## 2.8 지형발달모델
 
