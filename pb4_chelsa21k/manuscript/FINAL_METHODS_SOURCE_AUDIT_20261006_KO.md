@@ -451,11 +451,25 @@ GitHub Actions에서 repository의 canonical ZIP 자체를 checkout한 뒤 직�
 4. SoilGrids provenance는 BDRICM_M_1km_ll의 ISRIC 2017-03-10 archive 경로와 wv0010/wv1500 정의까지 확인 완료. 제출 시 다운로드 날짜 또는 로컬 원본 파일 metadata가 남아 있으면 Supplementary에 추가
 5. 완료: 1% 기준은 2026-08-12 validation export에서 확인되었고, 51% 기준은 최종 ablation 이전 retained rule임을 확인하였다. 51%는 preregistered라고 과장하지 않고 최종 고정 후처리 규칙으로 서술
 
+## 14.2 최초 모델 관점 추가 감사
+
+- 토심에 따른 PFT별 root fraction은 root-zone wetness 계산뿐 아니라 AET의 상층 및 하층 추출가중치에도 사용된다.
+- SoilGrids의 깊이별 가용수분 밀도는 외부 논문에 용늪값으로 제시된 수치가 아니라 SoilGrids water-retention product에서 용늪 지점을 추출하여 계산한 값이다.
+- 비선형 사면수송은 격자 경계면에서 Pelletier et al. (2013)의 FTCS 이산형식을 적용하며, 실제 flux 식은 face-average \(H\)와 \(k_d\) 및 face slope를 사용한다.
+- Pelletier (2010)의 grid-resolution classifier에서 기여면적은 Freeman (1991) MFD로 계산하며 경사지수는 1.10이다. 절반 격자는 현재 DEM을 bilinear interpolation하여 생성하고, 각 원 격자셀에 대응하는 2x2 fine cells 가운데 최대 기여면적을 사용한다.
+- fluvial erosion의 \(A\)는 native-grid MFD contributing area이고, 침식경사는 D8 receiver slope를 사용한다.
+- geomorphic substep의 계산순서는 토양생산, 비선형 사면수송, 유수침식 순이다. 새로 생산된 레골리스는 같은 substep에서 이동 가능하며, fluvial erosion은 사면수송 뒤 남은 가용 레골리스를 사용한다.
+- 잠재 유수침식량이 가용 레골리스를 초과하면 레골리스를 먼저 제거하고 잔여 침식능을 \(F\)로 나누어 기반암 침식에 적용한다.
+- 혼효림 재분류는 biome 6, 7, 9에만 적용하고 broadleaf PFT2-4와 conifer PFT5-7의 각 최대 potential NPP를 비교한다.
+- Jang 1% criterion의 분모는 reduced vegetation class 0-3의 식생 셀이며 비식생 class 4는 제외한다.
+
 ## 15. 핵심 참고문헌
 
 Beyer, R. M., Krapp, M., & Manica, A. (2020). High-resolution terrestrial climate, bioclimate and vegetation for the last 120,000 years. *Scientific Data, 7*, 236. https://doi.org/10.1038/s41597-020-0552-1
 
 Bereiter, B., et al. (2015). Revision of the EPICA Dome C CO2 record from 800 to 600 kyr before present. *Geophysical Research Letters, 42*, 542-549. https://doi.org/10.1002/2014GL061957
+
+Freeman, T. G. (1991). Calculating catchment area with divergent flow based on a regular grid. *Computers & Geosciences, 17*(3), 413-422. https://doi.org/10.1016/0098-3004(91)90048-I
 
 Gale, M. R., & Grigal, D. F. (1987). Vertical root distributions of northern tree species in relation to successional status. *Canadian Journal of Forest Research, 17*, 829-834. https://doi.org/10.1139/x87-131
 
