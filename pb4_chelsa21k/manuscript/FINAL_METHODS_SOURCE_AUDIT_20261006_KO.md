@@ -453,6 +453,13 @@ GitHub Actions에서 repository의 canonical ZIP 자체를 checkout한 뒤 직�
 
 ## 14.2 최초 모델 관점 추가 감사
 
+- 21.0 ka BP 초기 지표고도와 토심은 현재 수치지형도와 SoilGrids `BDRICM_M_1km_ll`로 초기화한다. 따라서 production은 독립적으로 복원한 21 ka paleotopography를 초기조건으로 사용하지 않는다.
+- 21-0 ka 동안 SoilGrids water-retention profile과 texture class는 고정되며, 지형발달에 따라 바뀌는 것은 현재 토심 `H`가 포함하는 유효 토양두께이다.
+- 시간축은 21.0-0.0 ka BP의 211개 BIOME4 출력시점과 그 사이의 210개 geomorphic intervals로 구성된다. 0.0 ka BP는 최종 출력시점이며 이후 지형발달 적분은 없다.
+- BIOME4 v4.2b2는 13개 PFT parameter set을 정의하지만 원 source가 tropical evergreen PFT1을 `pfts(1)=0`으로 비활성화하므로 실제 경쟁은 PFT2-13에서 이루어진다.
+- Jackson 식의 `beta`는 production에서 새로 추정하지 않는다. native BIOME4의 `pftpar(pft,6)`에 저장된 top-30-cm root fraction을 직접 McKenzie exponential profile과 analytical matching한다.
+- BIOME4의 `pftpar(pft,10)`은 sapwood respiration의 적용 여부를 제어한다. 따라서 Methods에서는 이 flag가 꺼진 PFT를 '변재가 해부학적으로 없는 PFT'라고 확대해석하지 않고 'sapwood respiration이 비활성화되는 PFT'라고 기술한다.
+- `a,b,H0,rho_b/rho_s,c,d,K0,g,i,F`는 Pelletier et al. (2013)의 값을 변경 없이 이전하며 Jang 화분자료나 용늪 지형에 맞춘 재보정은 하지 않는다. 이 가운데 `Sc`와 `U`만 용늪 production에서 별도로 설정한다.
 - 토심에 따른 PFT별 root fraction은 root-zone wetness 계산뿐 아니라 AET의 상층 및 하층 추출가중치에도 사용된다.
 - SoilGrids의 깊이별 가용수분 밀도는 외부 논문에 용늪값으로 제시된 수치가 아니라 SoilGrids water-retention product에서 용늪 지점을 추출하여 계산한 값이다.
 - 비선형 사면수송은 격자 경계면에서 Pelletier et al. (2013)의 FTCS 이산형식을 적용하며, 실제 flux 식은 face-average \(H\)와 \(k_d\) 및 face slope를 사용한다.
@@ -488,7 +495,7 @@ Haxeltine, A., & Prentice, I. C. (1996). BIOME3: An equilibrium terrestrial bios
 
 Jackson, R. B., et al. (1996). A global analysis of root distributions for terrestrial biomes. *Oecologia, 108*, 389-411. https://doi.org/10.1007/BF00333714
 
-Jang, B.-O., Kang, S.-J., & Choi, K.-R. (2011). Vegetation history around Yongneup moor at Mt. Daeamsan, Korea. *Journal of Ecology and Environment, 34*, 259-267. https://doi.org/10.5141/JEFB.2011.028
+Jang, B.-O., Kang, S.-J., & Choi, K.-R. (2011). Vegetation history around Yongneup moor at Mt. Daeamsan, Korea. *Journal of Ecology and Field Biology, 34*(3), 259-267. https://doi.org/10.5141/JEFB.2011.028
 
 Kaplan, J. O. (2001). *Geophysical applications of vegetation modeling*. Doctoral dissertation, Lund University. ISBN 91-7874-089-4.
 
