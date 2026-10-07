@@ -4,7 +4,7 @@
 
 본 연구에서는 21.0 ka BP 이후 기후 변화에 따른 식생, 토양 및 지형의 상호작용을 모의하는 식생-토양-지형발달 모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다. VeSLEM은 평형 식생 모델 BIOME4 v4.2b2와 수치 지형발달 모델을 결합한 구조이다.
 
-식생 계산에는 BIOME4의 식물 기능형(Plant Functional Type, PFT) 가운데 PFT 2–13의 12개 유형을 사용하였다. 각 PFT의 순일차생산량(Net Primary Production, NPP)과 엽면적지수(Leaf Area Index, LAI)는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후 제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심에 따라 토양수분 저장량과 PFT별 뿌리 접근성을 계산하였다.
+식생 계산에는 BIOME4의 식물 기능형(Plant Functional Type, PFT) 가운데 PFT 2–13의 12개 유형을 사용하였다. 각 PFT의 순일차생산량(Net Primary Production, NPP)과 엽면적지수(Leaf Area Index, LAI)는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후 제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심에 따른 토양수분 저장량과 PFT별 뿌리 접근성을 식생 계산에 사용하였다.
 
 모의 기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생 모델과 지형발달 모델의 결합 간격은 0.1 kyr, 즉 100년으로 설정하였다. 각 결합 시점의 기후, 지표고도 및 토심으로 식생을 계산하고 유효 에너지 및 물질 전달량(Effective Energy and Mass Transfer, EEMT)과 지상부 생물량 대리변수(Aboveground Biomass Proxy, AGB*)를 산정하여 지형발달 계산에 사용하였다. 갱신된 지표고도와 토심은 다음 결합 시점의 식생 계산에 반영하였다.
 
