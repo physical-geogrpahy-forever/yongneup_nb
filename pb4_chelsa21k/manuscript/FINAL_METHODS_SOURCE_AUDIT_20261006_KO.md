@@ -209,7 +209,7 @@ B_{\rm sapwood,dry,p^*}
 
 \`pb4_chelsa21k/results/herbaceous_cause_20261006/source_snapshot/climate.py\`
 
-최종 integrated production builder는 선택된 Reich-LAI-sapwood candidate ZIP의 SHA를 확인하고, `climate.py`에 Reich, Haxeltine Eq. 34, `leaf_months`, `sapwood_present`, `leaf_dry_coef` 구현이 존재하는지 검사한다. 또한 legacy `agb = max(NPP,0) * agb_from_npp_scale` 경로가 남아 있으면 최종 package 생성을 중단하도록 되어 있다. 이후 U008 packaging audit은 과학식과 production parameterization을 변경하지 않은 채 배포구조와 검증 contract만 정리하였다. 따라서 최종 U008의 AGB 항은 legacy 0.010 x NPP가 아니라 Reich-LAI-sapwood 기반 \(AGB^*\)이다.
+최종 integrated production builder는 선택된 Reich-LAI-sapwood candidate ZIP의 SHA를 확인하고, `climate.py`에 Reich, Haxeltine Eq. 34, `leaf_months`, `sapwood_present`, `leaf_dry_coef` 구현이 존재하는지 검사한다. 또한 legacy `agb = np.maximum(npp_gC, 0.0) * float(cfg.agb_from_npp_scale)` 경로가 남아 있으면 최종 package 생성을 중단하도록 되어 있다. 이후 U008 packaging audit은 과학식과 production parameterization을 변경하지 않은 채 배포구조와 검증 contract만 정리하였다. 따라서 최종 U008의 AGB 항은 legacy 0.010 x NPP가 아니라 Reich-LAI-sapwood 기반 \(AGB^*\)이다.
 
 논문에는 \`0.0363078055...\` 또는 PFT별 \(AGB^*/LAI\) 파생 소수계수를 쓰지 않는다.
 
