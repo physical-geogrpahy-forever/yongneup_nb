@@ -194,7 +194,7 @@ EEMT는 두 성분의 합으로 정의하였다.
 EEMT=E_{PPT}+E_{BIO}
 ```
 
-여기서 (P_{eff}=PPT-ET)이다(Pelletier et al., 2013). BIOME4에서 산출되는 월별 AET와 연간 carbon NPP를 이용하여 격자별 EEMT를 다음과 같이 계산하였다.
+여기서 (P_{eff}=PPT-ET)이다(Pelletier et al., 2013). production backend가 BIOME4 수문계산의 일별 AET를 월별 총량으로 집계하여 노출한 값과 BIOME4의 연간 carbon NPP를 이용하여 격자별 EEMT를 다음과 같이 계산하였다.
 
 식 (20)
 
