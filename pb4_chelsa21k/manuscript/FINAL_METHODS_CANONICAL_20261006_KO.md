@@ -143,7 +143,7 @@ f(x)=\exp\left(-\frac{x}{X_i}\right)
 }
 \]
 
-로 제시한다.
+로 제시한다. 여기서 \(X_i\)는 뿌리 또는 수분추출의 약 37%가 그보다 깊은 곳에 놓이는 특성깊이이다.
 
 이 두 관계가 McKenzie에서 직접 가져온 부분이다. McKenzie et al. (2003)이 BIOME4용 2층 토심모형을 제시한 것은 아니다.
 
@@ -284,6 +284,8 @@ R_{\mathrm{bottom},p}
 
 위 관계는 McKenzie와 Jackson의 관계를 BIOME4 2층 수문구조에 연결한 **본 연구 구현식**이다. 얕은 토양에서 \(R_{\mathrm{top},p}+R_{\mathrm{bottom},p}<1\)이어도 1로 재정규화하지 않는다.
 
+토심이 \(H\le10^{-6}\ {m m}\)인 셀은 production runner에서 노출 기반암으로 판정하여 BIOME4 계산 마스크에서 제외한다. 해당 셀에서는 NPP, AET 및 \(AGB^*\)를 0으로 두고, EEMT에는 강수와 기온으로 계산되는 물리적 성분만 남긴다.
+
 ## 6. EEMT
 
 ### 6.1 Pelletier et al. (2013)의 원식
@@ -345,7 +347,7 @@ C_w=4186\ {\rm J\,kg^{-1}\,K^{-1}},
 h_{\mathrm{BIO}}=22\times10^6\ {\rm J\,kg^{-1}}
 \]
 
-이고 \(f_C=0.50\)은 carbon NPP를 dry biomass로 변환하기 위한 본 연구의 명시적 가정이다.
+이고 \(f_C=0.50\)은 carbon NPP를 dry biomass로 변환하기 위한 본 연구의 명시적 가정이다. \(AET_m\)은 BIOME4의 일별 AET를 월내 합산한 월총량이며 단위는 mm month\(^{-1}\)이다. \(T_m\)은 CHELSA 월평균기온을 섭씨로 변환한 값으로 Pelletier의 \(\Delta T\) 항에 사용한다.
 
 이 월별 합산식은 Pelletier 원문의 별도 번호식이 아니라 **원 Eq. (1)-(2)를 BIOME4 출력에 적용한 본 연구 구현식**이다.
 
@@ -397,7 +399,7 @@ B_{\mathrm{leaf,dry},p}
 
 ### 7.2 변재
 
-Haxeltine and Prentice (1996)에 근거하여 사용하는 sapwood-LAI 관계는
+Haxeltine and Prentice (1996)에서 가져오는 것은 sapwood-LAI 관계의 구조이며, production의 실제 수치계수는 BIOME4 v4.2b2 source에서 가져온다. 사용하는 관계는
 
 \[
 \boxed{
