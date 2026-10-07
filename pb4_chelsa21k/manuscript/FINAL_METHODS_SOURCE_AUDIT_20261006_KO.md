@@ -496,7 +496,7 @@ Haxeltine, A., & Prentice, I. C. (1996). BIOME3: An equilibrium terrestrial bios
 
 Jackson, R. B., et al. (1996). A global analysis of root distributions for terrestrial biomes. *Oecologia, 108*, 389-411. https://doi.org/10.1007/BF00333714
 
-Jang, B.-O., Kang, S.-J., & Choi, K.-R. (2011). Vegetation history around Yongneup moor at Mt. Daeamsan, Korea. *Journal of Ecology and Field Biology, 34*(3), 259-267. https://doi.org/10.5141/JEFB.2011.028
+Jang, B.-O., Kang, S.-J., & Choi, K.-R. (2011). Vegetation history around Yongneup moor at Mt. Daeamsan, Korea. *Journal of Ecology and Environment, 34*(3), 259-267. https://doi.org/10.5141/JEFB.2011.028
 
 Kaplan, J. O. (2001). *Geophysical applications of vegetation modeling*. Doctoral dissertation, Lund University. ISBN 91-7874-089-4.
 
