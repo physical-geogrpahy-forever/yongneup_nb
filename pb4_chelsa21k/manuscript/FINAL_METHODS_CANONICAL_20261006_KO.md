@@ -99,7 +99,15 @@ T_{\mathrm{absmin}}
 
 CHELSA-TraCE21k Centennial 자료에 cloud가 없으므로 BIOME4 광입력에 필요한 cloud만 Beyer 계열 자료에서 시간 보간한다. Beyer의 기온과 강수는 사용하지 않는다. CO2는 PB4Studio에 포함된 Bereiter 계열 기록을 사용한다.
 
-식생 코어는 BIOME4 v4.2b2이다. production에서는 native PFT climate limits를 사용한다. 토심에 따른 NPP, LAI 또는 FVC의 직접적인 경험 multiplier는 사용하지 않는다.
+식생 코어는 BIOME4 v4.2b2이다. 13개 PFT parameter set 가운데 원 source에서 PFT1 tropical evergreen은 `pfts(1)=0`으로 비활성화되며 PFT2-13이 경쟁에 참여한다. production에서는 native PFT climate limits를 사용한다. 토심에 따른 NPP, LAI 또는 FVC의 직접적인 경험 multiplier는 사용하지 않는다.
+
+각 셀의 지표고도는 대기압 계산에 사용한다.
+
+[
+p(z)=101325(1-2.25577\times10^{-5}z)^{5.25588}
+]
+
+이 대기압은 BIOME4 광합성 계산에서 CO2와 O2 분압에 반영된다. 따라서 dynamic coupling에서 고도 변화는 대기압 경로를 통해 BIOME4에 되먹임된다.
 
 ## 4. 토심과 available-water storage
 
@@ -693,7 +701,7 @@ static 실험에서는 초기 지형과 토심을 고정한다. dynamic 실험�
 
 BIOME4 mixed biome의 검증용 reduced classification에서는 가장 강한 활엽수 PFT의 잠재 NPP와 가장 강한 침엽수 PFT의 잠재 NPP를 비교한다. 한쪽 비율이 51% 이상이면 해당 식생군으로 분류하고, 어느 쪽도 51%에 도달하지 않으면 혼효림으로 둔다. 이는 BIOME4 내부 PFT 경쟁식이 아니라 검증용 후처리이다.
 
-각 Jang 검증 시점에서 관측 식생군이 모의 유역 내 유효 격자의 1% 이상에서 출현하면 일치한 것으로 판정한다. 1% 기준은 별도의 모델 수식으로 만들지 않는다.
+각 Jang 검증 시점에서 관측 식생군이 reduced vegetation class 0-3으로 분류된 유역셀의 1% 이상에서 출현하면 일치한 것으로 판정한다. class 4 비식생지는 분모에서 제외한다. 1% 기준은 별도의 모델 수식으로 만들지 않는다. 동일한 재분류와 판정규칙을 static과 dynamic 결과에 각각 적용한다.
 
 최종 production 결과는 static 24/62 = 38.71%, dynamic 55/62 = 88.71%이다.
 
@@ -716,7 +724,7 @@ Park et al. (2021)의 holdout, PC2 상관, Herbs 비교는 최종 Methods와 최
 
 ### 12.1 canonical ZIP 직접 감사
 
-현재 canonical package `PB4Studio_v6.6.3_CHELSA21K.zip`을 직접 압축해제하여 재검증하였다. `FINAL_PROVENANCE.json`과 package audit에서 확인한 SHA-256은 `93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b`이다. 압축해제 source에서 `U=0.08`, `S_c=1.50`, `g=0.005`, `i=0.50`, `F=10`, valley threshold 1.20, hillslope `w=Delta x`, valley `w=gA^i`, CHELSA production lapse-rate 0, BIOME4 `stemcarbon=0.5` 및 `lai*stemcarbon` 구현을 직접 확인하였다. 강화된 exact assertion은 모두 통과하였다. 따라서 아래 Methods는 추정된 source snapshot이 아니라 최종 canonical ZIP과 직접 대조된 상태이다.
+현재 canonical package `PB4Studio_v6.6.3_CHELSA21K.zip`을 직접 압축해제하여 재검증하였다. 최근 GitHub Actions 재감사 run `37570067369`에서 확인한 SHA-256은 `93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b`이다. 압축해제 source에서 `U=0.08`, `S_c=1.50`, `g=0.005`, `i=0.50`, `F=10`, valley threshold 1.20, hillslope `w=Delta x`, valley `w=gA^i`, CHELSA production lapse-rate 0, BIOME4 `stemcarbon=0.5` 및 `lai*stemcarbon` 구현을 직접 확인하였다. 강화된 exact assertion은 모두 통과하였다. 따라서 아래 Methods는 추정된 source snapshot이 아니라 최종 canonical ZIP과 직접 대조된 상태이다.
 
 ## 14. 문서 권위순위
 
