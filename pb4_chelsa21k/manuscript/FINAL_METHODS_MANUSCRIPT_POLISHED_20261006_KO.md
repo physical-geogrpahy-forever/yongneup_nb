@@ -74,7 +74,7 @@ p(z)=101325(1-2.25577 TIMES 10^{-5} z)^{5.25588}
 
 ## 2.4 토심에 따른 토양수분 저장량
 
-토심에 따른 가용수분 저장량은 McKenzie et al. (2003)의 토양단면 가용수분용량(profile available water capacity) 개념으로 계산하였다. 깊이 (zeta)에서의 가용수분 밀도는 10 kPa와 1500 kPa에서의 체적수분함량 차이로 정의하였다.
+토심에 따른 가용수분 저장량은 McKenzie et al. (2003)의 토양단면 가용수분용량(profile available water capacity) 개념으로 계산하였다. 깊이 (zeta)에서의 가용수분용량(Available Water Capacity, AWC)은 10 kPa와 1500 kPa에서의 체적수분함량 차이로 정의하였다.
 
 식 (6)
 
