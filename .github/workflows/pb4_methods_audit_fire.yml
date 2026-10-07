@@ -17,8 +17,13 @@ jobs:
           rm -rf /tmp/pb4fire && mkdir -p /tmp/pb4fire
           unzip -q "$ZIP" -d /tmp/pb4fire
           ROOT="$(find /tmp/pb4fire -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
-          F="$ROOT/pb4studio/fortran_src/biome4_original_4_2b2.f"
+          echo "=== FORTRAN CANDIDATES ==="
+          find "$ROOT" -type f \( -iname '*biome4*.f' -o -iname '*biome4*.for' -o -iname '*biome4*.f90' \) -print
+          F="$(find "$ROOT" -type f -iname 'biome4_original_4_2b2.f' | head -n1)"
+          if [ -z "$F" ]; then F="$(find "$ROOT" -type f -iname '*biome4*.f' | head -n1)"; fi
           B="$ROOT/pb4studio/biome4_backend.py"
+          test -n "$F" && test -f "$F"
+          echo "F=$F"
           echo "=== FIRE SUBROUTINE ==="
           L=$(grep -n -i "subroutine fire" "$F" | head -1 | cut -d: -f1)
           sed -n "$L,$((L+70))p" "$F"
