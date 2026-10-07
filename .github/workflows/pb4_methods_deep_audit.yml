@@ -13,7 +13,7 @@ jobs:
         run: |
           set -euo pipefail
           rm -rf /tmp/pb4methods && mkdir -p /tmp/pb4methods
-          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_FINAL.zip -d /tmp/pb4methods
+          unzip -q pb4_chelsa21k/model/PB4Studio_v6.6.3_CHELSA21K.zip -d /tmp/pb4methods
           ROOT="$(find /tmp/pb4methods -maxdepth 1 -type d -name 'PB4Studio*' | head -n1)"
           echo "ROOT=$ROOT"
           echo "=== FILE LIST ==="
