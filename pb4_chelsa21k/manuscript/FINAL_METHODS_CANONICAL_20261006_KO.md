@@ -20,8 +20,8 @@
 - 간격: 0.1 kyr, 총 211개 기후 및 식생 출력시점, 210개 지형발달 구간
 - 식생모형: BIOME4 v4.2b2
 - production configuration: PB4-McKenzie-nativeClimate + BIOME4-derived AGB*
-- 모델 버전: \`6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB\`
-- 최종 package SHA-256: \`796faeae61fa00ca31512d3e087d6134dbdd01428beea760d79d184fa6481f86\`
+- 모델 버전: \`6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008\`
+- 최종 package SHA-256: \`93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b\`
 - 검증자료: Jang et al. (2011)
 - 검증 표본: 62개 100년 output-time
 
