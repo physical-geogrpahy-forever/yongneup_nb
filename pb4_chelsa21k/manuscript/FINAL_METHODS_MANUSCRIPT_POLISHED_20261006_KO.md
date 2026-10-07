@@ -36,7 +36,13 @@ T_m={(T_{min,m}+T_{max,m}) OVER 2}-273.15
 
 여기서 (T_m)은 월 (m)의 평균기온이며, (T_{min,m})과 (T_{max,m})은 각각 Kelvin 단위의 월별 최저기온과 최고기온이다. 월별 기온은 CHELSA-TraCE21k에서 추출한 하향화 값을 사용하였다.
 
-BIOME4의 광환경 계산에 필요한 cloudiness는 Beyer et al. (2020)의 월별 자료를 이용하여 각 시간시점에 맞게 보간하였다. 대기 CO2 농도는 Bereiter et al. (2015)의 Antarctic composite를 이용하여 각 (t_{BP})에 선형보간하였다. PFT의 저온한계 판정에 사용되는 절대최저기온은 BIOME4 v4.2b2의 관계식을 이용하였다.
+BIOME4의 광환경 계산에는 Beyer et al. (2020)의 월별 cloudiness를 각 시간시점에 맞게 보간한 뒤, 월별 일조율을 다음과 같이 변환하여 사용하였다.
+
+```
+S_m=100-C_m
+```
+
+여기서 (C_m)은 월별 cloudiness(%), (S_m)은 BIOME4에 입력되는 월별 sunshine percentage(%)이다. 대기 CO2 농도는 Bereiter et al. (2015)의 Antarctic composite를 이용하여 각 (t_{BP})에 선형보간하였다. PFT의 저온한계 판정에 사용되는 절대최저기온은 BIOME4 v4.2b2의 관계식을 이용하였다.
 
 식 (3)
 
@@ -226,7 +232,7 @@ B_{leaf,dry,p}={LAI_p OVER SLA_p}
 C_{s,p}=LAI_p C_{n,p}
 ```
 
-여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. BIOME4 v4.2b2의 변재 탄소계수에 따라 (C_{n,p}=0.5) kg C m^-2를 적용하였다. 변재 건조생체량은 다음과 같이 계산하였다.
+여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. BIOME4 v4.2b2의 변재 탄소계수에 따라 (C_{n,p}=0.5) kg C m^-2 LAI^-1을 적용하였다. 변재 건조생체량은 다음과 같이 계산하였다.
 
 식 (23)
 
@@ -262,7 +268,7 @@ z=z_b+H
 {PARTIAL H OVER PARTIAL tau}={rho_b OVER rho_s}{P OVER cos theta}-E
 ```
 
-여기서 (U)는 regional uplift, (P)는 토양생산률, (rho_b/rho_s)는 기반암과 토양의 밀도비, (E)는 사면수송과 유수침식에 따른 순 토양제거율이다.
+여기서 (U)는 regional uplift, (P)는 토양생산률, (rho_b/rho_s)는 기반암과 토양의 밀도비, (E)는 사면수송과 유수침식에 따른 순 침식률이며 퇴적이 우세한 경우 음의 값을 갖는다.
 
 ### 2.8.1 토양생산
 
@@ -432,7 +438,7 @@ Karger, D. N., Nobis, M. P., Normand, S., Graham, C. H., & Zimmermann, N. E. (20
 
 Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E., & Yu, B. Y. (2024). Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea. *Earth Surface Dynamics, 12*, 1091-1120. https://doi.org/10.5194/esurf-12-1091-2024
 
-McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). *Estimating water storage capacities in soil at catchment scales* (Technical Report 03/3). Cooperative Research Centre for Catchment Hydrology.
+McKenzie, N. J., Gallant, J. C., & Gregory, L. J. (2003). *Estimating water storage capacities in soil at catchment scales* (Technical Report 03/3). Cooperative Research Centre for Catchment Hydrology. https://www.ewater.org.au/archive/crcch/overview/archive/pubs/pdfs/technical200303.pdf
 
 Pelletier, J. D. (2010). Minimizing the grid-resolution dependence of flow-routing algorithms for geomorphic applications. *Geomorphology, 122*(1-2), 91-98. https://doi.org/10.1016/j.geomorph.2010.06.001
 
