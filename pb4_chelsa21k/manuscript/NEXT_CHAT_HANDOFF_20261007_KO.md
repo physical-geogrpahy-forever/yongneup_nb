@@ -233,12 +233,23 @@ dynamic 전체 298셀:
 
 이 결과는 초기 침엽수림 차이가 단순한 PFT 경쟁 변화만이 아니라, 일부 수렴부와 하도 위치에서 토심이 거의 소실되어 초본 또는 무식생으로 바뀌는 별도의 경로가 있음을 보여준다.
 
-아직 해야 할 일:
-- 17.2 ka 26개 무식생 셀 각각에서 contributing area, valley 여부, fluvial bedrock erosion, hillslope term, 고도차를 더 직접 비교
-- 침엽수림 유지 셀과 통계적으로/수치적으로 얼마나 다른지 정리
-- "하천침식이 원인"이라고 쓸 경우 regolith가 이미 소진된 뒤의 bedrock fluvial term과 이전 토양 제거과정을 구분
-- 초본 1셀은 잔존 토심이 있으므로 무식생 26셀과 별도 메커니즘으로 설명
-- 최종 결과 문장과 해석 문장을 분리해 작성
+### 17.2 ka 과정 진단 완결
+추가 직접 계산과 셀 추적으로 다음이 확인되었다.
+- 무식생 26셀 중 23셀(88.46%)이 valley이며, 침엽수림 271셀에서는 53셀(19.56%)이다.
+- 무식생군 contributing area 중앙값은 5,311.6 m2로 침엽수림군 816.4 m2보다 약 6.5배 크다.
+- 무식생군 A/w 중앙값은 14,486.2로 침엽수림군 43.77보다 약 331배 크다.
+- 무식생 26셀 모두에서 fluvial bedrock erosion이 양수이며, fluvial regolith erosion이 양수인 셀은 1셀뿐이다.
+- 현재 hillslope dz는 23/26셀에서 양수이고 음수인 무식생 셀은 없다. 따라서 현재의 무식생 상태를 현재 사면침식으로 직접 설명하지 않는다.
+- 19.8 ka의 불일치 4셀과 18.4-18.3 ka의 불일치 19셀은 모두 17.2 ka의 무식생 셀에 포함된다.
+- 19.8 ka cell (5,12)는 토심 0.003958 m의 개방식생에서 18.4 ka 토심 0 m 무식생으로, 18.4 ka cell (9,13)는 토심 0.001297 m의 개방식생에서 18.3 ka 토심 0 m 무식생으로 전환된다.
+- 17.2 ka 실제 초본 셀 (14,9)은 토심 0.009295 m, WHC 2.203 mm, NPP 6, optPFT 10이다.
+- 동일 17.2 ka 기후에서 토심만 바꾼 BIOME4-SD 민감도 계산에서 침엽수림-개방식생 전환은 약 H=0.01401 m, native barren-open 전환은 약 H=0.000201 m에서 나타났다.
+- 실제 초본 셀에서 PFT6 NPP는 276.006에서 56.717로 약 79.45%, PFT7 NPP는 260.564에서 92.366으로 약 64.55% 감소한다.
+- BIOME4 원 코드에서 PFT7 NPP가 120 미만이면 open branch로 이동하고, 이후 낮은 grass LAI와 PFT10 존재 조건에서 optPFT10이 선택된다.
+
+완결문:
+- `diagnostics/vegetation_cellwise/PB4_17p2_CONIFER_MECHANISM_COMPLETION_20261007_KO.md`
+- `diagnostics/vegetation_cellwise/PB4_17p2_PFT_DEPTH_THRESHOLD_SUMMARY.csv`
 
 ## 8. 식생 결과 문장의 현재 방향
 
