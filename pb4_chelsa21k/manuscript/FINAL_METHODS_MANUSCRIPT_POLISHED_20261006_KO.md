@@ -28,7 +28,7 @@ H=z-z_b
 
 21.0 ka BP의 초기 지표고도에는 수치지형도로부터 구축한 고도면을, 초기 토심에는 ISRIC SoilGrids의 기반암 깊이 자료 BDRICM_M_1km_ll을 사용하였다(Hengl et al., 2017; Shangguan et al., 2017). 초기 기반암고도는 지표고도에서 토심을 뺀 값으로 산정하였다.
 
-토성은 SoilGrids 기반의 3분류 토성 자료를 사용하였으며(Poggio et al., 2021), 연구 유역의 토성 등급은 BIOME4 토성 등급(texture class) 2로 설정하였다. 상층의 상대 토양수분 상태를 \(omega_{top}\)이라고 하면 일별 층간 이동량은 다음과 같이 계산하였다.
+토성 자료는 SoilGrids 기반의 3분류 자료를 사용하였으며(Poggio et al., 2021), 연구 유역의 토성은 BIOME4 토성 등급(texture class) 2로 설정하였다. 상층의 상대 토양수분 상태를 \(omega_{top}\)이라고 하면 일별 층간 이동량은 다음과 같이 계산하였다.
 
 식 (2)
 
