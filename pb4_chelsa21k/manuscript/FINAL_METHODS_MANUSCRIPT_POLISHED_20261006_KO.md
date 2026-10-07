@@ -114,7 +114,7 @@ McKenzie et al. (2003)의 지수형 깊이 함수를 이용하여 뿌리 접근�
 f(x)=exp(-{x OVER X_i})
 ```
 
-여기서 (X_i)는 식 (10)에서 (f(X_i)=e^{-1}≈0.37)이 되는 특성깊이이다(McKenzie et al., 2003). (r_{30,p})와 식 (10)을 일치시키면 PFT별 특성깊이 (X_p)는 다음과 같이 계산된다.
+여기서 (X_i)는 지수형 깊이 함수의 특성깊이이다(McKenzie et al., 2003). (r_{30,p})와 식 (10)을 일치시키면 PFT별 특성깊이 (X_p)는 다음과 같이 계산된다.
 
 식 (11)
 
@@ -238,15 +238,15 @@ B_{leaf,dry,p}={LAI_p OVER SLA_p}
 C_{s,p}=LAI_p C_{n,p}
 ```
 
-여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 따르며, (C_{n,p})는 BIOME4 v4.2b2의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 PFT별 변재항 지시변수 (I_{sap,p})를 이용하여 다음과 같이 계산하였다.
+여기서 (C_{s,p})는 변재 탄소량, (C_{n,p})은 단위 LAI당 변재 탄소량이다. 식 (24)는 Haxeltine and Prentice (1996)의 sapwood-LAI 관계를 따르며, (C_{n,p})는 BIOME4 v4.2b2의 변재 탄소계수인 0.5 kg C m^-2 LAI^-1로 설정하였다. 변재 건조생체량은 다음과 같이 계산하였다.
 
 식 (25)
 
 ```
-B_{sapwood,dry,p}=I_{sap,p}{C_{s,p} OVER f_C}
+B_{sapwood,dry,p}=CASES{{C_{s,p} OVER f_C} & p in {2,3,4,5,6,7,10,11,13} # 0 & p in {8,9,12}}
 ```
 
-여기서 (f_C=0.50)이며, (I_{sap,p}=1)은 PFT2-7, PFT10, PFT11 및 PFT13에, (I_{sap,p}=0)은 PFT8, PFT9 및 PFT12에 적용하였다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
+여기서 (f_C=0.50)이다. AGB*의 단위는 kg dry biomass m^-2로 하였다.
 
 ## 2.8 지형발달모델
 
