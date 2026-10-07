@@ -408,7 +408,7 @@ PB4 내부의 \`95_01\`-\`95_04\`는 Jang 원문의 sample ID가 아니라 proje
 
 ## 14.1 canonical ZIP 직접 압축해제 감사
 
-GitHub Actions에서 repository의 canonical ZIP 자체를 checkout한 뒤 직접 압축해제하여 source를 재검증하였다. 감사 run은 `37414681328`이며 성공적으로 완료되었다.
+GitHub Actions에서 repository의 현재 canonical ZIP 자체를 checkout한 뒤 직접 압축해제하여 source를 재검증하였다. 최근 재감사 run `37570067369`가 성공적으로 완료되었다.
 
 현재 canonical ZIP은 `PB4Studio_v6.6.3_CHELSA21K.zip`이며, `FINAL_PROVENANCE.json`과 package audit에서 확인한 SHA-256은 `93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b`이다.
 
@@ -518,3 +518,20 @@ Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kili
 Shangguan, W., Hengl, T., Mendes de Jesus, J., Yuan, H., & Dai, Y. (2017). Mapping the global depth to bedrock for land surface modeling. *Journal of Advances in Modeling Earth Systems, 9*(1), 65-88. https://doi.org/10.1002/2016MS000686
 
 Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., de Sousa, L., & Heuvelink, G. B. M. (2023). Global mapping of volumetric water retention at 100, 330 and 15,000 cm suction using the WoSIS database. *International Soil and Water Conservation Research, 11*(2), 225-239. https://doi.org/10.1016/j.iswcr.2022.08.001
+
+
+### 14.3 2026-10-07 추가 source 감사
+
+현재 canonical ZIP과 원문을 다시 대조하여 다음을 확인하였다.
+
+- BIOME4 v4.2b2는 13개 PFT parameter set을 정의하지만 `pfts(1)=0`으로 tropical evergreen PFT1을 비활성화한다. 따라서 실제 경쟁에는 PFT2-13이 참여한다.
+- `pftpar(pft,6)`은 원 Fortran source에서 명시적으로 “fraction of roots in top soil layer, 30 cm from Jackson et al.”로 정의된다.
+- finite-depth root fraction은 root-zone wetness뿐 아니라 AET의 상층 및 하층 추출가중치에도 적용된다.
+- texture class 2의 활성 일별 층간 수분이동은 `Perc=K_1 omega_top^4`, `K_1=4.0 mm h^-1`이다.
+- CHELSA-TraCE21k 시계열은 용늪 중심좌표 128.122518 E, 38.214643 N에서 21-0 ka BP를 100년 간격으로 추출한 단일지점 월별 forcing이다. 원 추출 R 기록과 일치한다.
+- 지표고도는 별도 기온감률 보정에는 사용하지 않지만, 대기압 `p(z)=101325(1-2.25577e-5 z)^5.25588` 계산을 통해 BIOME4 광합성 계산에 전달된다.
+- Pelletier et al. (2013)의 인쇄된 FTCS Eq. (20)-(21)은 face flux에 별도의 `cos theta` 항을 포함하지 않는다. 현재 구현은 이 FTCS 구조를 사용하며, 공간가변 \(H\)와 \(k_d\)는 인접 셀 평균으로 face 값에 전달한다.
+- Pelletier (2010) 분류에서는 native-grid MFD와 bilinear half-cell MFD를 모두 계산하며, native cell에 대응하는 2x2 fine cells 중 최대 contributing area를 사용해 \(f=A_{Delta x}/A_{Delta x/2}^{max}\)를 계산한다. MFD 경사지수는 1.10이다.
+- 하천침식에는 native-grid MFD contributing area와 D8 receiver slope를 함께 사용한다.
+- Jang 1% 검증의 분모는 reduced vegetation class 0-3으로 분류된 유역셀이고 class 4 비식생지는 제외한다.
+- 동일한 검증 재분류 및 1% 판정규칙은 static과 dynamic 결과에 각각 적용한다.
