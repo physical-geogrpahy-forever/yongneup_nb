@@ -323,7 +323,7 @@ K_{\rm bed}
 
 보존된 source audit는 fluvial K0/F/EEMT logic과 Pelletier-2010 \(A/w\) classifier가 후속 패치에서 변경되지 않았음을 기록한다. 따라서 manuscript에서는 원문의 conditional width와 regolith/bedrock erodibility를 분리하여 기술한다.
 
-**추가 확인:** 최종 canonical ZIP은 binary blob이라 현재 GitHub text connector로 직접 압축해제할 수 없었다. 최종 제출 전 canonical archive를 로컬에서 풀어 \`pelletier_geomorph.py\`의 \(g\), \(i\), \(F\), valley classifier 상수와 source line을 다시 한 번 대조한다. 현재 근거는 canonical 이전 package의 source audit와 final integration이 geomorph core를 변경하지 않았다는 build provenance이다.
+**완료:** 최종 canonical ZIP 직접 압축해제 감사는 14.1절에서 수행하였다. 최종 SHA package에서 \(g=0.005\), \(i=0.5\), \(F=10\), valley threshold 1.20, hillslope/valley width 식을 직접 대조하였으며 exact assertion이 모두 통과하였다.
 
 ## 11. regional uplift
 
