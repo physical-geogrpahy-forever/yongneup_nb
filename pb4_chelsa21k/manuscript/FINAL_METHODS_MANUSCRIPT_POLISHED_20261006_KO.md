@@ -4,7 +4,7 @@
 
 본 연구에서는 21.0 ka BP 이후 기후 변화에 따른 식생, 토양 및 지형의 상호작용을 모의하기 위하여 평형 식생 모델 BIOME4 v4.2b2와 수치 지형발달 모델을 결합한 식생-토양-지형발달 모델(Vegetation-Soil-Landscape Evolution Model, VeSLEM)을 구축하였다.
 
-식생 계산에는 BIOME4의 12개 PFT(PFT2–13)를 사용하였다. 각 PFT의 NPP와 LAI는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후 제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심에 따라 토양수분 저장량과 PFT별 뿌리 접근성을 계산하였다.
+식생 계산에는 BIOME4의 12개 PFT(PFT 2–13)를 사용하였다. 각 PFT의 NPP와 LAI는 기후, 대기 CO2, 대기압, 토양수분 및 PFT별 기후 제약에 따라 계산하였으며, PFT 간 경쟁으로 잠재 식생을 결정하였다(Kaplan, 2001; Kaplan et al., 2003). 토심에 따라 토양수분 저장량과 PFT별 뿌리 접근성을 계산하였다.
 
 모의 기간은 21.0 ka BP부터 0.0 ka BP까지로 설정하였으며, 식생 모델과 지형발달 모델의 결합 간격은 0.1 kyr, 즉 100년으로 설정하였다. 각 결합 시점의 기후, 지표고도 및 토심으로 식생을 계산하고 EEMT와 AGB*를 산정하여 지형발달 계산에 사용하였다. 갱신된 지표고도와 토심은 다음 결합 시점의 식생 계산에 반영하였다.
 
@@ -256,7 +256,7 @@ C_{s,p}=LAI_p C_{n,p}
 B_{sapwood,dry,p}={C_{s,p} OVER f_C}
 ```
 
-여기서 (f_C=0.50)이다. PFT2–7, PFT10, PFT11 및 PFT13의 변재 건조생체량은 식 (25)로 계산하였고, PFT8, PFT9 및 PFT12에서는 (B_{sapwood,dry,p}=0)으로 설정하였다. AGB*의 단위는 kg dry biomass m^-2이다.
+여기서 (f_C=0.50)이다. PFT 2–7, PFT 10, PFT 11 및 PFT 13의 변재 건조생체량은 식 (25)로 계산하였고, PFT 8, PFT 9 및 PFT 12에서는 (B_{sapwood,dry,p}=0)으로 설정하였다. AGB*의 단위는 kg dry biomass m^-2이다.
 
 ## 2.8 지형발달 모델
 
