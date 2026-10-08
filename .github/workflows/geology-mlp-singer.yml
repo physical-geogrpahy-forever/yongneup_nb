@@ -72,6 +72,9 @@ jobs:
           p=Path('mlp-singer/utils.py');s=p.read_text()
           s=s.replace('torch.load(checkpoint_path)','torch.load(checkpoint_path, map_location="cpu")')
           p.write_text(s)
+          p=Path('mlp-singer/data/dsp/stft.py');s=p.read_text()
+          s=s.replace('pad_center(fft_window, filter_length)','pad_center(fft_window, size=filter_length)')
+          p.write_text(s)
           PY
       - name: Render native Korean singing to mel-spectrogram
         run: |
