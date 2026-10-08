@@ -1,0 +1,68 @@
+name: Korean geology lyric recognizability validation
+on:
+  push:
+    branches: [experiment/korean-geology-song-synthesis-20261008]
+    paths: [.github/workflows/geology-audio-asr.yml]
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download synthesized 12-verse artifact
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh run download 37720015733 --repo "$GITHUB_REPOSITORY" --name ko-geology-full-12-verses --dir input
+          find input -type f | head -12
+      - name: Install Korean ASR
+        run: |
+          python -m pip install -q faster-whisper rapidfuzz
+      - name: Compare Korean transcription with first verse lyrics
+        run: |
+          python - <<'PY'
+          import json,re
+          from pathlib import Path
+          from faster_whisper import WhisperModel
+          from rapidfuzz.distance import Levenshtein
+          expected = """사십육억 년 전에 지구가 탄생
+          명왕누대 첫 지각 달이 생기고
+          시생누대 초시생 고시생 지나
+          중시생과 신시생 대륙핵 성장
+          바닷속의 미생물 광합성 시작
+          남세균 광합성해
+          한반도의 오래된 지각의 바탕
+          경기 영남 육괴에
+          시생대의 옛 암석 고원생대 편마암
+          열과 압력 받아 변성 흔적 남아
+          지각이 자란다"""
+          def clean(x):return ''.join(re.findall('[가-힣]',x))
+          model=WhisperModel("base",device="cpu",compute_type="int8")
+          outputs=[]
+          for kind,name in [
+            ("unpitched","1절_한국어_명료도_원음성.mp3"),
+            ("pitched_with_instrument","1절_가창시험_반주포함.mp3")]:
+            path=Path('input/verse_01')/name
+            seg,info=model.transcribe(str(path),language="ko",beam_size=4,condition_on_previous_text=False)
+            text=" ".join(s.text.strip() for s in seg)
+            ref,hyp=clean(expected),clean(text)
+            distance=Levenshtein.distance(ref,hyp)
+            record={"kind":kind,"audio":str(path),"reference_chars":len(ref),"recognized_chars":len(hyp),"char_edit_distance":distance,"CER":round(distance/len(ref),3),"recognized":text}
+            outputs.append(record)
+            print(json.dumps(record,ensure_ascii=False),flush=True)
+          Path('asr_report.json').write_text(json.dumps(outputs,ensure_ascii=False,indent=2))
+          PY
+      - name: Upload recognizability report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ko-geology-lyric-asr-report
+          path: asr_report.json
+          if-no-files-found: warn
