@@ -1,0 +1,105 @@
+name: Korean MLP Singer original-score experiment
+on:
+  push:
+    branches: [experiment/korean-geology-song-synthesis-20261008]
+    paths: [.github/workflows/geology-mlp-singer.yml]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install Korean singing model dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install torch==2.3.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install "numpy==1.26.4" "librosa==0.10.2.post1" scipy "mido==1.2.9" soundfile tensorboard
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Fetch pre-trained Korean children's song singing model
+        run: |
+          git clone --depth=1 --recurse-submodules https://github.com/neosapience/mlp-singer.git mlp-singer
+          test $(stat -c%s mlp-singer/checkpoints/default/model.pt) -gt 90000000
+      - name: Build our first-verse sheet music and lyrics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import gzip,base64,re,mido
+          source=Path('geology_song_experiment/ko_singing_piper.py').read_text()
+          score=re.search(r'SCORE="([^"]+)"',source).group(1)
+          notes=[]
+          for line in gzip.decompress(base64.b64decode(score)).decode().splitlines():
+           v,on,d,p,sy=line.split(",")
+           notes.append((float(on),float(d),int(p),sy))
+          lines=[
+          "사십육억 년 전에 지구가 탄생",
+          "명왕누대 첫 지각 달이 생기고",
+          "시생누대 초시생 고시생 지나",
+          "중시생과 신시생 대륙핵 성장",
+          "바닷속의 미생물 광합성 시작",
+          "남세균 광합성해",
+          "한반도의 오래된 지각의 바탕",
+          "경기 영남 육괴에",
+          "시생대의 옛 암석 고원생대 편마암",
+          "열과 압력 받아 변성 흔적 남아",
+          "지각이 자란다"]
+          assert ''.join(x[3] for x in notes) == ''.join(c for s in lines for c in s if '가'<=c<='힣')
+          m=mido.MidiFile(ticks_per_beat=480)
+          t=mido.MidiTrack();m.tracks.append(t)
+          t.append(mido.MetaMessage('set_tempo',tempo=mido.bpm2tempo(156),time=0))
+          ev=[]
+          for on,d,p,ch in notes:
+           start=round(on*480);end=round((on+d)*480)
+           ev.extend([(start,1,p),(end,0,p)])
+          last=0
+          for tick,typ,pitch in sorted(ev,key=lambda x:(x[0],x[1])):
+           t.append(mido.Message('note_on' if typ else 'note_off',note=pitch,velocity=75 if typ else 0,time=tick-last));last=tick
+          out=Path('mlp-singer/data/raw')
+          (out/'mid').mkdir(exist_ok=True,parents=True)
+          (out/'txt').mkdir(exist_ok=True,parents=True)
+          m.save(out/'mid/geosong.mid')
+          (out/'txt/geosong.txt').write_text('\n'.join(lines),encoding='utf-8')
+          print('MID/Lyrics:',len(notes),'notes',m.length,'seconds',flush=True)
+          # Patch a deprecated positional librosa argument and force CPU checkpoint loading.
+          p=Path('mlp-singer/data/dsp/core.py')
+          s=p.read_text()
+          s=s.replace('librosa_mel_fn(\n            sampling_rate, filter_length, n_mel_channels, mel_fmin, mel_fmax\n        )','librosa_mel_fn(\n            sr=sampling_rate, n_fft=filter_length, n_mels=n_mel_channels, fmin=mel_fmin, fmax=mel_fmax\n        )')
+          p.write_text(s)
+          p=Path('mlp-singer/utils.py');s=p.read_text()
+          s=s.replace('torch.load(checkpoint_path)','torch.load(checkpoint_path, map_location="cpu")')
+          p.write_text(s)
+          PY
+      - name: Render native Korean singing to mel-spectrogram
+        run: |
+          cd mlp-singer
+          python inference.py --song geosong --device cpu
+          test -f hifi-gan/test_mel_files/geosong.npy
+      - name: Reconstruct singing audio for listening test
+        run: |
+          mkdir -p output
+          python - <<'PY'
+          import numpy as np,librosa,soundfile as sf
+          mel=np.load('mlp-singer/hifi-gan/test_mel_files/geosong.npy')
+          print('Model mel output:',mel.shape, 'finite',np.isfinite(mel).all(),flush=True)
+          assert np.isfinite(mel).all()
+          mel=np.squeeze(mel)
+          if mel.shape[0]!=80:mel=mel.T
+          assert mel.shape[0]==80
+          mag=np.exp(np.clip(mel,-10,6))
+          y=librosa.feature.inverse.mel_to_audio(mag,sr=22050,n_fft=1024,hop_length=256,win_length=1024,fmin=0,fmax=8000,n_iter=35)
+          y/=max(1,float(np.max(np.abs(y)))/.85)
+          sf.write('output/1절_MLP_Singer_한국어_노래실험.wav',y,22050)
+          print('AUDIO seconds',len(y)/22050,'rms',float(np.sqrt(np.mean(y*y))),flush=True)
+          PY
+          ffmpeg -y -loglevel error -i 'output/1절_MLP_Singer_한국어_노래실험.wav' -b:a 192k 'output/1절_MLP_Singer_한국어_노래실험.mp3'
+      - name: Upload true singing-model trial
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: korean-mlp-singer-verse1
+          path: output/
+          if-no-files-found: warn
