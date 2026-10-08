@@ -18,7 +18,7 @@ jobs:
           python-version: '3.11'
       - name: Download synthesized 12-verse artifact
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh run download 37720015733 --repo "$GITHUB_REPOSITORY" --name ko-geology-full-12-verses --dir input
           find input -type f | head -12
