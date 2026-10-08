@@ -81,6 +81,20 @@ jobs:
           cd mlp-singer
           python inference.py --song geosong --device cpu
           test -f hifi-gan/test_mel_files/geosong.npy
+      - name: Download universal neural singing vocoder
+        run: |
+          set -euxo pipefail
+          mkdir -p mlp-singer/hifi-gan/UNIVERSAL_V1
+          cd mlp-singer/hifi-gan/UNIVERSAL_V1
+          curl -fL --retry 3 --connect-timeout 20 'https://huggingface.co/huseinzol05/jik876-UNIVERSAL_V1/resolve/main/g_02500000?download=true' -o g_02500000
+          curl -fL --retry 3 --connect-timeout 20 'https://huggingface.co/huseinzol05/jik876-UNIVERSAL_V1/resolve/main/config.json' -o config.json
+          echo '771eaf4876485a35e25577563d390c262e23c2421e4a8c929eacfde34a5b7a60  g_02500000' | sha256sum -c -
+      - name: Render neural-vocoder Korean singing
+        run: |
+          mkdir -p output
+          cd mlp-singer/hifi-gan
+          python inference_e2e.py --checkpoint_file UNIVERSAL_V1/g_02500000 --input_mels_dir test_mel_files --output_dir ../../output
+          ffmpeg -y -loglevel error -i ../../output/geosong_generated_e2e.wav -af loudnorm=I=-18:TP=-1.5:LRA=11 -b:a 192k ../../output/1절_MLP_Singer_HiFiGAN_한국어_가창.mp3
       - name: Reconstruct singing audio for listening test
         run: |
           mkdir -p output
