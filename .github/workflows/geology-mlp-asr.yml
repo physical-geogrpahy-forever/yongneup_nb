@@ -1,0 +1,68 @@
+name: Korean MLP Singer lyric ASR evaluation
+on:
+  push:
+    branches: [experiment/korean-geology-song-synthesis-20261008]
+    paths: [.github/workflows/geology-mlp-asr.yml]
+permissions:
+  actions: read
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch singing model audio
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p input
+          gh run download 37721049048 --repo "$GITHUB_REPOSITORY" --name korean-mlp-singer-verse1 --dir input
+      - name: Install ASR
+        run: python -m pip install -q faster-whisper rapidfuzz soundfile numpy
+      - name: Test Korean recognizability
+        run: |
+          python - <<'PY'
+          import re,json,numpy as np,soundfile as sf
+          from pathlib import Path
+          from faster_whisper import WhisperModel
+          from rapidfuzz.distance import Levenshtein
+          lyric="""사십육억 년 전에 지구가 탄생
+          명왕누대 첫 지각 달이 생기고
+          시생누대 초시생 고시생 지나
+          중시생과 신시생 대륙핵 성장
+          바닷속의 미생물 광합성 시작
+          남세균 광합성해
+          한반도의 오래된 지각의 바탕
+          경기 영남 육괴에
+          시생대의 옛 암석 고원생대 편마암
+          열과 압력 받아 변성 흔적 남아
+          지각이 자란다"""
+          src=Path('input/1절_MLP_Singer_한국어_노래실험.wav')
+          x,sr=sf.read(src)
+          x=x*min(16,.75/max(1e-6,float(np.max(np.abs(x)))))
+          sf.write('MLP_singer_normalized.wav',x,sr)
+          model=WhisperModel('base',device='cpu',compute_type='int8')
+          def clean(s): return ''.join(re.findall('[가-힣]',s))
+          reports=[]
+          for label,p in [('unadjusted',src),('normalized',Path('MLP_singer_normalized.wav'))]:
+           seg,_=model.transcribe(str(p),language='ko',beam_size=4,condition_on_previous_text=False)
+           trans=' '.join(z.text for z in seg)
+           ref=clean(lyric); pred=clean(trans); dist=Levenshtein.distance(ref,pred)
+           report=dict(kind=label,reference_chars=len(ref),recognized_chars=len(pred),CER=round(dist/max(1,len(ref)),3),transcription=trans)
+           print(json.dumps(report,ensure_ascii=False),flush=True)
+           reports.append(report)
+          Path('asr_mlp_report.json').write_text(json.dumps(reports,ensure_ascii=False,indent=2))
+          PY
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: korean-mlp-asr-evaluation
+          path: |
+            asr_mlp_report.json
+            MLP_singer_normalized.wav
+          if-no-files-found: warn
