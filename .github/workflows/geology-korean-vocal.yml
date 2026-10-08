@@ -12,7 +12,7 @@ permissions:
 jobs:
   synth:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -33,12 +33,17 @@ jobs:
           echo '624fd774e26895f24bebae1bd9a3379e3394baeade4b584924f83e414096e2c9  ko_KR-kss-medium.onnx' | sha256sum -c -
           test $(stat -c%s ko_KR-kss-medium.onnx) -gt 60000000
       - name: Render Korean voice audio
-        run: python geology_song_experiment/ko_singing_piper.py
+        run: python geology_song_experiment/render_all_verses.py
       - name: Publish audio artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: ko-geology-first-verse
-          path: output/
+          name: ko-geology-full-12-verses
+          path: |
+            output/*.mp3
+            output/status.txt
+            output/verse_*/1절_한국어_명료도_원음성.mp3
+            output/verse_*/1절_가창시험_반주포함.mp3
+            output/verse_*/synthesis_report.txt
           if-no-files-found: warn
           retention-days: 30
