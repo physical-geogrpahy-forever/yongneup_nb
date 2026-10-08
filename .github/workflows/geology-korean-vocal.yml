@@ -1,0 +1,44 @@
+name: Korean geology mnemonic vocal experiment
+on:
+  push:
+    branches:
+      - experiment/korean-geology-song-synthesis-20261008
+    paths:
+      - geology_song_experiment/**
+      - .github/workflows/geology-korean-vocal.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Korean speech dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg libespeak-ng1
+          python -m pip install --upgrade pip
+          python -m pip install "piper-tts>=1.2.0" "librosa>=0.10.2" "praat-parselmouth>=0.4.5" "soundfile>=0.12" "numpy<2"
+      - name: Fetch verified Korean model
+        run: |
+          set -euxo pipefail
+          base='https://huggingface.co/rhasspy/piper-voices/resolve/main/ko/ko_KR/kss/medium'
+          curl -fLsS --retry 3 --connect-timeout 20 "$base/ko_KR-kss-medium.onnx?download=true" -o ko_KR-kss-medium.onnx
+          curl -fLsS --retry 3 --connect-timeout 20 "$base/ko_KR-kss-medium.onnx.json" -o ko_KR-kss-medium.onnx.json
+          echo '624fd774e26895f24bebae1bd9a3379e3394baeade4b584924f83e414096e2c9  ko_KR-kss-medium.onnx' | sha256sum -c -
+          test $(stat -c%s ko_KR-kss-medium.onnx) -gt 60000000
+      - name: Render Korean voice audio
+        run: python geology_song_experiment/ko_singing_piper.py
+      - name: Publish audio artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ko-geology-first-verse
+          path: output/
+          if-no-files-found: warn
+          retention-days: 30
