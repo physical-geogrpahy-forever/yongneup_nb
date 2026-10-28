@@ -264,7 +264,7 @@ PFT 2–7, 10, 11, 13의 변재 건조생체량은 식 (25)로 계산하였고, 
 
 ## 2.8 지형발달 모형
 
-지형발달은 Pelletier et al. (2013)의 토양생성, 비선형 사면 물질수송(colluvial transport), 포상침식(slope-wash) 및 하천침식(fluvial erosion) 과정을 결합하여 계산하였다. 지표고도는 기반암고도와 토심의 합으로 정의하였다.
+지형발달은 Pelletier et al. (2013)의 토양생성, 비선형 사면 물질수송(colluvial transport), 포상침식(slope-wash) 및 하천침식(fluvial erosion) 과정을 결합하여 계산하였다. 지표고도는 기반암면 고도와 토심의 합으로 정의하였다.
 
 식 (26)
 
