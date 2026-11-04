@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="852.480686pt" height="517.0144pt" viewBox="0 0 852.480686 517.0144" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T04:31:17.526068</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 517.0144 
+L 852.480686 517.0144 
+L 852.480686 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 206.713177 405.777848 
+L 174.262901 349.572322 
+L 112.967936 349.572322 
+L 143.615419 296.489325 
+L 377.978522 296.489325 
+L 441.076281 405.777848 
+z
+" clip-path="url(#p95ca6bf2dc)" style="fill: #cae2d5"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 143.615419 296.489325 
+L 260.79697 93.524923 
+L 377.978522 296.489325 
+z
+" clip-path="url(#p95ca6bf2dc)" style="fill: #c6d2ee"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 80.51766 405.777848 
+L 112.967936 349.572322 
+L 174.262901 349.572322 
+L 206.713177 405.777848 
+z
+" clip-path="url(#p95ca6bf2dc)" style="fill: #f3d6b4"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 98.545591 374.552556 
+L 423.04835 374.552556 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 405.020419 405.777848 
+L 242.769039 124.750216 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 278.824901 124.750216 
+L 116.573522 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 116.573522 343.327263 
+L 405.020419 343.327263 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 368.964557 405.777848 
+L 224.741108 155.975508 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 296.852832 155.975508 
+L 152.629384 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 134.601453 312.101971 
+L 386.992488 312.101971 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 332.908694 405.777848 
+L 206.713177 187.200801 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_9">
+    <path d="M 314.880763 187.200801 
+L 188.685246 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_10">
+    <path d="M 152.629384 280.876678 
+L 368.964557 280.876678 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_11">
+    <path d="M 296.852832 405.777848 
+L 188.685246 218.426093 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_12">
+    <path d="M 332.908694 218.426093 
+L 224.741108 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_13">
+    <path d="M 170.657315 249.651386 
+L 350.936625 249.651386 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_14">
+    <path d="M 260.79697 405.777848 
+L 170.657315 249.651386 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_15">
+    <path d="M 350.936625 249.651386 
+L 260.79697 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_16">
+    <path d="M 188.685246 218.426093 
+L 332.908694 218.426093 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_17">
+    <path d="M 224.741108 405.777848 
+L 152.629384 280.876678 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_18">
+    <path d="M 368.964557 280.876678 
+L 296.852832 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_19">
+    <path d="M 206.713177 187.200801 
+L 314.880763 187.200801 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_20">
+    <path d="M 188.685246 405.777848 
+L 134.601453 312.101971 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_21">
+    <path d="M 386.992488 312.101971 
+L 332.908694 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_22">
+    <path d="M 224.741108 155.975508 
+L 296.852832 155.975508 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_23">
+    <path d="M 152.629384 405.777848 
+L 116.573522 343.327263 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_24">
+    <path d="M 405.020419 343.327263 
+L 368.964557 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_25">
+    <path d="M 242.769039 124.750216 
+L 278.824901 124.750216 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_26">
+    <path d="M 116.573522 405.777848 
+L 98.545591 374.552556 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_27">
+    <path d="M 423.04835 374.552556 
+L 405.020419 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #ffffff; stroke-opacity: 0.8; stroke-width: 0.46; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: end; fill: #4e4e4e" x="67.898108" y="407.035614" transform="rotate(-0 67.898108 407.035614)">0</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: middle; fill: #4e4e4e" x="441.076281" y="428.481869" transform="rotate(-0 441.076281 428.481869)">0</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: start; fill: #4e4e4e" x="273.416522" y="94.782689" transform="rotate(-0 273.416522 94.782689)">0</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: end; fill: #4e4e4e" x="103.95397" y="344.585029" transform="rotate(-0 103.95397 344.585029)">20</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: middle; fill: #4e4e4e" x="368.964557" y="428.481869" transform="rotate(-0 368.964557 428.481869)">20</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: start; fill: #4e4e4e" x="309.472384" y="157.233274" transform="rotate(-0 309.472384 157.233274)">20</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: end; fill: #4e4e4e" x="140.009832" y="282.134444" transform="rotate(-0 140.009832 282.134444)">40</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: middle; fill: #4e4e4e" x="296.852832" y="428.481869" transform="rotate(-0 296.852832 428.481869)">40</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: start; fill: #4e4e4e" x="345.528246" y="219.683859" transform="rotate(-0 345.528246 219.683859)">40</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: end; fill: #4e4e4e" x="176.065694" y="219.683859" transform="rotate(-0 176.065694 219.683859)">60</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: middle; fill: #4e4e4e" x="224.741108" y="428.481869" transform="rotate(-0 224.741108 428.481869)">60</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: start; fill: #4e4e4e" x="381.584108" y="282.134444" transform="rotate(-0 381.584108 282.134444)">60</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: end; fill: #4e4e4e" x="212.121557" y="157.233274" transform="rotate(-0 212.121557 157.233274)">80</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: middle; fill: #4e4e4e" x="152.629384" y="428.481869" transform="rotate(-0 152.629384 428.481869)">80</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: start; fill: #4e4e4e" x="417.63997" y="344.585029" transform="rotate(-0 417.63997 344.585029)">80</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: end; fill: #4e4e4e" x="248.177419" y="94.782689" transform="rotate(-0 248.177419 94.782689)">100</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: middle; fill: #4e4e4e" x="80.51766" y="428.481869" transform="rotate(-0 80.51766 428.481869)">100</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 9px; font-family: 'NanumGothic'; text-anchor: start; fill: #4e4e4e" x="453.695832" y="407.035614" transform="rotate(-0 453.695832 407.035614)">100</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 12px; font-family: 'NanumGothic'" transform="translate(15.513844 286.219264) rotate(-60)">점토 (Clay, %)</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 12px; font-family: 'NanumGothic'; text-anchor: middle" x="260.79697" y="454.808234" transform="rotate(-0 260.79697 454.808234)">모래 (Sand, %)</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 12px; font-family: 'NanumGothic'" transform="translate(458.685549 221.615663) rotate(-300)">미사 (Silt, %)</text>
+   </g>
+   <g id="line2d_28">
+    <path d="M 143.615419 296.489325 
+L 377.978522 296.489325 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #181818; stroke-width: 2.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_29">
+    <path d="M 112.967936 349.572322 
+L 174.262901 349.572322 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #181818; stroke-width: 2.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_30">
+    <path d="M 206.713177 405.777848 
+L 174.262901 349.572322 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #181818; stroke-width: 2.2; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_31">
+    <path d="M 80.51766 405.777848 
+L 260.79697 93.524923 
+L 441.076281 405.777848 
+L 80.51766 405.777848 
+" clip-path="url(#p95ca6bf2dc)" style="fill: none; stroke: #141414; stroke-width: 1.75; stroke-linecap: square"/>
+   </g>
+   <g id="text_22">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'NanumGothic'" transform="translate(117.897 378.397614)">1  조립질</text>
+    <text style="font-weight: 700; font-size: 12px; font-family: 'NanumGothic'" transform="translate(122.882625 390.397614)">Coarse</text>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'NanumGothic'" transform="translate(245.51496 356.13991)">2  중립질</text>
+    <text style="font-weight: 700; font-size: 14px; font-family: 'NanumGothic'" transform="translate(246.28496 370.13991)">Medium</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 14px; font-family: 'NanumGothic'" transform="translate(220.275856 224.993681)">3  세립질</text>
+    <text style="font-weight: 700; font-size: 14px; font-family: 'NanumGothic'" transform="translate(234.905856 238.993681)">Fine</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_5">
+    <path d="M 560.954491 184.17852 
+L 578.498022 184.17852 
+L 578.498022 123.53256 
+L 560.954491 123.53256 
+z
+" clip-path="url(#pe7bd7a6af1)" style="fill: #f3d6b4; stroke: #555555; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 560.954491 272.0106 
+L 578.498022 272.0106 
+L 578.498022 211.36464 
+L 560.954491 211.36464 
+z
+" clip-path="url(#pe7bd7a6af1)" style="fill: #cae2d5; stroke: #555555; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 560.954491 359.84268 
+L 578.498022 359.84268 
+L 578.498022 299.19672 
+L 560.954491 299.19672 
+z
+" clip-path="url(#pe7bd7a6af1)" style="fill: #c6d2ee; stroke: #555555; stroke-width: 0.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_32">
+    <path d="M 560.954491 397.485 
+L 833.181699 397.485 
+" clip-path="url(#pe7bd7a6af1)" style="fill: none; stroke: #a1a1a1; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 17px; font-family: 'NanumGothic'; text-anchor: start" x="560.954491" y="99.49024" transform="rotate(-0 560.954491 99.49024)">BIOME4 토성 구분</text>
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'NanumGothic'; text-anchor: start" x="588.177212" y="137.73876" transform="rotate(-0 588.177212 137.73876)">조립질  /  Coarse</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 10.7px; font-family: 'NanumGothic'; text-anchor: start" x="588.177212" y="161.875392" transform="rotate(-0 588.177212 161.875392)">모래 &gt; 65%, 점토 &lt; 18%</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 10.3px; font-family: 'NanumGothic'; text-anchor: start; fill: #545454" x="588.177212" y="180.158304" transform="rotate(-0 588.177212 180.158304)">Ksat = 5.0 mm/h</text>
+   </g>
+   <g id="text_29">
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'NanumGothic'; text-anchor: start" x="588.177212" y="225.57084" transform="rotate(-0 588.177212 225.57084)">중립질  /  Medium</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 10.7px; font-family: 'NanumGothic'; text-anchor: start" x="588.177212" y="249.707472" transform="rotate(-0 588.177212 249.707472)">점토 &lt; 35%, 1번 등급 제외</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 10.3px; font-family: 'NanumGothic'; text-anchor: start; fill: #545454" x="588.177212" y="267.990384" transform="rotate(-0 588.177212 267.990384)">Ksat = 4.0 mm/h</text>
+   </g>
+   <g id="text_32">
+    <text style="font-weight: 700; font-size: 12.5px; font-family: 'NanumGothic'; text-anchor: start" x="588.177212" y="313.40292" transform="rotate(-0 588.177212 313.40292)">세립질  /  Fine</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 10.7px; font-family: 'NanumGothic'; text-anchor: start" x="588.177212" y="337.539552" transform="rotate(-0 588.177212 337.539552)">점토 &gt; 35%</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 10.3px; font-family: 'NanumGothic'; text-anchor: start; fill: #545454" x="588.177212" y="355.822464" transform="rotate(-0 588.177212 355.822464)">Ksat = 3.0 mm/h</text>
+   </g>
+   <g id="text_35">
+    <text style="font-weight: 700; font-size: 10.8px; font-family: 'NanumGothic'; text-anchor: start" x="560.954491" y="410.868936" transform="rotate(-0 560.954491 410.868936)">용늪 PB4 최종 입력: 유효 격자 모두 2번</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 10.1px; font-family: 'NanumGothic'; text-anchor: start; fill: #555555" x="560.954491" y="435.963816" transform="rotate(-0 560.954491 435.963816)">입도 관측값의 위치는 표시하지 않음</text>
+   </g>
+  </g>
+  <g id="text_37">
+   <text style="font-weight: 700; font-size: 18px; font-family: 'NanumGothic'; text-anchor: middle" x="412.128686" y="21.6" transform="rotate(-0 412.128686 21.6)">FAO 토성 삼각도 — PB4Studio / BIOME4 등급 1·2·3</text>
+  </g>
+  <g id="text_38">
+   <text style="font-size: 9.2px; font-family: 'NanumGothic'; text-anchor: middle; fill: #555555" x="412.128686" y="507.9744" transform="rotate(-0 412.128686 507.9744)">자료: FAO–UNESCO (1974), Soil Map of the World, Vol. I, p. 5; BIOME4 v4.2b2 soildata (Ksat).  |  경계선의 정확한 임계값은 중립질로 표기</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p95ca6bf2dc">
+   <rect x="15.617108" y="52.4304" width="479.542966" height="418.248"/>
+  </clipPath>
+  <clipPath id="pe7bd7a6af1">
+   <rect x="542.806011" y="52.4304" width="302.474675" height="418.248"/>
+  </clipPath>
+ </defs>
+</svg>
