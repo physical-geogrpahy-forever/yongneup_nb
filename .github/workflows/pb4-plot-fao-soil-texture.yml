@@ -1,0 +1,49 @@
+name: Plot PB4 FAO soil texture triangle
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pb4_chelsa21k/plots/plot_fao_soil_texture_triangle.py'
+      - '.github/workflows/pb4-plot-fao-soil-texture.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install plot dependencies and Korean font
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-nanum
+          python -m pip install --upgrade pip
+          python -m pip install matplotlib
+      - name: Verify classification and generate PNG/SVG
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/plots/plot_fao_soil_texture_triangle.py
+          test -s pb4_chelsa21k/plots/PB4_FAO_soil_texture_classes_1_2_3.png
+          test -s pb4_chelsa21k/plots/PB4_FAO_soil_texture_classes_1_2_3.svg
+      - name: Commit generated figures
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pb4_chelsa21k/plots/PB4_FAO_soil_texture_classes_1_2_3.png
+          git add pb4_chelsa21k/plots/PB4_FAO_soil_texture_classes_1_2_3.svg
+          if git diff --cached --quiet; then
+            echo "No plot updates."
+            exit 0
+          fi
+          git commit -m 'plots: render FAO soil texture triangle [skip ci]'
+          git push origin HEAD:main
