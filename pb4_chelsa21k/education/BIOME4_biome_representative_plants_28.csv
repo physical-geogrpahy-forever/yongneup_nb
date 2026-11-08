@@ -1,0 +1,29 @@
+ID,BIOME4 original name,Korean name,Representative plants,Source URL
+1,Tropical evergreen forest,열대 상록수림,"Dipterocarpus; Shorea; Ficus",https://www.britannica.com/science/tropical-rainforest
+2,Tropical semi-deciduous forest,열대 반낙엽수림,"Shorea; Terminalia; Tectona grandis",https://www.britannica.com/science/tropical-forest
+3,Tropical deciduous forest/woodland,열대 낙엽수림 및 소림,"Tectona grandis; Anogeissus; Terminalia",https://doi.org/10.1002/fedr.19770880106
+4,Temperate deciduous forest,온대 낙엽활엽수림,"Quercus; Fagus; Acer",https://usnvc.org/explore-classification/
+5,Temperate conifer forest,온대 침엽수림,"Pinus; Pseudotsuga; Abies",https://usnvc.org/explore-classification/
+6,Warm mixed forest,난온대 혼효림,"Quercus; Castanopsis; Pinus",https://pmip2.lsce.ipsl.fr/synth/mbmaps.shtml
+7,Cool mixed forest,냉온대 혼효림,"Quercus; Acer; Abies",https://gmd.copernicus.org/preprints/gmd-2017-171/gmd-2017-171.pdf
+8,Cool conifer forest,냉온대 침엽수림,"Abies; Picea; Pinus",https://pmip2.lsce.ipsl.fr/synth/mbmaps.shtml
+9,Cold mixed forest,한랭 혼효림,"Picea; Betula; Larix",https://explorer.natureserve.org/Taxon/ELEMENT_GLOBAL.2.1298944/Boreal_Forest_Woodland_Subbiome
+10,Evergreen taiga/montane forest,상록 타이가 및 산지림,"Picea; Abies; Pinus",https://explorer.natureserve.org/Taxon/ELEMENT_GLOBAL.2.1298944/Boreal_Forest_Woodland_Subbiome
+11,Deciduous taiga/montane forest,낙엽 타이가 및 산지림,"Larix; Betula",https://explorer.natureserve.org/Taxon/ELEMENT_GLOBAL.2.1298944/Boreal_Forest_Woodland_Subbiome
+12,Tropical savanna,열대 사바나,"Vachellia; Combretum; Andropogon",https://pubmed.ncbi.nlm.nih.gov/41652802/
+13,Tropical xerophytic shrubland,열대 건생관목림,"Vachellia; Commiphora; Euphorbia",https://www.researchgate.net/publication/377161622_Biodiversity_and_Ecosystem_Functions_in_Southern_African_Savanna_Rangelands_Threats_Impacts_and_Solutions
+14,Temperate xerophytic shrubland,온대 건생관목림,"Artemisia; Atriplex; Chrysothamnus",https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2002JD002558
+15,Temperate sclerophyll woodland,온대 경엽수 소림,"Quercus ilex; Quercus suber; Cistus",https://ec.europa.eu/eurostat/documents/205002/8072634/LUCAS2018-C3-Classification.pdf
+16,Temperate broadleaved savanna,온대 활엽수 사바나,"Quercus; Poaceae",https://www.nature.com/articles/6801007
+17,Open conifer woodland,개방형 침엽수 소림,"Pinus; Juniperus; Poaceae",https://pmip2.lsce.ipsl.fr/synth/mbmaps.shtml
+18,Boreal parkland,아한대 소림·초지,"Picea; Larix; Betula",https://explorer.natureserve.org/Taxon/ELEMENT_GLOBAL.2.1298944/Boreal_Forest_Woodland_Subbiome
+19,Tropical grassland,열대 초원,"Andropogon; Hyparrhenia; Eragrostis",https://www.researchgate.net/publication/377161622_Biodiversity_and_Ecosystem_Functions_in_Southern_African_Savanna_Rangelands_Threats_Impacts_and_Solutions
+20,Temperate grassland,온대 초원,"Stipa; Festuca; Poa",https://usnvc.org/explore-classification/
+21,Desert,사막,"Larrea; Haloxylon (sparse vegetation only)",https://www.britannica.com/science/desert
+22,Steppe tundra,스텝 툰드라,"Artemisia; Carex; Kobresia",https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2002JD002558
+23,Shrub tundra,관목 툰드라,"Betula nana; Salix; Alnus",https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2002JD002559
+24,Dwarf shrub tundra,왜성관목 툰드라,"Empetrum; Vaccinium; Cassiope",https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2002JD002559
+25,Prostrate shrub tundra,포복형 관목 툰드라,"Salix arctica; Dryas",https://data.usgs.gov/usnvc-explorer/unitDetails/1042060
+26,"Cushion-forb, lichen, moss tundra",쿠션형 초본·지의류·선태류 툰드라,"Saxifraga; Draba; lichens; mosses",https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2002JD002559
+27,Barren,무식생지,No characteristic plants,https://geology.er.usgs.gov/egpsc/prism/prism_1_23/ancillary/key_to_vegetation_values.html
+28,Land ice,빙설지,No characteristic plants,https://geology.er.usgs.gov/egpsc/prism/prism_1_23/ancillary/key_to_vegetation_values.html
