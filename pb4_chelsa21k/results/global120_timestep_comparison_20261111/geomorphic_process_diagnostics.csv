@@ -1,0 +1,11 @@
+scenario,diagnostic,n_intervals,total_1kyr,total_0p1kyr_aggregated,relative_difference_pct
+baseline,accepted_substeps,120,3152,3325,5.4886
+baseline,rejected_substeps,120,2909,2342,-19.4912
+baseline,rejected_fluvial_trials,120,2807,2285,-18.5964
+baseline,hillslope_negative_dz_equivalent_m3,120,126664.2843,126516.6920,-0.1165
+baseline,hillslope_positive_dz_equivalent_m3,120,126664.2843,126516.6920,-0.1165
+baseline,fluvial_regolith_erosion_m3,120,207872.4493,207912.8062,0.0194
+baseline,fluvial_bedrock_erosion_m3,120,14.8952,1.1479,-92.2935
+baseline,fluvial_total_erosion_m3,120,207887.3445,207913.9541,0.0128
+baseline,soil_production_m3,120,411741.8770,411283.3075,-0.1114
+baseline,bedrock_weathering_m3,120,228745.4872,228490.7264,-0.1114
