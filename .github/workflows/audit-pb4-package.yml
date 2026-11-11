@@ -1,0 +1,77 @@
+name: Audit uploaded PB4Studio package against repository archives
+
+on:
+  push:
+    branches:
+      - compare-pb4studio-biome4-20261111
+    paths:
+      - .github/workflows/audit-pb4-package.yml
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Compare candidate archives with uploaded hotfix10n10 manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/pb4-audit
+          cat > /tmp/expected.tsv <<'EOF'
+          b199006d3089c03722ca2ed681d28b07b29bddb08e330576660eb9b2a72d8942  embedded_inputs/yongneup_exact20m/climate_yongneup_128.25E_38.25N.csv
+          0a121ed7b4bac27264203be37a40b47ebb19fc52e5fc80ad406c9bc40158a597  embedded_inputs/yongneup_exact20m/dem_20m_exact.tif
+          bb6d650298a5ef8d7260bb95e91e2ecf4863a79075770659255c33e445cbdaf3  embedded_inputs/yongneup_exact20m/soil_depth_20m_exact_m.tif
+          e30b37b9e5bf9700fc6cacc09294?  embedded_inputs/yongneup_exact20m/soil_texture_20m_exact.tif
+          23b5194b7b2ca25439f9a97e4f55c147c78ee9198c5f953ca2fac8c4ce689968  fortran_src/biome4_original_4_2b2.f
+          3ce889b71d18f2414dd24228804435144239cca2ff7a0bad04616f94cb164787  pb4studio/biome4_backend.py
+          d1f4c2740099990e79b84c0b070293347bd40ff002d3804dcef55fdd1d8d318b  pb4studio/climate.py
+          9bb00446de996a842b9b2fc1a27aed20b7f0730fcae7fdd306d9aa6808bf93f7  pb4studio/config.py
+          cc80e3c460df40f4108d8951e192da39dce13a4bd3431ce86429a92b8bb5650c  pb4studio/runner.py
+          4b5159c9aadb142af42c670888bdcf8b87dda92509be890219c23a394f500240  tools/run_yongneup_120ka_selfcontained.py
+          EOF
+          sed -i 's/e30b37b9b7c0bada294e80427e71/e30b37b9e5bf9700fc6cacc09294?/' /tmp/expected.tsv
+          candidates=(
+            pb4_chelsa21k/model/archive/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_PRE_AGB.zip
+            pb4_chelsa21k/model/archive/PB4Studio_v6.6.3_CHELSA21K_U020_PRE_UFIX.zip
+            pb4_chelsa21k/model_candidates/PB4Studio_v6.6.3_CHELSA21K_JACKSON_LIFEFORM_SUB30_GRASS_CANDIDATE.zip
+          )
+          for z in "${candidates[@]}"; do
+            [[ -f "$z" ]] || continue
+            name=$(basename "$z" .zip)
+            dest="/tmp/pb4-audit/$name"
+            mkdir -p "$dest"
+            unzip -q "$z" -d "$dest"
+            root=$(find "$dest" -type f -path '*/pb4studio/runner.py' -print -quit | sed 's#/pb4studio/runner.py##')
+            if [[ -z "$root" ]]; then
+              echo "$name: no PB4Studio Python package" | tee -a /tmp/pb4-audit/report.txt
+              continue
+            fi
+            echo "===== $name =====" | tee -a /tmp/pb4-audit/report.txt
+            matches=0
+            total=0
+            while read -r expected rel; do
+              [[ -n "$expected" ]] || continue
+              total=$((total+1))
+              if [[ -f "$root/$rel" ]]; then
+                actual=$(sha256sum "$root/$rel" | awk '{print $1}')
+                if [[ "$actual" == "$expected" ]]; then
+                  echo "MATCH $rel $actual" | tee -a /tmp/pb4-audit/report.txt
+                  matches=$((matches+1))
+                else
+                  echo "DIFF  $rel expected=$expected actual=$actual" | tee -a /tmp/pb4-audit/report.txt
+                fi
+              else
+                echo "MISSING $rel" | tee -a /tmp/pb4-audit/report.txt
+              fi
+            done < /tmp/expected.tsv
+            echo "RESULT $matches/$total files match uploaded hotfix10n10 manifest" | tee -a /tmp/pb4-audit/report.txt
+          done
+          cat /tmp/pb4-audit/report.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pb4-package-audit
+          path: /tmp/pb4-audit/report.txt
+          if-no-files-found: error
