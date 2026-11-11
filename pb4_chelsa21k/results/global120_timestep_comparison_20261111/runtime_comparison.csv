@@ -1,0 +1,5 @@
+time_step,interval_kyr,scenario,runtime_seconds,runtime_minutes
+1kyr,1.0,baseline,162.84309856,2.7140516427
+1kyr,1.0,scenario2,158.744832436,2.6457472073
+0.1kyr,0.1,baseline,504.99162995,8.4165271658
+0.1kyr,0.1,scenario2,498.107098754,8.3017849792
