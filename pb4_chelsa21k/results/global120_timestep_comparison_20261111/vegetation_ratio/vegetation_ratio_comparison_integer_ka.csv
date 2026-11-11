@@ -1,0 +1,2058 @@
+﻿ratio_type,code,category,ka_bp,share_1kyr_percent,share_0p1kyr_percent,difference_1kyr_minus_0p1kyr_pp
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,120,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,120,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,120,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,120,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,120,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,120,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,120,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,120,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,120,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,120,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,120,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,120,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,120,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,120,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,120,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,120,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),120,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,119,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,119,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,119,99.57627118644068,100.0,-0.4237288135593218
+BIOME4_area_percent,8,8. 냉온대 침엽수림,119,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,119,0.423728813559322,0.0,0.423728813559322
+BIOME4_area_percent,17,17. 개방 침엽수림,119,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,119,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,119,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,119,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,119,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,119,99.57627118644068,100.0,-0.4237288135593218
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,119,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,119,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,119,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,119,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,119,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),119,0.423728813559322,0.0,0.423728813559322
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,118,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,118,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,118,97.03389830508475,97.03389830508475,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,118,2.542372881355932,2.1186440677966103,0.4237288135593218
+BIOME4_area_percent,15,15. 온대 경엽수 소림,118,0.423728813559322,0.847457627118644,-0.423728813559322
+BIOME4_area_percent,17,17. 개방 침엽수림,118,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,118,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,118,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,118,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,118,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,118,97.03389830508475,97.03389830508475,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,118,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,118,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,118,2.542372881355932,2.1186440677966103,0.4237288135593218
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,118,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,118,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),118,0.423728813559322,0.847457627118644,-0.423728813559322
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,117,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,117,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,117,97.03389830508475,96.61016949152543,0.4237288135593218
+BIOME4_area_percent,8,8. 냉온대 침엽수림,117,1.271186440677966,2.1186440677966103,-0.8474576271186443
+BIOME4_area_percent,15,15. 온대 경엽수 소림,117,0.423728813559322,1.271186440677966,-0.847457627118644
+BIOME4_area_percent,17,17. 개방 침엽수림,117,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,117,0.847457627118644,0.0,0.847457627118644
+BIOME4_area_percent,21,21. 사막,117,0.423728813559322,0.0,0.423728813559322
+BIOME4_area_percent,unclassified,미분류/미기록,117,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,117,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,117,97.03389830508475,96.61016949152543,0.4237288135593218
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,117,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,117,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,117,1.271186440677966,2.1186440677966103,-0.8474576271186443
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,117,0.847457627118644,0.0,0.847457627118644
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,117,0.423728813559322,0.0,0.423728813559322
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),117,0.423728813559322,1.271186440677966,-0.847457627118644
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,116,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,116,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,116,96.1864406779661,95.76271186440678,0.4237288135593218
+BIOME4_area_percent,8,8. 냉온대 침엽수림,116,2.9661016949152543,3.8135593220338984,-0.847457627118644
+BIOME4_area_percent,15,15. 온대 경엽수 소림,116,0.847457627118644,0.423728813559322,0.423728813559322
+BIOME4_area_percent,17,17. 개방 침엽수림,116,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,116,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,116,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,116,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,116,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,116,96.1864406779661,95.76271186440678,0.4237288135593218
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,116,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,116,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,116,2.9661016949152543,3.8135593220338984,-0.847457627118644
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,116,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,116,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),116,0.847457627118644,0.423728813559322,0.423728813559322
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,115,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,115,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,115,96.1864406779661,97.03389830508475,-0.8474576271186436
+BIOME4_area_percent,8,8. 냉온대 침엽수림,115,3.8135593220338984,2.9661016949152543,0.847457627118644
+BIOME4_area_percent,15,15. 온대 경엽수 소림,115,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,115,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,115,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,115,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,115,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,115,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,115,96.1864406779661,97.03389830508475,-0.8474576271186436
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,115,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,115,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,115,3.8135593220338984,2.9661016949152543,0.847457627118644
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,115,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,115,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),115,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,114,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,114,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,114,97.45762711864407,97.88135593220339,-0.4237288135593218
+BIOME4_area_percent,8,8. 냉온대 침엽수림,114,2.542372881355932,2.1186440677966103,0.4237288135593218
+BIOME4_area_percent,15,15. 온대 경엽수 소림,114,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,114,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,114,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,114,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,114,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,114,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,114,97.45762711864407,97.88135593220339,-0.4237288135593218
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,114,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,114,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,114,2.542372881355932,2.1186440677966103,0.4237288135593218
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,114,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,114,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),114,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,113,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,113,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,113,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,113,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,113,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,113,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,113,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,113,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,113,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,113,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,113,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,113,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,113,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,113,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,113,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,113,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),113,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,112,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,112,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,112,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,112,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,112,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,112,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,112,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,112,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,112,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,112,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,112,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,112,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,112,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,112,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,112,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,112,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),112,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,111,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,111,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,111,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,111,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,111,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,111,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,111,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,111,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,111,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,111,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,111,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,111,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,111,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,111,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,111,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,111,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),111,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,110,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,110,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,110,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,110,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,110,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,110,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,110,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,110,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,110,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,110,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,110,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,110,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,110,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,110,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,110,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,110,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),110,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,109,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,109,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,109,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,109,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,109,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,109,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,109,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,109,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,109,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,109,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,109,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,109,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,109,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,109,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,109,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,109,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),109,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,108,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,108,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,108,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,108,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,108,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,108,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,108,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,108,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,108,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,108,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,108,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,108,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,108,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,108,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,108,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,108,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),108,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,107,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,107,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,107,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,107,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,107,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,107,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,107,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,107,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,107,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,107,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,107,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,107,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,107,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,107,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,107,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,107,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),107,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,106,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,106,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,106,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,106,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,106,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,106,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,106,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,106,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,106,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,106,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,106,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,106,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,106,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,106,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,106,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,106,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),106,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,105,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,105,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,105,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,105,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,105,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,105,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,105,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,105,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,105,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,105,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,105,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,105,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,105,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,105,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,105,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,105,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),105,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,104,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,104,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,104,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,104,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,104,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,104,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,104,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,104,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,104,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,104,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,104,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,104,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,104,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,104,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,104,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,104,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),104,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,103,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,103,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,103,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,103,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,103,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,103,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,103,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,103,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,103,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,103,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,103,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,103,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,103,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,103,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,103,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,103,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),103,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,102,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,102,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,102,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,102,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,102,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,102,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,102,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,102,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,102,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,102,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,102,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,102,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,102,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,102,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,102,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,102,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),102,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,101,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,101,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,101,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,101,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,101,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,101,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,101,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,101,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,101,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,101,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,101,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,101,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,101,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,101,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,101,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,101,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),101,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,100,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,100,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,100,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,100,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,100,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,100,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,100,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,100,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,100,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,100,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,100,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,100,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,100,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,100,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,100,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,100,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),100,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,99,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,99,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,99,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,99,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,99,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,99,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,99,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,99,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,99,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,99,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,99,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,99,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,99,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,99,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,99,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,99,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),99,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,98,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,98,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,98,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,98,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,98,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,98,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,98,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,98,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,98,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,98,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,98,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,98,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,98,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,98,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,98,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,98,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),98,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,97,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,97,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,97,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,97,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,97,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,97,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,97,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,97,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,97,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,97,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,97,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,97,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,97,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,97,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,97,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,97,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),97,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,96,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,96,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,96,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,96,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,96,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,96,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,96,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,96,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,96,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,96,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,96,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,96,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,96,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,96,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,96,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,96,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),96,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,95,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,95,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,95,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,95,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,95,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,95,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,95,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,95,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,95,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,95,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,95,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,95,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,95,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,95,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,95,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,95,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),95,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,94,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,94,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,94,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,94,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,94,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,94,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,94,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,94,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,94,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,94,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,94,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,94,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,94,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,94,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,94,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,94,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),94,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,93,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,93,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,93,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,93,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,93,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,93,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,93,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,93,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,93,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,93,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,93,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,93,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,93,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,93,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,93,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,93,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),93,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,92,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,92,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,92,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,92,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,92,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,92,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,92,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,92,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,92,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,92,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,92,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,92,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,92,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,92,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,92,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,92,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),92,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,91,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,91,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,91,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,91,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,91,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,91,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,91,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,91,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,91,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,91,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,91,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,91,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,91,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,91,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,91,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,91,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),91,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,90,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,90,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,90,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,90,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,90,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,90,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,90,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,90,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,90,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,90,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,90,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,90,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,90,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,90,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,90,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,90,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),90,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,89,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,89,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,89,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,89,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,89,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,89,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,89,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,89,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,89,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,89,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,89,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,89,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,89,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,89,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,89,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,89,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),89,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,88,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,88,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,88,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,88,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,88,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,88,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,88,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,88,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,88,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,88,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,88,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,88,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,88,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,88,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,88,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,88,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),88,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,87,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,87,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,87,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,87,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,87,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,87,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,87,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,87,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,87,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,87,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,87,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,87,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,87,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,87,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,87,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,87,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),87,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,86,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,86,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,86,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,86,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,86,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,86,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,86,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,86,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,86,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,86,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,86,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,86,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,86,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,86,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,86,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,86,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),86,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,85,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,85,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,85,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,85,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,85,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,85,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,85,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,85,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,85,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,85,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,85,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,85,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,85,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,85,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,85,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,85,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),85,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,84,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,84,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,84,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,84,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,84,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,84,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,84,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,84,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,84,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,84,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,84,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,84,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,84,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,84,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,84,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,84,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),84,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,83,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,83,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,83,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,83,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,83,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,83,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,83,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,83,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,83,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,83,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,83,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,83,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,83,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,83,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,83,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,83,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),83,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,82,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,82,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,82,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,82,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,82,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,82,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,82,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,82,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,82,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,82,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,82,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,82,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,82,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,82,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,82,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,82,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),82,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,81,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,81,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,81,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,81,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,81,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,81,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,81,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,81,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,81,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,81,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,81,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,81,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,81,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,81,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,81,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,81,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),81,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,80,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,80,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,80,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,80,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,80,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,80,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,80,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,80,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,80,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,80,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,80,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,80,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,80,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,80,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,80,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,80,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),80,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,79,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,79,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,79,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,79,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,79,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,79,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,79,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,79,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,79,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,79,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,79,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,79,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,79,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,79,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,79,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,79,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),79,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,78,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,78,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,78,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,78,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,78,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,78,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,78,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,78,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,78,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,78,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,78,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,78,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,78,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,78,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,78,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,78,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),78,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,77,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,77,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,77,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,77,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,77,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,77,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,77,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,77,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,77,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,77,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,77,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,77,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,77,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,77,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,77,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,77,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),77,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,76,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,76,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,76,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,76,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,76,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,76,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,76,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,76,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,76,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,76,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,76,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,76,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,76,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,76,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,76,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,76,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),76,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,75,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,75,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,75,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,75,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,75,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,75,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,75,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,75,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,75,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,75,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,75,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,75,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,75,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,75,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,75,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,75,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),75,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,74,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,74,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,74,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,74,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,74,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,74,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,74,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,74,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,74,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,74,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,74,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,74,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,74,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,74,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,74,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,74,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),74,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,73,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,73,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,73,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,73,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,73,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,73,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,73,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,73,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,73,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,73,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,73,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,73,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,73,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,73,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,73,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,73,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),73,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,72,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,72,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,72,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,72,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,72,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,72,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,72,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,72,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,72,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,72,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,72,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,72,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,72,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,72,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,72,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,72,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),72,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,71,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,71,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,71,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,71,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,71,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,71,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,71,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,71,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,71,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,71,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,71,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,71,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,71,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,71,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,71,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,71,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),71,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,70,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,70,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,70,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,70,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,70,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,70,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,70,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,70,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,70,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,70,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,70,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,70,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,70,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,70,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,70,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,70,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),70,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,69,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,69,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,69,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,69,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,69,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,69,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,69,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,69,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,69,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,69,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,69,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,69,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,69,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,69,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,69,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,69,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),69,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,68,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,68,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,68,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,68,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,68,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,68,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,68,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,68,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,68,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,68,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,68,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,68,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,68,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,68,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,68,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,68,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),68,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,67,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,67,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,67,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,67,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,67,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,67,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,67,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,67,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,67,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,67,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,67,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,67,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,67,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,67,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,67,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,67,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),67,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,66,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,66,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,66,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,66,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,66,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,66,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,66,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,66,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,66,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,66,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,66,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,66,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,66,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,66,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,66,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,66,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),66,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,65,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,65,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,65,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,65,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,65,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,65,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,65,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,65,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,65,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,65,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,65,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,65,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,65,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,65,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,65,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,65,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),65,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,64,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,64,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,64,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,64,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,64,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,64,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,64,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,64,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,64,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,64,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,64,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,64,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,64,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,64,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,64,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,64,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),64,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,63,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,63,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,63,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,63,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,63,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,63,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,63,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,63,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,63,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,63,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,63,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,63,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,63,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,63,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,63,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,63,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),63,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,62,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,62,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,62,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,62,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,62,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,62,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,62,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,62,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,62,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,62,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,62,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,62,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,62,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,62,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,62,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,62,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),62,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,61,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,61,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,61,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,61,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,61,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,61,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,61,100.0,100.0,0.0
+BIOME4_area_percent,21,21. 사막,61,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,61,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,61,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,61,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,61,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,61,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,61,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,61,100.0,100.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,61,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),61,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,60,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,60,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,60,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,60,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,60,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,60,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,60,100.0,100.0,0.0
+BIOME4_area_percent,21,21. 사막,60,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,60,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,60,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,60,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,60,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,60,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,60,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,60,100.0,100.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,60,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),60,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,59,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,59,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,59,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,59,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,59,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,59,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,59,100.0,100.0,0.0
+BIOME4_area_percent,21,21. 사막,59,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,59,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,59,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,59,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,59,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,59,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,59,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,59,100.0,100.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,59,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),59,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,58,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,58,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,58,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,58,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,58,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,58,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,58,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,58,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,58,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,58,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,58,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,58,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,58,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,58,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,58,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,58,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),58,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,57,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,57,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,57,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,57,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,57,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,57,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,57,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,57,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,57,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,57,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,57,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,57,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,57,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,57,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,57,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,57,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),57,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,56,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,56,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,56,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,56,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,56,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,56,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,56,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,56,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,56,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,56,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,56,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,56,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,56,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,56,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,56,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,56,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),56,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,55,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,55,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,55,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,55,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,55,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,55,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,55,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,55,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,55,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,55,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,55,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,55,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,55,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,55,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,55,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,55,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),55,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,54,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,54,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,54,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,54,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,54,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,54,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,54,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,54,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,54,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,54,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,54,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,54,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,54,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,54,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,54,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,54,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),54,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,53,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,53,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,53,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,53,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,53,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,53,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,53,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,53,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,53,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,53,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,53,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,53,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,53,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,53,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,53,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,53,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),53,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,52,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,52,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,52,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,52,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,52,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,52,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,52,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,52,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,52,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,52,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,52,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,52,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,52,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,52,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,52,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,52,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),52,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,51,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,51,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,51,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,51,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,51,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,51,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,51,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,51,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,51,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,51,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,51,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,51,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,51,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,51,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,51,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,51,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),51,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,50,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,50,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,50,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,50,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,50,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,50,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,50,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,50,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,50,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,50,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,50,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,50,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,50,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,50,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,50,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,50,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),50,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,49,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,49,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,49,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,49,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,49,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,49,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,49,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,49,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,49,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,49,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,49,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,49,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,49,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,49,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,49,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,49,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),49,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,48,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,48,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,48,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,48,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,48,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,48,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,48,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,48,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,48,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,48,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,48,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,48,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,48,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,48,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,48,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,48,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),48,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,47,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,47,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,47,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,47,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,47,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,47,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,47,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,47,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,47,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,47,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,47,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,47,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,47,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,47,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,47,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,47,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),47,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,46,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,46,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,46,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,46,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,46,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,46,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,46,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,46,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,46,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,46,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,46,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,46,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,46,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,46,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,46,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,46,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),46,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,45,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,45,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,45,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,45,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,45,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,45,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,45,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,45,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,45,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,45,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,45,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,45,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,45,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,45,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,45,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,45,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),45,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,44,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,44,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,44,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,44,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,44,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,44,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,44,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,44,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,44,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,44,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,44,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,44,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,44,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,44,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,44,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,44,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),44,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,43,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,43,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,43,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,43,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,43,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,43,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,43,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,43,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,43,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,43,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,43,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,43,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,43,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,43,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,43,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,43,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),43,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,42,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,42,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,42,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,42,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,42,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,42,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,42,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,42,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,42,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,42,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,42,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,42,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,42,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,42,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,42,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,42,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),42,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,41,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,41,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,41,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,41,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,41,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,41,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,41,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,41,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,41,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,41,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,41,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,41,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,41,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,41,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,41,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,41,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),41,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,40,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,40,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,40,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,40,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,40,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,40,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,40,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,40,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,40,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,40,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,40,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,40,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,40,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,40,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,40,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,40,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),40,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,39,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,39,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,39,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,39,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,39,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,39,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,39,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,39,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,39,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,39,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,39,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,39,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,39,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,39,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,39,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,39,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),39,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,38,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,38,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,38,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,38,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,38,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,38,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,38,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,38,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,38,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,38,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,38,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,38,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,38,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,38,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,38,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,38,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),38,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,37,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,37,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,37,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,37,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,37,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,37,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,37,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,37,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,37,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,37,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,37,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,37,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,37,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,37,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,37,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,37,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),37,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,36,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,36,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,36,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,36,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,36,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,36,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,36,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,36,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,36,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,36,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,36,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,36,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,36,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,36,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,36,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,36,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),36,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,35,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,35,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,35,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,35,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,35,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,35,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,35,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,35,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,35,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,35,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,35,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,35,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,35,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,35,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,35,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,35,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),35,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,34,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,34,99.57627118644068,99.57627118644068,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,34,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,34,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,34,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,34,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,34,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,34,0.0,0.423728813559322,-0.423728813559322
+BIOME4_area_percent,unclassified,미분류/미기록,34,0.4237288135593218,0.0,0.4237288135593218
+selected_PFT_grid_percent,0,PFT 0. 미선택,34,0.423728813559322,0.0,0.423728813559322
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,34,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,34,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,34,99.57627118644068,100.0,-0.4237288135593218
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,34,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,34,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,34,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),34,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,33,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,33,100.0,99.57627118644068,0.4237288135593218
+BIOME4_area_percent,6,6. 난온대 혼효림,33,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,33,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,33,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,33,0.0,0.423728813559322,-0.423728813559322
+BIOME4_area_percent,20,20. 온대 초원,33,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,33,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,33,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,33,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,33,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,33,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,33,100.0,99.57627118644068,0.4237288135593218
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,33,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,33,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,33,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),33,0.0,0.423728813559322,-0.423728813559322
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,32,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,32,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,32,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,32,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,32,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,32,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,32,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,32,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,32,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,32,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,32,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,32,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,32,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,32,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,32,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,32,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),32,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,31,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,31,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,31,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,31,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,31,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,31,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,31,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,31,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,31,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,31,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,31,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,31,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,31,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,31,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,31,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,31,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),31,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,30,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,30,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,30,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,30,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,30,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,30,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,30,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,30,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,30,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,30,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,30,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,30,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,30,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,30,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,30,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,30,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),30,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,29,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,29,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,29,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,29,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,29,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,29,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,29,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,29,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,29,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,29,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,29,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,29,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,29,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,29,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,29,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,29,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),29,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,28,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,28,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,28,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,28,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,28,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,28,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,28,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,28,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,28,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,28,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,28,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,28,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,28,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,28,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,28,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,28,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),28,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,27,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,27,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,27,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,27,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,27,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,27,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,27,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,27,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,27,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,27,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,27,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,27,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,27,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,27,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,27,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,27,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),27,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,26,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,26,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,26,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,26,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,26,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,26,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,26,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,26,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,26,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,26,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,26,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,26,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,26,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,26,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,26,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,26,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),26,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,25,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,25,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,25,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,25,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,25,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,25,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,25,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,25,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,25,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,25,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,25,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,25,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,25,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,25,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,25,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,25,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),25,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,24,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,24,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,24,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,24,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,24,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,24,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,24,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,24,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,24,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,24,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,24,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,24,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,24,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,24,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,24,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,24,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),24,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,23,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,23,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,23,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,23,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,23,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,23,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,23,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,23,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,23,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,23,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,23,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,23,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,23,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,23,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,23,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,23,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),23,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,22,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,22,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,22,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,22,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,22,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,22,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,22,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,22,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,22,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,22,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,22,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,22,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,22,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,22,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,22,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,22,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),22,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,21,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,21,95.76271186440678,95.33898305084746,0.4237288135593218
+BIOME4_area_percent,6,6. 난온대 혼효림,21,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,21,4.237288135593221,4.661016949152542,-0.4237288135593218
+BIOME4_area_percent,15,15. 온대 경엽수 소림,21,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,21,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,21,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,21,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,21,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,21,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,21,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,21,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,21,95.76271186440678,95.33898305084746,0.4237288135593218
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,21,4.237288135593221,4.661016949152542,-0.4237288135593218
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,21,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,21,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),21,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,20,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,20,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,20,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,20,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,20,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,20,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,20,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,20,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,20,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,20,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,20,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,20,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,20,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,20,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,20,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,20,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),20,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,19,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,19,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,19,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,19,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,19,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,19,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,19,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,19,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,19,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,19,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,19,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,19,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,19,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,19,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,19,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,19,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),19,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,18,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,18,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,18,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,18,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,18,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,18,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,18,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,18,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,18,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,18,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,18,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,18,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,18,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,18,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,18,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,18,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),18,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,17,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,17,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,17,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,17,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,17,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,17,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,17,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,17,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,17,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,17,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,17,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,17,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,17,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,17,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,17,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,17,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),17,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,16,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,16,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,16,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,16,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,16,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,16,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,16,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,16,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,16,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,16,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,16,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,16,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,16,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,16,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,16,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,16,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),16,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,15,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,15,100.0,100.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,15,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,15,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,15,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,15,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,15,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,15,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,15,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,15,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,15,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,15,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,15,100.0,100.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,15,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,15,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,15,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),15,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,14,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,14,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,14,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,14,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,14,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,14,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,14,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,14,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,14,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,14,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,14,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,14,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,14,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,14,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,14,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,14,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),14,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,13,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,13,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,13,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,13,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,13,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,13,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,13,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,13,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,13,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,13,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,13,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,13,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,13,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,13,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,13,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,13,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),13,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,12,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,12,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,12,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,12,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,12,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,12,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,12,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,12,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,12,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,12,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,12,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,12,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,12,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,12,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,12,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,12,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),12,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,11,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,11,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,11,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,11,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,11,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,11,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,11,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,11,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,11,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,11,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,11,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,11,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,11,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,11,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,11,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,11,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),11,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,10,100.0,100.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,10,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,10,0.0,0.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,10,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,10,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,10,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,10,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,10,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,10,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,10,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,10,0.0,0.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,10,100.0,100.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,10,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,10,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,10,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,10,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),10,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,9,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,9,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,9,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,9,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,9,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,9,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,9,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,9,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,9,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,9,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,9,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,9,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,9,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,9,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,9,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,9,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),9,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,8,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,8,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,8,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,8,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,8,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,8,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,8,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,8,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,8,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,8,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,8,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,8,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,8,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,8,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,8,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,8,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),8,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,7,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,7,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,7,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,7,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,7,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,7,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,7,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,7,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,7,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,7,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,7,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,7,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,7,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,7,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,7,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,7,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),7,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,6,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,6,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,6,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,6,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,6,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,6,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,6,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,6,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,6,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,6,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,6,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,6,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,6,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,6,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,6,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,6,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),6,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,5,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,5,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,5,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,5,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,5,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,5,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,5,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,5,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,5,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,5,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,5,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,5,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,5,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,5,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,5,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,5,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),5,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,4,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,4,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,4,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,4,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,4,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,4,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,4,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,4,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,4,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,4,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,4,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,4,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,4,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,4,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,4,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,4,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),4,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,3,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,3,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,3,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,3,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,3,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,3,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,3,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,3,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,3,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,3,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,3,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,3,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,3,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,3,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,3,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,3,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),3,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,2,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,2,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,2,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,2,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,2,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,2,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,2,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,2,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,2,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,2,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,2,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,2,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,2,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,2,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,2,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,2,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),2,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,1,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,1,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,1,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,1,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,1,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,1,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,1,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,1,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,1,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,1,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,1,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,1,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,1,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,1,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,1,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,1,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),1,0.0,0.0,0.0
+BIOME4_area_percent,4,4. 온대 낙엽활엽수림,0,0.0,0.0,0.0
+BIOME4_area_percent,5,5. 온대 침엽수림,0,0.0,0.0,0.0
+BIOME4_area_percent,6,6. 난온대 혼효림,0,100.0,100.0,0.0
+BIOME4_area_percent,8,8. 냉온대 침엽수림,0,0.0,0.0,0.0
+BIOME4_area_percent,15,15. 온대 경엽수 소림,0,0.0,0.0,0.0
+BIOME4_area_percent,17,17. 개방 침엽수림,0,0.0,0.0,0.0
+BIOME4_area_percent,20,20. 온대 초원,0,0.0,0.0,0.0
+BIOME4_area_percent,21,21. 사막,0,0.0,0.0,0.0
+BIOME4_area_percent,unclassified,미분류/미기록,0,0.0,0.0,0.0
+selected_PFT_grid_percent,0,PFT 0. 미선택,0,0.0,0.0,0.0
+selected_PFT_grid_percent,3,PFT 3. 온대 상록활엽교목,0,100.0,100.0,0.0
+selected_PFT_grid_percent,4,PFT 4. 온대 낙엽활엽교목,0,0.0,0.0,0.0
+selected_PFT_grid_percent,5,PFT 5. 온대 상록침엽교목,0,0.0,0.0,0.0
+selected_PFT_grid_percent,6,PFT 6. 아한대 상록침엽교목,0,0.0,0.0,0.0
+selected_PFT_grid_percent,8,PFT 8. C3 온대 화본형 초본,0,0.0,0.0,0.0
+selected_PFT_grid_percent,10,PFT 10. C3/C4 건조지 목본,0,0.0,0.0,0.0
+selected_PFT_grid_percent,14,PFT 14. 목본·초본 공우점 판정 (별도 PFT 아님),0,0.0,0.0,0.0

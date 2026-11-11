@@ -66,3 +66,13 @@ BIOME4 ID 및 식생코드의 공간 일치율은 각각 99.9661%다. 두 항목
 - PB4Studio SHA-256: `17c755af300aa25369692addaa5ffc1b0c0c66f48d11401bc5ab31795f8e5529`
 - Beyer climate SHA-256: `5ffd460e963f798399194ae2e478b3bd6393acde23e45b1382ab9bcec8df92fe`
 - Original BIOME4 Fortran SHA-256: `23b5194b7b2ca25439f9a97e4f55c147c78ee9198c5f953ca2fac8c4ce689968`
+
+## 식생 비율 그래프
+
+공통 정수 ka 시점 121개에서 1 kyr와 0.1 kyr 실행의 BIOME4 생물군계 면적 비율 및 선택 PFT 격자 비율을 비교했다.
+
+- [BIOME4 생물군계별 면적 비율](./vegetation_ratio/biome4_area_ratio_timestep_comparison.svg)
+- [선택 PFT별 격자 면적 비율](./vegetation_ratio/selected_pft_area_ratio_timestep_comparison.svg)
+- [식생 비율 차이](./vegetation_ratio/vegetation_ratio_difference.svg)
+- [비율 비교 CSV](./vegetation_ratio/vegetation_ratio_comparison_integer_ka.csv)
+- [전체 그래프 및 데이터 ZIP](./vegetation_ratio/global120_vegetation_ratio_comparison.zip)
