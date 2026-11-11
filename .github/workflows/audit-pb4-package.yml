@@ -24,7 +24,7 @@ jobs:
           b199006d3089c03722ca2ed681d28b07b29bddb08e330576660eb9b2a72d8942  embedded_inputs/yongneup_exact20m/climate_yongneup_128.25E_38.25N.csv
           0a121ed7b4bac27264203be37a40b47ebb19fc52e5fc80ad406c9bc40158a597  embedded_inputs/yongneup_exact20m/dem_20m_exact.tif
           bb6d650298a5ef8d7260bb95e91e2ecf4863a79075770659255c33e445cbdaf3  embedded_inputs/yongneup_exact20m/soil_depth_20m_exact_m.tif
-          e30b37b9e5bf9700fc6cacc09294?  embedded_inputs/yongneup_exact20m/soil_texture_20m_exact.tif
+          e30b37b9e5bf9700fc6cacc09270f62cf4d70d6a62e7b7c0bada294e80427e71  embedded_inputs/yongneup_exact20m/soil_texture_20m_exact.tif
           23b5194b7b2ca25439f9a97e4f55c147c78ee9198c5f953ca2fac8c4ce689968  fortran_src/biome4_original_4_2b2.f
           3ce889b71d18f2414dd24228804435144239cca2ff7a0bad04616f94cb164787  pb4studio/biome4_backend.py
           d1f4c2740099990e79b84c0b070293347bd40ff002d3804dcef55fdd1d8d318b  pb4studio/climate.py
@@ -32,7 +32,6 @@ jobs:
           cc80e3c460df40f4108d8951e192da39dce13a4bd3431ce86429a92b8bb5650c  pb4studio/runner.py
           4b5159c9aadb142af42c670888bdcf8b87dda92509be890219c23a394f500240  tools/run_yongneup_120ka_selfcontained.py
           EOF
-          sed -i 's/e30b37b9b7c0bada294e80427e71/e30b37b9e5bf9700fc6cacc09294?/' /tmp/expected.tsv
           candidates=(
             pb4_chelsa21k/model/archive/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_PRE_AGB.zip
             pb4_chelsa21k/model/archive/PB4Studio_v6.6.3_CHELSA21K_U020_PRE_UFIX.zip
