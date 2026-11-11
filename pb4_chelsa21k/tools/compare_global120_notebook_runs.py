@@ -309,7 +309,7 @@ def main():
                         "mean_aggregated_0p1kyr_interval": float(pd.to_numeric(pmerge[right], errors="coerce").mean()),
                     })
 
-        raster_rows.extend(compare_rasters(root1, root01, scenario, out_dir / "spatial_difference_maps"))
+        raster_rows.extend(compare_rasters(exp1, exp01, scenario, out_dir / "spatial_difference_maps"))
 
     # The two scenario controls were intentionally configured identically.
     for label, exp in (("1kyr", exp1), ("0.1kyr", exp01)):
