@@ -26,7 +26,15 @@ jobs:
           bb6d650298a5ef8d7260bb95e91e2ecf4863a79075770659255c33e445cbdaf3  embedded_inputs/yongneup_exact20m/soil_depth_20m_exact_m.tif
           e30b37b9e5bf9700fc6cacc09270f62cf4d70d6a62e7b7c0bada294e80427e71  embedded_inputs/yongneup_exact20m/soil_texture_20m_exact.tif
           23b5194b7b2ca25439f9a97e4f55c147c78ee9198c5f953ca2fac8c4ce689968  fortran_src/biome4_original_4_2b2.f
+          b7c9602c6c5b98e1c43d55c7d56d3b1dfe93baf418992ba580ce7318a7169b45  pb4studio/__init__.py
           3ce889b71d18f2414dd24228804435144239cca2ff7a0bad04616f94cb164787  pb4studio/biome4_backend.py
+          e8ea33ce5d5355ff8362d536330525e7a5c6e0af9d6b505c6f2fa27d16d7a3a1  pb4studio/boundary.py
+          4ebc998e60ee4cd88f9848022eac0b7edf45c92e28cff17ecaf5e42913165bd9  pb4studio/figures.py
+          ce07ab5a21c47c76dcc6b4f17478862866bbefede835ea32f3887c08a5188a7b  pb4studio/grid.py
+          a2ce886ff1b2fdb501db4cd50852525c3310f9512b8b78eb5b8d3321502b26bf  pb4studio/pelletier_geomorph.py
+          86f81fba2c9eef0e1cfb7892a7d6650458bcc34c1b85374a0eae03b970bf1a7c  pb4studio/snapshots.py
+          cbf6a7bdfd8ccfbaf8cb3532e30533575bc57c64d9fff9ff59cca8deaada7ec2  pb4studio/standard_report.py
+          7eede2386d322bb097454296ac757fa93d135e5fb567c4d4323598a83fb2c31e  pb4studio/validation.py
           d1f4c2740099990e79b84c0b070293347bd40ff002d3804dcef55fdd1d8d318b  pb4studio/climate.py
           9bb00446de996a842b9b2fc1a27aed20b7f0730fcae7fdd306d9aa6808bf93f7  pb4studio/config.py
           cc80e3c460df40f4108d8951e192da39dce13a4bd3431ce86429a92b8bb5650c  pb4studio/runner.py
