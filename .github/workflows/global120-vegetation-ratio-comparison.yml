@@ -1,0 +1,94 @@
+name: Global120 vegetation ratio comparison
+
+on:
+  push:
+    branches:
+      - compare-global120-1kyr-vs-0p1kyr-20261111
+    paths:
+      - .github/workflows/global120-vegetation-ratio-comparison.yml
+      - pb4_chelsa21k/tools/compare_global120_vegetation_ratios.py
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  build-vegetation-ratio-comparison:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout comparison branch
+        uses: actions/checkout@v4
+        with:
+          ref: compare-global120-1kyr-vs-0p1kyr-20261111
+
+      - name: Download completed 1 kyr run artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: global120-1kyr
+          run-id: 42964644181
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          path: artifacts/1kyr
+
+      - name: Download completed 0.1 kyr run artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: global120-0.1kyr
+          run-id: 42959335316
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          path: artifacts/0p1kyr
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install plotting dependencies and Korean font
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk
+          fc-cache -f
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas matplotlib
+
+      - name: Generate BIOME4 and selected-PFT ratio plots
+        run: python pb4_chelsa21k/tools/compare_global120_vegetation_ratios.py --one-kyr-dir artifacts/1kyr --sub-kyr-dir artifacts/0p1kyr --output-dir pb4_chelsa21k/results/global120_timestep_comparison_20261111/vegetation_ratio
+
+      - name: Link vegetation plots from the main comparison report
+        run: |
+          README="pb4_chelsa21k/results/global120_timestep_comparison_20261111/README_comparison.md"
+          if ! grep -q "## 식생 비율 그래프" "$README"; then
+            cat >> "$README" <<'EOF'
+
+          ## 식생 비율 그래프
+
+          공통 정수 ka 시점 121개에서 1 kyr와 0.1 kyr 실행의 BIOME4 생물군계 면적 비율 및 선택 PFT 격자 비율을 비교했다.
+
+          - [BIOME4 생물군계별 면적 비율](./vegetation_ratio/biome4_area_ratio_timestep_comparison.svg)
+          - [선택 PFT별 격자 면적 비율](./vegetation_ratio/selected_pft_area_ratio_timestep_comparison.svg)
+          - [식생 비율 차이](./vegetation_ratio/vegetation_ratio_difference.svg)
+          - [비율 비교 CSV](./vegetation_ratio/vegetation_ratio_comparison_integer_ka.csv)
+          - [전체 그래프 및 데이터 ZIP](./vegetation_ratio/global120_vegetation_ratio_comparison.zip)
+          EOF
+          fi
+
+      - name: Commit generated graphs and data to the comparison branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pb4_chelsa21k/results/global120_timestep_comparison_20261111/vegetation_ratio
+          git add pb4_chelsa21k/results/global120_timestep_comparison_20261111/README_comparison.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Add global120 vegetation ratio comparison plots [skip ci]"
+            git push origin HEAD:compare-global120-1kyr-vs-0p1kyr-20261111
+          fi
+
+      - name: Upload generated comparison package
+        uses: actions/upload-artifact@v4
+        with:
+          name: global120-vegetation-ratio-comparison
+          path: pb4_chelsa21k/results/global120_timestep_comparison_20261111/vegetation_ratio/
+          if-no-files-found: error
+          retention-days: 30
