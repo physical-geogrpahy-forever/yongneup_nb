@@ -1,0 +1,142 @@
+name: Compare global 120-ka notebooks (1 kyr vs 0.1 kyr)
+
+on:
+  push:
+    branches:
+      - compare-global120-1kyr-vs-0p1kyr-20261111
+    paths:
+      - .github/workflows/run-global120-notebook-comparison.yml
+      - pb4_chelsa21k/education/ECO_GEOGRAPHY_LAB4_GLOBAL_120KA_FIXED_20261106.ipynb
+      - pb4_chelsa21k/education/ECO_GEOGRAPHY_LAB4_GLOBAL_120KA_FIXED_20261106_0.1kyr.ipynb
+      - pb4_chelsa21k/tools/run_global120_notebook.py
+      - pb4_chelsa21k/tools/compare_global120_notebook_runs.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    name: Execute ${ matrix.label } notebook
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: 1kyr
+            interval: '1.0'
+            notebook: pb4_chelsa21k/education/ECO_GEOGRAPHY_LAB4_GLOBAL_120KA_FIXED_20261106.ipynb
+          - label: 0.1kyr
+            interval: '0.1'
+            notebook: pb4_chelsa21k/education/ECO_GEOGRAPHY_LAB4_GLOBAL_120KA_FIXED_20261106_0.1kyr.ipynb
+    env:
+      PB4_THREADS: '2'
+      OMP_NUM_THREADS: '2'
+      OMP_DYNAMIC: 'FALSE'
+      OPENBLAS_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+      NUMEXPR_NUM_THREADS: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - name: Check out the exact notebook versions
+        uses: actions/checkout@v6
+
+      - name: Install Fortran compiler
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          gfortran --version
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install model and notebook dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install \
+            numpy pandas rasterio matplotlib xarray netCDF4 \
+            'geopandas>=1.0' 'shapely>=2.0' pyogrio pyproj affine scipy \
+            ipywidgets ipykernel nbformat nbclient jupyter_client jupyter_core \
+            matplotlib-inline XlsxWriter
+          python -m ipykernel install --user --name python3 --display-name "Python 3"
+
+      - name: Execute the full 120–0 ka notebook
+        shell: bash
+        run: |
+          set -euo pipefail
+          ulimit -s unlimited
+          mkdir -p "runs/${ matrix.label }"
+          python -u pb4_chelsa21k/tools/run_global120_notebook.py \
+            --notebook "${ matrix.notebook }" \
+            --label "${ matrix.label }" \
+            --interval-kyr "${ matrix.interval }" \
+            --output-dir "runs/${ matrix.label }" \
+            --threads 2 \
+            --timeout-seconds 21000 \
+            2>&1 | tee "runs/${ matrix.label }/${ matrix.label }_workflow.log"
+
+      - name: Upload complete notebook outputs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: global120-${ matrix.label }
+          path: runs/${ matrix.label }/
+          if-no-files-found: warn
+          retention-days: 30
+
+  compare:
+    name: Align time series and compare 5-kyr maps
+    needs: run
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out comparison code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install comparison dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas matplotlib rasterio
+
+      - name: Download both model runs
+        uses: actions/download-artifact@v4
+        with:
+          name: global120-1kyr
+          path: runs/1kyr
+
+      - name: Download 0.1-kyr model run
+        uses: actions/download-artifact@v4
+        with:
+          name: global120-0.1kyr
+          path: runs/0.1kyr
+
+      - name: Compare common ages, process budgets and spatial snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u pb4_chelsa21k/tools/compare_global120_notebook_runs.py \
+            --runs-root runs \
+            --output-dir comparison
+
+      - name: Upload comparison report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: global120-1kyr-vs-0.1kyr-comparison
+          path: comparison/
+          if-no-files-found: warn
+          retention-days: 30
