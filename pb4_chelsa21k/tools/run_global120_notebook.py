@@ -148,7 +148,7 @@ exec(compile(_case_source, inspect.getsourcefile(runner.run_single_case), "exec"
 
 if "hillslope_erosion_depthsum_m" not in runner._advance_geomorph_interval_adaptive.__code__.co_varnames:
     raise RuntimeError("Geomorphic process-budget instrumentation did not load.")
-if "geomorph_hillslope_erosion_volume_m3_to_next" not in runner.run_single_case.__code__.co_consts:
+if "geomorph_fluvial_total_erosion_volume_m3_to_next" not in runner.run_single_case.__code__.co_consts:
     raise RuntimeError("Process-budget columns were not added to the run output.")
 print("Accepted-substep hillslope/fluvial process-budget diagnostics enabled.")
 '''
