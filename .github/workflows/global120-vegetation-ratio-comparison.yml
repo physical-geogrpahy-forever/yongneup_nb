@@ -28,7 +28,7 @@ jobs:
         with:
           name: global120-1kyr
           run-id: 42964644181
-          github-token: \${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           path: artifacts/1kyr
 
       - name: Download completed 0.1 kyr run artifact
@@ -36,7 +36,7 @@ jobs:
         with:
           name: global120-0.1kyr
           run-id: 42959335316
-          github-token: \${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           path: artifacts/0p1kyr
 
       - name: Set up Python
