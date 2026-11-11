@@ -155,7 +155,7 @@ def snapshot_directories(model_dir: Path) -> dict[float, Path]:
 
 def read_tif(path: Path):
     with rasterio.open(path) as ds:
-        arr = ds.read(1, masked=True)
+        arr = ds.read(1, masked=True).astype("float64")
         profile = ds.profile.copy()
         transform = ds.transform
         crs = ds.crs
