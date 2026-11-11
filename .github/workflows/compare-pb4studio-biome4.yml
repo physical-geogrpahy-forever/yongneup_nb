@@ -1,0 +1,144 @@
+name: PB4Studio hotfix10n10 vs standalone BIOME4
+
+on:
+  push:
+    branches:
+      - compare-pb4studio-biome4-20261111
+    paths:
+      - .github/workflows/compare-pb4studio-biome4.yml
+      - pb4_chelsa21k/tools/compare_pb4_vs_standalone_biome4.py
+      - pb4_chelsa21k/education/payload/pb4_hotfix10n10_overlay.tar.gz
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install compilers and NetCDF libraries
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq \
+            gfortran libnetcdf-dev libnetcdff-dev \
+            autoconf automake libtool pkg-config \
+            fonts-nanum
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install PB4Studio and comparison dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          python -m pip install \
+            numpy pandas matplotlib rasterio scipy xarray netCDF4 \
+            'geopandas>=1.0' 'shapely>=2.0' pyogrio pyproj affine \
+            ipywidgets XlsxWriter tabulate
+
+      - name: Reconstruct the exact uploaded PB4Studio hotfix10n10 package
+        shell: bash
+        run: |
+          set -euo pipefail
+          base_zip="pb4_chelsa21k/model/archive/PB4Studio_v6.6.3_CHELSA21K_NATIVECLIMATE_PRE_AGB.zip"
+          test -f "$base_zip"
+          rm -rf /tmp/pb4-reconstructed
+          mkdir -p /tmp/pb4-reconstructed
+          unzip -q "$base_zip" -d /tmp/pb4-reconstructed
+          root=$(find /tmp/pb4-reconstructed -type f -path '*/pb4studio/runner.py' -print -quit | sed 's#/pb4studio/runner.py##')
+          test -n "$root"
+          tar -xzf pb4_chelsa21k/education/payload/pb4_hotfix10n10_overlay.tar.gz -C "$root"
+          cd "$root"
+          cat > /tmp/pb4_expected.sha256 <<'EOF'
+          b7c9602c6c5b98e1c43d55c7d56d3b1dfe93baf418992ba580ce7318a7169b45  pb4studio/__init__.py
+          3ce889b71d18f2414dd24228804435144239cca2ff7a0bad04616f94cb164787  pb4studio/biome4_backend.py
+          d1f4c2740099990e79b84c0b070293347bd40ff002d3804dcef55fdd1d8d318b  pb4studio/climate.py
+          9bb00446de996a842b9b2fc1a27aed20b7f0730fcae7fdd306d9aa6808bf93f7  pb4studio/config.py
+          cc80e3c460df40f4108d8951e192da39dce13a4bd3431ce86429a92b8bb5650c  pb4studio/runner.py
+          23b5194b7b2ca25439f9a97e4f55c147c78ee9198c5f953ca2fac8c4ce689968  fortran_src/biome4_original_4_2b2.f
+          4b5159c9aadb142af42c670888bdcf8b87dda92509be890219c23a394f500240  tools/run_yongneup_120ka_selfcontained.py
+          b199006d3089c03722ca2ed681d28b07b29bddb08e330576660eb9b2a72d8942  embedded_inputs/yongneup_exact20m/climate_yongneup_128.25E_38.25N.csv
+          0a121ed7b4bac27264203be37a40b47ebb19fc52e5fc80ad406c9bc40158a597  embedded_inputs/yongneup_exact20m/dem_20m_exact.tif
+          bb6d650298a5ef8d7260bb95e91e2ecf4863a79075770659255c33e445cbdaf3  embedded_inputs/yongneup_exact20m/soil_depth_20m_exact_m.tif
+          e30b37b9e5bf9700fc6cacc09270f62cf4d70d6a62e7b7c0bada294e80427e71  embedded_inputs/yongneup_exact20m/soil_texture_20m_exact.tif
+          EOF
+          sha256sum -c /tmp/pb4_expected.sha256
+          echo "PB4_ROOT=$root" >> "$GITHUB_ENV"
+          echo "PB4 package root: $root" | tee "$GITHUB_WORKSPACE/pb4_package_identity.txt"
+
+      - name: Run PB4Studio hotfix10n10 (120–0 ka, 0.1 kyr, static and dynamic)
+        shell: bash
+        env:
+          OMP_NUM_THREADS: '4'
+          OMP_DYNAMIC: 'FALSE'
+          OPENBLAS_NUM_THREADS: '1'
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          cd "$PB4_ROOT"
+          python tools/run_yongneup_120ka_selfcontained.py 2>&1 | tee "$GITHUB_WORKSPACE/artifacts/pb4studio_run.log"
+          test -f outputs_hotfix10n10_selfcontained/run_return_summary.json
+          test -d outputs_hotfix10n10_selfcontained/model_static
+          test -d outputs_hotfix10n10_selfcontained/model_dynamic
+          cp -a outputs_hotfix10n10_selfcontained "$GITHUB_WORKSPACE/artifacts/"
+
+      - name: Obtain and verify the uploaded standalone BIOME4 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone https://github.com/jedokaplan/BIOME4.git /tmp/BIOME4-main
+          git -C /tmp/BIOME4-main checkout 4ad9dff37eed339fce88c0fa5802757f86a3ef44
+          cd /tmp/BIOME4-main
+          cat > /tmp/biome4_expected.sha256 <<'EOF'
+          23b5194b7b2ca25439f9a97e4f55c147c78ee9198c5f953ca2fac8c4ce689968  biome4.f
+          962dc05e5621f3fe3b31bbf2fe4fb82686e81613a98c766f24fd2683e0b7dece  biome4driver.f90
+          d40c7246549710826ddfb28c53511e50b76e520be5d61a3f6bccab46174d49e7  coordsmod.f90
+          c2fcb497ce68de824c96d114c1e948f785b0403d4fa60b40180681f14f239c63  netcdfmod.f90
+          b5376c68b8549b45d3757b2665873df392c60ce6a1a65e1bb75ac162d1c68884  parametersmod.f90
+          eb900752a966c4a0af8aff650cc46cb96244bcade5606b5d3169d918a5ee369f  utilitymod.f90
+          ac094a6fb6866bb6caddb4f27260ac1f6c0453a453472ba3d7b9b38331c590e4  Makefile.am
+          aa1507b67a3a9f7111e45830131d835de93dc80c0104dba6acb29e7b573c624c  configure.ac
+          EOF
+          sha256sum -c /tmp/biome4_expected.sha256
+          autoreconf -fi
+          ./configure
+          make -j2
+          test -x ./biome4
+          echo "BIOME4_ROOT=/tmp/BIOME4-main" >> "$GITHUB_ENV"
+
+      - name: Run matched-input BIOME4 comparison at 20 palaeo snapshots
+        shell: bash
+        env:
+          OMP_NUM_THREADS: '2'
+          OMP_DYNAMIC: 'FALSE'
+          OPENBLAS_NUM_THREADS: '1'
+        run: |
+          set -euo pipefail
+          python pb4_chelsa21k/tools/compare_pb4_vs_standalone_biome4.py \
+            --pb4-root "$PB4_ROOT" \
+            --biome4-root "$BIOME4_ROOT" \
+            --output-dir "$GITHUB_WORKSPACE/artifacts/biome4_comparison" \
+            --threads 2 2>&1 | tee "$GITHUB_WORKSPACE/artifacts/standalone_biome4_comparison.log"
+          test -s artifacts/biome4_comparison/comparison_summary.csv
+          test -s artifacts/biome4_comparison/comparison_by_cell.csv
+          test -s artifacts/biome4_comparison/comparison_by_pft.csv
+          test -s artifacts/biome4_comparison/comparison_over_time.png
+
+      - name: Upload model outputs and comparison tables
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PB4Studio-vs-BIOME4-Yongneup-120ka
+          path: |
+            artifacts/
+            pb4_package_identity.txt
+          if-no-files-found: warn
+          retention-days: 30
