@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   run:
-    name: Execute ${ matrix.label } notebook
+    name: Execute ${{ matrix.label }} notebook
     runs-on: ubuntu-latest
     timeout-minutes: 360
     strategy:
@@ -72,22 +72,22 @@ jobs:
         run: |
           set -euo pipefail
           ulimit -s unlimited
-          mkdir -p "runs/${ matrix.label }"
+          mkdir -p "runs/${{ matrix.label }}"
           python -u pb4_chelsa21k/tools/run_global120_notebook.py \
-            --notebook "${ matrix.notebook }" \
-            --label "${ matrix.label }" \
-            --interval-kyr "${ matrix.interval }" \
-            --output-dir "runs/${ matrix.label }" \
+            --notebook "${{ matrix.notebook }}" \
+            --label "${{ matrix.label }}" \
+            --interval-kyr "${{ matrix.interval }}" \
+            --output-dir "runs/${{ matrix.label }}" \
             --threads 2 \
             --timeout-seconds 21000 \
-            2>&1 | tee "runs/${ matrix.label }/${ matrix.label }_workflow.log"
+            2>&1 | tee "runs/${{ matrix.label }}/${{ matrix.label }}_workflow.log"
 
       - name: Upload complete notebook outputs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: global120-${ matrix.label }
-          path: runs/${ matrix.label }/
+          name: global120-${{ matrix.label }}
+          path: runs/${{ matrix.label }}/
           if-no-files-found: warn
           retention-days: 30
 
