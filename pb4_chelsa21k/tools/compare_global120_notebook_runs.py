@@ -78,7 +78,7 @@ def align_integer_ages(df: pd.DataFrame) -> pd.DataFrame:
 
 def aggregate_0p1_interval_metrics(df: pd.DataFrame, columns: list[str]) -> pd.DataFrame:
     out = df.loc[df["ka_bp"] > 1e-9].copy()
-    out["interval_start_ka"] = np.floor(out["ka_bp"].to_numpy(dtype=float) + 1e-7).astype(int)
+    out["interval_start_ka"] = np.ceil(out["ka_bp"].to_numpy(dtype=float) - 1e-7).astype(int)
     rows = []
     for age, group in out.groupby("interval_start_ka"):
         row = {"ka_bp": float(age)}
@@ -358,7 +358,7 @@ def main():
 - Common virtual basin: {meta1['virtual_basin']['actual_basin_area_km2']:.6f} km², {meta1['virtual_basin']['cell_size_m']:.1f} m grid
 - Initial soil depth: {meta1['virtual_basin']['base_soil_depth_m']:.2f} m
 
-The time-series comparison aligns model states at integer ka ages. Geomorphic interval diagnostics are compared after aggregating the ten 0.1-kyr intervals into each matching 1-kyr interval. Spatial rasters are compared at all common 5-kyr snapshots. The process-budget diagnostics sum accepted-substep hillslope and fluvial fluxes and do not alter the model state equations.
+The time-series comparison aligns model states at integer ka ages. Geomorphic interval diagnostics are compared after aggregating the ten 0.1-kyr intervals into each matching 1-kyr interval, assigning each interval by its older (start) age. Spatial rasters are compared at all common 5-kyr snapshots. The process-budget diagnostics sum accepted-substep hillslope and fluvial fluxes and do not alter the model state equations.
 """
     (out_dir / "README_comparison.md").write_text(report, encoding="utf-8")
 
