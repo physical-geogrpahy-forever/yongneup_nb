@@ -85,17 +85,18 @@ _adv_source = _adv_source.replace(
         _fbed = np.asarray(diag.get("fluvial_bedrock_erosion_m", 0.0), dtype="float64")
         _soilprod = np.asarray(diag.get("soil_production_m", 0.0), dtype="float64")
         _weather = np.asarray(diag.get("bedrock_weathering_m", 0.0), dtype="float64")
-        if _hill.shape == active.shape:
-            hillslope_erosion_depthsum_m += float(np.sum(np.maximum(-_hill[active], 0.0)))
-            hillslope_deposition_depthsum_m += float(np.sum(np.maximum(_hill[active], 0.0)))
-        if _freg.shape == active.shape:
-            fluvial_regolith_erosion_depthsum_m += float(np.sum(np.maximum(_freg[active], 0.0)))
-        if _fbed.shape == active.shape:
-            fluvial_bedrock_erosion_depthsum_m += float(np.sum(np.maximum(_fbed[active], 0.0)))
-        if _soilprod.shape == active.shape:
-            soil_production_depthsum_m += float(np.sum(np.maximum(_soilprod[active], 0.0)))
-        if _weather.shape == active.shape:
-            bedrock_weathering_depthsum_m += float(np.sum(np.maximum(_weather[active], 0.0)))
+        _budget_active = np.asarray(land, dtype=bool)
+        if _hill.shape == _budget_active.shape:
+            hillslope_erosion_depthsum_m += float(np.sum(np.maximum(-_hill[_budget_active], 0.0)))
+            hillslope_deposition_depthsum_m += float(np.sum(np.maximum(_hill[_budget_active], 0.0)))
+        if _freg.shape == _budget_active.shape:
+            fluvial_regolith_erosion_depthsum_m += float(np.sum(np.maximum(_freg[_budget_active], 0.0)))
+        if _fbed.shape == _budget_active.shape:
+            fluvial_bedrock_erosion_depthsum_m += float(np.sum(np.maximum(_fbed[_budget_active], 0.0)))
+        if _soilprod.shape == _budget_active.shape:
+            soil_production_depthsum_m += float(np.sum(np.maximum(_soilprod[_budget_active], 0.0)))
+        if _weather.shape == _budget_active.shape:
+            bedrock_weathering_depthsum_m += float(np.sum(np.maximum(_weather[_budget_active], 0.0)))
 """,
     1,
 )
