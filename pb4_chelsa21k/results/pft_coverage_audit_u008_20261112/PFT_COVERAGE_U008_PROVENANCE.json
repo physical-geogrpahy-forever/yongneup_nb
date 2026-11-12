@@ -1,0 +1,28 @@
+{
+  "execution_status": "new_full_21ka_pft_coverage_audit_u008",
+  "model_version": "6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008",
+  "scientific_run_package_sha256": "0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4",
+  "current_distribution_sha256": "93790ba804a9cbce01291015af2750974d85b9688f0894de8d51d46cfb5a4b7b",
+  "previous_canonical_sha256": "eb55c8896ba1290c605debd912c64bc603832e7352eb8ad35f2623a214eff01d",
+  "uplift_m_per_kyr": 0.08,
+  "agb_method": "BIOME4-derived AGB*: Reich 1992 SLA/lifespan + Haxeltine & Prentice 1996 Eq.34 sapwood; BIOME4 stemcarbon=0.5",
+  "canonical_model": "6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008",
+  "canonical_sha256": "0f0168cfa29277e30fe7707c2d450bd6a613a502f7e048ffce6d96e40d52d8a4",
+  "climate": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+  "period_ka_bp": "21.0-0.0",
+  "interval_kyr": 0.1,
+  "n_timesteps_per_mode": 211,
+  "modes": [
+    "static",
+    "dynamic"
+  ],
+  "scientific_model_changes": "none; audit-only runner instrumentation records already-computed optpft/biome diagnostics",
+  "primary_question": "Are all selected PFTs covered by the Xue/IBIS forest bridge for BIOME4 PFT4-7?",
+  "supported_forest_pfts": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "biome_code_handling": "all observed rounded full BIOME4 IDs recorded dynamically; non-finite IDs counted separately as unclassified"
+}

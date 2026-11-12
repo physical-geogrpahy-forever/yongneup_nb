@@ -1,0 +1,15 @@
+﻿mode,biome,timesteps_present,total_cell_observations,max_cells_in_timestep
+static,7,163,48574,298
+static,8,47,14006,298
+static,10,1,298,298
+static,unclassified,0,0,0
+dynamic,-1,145,1192,26
+dynamic,4,163,2057,31
+dynamic,7,163,45829,295
+dynamic,8,47,13107,298
+dynamic,9,37,167,15
+dynamic,10,1,289,289
+dynamic,11,1,2,2
+dynamic,21,91,202,8
+dynamic,27,33,33,1
+dynamic,unclassified,0,0,0
