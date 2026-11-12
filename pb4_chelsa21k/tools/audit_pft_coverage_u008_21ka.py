@@ -131,6 +131,23 @@ def find_summary(out: Path, mode: str) -> tuple[Path, pd.DataFrame]:
     p, df = max(found, key=lambda x: len(x[1]))
     if len(df) != 211:
         raise SystemExit(f"expected 211 rows for {mode}; found {len(df)} in {p}")
+    # Verify that every land cell has exactly one optPFT and one BIOME4 biome
+    # assignment at every timestep; no silent omissions are accepted.
+    pft_cols = [f"audit_optpft_{i:02d}_count" for i in range(15)]
+    biome_cols = [f"audit_biome_{i:02d}_count" for i in range(1, 29)]
+    missing = [c for c in pft_cols + biome_cols if c not in df.columns]
+    if missing:
+        raise SystemExit(f"missing audit columns for {mode}: {missing}")
+    pft_totals = df[pft_cols].apply(pd.to_numeric, errors="coerce").fillna(0).sum(axis=1)
+    biome_totals = df[biome_cols].apply(pd.to_numeric, errors="coerce").fillna(0).sum(axis=1)
+    if "n_cells" in df.columns:
+        expected = pd.to_numeric(df["n_cells"], errors="coerce")
+        if not np.allclose(pft_totals, expected, atol=0, rtol=0):
+            bad = np.flatnonzero(pft_totals.to_numpy() != expected.to_numpy()).tolist()[:10]
+            raise SystemExit(f"{mode}: optPFT counts do not sum to n_cells at rows {bad}")
+        if not np.allclose(biome_totals, expected, atol=0, rtol=0):
+            bad = np.flatnonzero(biome_totals.to_numpy() != expected.to_numpy()).tolist()[:10]
+            raise SystemExit(f"{mode}: BIOME4 counts do not sum to n_cells at rows {bad}")
     return p, df
 
 
@@ -202,6 +219,24 @@ def summarize(out: Path):
     ts.to_csv(OUTDST / "PFT_COVERAGE_U008_21KA_TIMESERIES.csv", index=False, encoding="utf-8-sig")
     pfts.to_csv(OUTDST / "PFT_COVERAGE_U008_21KA_SUMMARY.csv", index=False, encoding="utf-8-sig")
     biomes.to_csv(OUTDST / "BIOME_COVERAGE_U008_21KA_SUMMARY.csv", index=False, encoding="utf-8-sig")
+
+    # Directly compare U008 with the previously published pre-AGB audit.
+    # This is a diagnostic comparison, not a substitute for the U008 run.
+    previous_path = BASE / "results" / "pft_coverage_audit_20261005" / "PFT_COVERAGE_21KA_SUMMARY.csv"
+    if previous_path.exists():
+        previous = pd.read_csv(previous_path, encoding="utf-8-sig")
+        compare_cols = [
+            "timesteps_present", "total_cell_observations",
+            "max_cells_in_timestep", "mean_cells_all_211_steps",
+        ]
+        merged = pfts.merge(previous, on=["mode", "pft"], how="outer",
+                            suffixes=("_u008", "_pre_agb"), indicator=True)
+        for col in compare_cols:
+            a = pd.to_numeric(merged.get(f"{col}_u008"), errors="coerce")
+            b = pd.to_numeric(merged.get(f"{col}_pre_agb"), errors="coerce")
+            merged[f"{col}_difference_u008_minus_pre_agb"] = a - b
+        merged.to_csv(OUTDST / "PFT_COVERAGE_U008_VS_PRE_AGB_COMPARISON.csv",
+                      index=False, encoding="utf-8-sig")
 
     unsupported = pfts[
         (pfts["total_cell_observations"] > 0)
