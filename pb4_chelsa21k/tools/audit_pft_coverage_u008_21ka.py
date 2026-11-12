@@ -85,7 +85,7 @@ def patch_runner(z: Path) -> Path:
             else:
                 row[f"audit_optpft_{_p:02d}_npp_sum_gC_m2_yr"] = 0.0
                 row[f"audit_optpft_{_p:02d}_npp_mean_gC_m2_yr"] = float("nan")
-        for _b in range(1, 29):
+        for _b in range(0, 29):
             row[f"audit_biome_{_b:02d}_count"] = int(
                 np.count_nonzero(_biome_valid & (_biome_round == _b))
             )
@@ -134,7 +134,7 @@ def find_summary(out: Path, mode: str) -> tuple[Path, pd.DataFrame]:
     # Verify that every land cell has exactly one optPFT and one BIOME4 biome
     # assignment at every timestep; no silent omissions are accepted.
     pft_cols = [f"audit_optpft_{i:02d}_count" for i in range(15)]
-    biome_cols = [f"audit_biome_{i:02d}_count" for i in range(1, 29)]
+    biome_cols = [f"audit_biome_{i:02d}_count" for i in range(0, 29)]
     missing = [c for c in pft_cols + biome_cols if c not in df.columns]
     if missing:
         raise SystemExit(f"missing audit columns for {mode}: {missing}")
@@ -200,7 +200,7 @@ def summarize(out: Path):
                 "xue_forest_bridge_supported": pft in {4, 5, 6, 7},
             })
 
-        for biome in range(1, 29):
+        for biome in range(0, 29):
             c = f"audit_biome_{biome:02d}_count"
             counts = pd.to_numeric(df[c], errors="coerce").fillna(0.0)
             present = counts > 0
