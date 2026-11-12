@@ -1,0 +1,68 @@
+name: PB4 CHELSA21K U008 PFT coverage audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pb4-chelsa21k-pft-coverage-u008.yml'
+      - 'pb4_chelsa21k/tools/audit_pft_coverage_u008_21ka.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  audit-u008:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      OMP_NUM_THREADS: '4'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install runtime and Fortran compiler
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas rasterio matplotlib xarray netCDF4 geopandas shapely pyogrio pyproj affine scipy tabulate
+
+      - name: Verify U008 source package and run full 21 ka PFT audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile pb4_chelsa21k/tools/audit_pft_coverage_u008_21ka.py
+          python pb4_chelsa21k/tools/audit_pft_coverage_u008_21ka.py | tee /tmp/pb4_pft_coverage_u008_console.log
+
+      - name: Commit U008 PFT validation results
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Physical Geography Forever!'
+          git config user.email 'dntjdwo4990@snu.ac.kr'
+          git add pb4_chelsa21k/results/pft_coverage_audit_u008_20261112
+          git status --short
+          git commit -m 'Add U008 full 21ka PFT coverage results 2026-11-12 [skip ci]'
+          git push origin HEAD:main
+
+      - name: Preserve run log even if the audit fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PB4_CHELSA21K_U008_PFT_AUDIT_LOG
+          path: |
+            /tmp/pb4_pft_coverage_u008_21ka.log
+            /tmp/pb4_pft_coverage_u008_console.log
+          if-no-files-found: warn
+          retention-days: 30
