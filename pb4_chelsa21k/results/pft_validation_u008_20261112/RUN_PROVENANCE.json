@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-12",
+  "model_version": "6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008",
+  "source_package": "PB4Studio_v6.6.3_CHELSA21K_pftval.zip",
+  "source_package_sha256": "7b0b29bc658420feb0b09e246a2141e44d9fee4134c445de7e9ac095b8039256",
+  "patch_sha256": "963f5f56d1fac2504031d8cc1b117908a13d03775922ff4aa5e82f92815dcae0",
+  "gfortran": "GNU Fortran 14.2.0",
+  "period_ka_bp": "21.0-0.0",
+  "interval_kyr": 0.1,
+  "timesteps_per_mode": 211,
+  "snapshot_storage_for_clean_run": [
+    21.0,
+    10.0,
+    5.0,
+    0.0
+  ],
+  "science_change": "none; PFT validation diagnostics only",
+  "clean_run_exit_code": 0,
+  "full_snapshot_run_note": "Full 211-snapshot run produced identical PFT/model CSVs but wrapper was OOM-killed with exit 137 after both 211-step cases and CSV generation; clean-snapshot rerun ended normally.",
+  "jang_static": "24/62 = 38.709677%",
+  "jang_dynamic": "55/62 = 88.709677%",
+  "pft_validation_defaults": {
+    "presence_method": "optpft",
+    "CON_model_method": "potential",
+    "min_cells": 1,
+    "min_age_ka": 0.0,
+    "depth_min_cm": 0.0,
+    "depth_max_cm": 9999.0
+  }
+}
