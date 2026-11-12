@@ -85,10 +85,17 @@ def patch_runner(z: Path) -> Path:
             else:
                 row[f"audit_optpft_{_p:02d}_npp_sum_gC_m2_yr"] = 0.0
                 row[f"audit_optpft_{_p:02d}_npp_mean_gC_m2_yr"] = float("nan")
-        for _b in range(0, 29):
-            row[f"audit_biome_{_b:02d}_count"] = int(
-                np.count_nonzero(_biome_valid & (_biome_round == _b))
+        # Preserve every observed full BIOME4 code instead of assuming a fixed
+        # 0..28 range. Non-finite biome IDs are reported separately.
+        _biome_codes = np.unique(_biome_round[_biome_valid])
+        for _b in _biome_codes:
+            _bi = int(_b)
+            row[f"audit_biome_{_bi:03d}_count"] = int(
+                np.count_nonzero(_biome_valid & (_biome_round == _bi))
             )
+        row["audit_biome_unclassified_count"] = int(
+            np.count_nonzero(igrid.land & ~np.isfinite(_full_biome_audit))
+        )
 """
     runner.write_text(s.replace(anchor, add, 1), encoding="utf-8")
     return root
@@ -134,12 +141,23 @@ def find_summary(out: Path, mode: str) -> tuple[Path, pd.DataFrame]:
     # Verify that every land cell has exactly one optPFT and one BIOME4 biome
     # assignment at every timestep; no silent omissions are accepted.
     pft_cols = [f"audit_optpft_{i:02d}_count" for i in range(15)]
-    biome_cols = [f"audit_biome_{i:02d}_count" for i in range(0, 29)]
-    missing = [c for c in pft_cols + biome_cols if c not in df.columns]
-    if missing:
-        raise SystemExit(f"missing audit columns for {mode}: {missing}")
+    biome_cols = sorted(
+        c for c in df.columns
+        if c.startswith("audit_biome_") and c.endswith("_count")
+        and c != "audit_biome_unclassified_count"
+    )
+    missing = [c for c in pft_cols if c not in df.columns]
+    if missing or not biome_cols or "audit_biome_unclassified_count" not in df.columns:
+        raise SystemExit(
+            f"missing audit columns for {mode}: pft={missing}, "
+            f"biome_codes={biome_cols}, unclassified_present="
+            f"{'audit_biome_unclassified_count' in df.columns}"
+        )
     pft_totals = df[pft_cols].apply(pd.to_numeric, errors="coerce").fillna(0).sum(axis=1)
-    biome_totals = df[biome_cols].apply(pd.to_numeric, errors="coerce").fillna(0).sum(axis=1)
+    biome_totals = (
+        df[biome_cols].apply(pd.to_numeric, errors="coerce").fillna(0).sum(axis=1)
+        + pd.to_numeric(df["audit_biome_unclassified_count"], errors="coerce").fillna(0)
+    )
     if "n_cells" in df.columns:
         expected = pd.to_numeric(df["n_cells"], errors="coerce")
         if not np.allclose(pft_totals, expected, atol=0, rtol=0):
@@ -200,8 +218,13 @@ def summarize(out: Path):
                 "xue_forest_bridge_supported": pft in {4, 5, 6, 7},
             })
 
-        for biome in range(0, 29):
-            c = f"audit_biome_{biome:02d}_count"
+        biome_cols = sorted(
+            c for c in df.columns
+            if c.startswith("audit_biome_") and c.endswith("_count")
+            and c != "audit_biome_unclassified_count"
+        )
+        for c in biome_cols:
+            biome = int(c.split("_")[2])
             counts = pd.to_numeric(df[c], errors="coerce").fillna(0.0)
             present = counts > 0
             biome_rows.append({
@@ -211,6 +234,16 @@ def summarize(out: Path):
                 "total_cell_observations": int(round(float(counts.sum()))),
                 "max_cells_in_timestep": int(round(float(counts.max()))),
             })
+        unclassified = pd.to_numeric(
+            df["audit_biome_unclassified_count"], errors="coerce"
+        ).fillna(0.0)
+        biome_rows.append({
+            "mode": mode,
+            "biome": "unclassified",
+            "timesteps_present": int((unclassified > 0).sum()),
+            "total_cell_observations": int(round(float(unclassified.sum()))),
+            "max_cells_in_timestep": int(round(float(unclassified.max()))),
+        })
 
     ts = pd.concat(full_frames, ignore_index=True)
     pfts = pd.DataFrame(pft_rows)
@@ -263,6 +296,7 @@ def summarize(out: Path):
         "scientific_model_changes": "none; audit-only runner instrumentation records already-computed optpft/biome diagnostics",
         "primary_question": "Are all selected PFTs covered by the Xue/IBIS forest bridge for BIOME4 PFT4-7?",
         "supported_forest_pfts": [4, 5, 6, 7],
+        "biome_code_handling": "all observed rounded full BIOME4 IDs recorded dynamically; non-finite IDs counted separately as unclassified",
     }
     (OUTDST / "PFT_COVERAGE_U008_PROVENANCE.json").write_text(
         json.dumps(provenance, ensure_ascii=False, indent=2), encoding="utf-8"
