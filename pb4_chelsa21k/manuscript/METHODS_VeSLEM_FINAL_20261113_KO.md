@@ -62,7 +62,7 @@ EEMT(Effective Energy and Mass Transfer)는 유효강수에 의해 토양에 전
 
 $$\mathrm{EEMT} = E_{PPT} + E_{BIO} = \sum_{m=1}^{12} c_w\,\max(T_m,\,0)\,\max(P_m - \mathrm{AET}_m,\,0) + \frac{h_{BIO}}{f_C}\,\max(\mathrm{NPP},\,0) \tag{9}$$
 
-식 (9)에서 Tm[°C]은 m월의 평균기온, Pm과 AETm[kg/m²]은 m월의 강수량과 실제증발산량, NPP[kgC/m²/yr]는 순일차생산량이며, cw는 물의 비열(4,186 J/kg/K), hBIO는 생체량의 에너지 함량(22 MJ/kg), fC는 생체량의 탄소 비율(0.5)이다. 영하에서 내린 강수는 풍화에 기여하지 않으므로(Pelletier & Rasmussen, 2009), 평균기온이 0 °C 이하인 달의 EPPT는 0으로 하였다.
+식 (9)에서 Tm[°C]은 m월의 평균기온, Pm과 AETm[kg/m²]은 m월의 강수량과 실제증발산량, NPP[kgC/m²/yr]는 순일차생산량이며, cw는 물의 비열(4,186 J/kg/K), hBIO는 생체량의 에너지 함량(22 MJ/kg), fC는 생체량의 탄소 비율(0.5)이다. 영하에서 내린 강수는 풍화에 기여하지 않으므로(Pelletier & Rasmussen, 2009), 평균기온이 0 °C 이하인 달의 EPPT는 0으로 하였다. 토심이 0인 기반암 노출 격자는 BIOME4를 계산하지 않고 AETm과 NPP를 0으로 두었으므로, 이 격자의 EEMT는 강수 전체에 의한 EPPT만으로 이루어진다.
 
 ② 사면 물질이동
 
