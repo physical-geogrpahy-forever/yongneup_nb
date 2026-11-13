@@ -10,7 +10,8 @@ def main():
     root = Path(__file__).resolve().parents[3]
     path = root / "pb4_chelsa21k/education/ECO_GEOGRAPHY_LAB4_GLOBAL_120KA_FIXED_20261106.ipynb"
     nb = json.loads(path.read_text(encoding="utf-8"))
-    scope = {"__name__":"__main__", "__file__":str(path)}
+    from IPython.display import display
+    scope = {"__name__":"__main__", "__file__":str(path), "display":display}
     outpath = Path("yakutia_verification.json")
     t0 = time.monotonic()
     try:
