@@ -1,0 +1,36 @@
+name: Yakutia Dwd PB4Studio execution check
+on:
+  push:
+    branches:
+      - yakutia-dwd-eemt-fix-20261113
+    paths:
+      - .github/workflows/yakutia-dwd-eemt-check.yml
+      - pb4_chelsa21k/education/tests/verify_yakutia_dwd.py
+      - pb4_chelsa21k/education/ECO_GEOGRAPHY_LAB4_GLOBAL_120KA_FIXED_20261106.ipynb
+  workflow_dispatch:
+
+jobs:
+  yakutia:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - name: Checkout verification branch
+        uses: actions/checkout@v4
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Execute packaged Yakutsk dynamic and static model (120–118 ka)
+        run: |
+          set -o pipefail
+          python pb4_chelsa21k/education/tests/verify_yakutia_dwd.py 2>&1 | tee yakutsk_run.log
+      - name: Preserve verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yakutia-eemt-verification
+          path: |
+            yakutia_verification.json
+            yakutsk_run.log
+          if-no-files-found: warn
+          retention-days: 7
