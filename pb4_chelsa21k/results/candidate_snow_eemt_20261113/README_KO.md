@@ -38,7 +38,7 @@ L_m은 BIOME4 v4.2b2의 `daily`와 `snow` 서브루틴이 만든 일별 dprec+dm
 ## 4. BIOME4 AET의 내용
 
 - `hydrology`에서 aet = alfa × deq(평형증발량), 공급 한계 emax × wr로 제한. 잎이 없으면(fvc = 0) 0.25 × deq, 일평균기온 −10 °C 이하이면 0.
-- 토양 증발은 `evap = 0.0`(원 코드에서 `evap = 0.10*deq(d)`는 주석 처리). 따라서 AET는 식생 증산이다. wetphytomass와 waste(각 aet의 1%)는 수요 계산에만 쓰인다.
+- 토양수분 수지의 별도 증발항은 `evap = 0.0`(원 코드에서 `evap = 0.10*deq(d)`는 주석 처리). AET 자체는 잎이 있는 날 식생 증산, 잎이 없는 날 평형증발량의 25%이다. wetphytomass와 waste(각 aet의 1%)는 수요 계산에만 쓰인다.
 - meanaet(month)는 mm/day 평균이며, 패키지 계측 코드는 nint(meanaet × days × 100)로 내보내고 100으로 나눠 mm/month(0.01 mm 단위)로 읽는다.
 - 출력 PFT는 최종 선택 PFT(optpft)의 최적 LAI에서의 AET이다. PFT 14이면 목본 PFT(wdom)의 값이며 섞지 않는다. 노출 기반암 격자는 AET = 0, NPP = 0.
 - 이 내용을 연구방법 식 (9) 설명 뒤에 추가하였다(이 브랜치의 `manuscript/METHODS_VeSLEM_FINAL_20261113_KO.md`).
@@ -64,15 +64,17 @@ Pelletier et al.(2013) 식 (3)은 수증기압 부족량이 필요하고(CHELSA-
 | Jang 정적 / 동적 (/62) | 24 / 55 | 24 / 55 | 24 / 54 |
 | Park PFT TSS 정적 / 동적 | 0.522 / 0.316 | 0.522 / 0.473 | 0.522 / 0.588 |
 | DWD 제외 TSS 정적 / 동적 | 0.503 / 0.483 | 0.503 / 0.483 | 0.503 / 0.483 |
-| DWD 오탐 시점 (동적, /28) | 19 | 8 | 0 |
-| PFT7 격자 수 (동적, 전 시점 평균 / 최대) | 19.1 / 38 | 19.5 / 38 | 15.5 / 35 |
+| DWD(PFT10, 사막 목본) 오탐 시점 (동적, /28) | 19 | 8 | 0 |
+| PFT7(한대 낙엽수) 격자 수 (동적, 전 시점 평균 / 최대) | 19.1 / 38 | 19.5 / 38 | 15.5 / 35 |
 | 2.7 ka PFT7 격자 | 33 | 19 | 4 |
 | 3.5~2.0 ka 최대 산불일수, 동적 / 정적 | 56 / 0 | 56 / 0 | 55 / 0 |
 | 3.5~2.0 ka 산불 격자 최대 | 54 | 50 | 35 |
 
-- 동적 TSS 차이는 모두 DWD(건조 관목, PFT7) 한 군에서 나온다. 화분 기록에는 DWD가 없으므로, 유역의 1% 이상에 PFT7이 나타난 시점 수가 그대로 오탐이 된다. DWD를 빼면 세 경우의 TSS는 같다.
+- 검증군과 BIOME4 PFT의 대응은 `pb4studio/embedded_data/pft_groups_yongneup.csv`를 따른다: TBD = PFT4, BDE = PFT7(한대 낙엽수, Betula와 Salix), CON = PFT5와 6, TBE = PFT3, GRS = PFT8, DWD = PFT10(사막 목본, Ephedra).
+- 동적 TSS 차이는 모두 DWD 한 군에서 나온다. 화분 기록에는 Ephedra가 없으므로, 유역의 1% 이상에 PFT10이 나타난 검증 시점 수가 그대로 오탐이 된다. DWD를 빼면 세 경우의 TSS는 같다. 나머지 군의 TP/FP/FN/TN은 세 경우가 같다(TBD 28/0/0/0, BDE 19/9/0/0, CON 26/2/0/0, TBE 0/0/0/28, GRS 0/0/25/3).
+- PFT7(한대 낙엽수) 격자 수는 경우마다 다르지만 BDE 판정은 세 경우 모두 같다.
 - 식생 변화의 순서(21 ka PFT6 전역 → 4 ka 무렵 PFT4 확장 → 1~0 ka PFT4 우점)는 세 경우가 같다. 차이는 얇은 토양 격자의 PFT7 수와 시점에 있다.
-- C에서는 EEMT가 커져 토양이 두꺼워지고, 얕은 암반 격자의 건조 관목이 줄어든다.
+- C에서는 EEMT가 커져 토양이 두꺼워지고, 얇은 토양 격자의 PFT7과 PFT10이 줄어든다. TSS 상승은 PFT10 오탐이 사라진 결과이며, 이것만으로 식생 재현성이 나아졌다고 보지 않는다.
 
 `comparison/summary.csv`, `comparison/eemt_soil_by_ka.csv`, `comparison/pft_counts_by_ka.csv`, `comparison/eemt_components_by_ka.csv`, `comparison/fire_3p5_2p0ka.csv`
 
