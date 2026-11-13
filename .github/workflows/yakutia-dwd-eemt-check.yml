@@ -20,6 +20,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install system Fortran and Korean fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq gfortran fonts-nanum
       - name: Execute packaged Yakutsk dynamic and static model (120–118 ka)
         run: |
           set -o pipefail
