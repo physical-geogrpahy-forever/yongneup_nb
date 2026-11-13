@@ -12,6 +12,8 @@ def main():
     nb = json.loads(path.read_text(encoding="utf-8"))
     from IPython.display import display
     scope = {"__name__":"__main__", "__file__":str(path), "display":display}
+    end_ka = int(os.getenv("PB4_END_KA","118"))
+    assert 0 <= end_ka < 120
     outpath = Path("yakutia_verification.json")
     t0 = time.monotonic()
     try:
@@ -21,7 +23,7 @@ def main():
             exec(compile(code,f"notebook-cell-{i}","exec"),scope,scope)
         scope["scenario_count_widget"].value=2
         scope["start_ka_widget"].value=120
-        scope["end_ka_widget"].value=118
+        scope["end_ka_widget"].value=end_ka
         for i,mode in enumerate(["동적","정적"]):
             c=scope["scenario_controls"][i]
             c["name"].value=["yakutsk_dynamic","yakutsk_static"][i]
@@ -33,13 +35,14 @@ def main():
             code="".join(nb["cells"][i]["source"])
             exec(compile(code,f"notebook-cell-{i}","exec"),scope,scope)
         import numpy as np, pandas as pd
-        result={"status":"passed","location":"RU_YAKUTSK","ages_ka":[120,119,118],
+        result={"status":"passed","location":"RU_YAKUTSK","ages_ka":list(range(120,end_ka-1,-1)),
                 "basin":scope["virtual_basin_config"],"scenarios":{}}
         for name,p in scope["scenario_paths"].items():
             f=p["work"]/"output"/("model_dynamic" if name.endswith("_dynamic") else "model_static")/"summary_timeseries.csv"
             df=pd.read_csv(f)
-            assert len(df)==3,df.shape
-            assert np.isfinite(df[["mean_elevation_m","mean_soil_depth_m","mean_npp"]].to_numpy()).all()
+            assert len(df)==120-end_ka+1,df.shape
+            assert np.isfinite(df[["mean_elevation_m","mean_soil_depth_m","mean_npp","mean_eemt","min_eemt"]].to_numpy()).all()
+            assert (df["min_eemt"] > 0).all()
             clim=pd.read_csv(p["rawcsv"])
             c=clim[clim.ka_bp==120].sort_values("month")
             cold=float(c.temp_C.min())
@@ -55,7 +58,9 @@ def main():
             }
         result["wall_time_s"]=time.monotonic()-t0
         outpath.write_text(json.dumps(result,ensure_ascii=False,indent=2,default=str),encoding="utf-8")
-        print("VALIDATION_RESULT", json.dumps(result,ensure_ascii=False,default=str),flush=True)
+        compact={"status":result["status"],"location":result["location"],"n_times":len(result["ages_ka"]),
+                 "scenarios":{n:{"first":v["summary"][0],"last":v["summary"][-1],"rows":len(v["summary"])} for n,v in result["scenarios"].items()}}
+        print("VALIDATION_RESULT", json.dumps(compact,ensure_ascii=False,default=str),flush=True)
         return 0
     except BaseException as e:
         err={"status":"failed","reason":str(e),"traceback":traceback.format_exc(),"elapsed_s":time.monotonic()-t0}
