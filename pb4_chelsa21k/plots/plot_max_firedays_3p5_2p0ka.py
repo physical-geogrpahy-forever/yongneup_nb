@@ -9,7 +9,7 @@ import pandas as pd
 
 # 사용법: python plot_max_firedays_3p5_2p0ka.py [STATE_CUBE.npz] [기후 CSV] [출력폴더]
 _HERE = Path(__file__).resolve().parent
-CUBE_PATH = Path(sys.argv[1]) if len(sys.argv) > 1 else _HERE.parent / "results" / "final_fire_wetness_20261112" / "b_vs_e" / "13_B_STATE_CUBE.npz"
+CUBE_PATH = Path(sys.argv[1]) if len(sys.argv) > 1 else _HERE.parent / "results" / "final_fab30_20261113" / "FINAL_STATE_CUBE.npz"
 CLIMATE_PATH = Path(sys.argv[2]) if len(sys.argv) > 2 else _HERE.parent / "data" / "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv"
 OUT_DIR = Path(sys.argv[3]) if len(sys.argv) > 3 else _HERE
 

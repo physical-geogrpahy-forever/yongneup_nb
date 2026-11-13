@@ -20,7 +20,7 @@ Python 스크립트를 실행하면 동일 폴더에 PNG와 SVG가 생성됩니�
 
 - `plot_max_firedays_3p5_2p0ka.py`: 최종 모델의 동적/정적 지형 모델 결과에서 시점별 유역 최대 산불잠재일수를 계산하고 연강수량과 함께 그립니다.
 - `YONGNEUP_FINAL_max_firedays_3p5_2p0ka.png`, `.svg`, `.csv`: 현재 그림과 그림 자료입니다.
-- 입력자료: `../results/final_fire_wetness_20261112/b_vs_e/13_B_STATE_CUBE.npz`, `../data/YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv`
+- 입력자료: `../results/final_fab30_20261113/FINAL_STATE_CUBE.npz`, `../data/YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv`
 - 음영: Park et al. (2021) 산불 시기 2.9–2.7 ka, 2.4–2.3 ka
 - 동적 지형 모델: 적색 실선, 정적 지형 모델: 청색 실선, 연강수량: 회색 파선
 - 제목 없음

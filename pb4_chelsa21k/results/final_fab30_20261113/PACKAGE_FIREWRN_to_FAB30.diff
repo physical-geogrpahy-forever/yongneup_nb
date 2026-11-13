@@ -1,0 +1,265 @@
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/README_CHELSA21K.txt b/PB4Studio_v6.6.3_CHELSA21K/README_CHELSA21K.txt
+--- a/PB4Studio_v6.6.3_CHELSA21K/README_CHELSA21K.txt	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/README_CHELSA21K.txt	2026-11-13 18:57:32.000000000 +0900
+@@ -19,3 +19,11 @@
+ CHECK_CHELSA21K_CONTRACT.bat
+ 
+ 기존 120 ka/Beyer 모델을 사용하려면 별도 PB4Studio_v6.6.3_BEYER120K 배포판을 사용하십시오.
++
++최종 모델 (2026-11-13)
++1. 산불잠재일수: 근권 토양수분의 뿌리 가중치 합을 1로 맞춘다(원본 BIOME4와 같음).
++2. EEMT: 월별 EPPT는 유효강수가 양수인 달만 더하고, 0 °C 아래 달은 0으로 둔다(Rasmussen & Tabor, 2007).
++3. 지형: FABDEM V1-2를 EPSG:5187 30 m 격자로 구성. 유역은 용늪 유출로의 첫 합류점 아래 출구의 D8 유역(656셀, 59.0 ha).
++   embedded_inputs/yongneup_exact20m 의 파일 이름은 로더 호환을 위해 그대로 두었다.
++4. 임계경사: Pelletier et al. (2013)의 0.7(30 m 유역의 최대 인접 경사 0.60).
++   이전 수치지형도 IDW 20 m 11.9 ha 입력은 embedded_inputs/archive_idw20m_11p9ha 에 보존한다.
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/PB4STUDIO_EXACT_GRID.json b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/PB4STUDIO_EXACT_GRID.json
+--- a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/PB4STUDIO_EXACT_GRID.json	1970-01-01 09:00:00.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/PB4STUDIO_EXACT_GRID.json	2026-11-13 18:36:34.000000000 +0900
+@@ -0,0 +1,41 @@
++{
++  "marker": "PB4STUDIO_EXACT_EMBEDDED_GRID_V1",
++  "purpose": "Yongneup production 20m grid for PB4Studio CHELSA21K (0-21 ka)",
++  "dem_filename": "dem_20m_exact.tif",
++  "soil_depth_filename": "soil_depth_20m_exact_m.tif",
++  "soil_texture_filename": "soil_texture_20m_exact.tif",
++  "basin_filename": "basin_exact20m.geojson",
++  "outlet_filename": "outlet_open_free_exact20m.geojson",
++  "climate_filename": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
++  "shape": [
++    20,
++    23
++  ],
++  "active_cells": 298,
++  "model_resolution_m": 20.0,
++  "raster_pixel_x_m": 19.978352173912953,
++  "raster_pixel_y_m": 19.97404000000097,
++  "initial_mean_soil_depth_m": 1.9403876762928847,
++  "initial_min_soil_depth_m": 1.940000057220459,
++  "initial_max_soil_depth_m": 1.957487424214681,
++  "initial_mean_elevation_m": 1163.0774819802919,
++  "outlet_row_col": [
++    2,
++    16
++  ],
++  "crs": "EPSG:5187",
++  "transform": [
++    19.978352173912953,
++    0.0,
++    122923.3057,
++    0.0,
++    -19.97404000000097,
++    624388.8839,
++    0.0,
++    0.0,
++    1.0
++  ],
++  "climate_mode": "CHELSA-TraCE21k EnviCloud RAW WIDE; K->C at runtime; no elevation lapse correction",
++  "cloud_auxiliary_filename": "AUX_BEYER_CLOUD_0_21KA.csv",
++  "max_start_ka": 21.0
++}
+\ No newline at end of file
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/basin_exact20m.geojson b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/basin_exact20m.geojson
+--- a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/basin_exact20m.geojson	1970-01-01 09:00:00.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/basin_exact20m.geojson	2026-11-13 18:36:34.000000000 +0900
+@@ -0,0 +1 @@
++{"type": "FeatureCollection", "name": "yongneup_exact20m_basin", "crs": {"type": "name", "properties": {"name": "EPSG:5187"}}, "features": [{"type": "Feature", "properties": {}, "geometry": {"type": "Polygon", "coordinates": [[[123023.19746086956, 624189.1435], [123023.19746086956, 624209.11754], [123003.21910869564, 624209.11754], [123003.21910869564, 624229.09158], [122983.24075652173, 624229.09158], [122983.24075652173, 624249.06562], [122963.26240434783, 624249.06562], [122943.28405217391, 624249.06562], [122943.28405217391, 624269.03966], [122923.3057, 624269.03966], [122923.3057, 624289.0137], [122923.3057, 624308.98774], [122923.3057, 624328.96178], [122923.3057, 624348.93582], [122943.28405217391, 624348.93582], [122963.26240434783, 624348.93582], [122983.24075652173, 624348.93582], [122983.24075652174, 624348.93582], [123003.21910869564, 624348.93582], [123023.19746086956, 624348.93582], [123043.17581304348, 624348.93582], [123043.17581304348, 624368.90986], [123063.15416521739, 624368.90986], [123083.1325173913, 624368.90986], [123083.1325173913, 624388.8839], [123103.11086956521, 624388.8839], [123103.11086956522, 624388.8839], [123123.08922173912, 624388.8839], [123143.06757391304, 624388.8839], [123163.04592608695, 624388.8839], [123163.04592608695, 624368.90986], [123183.02427826087, 624368.90986], [123183.02427826087, 624348.93582], [123203.00263043478, 624348.93582], [123222.98098260869, 624348.93582], [123222.9809826087, 624348.93582], [123242.9593347826, 624348.93582], [123262.93768695652, 624348.93582], [123262.93768695652, 624328.96178], [123282.91603913043, 624328.96178], [123282.91603913043, 624308.98774], [123302.89439130435, 624308.98774], [123302.89439130435, 624289.0137], [123302.89439130435, 624269.03966], [123302.89439130435, 624249.06562], [123322.87274347826, 624249.06562], [123342.85109565216, 624249.06562], [123342.85109565218, 624249.06562], [123362.82944782608, 624249.06562], [123382.8078, 624249.06562], [123382.8078, 624229.09158], [123382.8078, 624209.11754], [123382.8078, 624189.1435], [123382.8078, 624169.16946], [123382.8078, 624149.19542], [123382.8078, 624129.22138], [123362.82944782608, 624129.22138], [123362.82944782608, 624109.24734], [123382.8078, 624109.24734], [123382.8078, 624089.2733], [123382.8078, 624069.29926], [123382.8078, 624049.32522], [123362.82944782608, 624049.32522], [123362.82944782608, 624029.35118], [123362.82944782608, 624009.37714], [123342.85109565218, 624009.37714], [123342.85109565216, 624009.37714], [123322.87274347826, 624009.37714], [123302.89439130435, 624009.37714], [123302.89439130435, 623989.4031], [123282.91603913043, 623989.4031], [123262.93768695652, 623989.4031], [123242.9593347826, 623989.4031], [123242.9593347826, 624009.37714], [123222.9809826087, 624009.37714], [123222.98098260869, 624009.37714], [123203.00263043478, 624009.37714], [123203.00263043478, 624029.35118], [123183.02427826087, 624029.35118], [123163.04592608695, 624029.35118], [123143.06757391304, 624029.35118], [123123.08922173912, 624029.35118], [123123.08922173912, 624049.32522], [123103.11086956522, 624049.32522], [123103.11086956521, 624049.32522], [123083.1325173913, 624049.32522], [123063.15416521739, 624049.32522], [123063.15416521739, 624069.29926], [123063.15416521739, 624089.2733], [123063.15416521739, 624109.24734], [123063.15416521739, 624129.22138], [123043.17581304348, 624129.22138], [123043.17581304348, 624149.19542], [123023.19746086956, 624149.19542], [123023.19746086956, 624169.16946], [123023.19746086956, 624189.1435]]]}}]}
+\ No newline at end of file
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/outlet_open_free_exact20m.geojson b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/outlet_open_free_exact20m.geojson
+--- a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/outlet_open_free_exact20m.geojson	1970-01-01 09:00:00.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/archive_idw20m_11p9ha/outlet_open_free_exact20m.geojson	2026-11-13 18:36:34.000000000 +0900
+@@ -0,0 +1 @@
++{"type": "FeatureCollection", "name": "yongneup_outlet_exact20m", "crs": {"type": "name", "properties": {"name": "EPSG:5187"}}, "features": [{"type": "Feature", "properties": {"boundary": "OPEN_FREE", "row": 2, "col": 16}, "geometry": {"type": "Point", "coordinates": [123252.94851086957, 624338.9488]}}]}
+\ No newline at end of file
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/PB4STUDIO_EXACT_GRID.json b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/PB4STUDIO_EXACT_GRID.json
+--- a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/PB4STUDIO_EXACT_GRID.json	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/PB4STUDIO_EXACT_GRID.json	2026-11-13 18:36:54.000000000 +0900
+@@ -1,6 +1,6 @@
+ {
+   "marker": "PB4STUDIO_EXACT_EMBEDDED_GRID_V1",
+-  "purpose": "Yongneup production 20m grid for PB4Studio CHELSA21K (0-21 ka)",
++  "purpose": "Yongneup production 30 m grid: FABDEM V1-2 projected to EPSG:5187 and resampled to 30 m; basin = D8 catchment above the first major confluence downstream of the bog outflow. Legacy file names (*_20m_exact*) are kept for loader compatibility.",
+   "dem_filename": "dem_20m_exact.tif",
+   "soil_depth_filename": "soil_depth_20m_exact_m.tif",
+   "soil_texture_filename": "soil_texture_20m_exact.tif",
+@@ -8,34 +8,33 @@
+   "outlet_filename": "outlet_open_free_exact20m.geojson",
+   "climate_filename": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+   "shape": [
+-    20,
+-    23
++    41,
++    36
+   ],
+-  "active_cells": 298,
+-  "model_resolution_m": 20.0,
+-  "raster_pixel_x_m": 19.978352173912953,
+-  "raster_pixel_y_m": 19.97404000000097,
+-  "initial_mean_soil_depth_m": 1.9403876762928847,
+-  "initial_min_soil_depth_m": 1.940000057220459,
+-  "initial_max_soil_depth_m": 1.957487424214681,
+-  "initial_mean_elevation_m": 1163.0774819802919,
++  "active_cells": 656,
++  "model_resolution_m": 30.0,
+   "outlet_row_col": [
+-    2,
+-    16
++    21,
++    29
+   ],
+   "crs": "EPSG:5187",
+   "transform": [
+-    19.978352173912953,
++    30.0,
+     0.0,
+-    122923.3057,
++    122623.3057,
+     0.0,
+-    -19.97404000000097,
+-    624388.8839,
++    -30.0,
++    625198.8839,
+     0.0,
+     0.0,
+     1.0
+   ],
+   "climate_mode": "CHELSA-TraCE21k EnviCloud RAW WIDE; K->C at runtime; no elevation lapse correction",
+   "cloud_auxiliary_filename": "AUX_BEYER_CLOUD_0_21KA.csv",
+-  "max_start_ka": 21.0
++  "max_start_ka": 21.0,
++  "basin_area_ha": 59.04,
++  "initial_mean_elevation_m": 1216.6590576171875,
++  "initial_min_elevation_m": 1138.1651611328125,
++  "initial_max_elevation_m": 1283.77685546875,
++  "initial_mean_soil_depth_m": 1.9400001764297485
+ }
+\ No newline at end of file
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/basin_exact20m.geojson b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/basin_exact20m.geojson
+--- a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/basin_exact20m.geojson	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/basin_exact20m.geojson	2026-11-13 18:36:34.000000000 +0900
+@@ -1 +1 @@
+-{"type": "FeatureCollection", "name": "yongneup_exact20m_basin", "crs": {"type": "name", "properties": {"name": "EPSG:5187"}}, "features": [{"type": "Feature", "properties": {}, "geometry": {"type": "Polygon", "coordinates": [[[123023.19746086956, 624189.1435], [123023.19746086956, 624209.11754], [123003.21910869564, 624209.11754], [123003.21910869564, 624229.09158], [122983.24075652173, 624229.09158], [122983.24075652173, 624249.06562], [122963.26240434783, 624249.06562], [122943.28405217391, 624249.06562], [122943.28405217391, 624269.03966], [122923.3057, 624269.03966], [122923.3057, 624289.0137], [122923.3057, 624308.98774], [122923.3057, 624328.96178], [122923.3057, 624348.93582], [122943.28405217391, 624348.93582], [122963.26240434783, 624348.93582], [122983.24075652173, 624348.93582], [122983.24075652174, 624348.93582], [123003.21910869564, 624348.93582], [123023.19746086956, 624348.93582], [123043.17581304348, 624348.93582], [123043.17581304348, 624368.90986], [123063.15416521739, 624368.90986], [123083.1325173913, 624368.90986], [123083.1325173913, 624388.8839], [123103.11086956521, 624388.8839], [123103.11086956522, 624388.8839], [123123.08922173912, 624388.8839], [123143.06757391304, 624388.8839], [123163.04592608695, 624388.8839], [123163.04592608695, 624368.90986], [123183.02427826087, 624368.90986], [123183.02427826087, 624348.93582], [123203.00263043478, 624348.93582], [123222.98098260869, 624348.93582], [123222.9809826087, 624348.93582], [123242.9593347826, 624348.93582], [123262.93768695652, 624348.93582], [123262.93768695652, 624328.96178], [123282.91603913043, 624328.96178], [123282.91603913043, 624308.98774], [123302.89439130435, 624308.98774], [123302.89439130435, 624289.0137], [123302.89439130435, 624269.03966], [123302.89439130435, 624249.06562], [123322.87274347826, 624249.06562], [123342.85109565216, 624249.06562], [123342.85109565218, 624249.06562], [123362.82944782608, 624249.06562], [123382.8078, 624249.06562], [123382.8078, 624229.09158], [123382.8078, 624209.11754], [123382.8078, 624189.1435], [123382.8078, 624169.16946], [123382.8078, 624149.19542], [123382.8078, 624129.22138], [123362.82944782608, 624129.22138], [123362.82944782608, 624109.24734], [123382.8078, 624109.24734], [123382.8078, 624089.2733], [123382.8078, 624069.29926], [123382.8078, 624049.32522], [123362.82944782608, 624049.32522], [123362.82944782608, 624029.35118], [123362.82944782608, 624009.37714], [123342.85109565218, 624009.37714], [123342.85109565216, 624009.37714], [123322.87274347826, 624009.37714], [123302.89439130435, 624009.37714], [123302.89439130435, 623989.4031], [123282.91603913043, 623989.4031], [123262.93768695652, 623989.4031], [123242.9593347826, 623989.4031], [123242.9593347826, 624009.37714], [123222.9809826087, 624009.37714], [123222.98098260869, 624009.37714], [123203.00263043478, 624009.37714], [123203.00263043478, 624029.35118], [123183.02427826087, 624029.35118], [123163.04592608695, 624029.35118], [123143.06757391304, 624029.35118], [123123.08922173912, 624029.35118], [123123.08922173912, 624049.32522], [123103.11086956522, 624049.32522], [123103.11086956521, 624049.32522], [123083.1325173913, 624049.32522], [123063.15416521739, 624049.32522], [123063.15416521739, 624069.29926], [123063.15416521739, 624089.2733], [123063.15416521739, 624109.24734], [123063.15416521739, 624129.22138], [123043.17581304348, 624129.22138], [123043.17581304348, 624149.19542], [123023.19746086956, 624149.19542], [123023.19746086956, 624169.16946], [123023.19746086956, 624189.1435]]]}}]}
+\ No newline at end of file
++{"type": "FeatureCollection", "name": "r30", "crs": {"type": "name", "properties": {"name": "EPSG:5187"}}, "features": [{"type": "Feature", "properties": {}, "geometry": {"type": "Polygon", "coordinates": [[[122653.3057, 625168.8839], [122653.3057, 624928.8839], [122683.3057, 624928.8839], [122683.3057, 624718.8839], [122713.3057, 624718.8839], [122713.3057, 624538.8839], [122773.3057, 624538.8839], [122773.3057, 624508.8839], [122803.3057, 624508.8839], [122803.3057, 624448.8839], [122833.3057, 624448.8839], [122833.3057, 624418.8839], [122863.3057, 624418.8839], [122863.3057, 624388.8839], [122893.3057, 624388.8839], [122893.3057, 624358.8839], [122923.3057, 624358.8839], [122923.3057, 624328.8839], [122953.3057, 624328.8839], [122953.3057, 624298.8839], [122983.3057, 624298.8839], [122983.3057, 624268.8839], [123013.3057, 624268.8839], [123013.3057, 624238.8839], [123043.3057, 624238.8839], [123043.3057, 624148.8839], [123073.3057, 624148.8839], [123073.3057, 623998.8839], [123103.3057, 623998.8839], [123103.3057, 624028.8839], [123643.3057, 624028.8839], [123643.3057, 624298.8839], [123673.3057, 624298.8839], [123673.3057, 624388.8839], [123643.3057, 624388.8839], [123643.3057, 624418.8839], [123613.3057, 624418.8839], [123613.3057, 624448.8839], [123583.3057, 624448.8839], [123583.3057, 624478.8839], [123553.3057, 624478.8839], [123553.3057, 624508.8839], [123523.3057, 624508.8839], [123523.3057, 624568.8839], [123493.3057, 624568.8839], [123493.3057, 624538.8839], [123343.3057, 624538.8839], [123343.3057, 624568.8839], [123313.3057, 624568.8839], [123313.3057, 624598.8839], [123283.3057, 624598.8839], [123283.3057, 624628.8839], [123253.3057, 624628.8839], [123253.3057, 624688.8839], [123223.3057, 624688.8839], [123223.3057, 624748.8839], [123193.3057, 624748.8839], [123193.3057, 624778.8839], [123163.3057, 624778.8839], [123163.3057, 624808.8839], [123103.3057, 624808.8839], [123103.3057, 624838.8839], [123073.3057, 624838.8839], [123073.3057, 624868.8839], [123043.3057, 624868.8839], [123043.3057, 624898.8839], [122983.3057, 624898.8839], [122983.3057, 624928.8839], [122953.3057, 624928.8839], [122953.3057, 624988.8839], [122923.3057, 624988.8839], [122923.3057, 625018.8839], [122893.3057, 625018.8839], [122893.3057, 625048.8839], [122863.3057, 625048.8839], [122863.3057, 625078.8839], [122833.3057, 625078.8839], [122833.3057, 625108.8839], [122803.3057, 625108.8839], [122803.3057, 625138.8839], [122773.3057, 625138.8839], [122773.3057, 625168.8839], [122653.3057, 625168.8839]]]}}]}
+\ No newline at end of file
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/outlet_open_free_exact20m.geojson b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/outlet_open_free_exact20m.geojson
+--- a/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/outlet_open_free_exact20m.geojson	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/embedded_inputs/yongneup_exact20m/outlet_open_free_exact20m.geojson	2026-11-13 18:36:34.000000000 +0900
+@@ -1 +1 @@
+-{"type": "FeatureCollection", "name": "yongneup_outlet_exact20m", "crs": {"type": "name", "properties": {"name": "EPSG:5187"}}, "features": [{"type": "Feature", "properties": {"boundary": "OPEN_FREE", "row": 2, "col": 16}, "geometry": {"type": "Point", "coordinates": [123252.94851086957, 624338.9488]}}]}
+\ No newline at end of file
++{"type": "FeatureCollection", "name": "r30_outlet", "crs": {"type": "name", "properties": {"name": "EPSG:5187"}}, "features": [{"type": "Feature", "properties": {"boundary": "OPEN_FREE", "row": 21, "col": 29}, "geometry": {"type": "Point", "coordinates": [123508.3057, 624553.8839]}}]}
+\ No newline at end of file
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py	2026-11-13 13:53:16.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py	2026-11-13 18:36:54.000000000 +0900
+@@ -1,4 +1,4 @@
+ # -*- coding: utf-8 -*-
+ """PB4Studio engine layer (GUI-independent, CLI-compatible)."""
+ 
+-__version__ = '6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN'
++__version__ = '6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN-EEMT0-FAB30'
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/climate.py b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/climate.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/climate.py	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/climate.py	2026-11-13 18:36:34.000000000 +0900
+@@ -811,8 +811,13 @@
+ 
+     # Pelletier et al. (2013), Eqs. (1)-(2): Peff = PPT - ET and
+     # DeltaT = Tambient - 273 K. Do not impose PB4-specific zero clips.
+-    peff_mm = np.asarray(prec_monthly_mm, dtype="float64") - aet_monthly
+-    eppt_mj = np.nansum(np.asarray(temp_monthly_C, dtype="float64") * float(cfg.eemt_cw_j_kg_k) * peff_mm, axis=0) / 1.0e6
++    # Rasmussen & Tabor (2007): EPPT is summed over months of positive Peff and
++    # is zero for months of negative Peff; water is heated from 0 C, and
++    # precipitation falling below freezing does not contribute (Pelletier &
++    # Rasmussen, 2009).
++    peff_mm = np.maximum(np.asarray(prec_monthly_mm, dtype="float64") - aet_monthly, 0.0)
++    dT = np.maximum(np.asarray(temp_monthly_C, dtype="float64"), 0.0)
++    eppt_mj = np.nansum(dT * float(cfg.eemt_cw_j_kg_k) * peff_mm, axis=0) / 1.0e6
+ 
+     npp_gC = np.asarray(veg.get("npp_node", np.zeros(shape)), dtype="float64")
+     npp_gC = np.where(bare_bedrock, 0.0, npp_gC)
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/config.py b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/config.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/config.py	2026-11-13 13:53:16.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/config.py	2026-11-13 18:57:32.000000000 +0900
+@@ -95,9 +95,8 @@
+     },
+     "hillslope_critical_slope": {
+         "unit": "m/m", "label": "임계경사 (Sc)",
+-        "help": "용늪 실제 DEM용 수치 기본값은 1.5입니다. "
+-                "Pelletier et al. (2013)의 본 실험값 0.7 및 sensitivity 값 0.9는 "
+-                "비교용으로 유지합니다. 비선형 사면수송식의 임계경사입니다.",
++        "help": "Pelletier et al. (2013)의 값 0.7을 사용합니다(안식각 35°). "
++                "FABDEM 30 m 유역의 인접 격자 간 최대 경사는 0.60입니다. 비선형 사면수송식의 임계경사입니다.",
+     },
+     "hillslope_denom_min": {
+         "unit": "-", "label": "비선형 분모 하한 (사용하지 않음)",
+@@ -365,6 +364,8 @@
+     # coefficient is used. PFT climate limits are the native BIOME4 v4.2b2 limits.
+     # Fire days use the root-weighted wetness with weights normalized to sum to 1
+     # (wet(d)=wr_n); supply, phenology and meanwr use the truncated weights.
++    # EEMT: monthly EPPT sums only months with positive effective precipitation and
++    # counts precipitation below 0 C as zero (Rasmussen & Tabor 2007).
+     biome4_variant: str = "mckenzie2003"
+     light_input_kind: str = "cloud_percent"
+     force_compile_biome4: bool = False
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/pelletier_geomorph.py b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/pelletier_geomorph.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/pelletier_geomorph.py	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/pelletier_geomorph.py	2026-11-13 18:57:32.000000000 +0900
+@@ -60,7 +60,7 @@
+     # Yongneup real-DEM numerical default selected after the bundled 20 m / 1 kyr
+     # convergence audit. Pelletier et al. (2013) used Sc=0.7 and tested 0.9;
+     # those values remain sensitivity cases rather than the Yongneup default.
+-    hillslope_critical_slope: float = 1.50
++    hillslope_critical_slope: float = 0.70
+     # Legacy JSON field only; the active Eq. (20)-(21) path does not use a
+     # denominator floor. Supercritical faces are handled before Eq. (20).
+     hillslope_denom_min: float = 0.0
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/tools/check_package_contract.py b/PB4Studio_v6.6.3_CHELSA21K/tools/check_package_contract.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/tools/check_package_contract.py	2026-11-13 13:53:28.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/tools/check_package_contract.py	2026-11-13 18:57:32.000000000 +0900
+@@ -5,10 +5,10 @@
+ import pb4studio
+ from pb4studio.pelletier_geomorph import PelletierStrictConfig
+ from pb4studio.standard_report import REPORT_AGES_KA
+-EXPECTED='6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN'
++EXPECTED='6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN-EEMT0-FAB30'
+ assert pb4studio.__version__ == EXPECTED, (pb4studio.__version__, EXPECTED)
+ assert abs(PelletierStrictConfig().uplift_m_per_kyr-0.08)<1e-15
+-assert abs(PelletierStrictConfig().hillslope_critical_slope-1.50)<1e-15
++assert abs(PelletierStrictConfig().hillslope_critical_slope-0.70)<1e-15
+ assert tuple(REPORT_AGES_KA)==(21.0,10.0,5.0,0.0), REPORT_AGES_KA
+ p=ROOT/'pb4studio/embedded_data/yongneup_jang2011_primary_validation.csv'
+ rows=list(csv.DictReader(p.open(encoding='utf-8-sig')))
+@@ -20,6 +20,12 @@
+ backend=(ROOT/'pb4studio/biome4_backend.py').read_text(encoding='utf-8')
+ assert 'wr_n=wr/max(rtop_eff+rbot_eff,1.0e-6)' in backend
+ assert '"       wet(d)=wr_n\\n"' in backend
++clim=(ROOT/'pb4studio/climate.py').read_text(encoding='utf-8')
++assert 'dT = np.maximum(np.asarray(temp_monthly_C, dtype="float64"), 0.0)' in clim
++assert 'peff_mm = np.maximum(np.asarray(prec_monthly_mm, dtype="float64") - aet_monthly, 0.0)' in clim
++import json as _json
++_m=_json.loads((ROOT/'embedded_inputs/yongneup_exact20m/PB4STUDIO_EXACT_GRID.json').read_text(encoding='utf-8'))
++assert abs(float(_m['model_resolution_m'])-30.0)<1e-9 and int(_m['active_cells'])==656, (_m['model_resolution_m'],_m['active_cells'])
+ fig=(ROOT/'pb4studio/figures.py').read_text(encoding='utf-8')
+ for token in ['set_xlim(21, 0)','color="firebrick", linewidth=1.6','color="royalblue", linewidth=1.4','frameon=False']:
+     assert token in fig, token
+@@ -28,5 +34,7 @@
+ print('PASS PB4 PACKAGE CONTRACT')
+ print('VERSION',EXPECTED)
+ print('FIRE_WETNESS','wet(d)=wr_n (root weights normalized to sum 1)')
++print('EEMT','monthly; EPPT uses max(T,0) and max(P-AET,0)')
++print('GRID','FABDEM V1-2 30 m, 656 cells')
+ print('PRIMARY_VALIDATION','Jang2011 corrected mapping n=62; Park2021 excluded')
+ print('REPORT_AGES_KA',REPORT_AGES_KA)
+diff -ruN '--exclude=*.tif' a/PB4Studio_v6.6.3_CHELSA21K/tools/run_yongneup_21ka_chelsa_selfcontained.py b/PB4Studio_v6.6.3_CHELSA21K/tools/run_yongneup_21ka_chelsa_selfcontained.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/tools/run_yongneup_21ka_chelsa_selfcontained.py	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/tools/run_yongneup_21ka_chelsa_selfcontained.py	2026-11-13 18:36:34.000000000 +0900
+@@ -17,7 +17,7 @@
+  soil_depth_unit='m')
+ cfg=RunConfig(mode=RunMode.COMPARISON,inputs=inputs,
+  time=TimeConfig(start_ka=21.0,end_ka=0.0,interval_kyr=0.1,snapshot_ka=tuple(round(21.0-0.1*i,1) for i in range(211))),
+- resolution_m_override=20.0,requested_core_count=max(1,min(os.cpu_count() or 1,24)),
++ resolution_m_override=None,requested_core_count=max(1,min(os.cpu_count() or 1,24)),
+  science=ScienceConfig(biome4_variant='mckenzie2003',force_compile_biome4=True,validation_accuracy_method='per_output_time',basin_presence_min_fraction=0.01),
+  output_dir=str(OUT))
+ OUT.mkdir(parents=True,exist_ok=True)

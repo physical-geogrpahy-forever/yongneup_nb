@@ -58,11 +58,11 @@ $$P = P_0\,e^{-H\cos\theta/H_0}, \qquad P_0 = a\,e^{b_E\,\mathrm{EEMT}} \tag{8}$
 
 식 (8)에서 P0[m/kyr]는 토층이 없을 때의 풍화율, H0[m]는 풍화 특성깊이로 Heimsath et al.(1997, 2001)의 자료에 근거한 0.5 m를 사용하였다. a와 bE는 Pelletier & Rasmussen(2009)이 Riebe et al.(2004)의 화강암 유역 자료로 산정한 0.037 m/kyr와 0.03 m² yr/MJ를 사용하였다.
 
-EEMT(Effective Energy and Mass Transfer)는 유효강수에 의해 토양에 전달되는 열에너지(EPPT)와 순일차생산에 의해 고정되는 에너지(EBIO)의 합으로, 기후의 계절성을 반영하기 위해 월 단위로 계산한다(Pelletier et al., 2013). Pelletier et al.(2013)은 NPP와 증발산량 자료를 구하기 어려워 기온, 강수량, 수증기압 부족량에 대한 회귀식으로 EEMT를 추정하였으나, 본 연구에서는 BIOME4에서 계산된 각 격자의 NPP와 월별 실제증발산량을 이용하여 직접 계산하였다.
+EEMT(Effective Energy and Mass Transfer)는 유효강수에 의해 토양에 전달되는 열에너지(EPPT)와 순일차생산에 의해 고정되는 에너지(EBIO)의 합이다. Rasmussen & Tabor(2007)는 유효강수가 0 °C에서 그 달의 평균기온까지 데워진다고 보고, 유효강수가 양수인 달의 값만 더하여 연간 EEMT를 구하였다. Pelletier et al.(2013)은 NPP와 증발산량 자료를 구하기 어려워 기온, 강수량, 수증기압 부족량에 대한 회귀식으로 EEMT를 추정하였으나, 본 연구에서는 BIOME4에서 계산된 각 격자의 NPP와 월별 실제증발산량을 이용하여 직접 계산하였다.
 
-$$\mathrm{EEMT} = E_{PPT} + E_{BIO} = \sum_{m=1}^{12} c_w\,T_m\,(P_m - \mathrm{AET}_m) + \frac{h_{BIO}}{f_C}\,\max(\mathrm{NPP},\,0) \tag{9}$$
+$$\mathrm{EEMT} = E_{PPT} + E_{BIO} = \sum_{m=1}^{12} c_w\,\max(T_m,\,0)\,\max(P_m - \mathrm{AET}_m,\,0) + \frac{h_{BIO}}{f_C}\,\max(\mathrm{NPP},\,0) \tag{9}$$
 
-식 (9)에서 Tm[°C]은 m월의 평균기온, Pm과 AETm[kg/m²]은 m월의 강수량과 실제증발산량, NPP[kgC/m²/yr]는 순일차생산량이며, cw는 물의 비열(4,186 J/kg/K), hBIO는 생체량의 에너지 함량(22 MJ/kg), fC는 생체량의 탄소 비율(0.5)이다.
+식 (9)에서 Tm[°C]은 m월의 평균기온, Pm과 AETm[kg/m²]은 m월의 강수량과 실제증발산량, NPP[kgC/m²/yr]는 순일차생산량이며, cw는 물의 비열(4,186 J/kg/K), hBIO는 생체량의 에너지 함량(22 MJ/kg), fC는 생체량의 탄소 비율(0.5)이다. 영하에서 내린 강수는 풍화에 기여하지 않으므로(Pelletier & Rasmussen, 2009), 평균기온이 0 °C 이하인 달의 EPPT는 0으로 하였다.
 
 ② 사면 물질이동
 
@@ -78,7 +78,7 @@ Pelletier et al.(2013)은 항공 라이다로 추정한 AGB와 EEMT의 경험적
 
 $$\log_{10}\mathrm{SLA} = 2.44 - 0.43\,\log_{10}L \tag{12}$$
 
-임계경사는 Pelletier et al.(2013)이 미고결 물질의 일반적인 안식각(35°)에 해당하는 0.7을 사용하고 0.9에서도 결과의 차이가 10% 미만임을 확인하였으나, 연구 유역의 20 m DEM에서는 인접 격자 간 경사가 최대 1.33이고 약 10%가 0.7을 넘어 이를 적용하면 모의 초기에 사면이 인위적으로 깎이게 되므로 1.5로 설정하였다.
+임계경사는 Pelletier et al.(2013)과 같이 미고결 물질의 일반적인 안식각(35°)에 해당하는 0.7을 사용하였다.
 
 ③ 유수침식
 
@@ -100,7 +100,7 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{13
 
 (4) 입력 자료와 모의 설정
 
-기후 자료는 CHELSA-TraCE21k(Karger et al., 2023)의 월평균 기온과 월강수량을 사용하였으며, 월평균 기온은 월 최저기온과 최고기온의 평균으로 산정하였다. CHELSA-TraCE21k는 지형의 영향을 고려하여 상세화된 자료이므로 유역 내 모든 격자에 용늪 지점의 값을 동일하게 적용하였다. CHELSA-TraCE21k에서 제공하지 않는 운량은 1,000년 간격으로 제공되는 Beyer et al.(2020)의 월별 운량을 0.1 kyr 간격으로 선형보간하여 사용하였으며, 대기 중 CO2 농도는 Bereiter et al.(2015)의 남극 빙하코어 기록을 사용하였다. 지형은 국토정보플랫폼의 수치지형도를 QGIS에서 IDW로 보간하여 10 m 고도면을 만든 뒤 20 m 격자로 리샘플링하여 구성하였다. 초기 토심은 SoilGrids(Hengl et al., 2017)의 1 km 기반암까지의 깊이 자료를 이용하였으며, 이 자료는 Shangguan et al.(2017)의 방법으로 추정된 것이다.
+기후 자료는 CHELSA-TraCE21k(Karger et al., 2023)의 월평균 기온과 월강수량을 사용하였으며, 월평균 기온은 월 최저기온과 최고기온의 평균으로 산정하였다. CHELSA-TraCE21k는 지형의 영향을 고려하여 상세화된 자료이므로 유역 내 모든 격자에 용늪 지점의 값을 동일하게 적용하였다. CHELSA-TraCE21k에서 제공하지 않는 운량은 1,000년 간격으로 제공되는 Beyer et al.(2020)의 월별 운량을 0.1 kyr 간격으로 선형보간하여 사용하였으며, 대기 중 CO2 농도는 Bereiter et al.(2015)의 남극 빙하코어 기록을 사용하였다. 지형은 FABDEM V1-2(Hawker et al., 2022)를 EPSG:5187 좌표계로 투영하여 30 m 격자로 구성하였다. 유역은 와지를 채운 지형에서 D8 흐름 방향으로 구하였으며, 출구는 용늪에서 흘러나가는 유로가 처음 지류와 합류하는 지점의 바로 아래로 하였다(656개 격자, 59.0 ha). 초기 토심은 SoilGrids(Hengl et al., 2017)의 1 km 기반암까지의 깊이 자료를 이용하였으며, 이 자료는 Shangguan et al.(2017)의 방법으로 추정된 것이다.
 
 모의는 21 ka BP부터 현재까지 0.1 kyr 간격으로 211개 시점에 대해 수행하였다. 동적 지형 모델은 각 시점에서 BIOME4로 식생을 계산한 뒤 이로부터 산정한 EEMT와 AGB를 이용하여 다음 0.1 kyr 동안의 지형발달을 계산하고, 변화한 고도와 토심을 다음 시점의 BIOME4에 입력하였다. 정적 지형 모델은 동일한 기후 조건에서 고도와 토심을 초기값으로 고정한 채 식생만 계산하였다. 두 모델의 결과를 고식생 기록과 비교하여, 토양과 지형을 시간에 따라 변화하는 요소로 고려하였을 때 고식생 복원 결과가 어떻게 달라지는지 평가하였다.
 
@@ -118,7 +118,7 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{13
 | 초본 및 개방식생 | 열대 사바나, 열대 건생관목림, 온대 건생관목림, 온대 경엽수 소림, 온대 활엽수 사바나, 개방 침엽수 소림, 아한대 소림지대, 열대 초지, 온대 초지, 툰드라, 식생이 있는 사막 |
 | 무식생 | 나지, 빙하, 기반암 노출 격자 |
 
-Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수림, 4,800-3,400 cal yr BP와 390 cal yr BP 이후는 혼효림과 비교하였다. 각 시기에 속하는 0.1 kyr 간격의 모델 결과 62개 시점에 대해, 유역 내 식생 격자 중 관측된 식생유형이 1% 이상 나타나면 일치하는 것으로 판정하였다. 또한 판정 기준을 1개 격자에서 10개 격자까지 변화시켜 기준에 따른 결과의 차이를 확인하였다.
+Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수림, 4,800-3,400 cal yr BP와 390 cal yr BP 이후는 혼효림과 비교하였다. 각 시기에 속하는 0.1 kyr 간격의 모델 결과 62개 시점에 대해, 유역 내 식생 격자 중 관측된 식생유형이 1% 이상 나타나면 일치하는 것으로 판정하였다. 또한 판정 기준을 1개 격자에서 20개 격자까지 변화시켜 기준에 따른 결과의 차이를 확인하였다.
 
 다음으로 Park et al.(2021)의 YN-C 코어 화분 자료(72개 시료, 약 3,181-515 cal yr BP)를 이용하여 PFT 단위로 모델 결과를 검증하였다. 화분 분류군은 Prentice et al.(1996)과 Takahara et al.(2000)을 참고하여 PFT 그룹으로 묶었으며(표 4), 용늪의 습원 식생을 반영하는 오리나무속, 산형과, 터리풀속, 오이풀속과 수생식물, 사초과, 포자는 육상 화분 합에서 제외하였다. 소나무속은 아속을 구분할 수 없어 육상 화분 합에는 포함하였으나 PFT 그룹에는 배정하지 않았다.
 
@@ -133,7 +133,7 @@ Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수�
 | 초본 | 벼과 | 8 | 2% | 우점 PFT |
 | 건조지 목본 | 마황속 | 10 | 5% | 우점 PFT |
 
-각 모델 시점에서 ±0.05 kyr 이내의 시료를 합산하여 그룹별 화분 비율을 구하고, 이 비율이 그룹별 기준값 이상이면 해당 PFT가 출현한 것으로 보았다. 모델에서는 유역 내 식생 격자 중 하나 이상에서 해당 PFT가 우점 PFT로 선택되면 출현한 것으로 판정하였다. 다만 BIOME4는 온대 낙엽활엽수(PFT4)가 우점 PFT이고 아한대 상록수(PFT6)가 생육 가능하면 냉량 혼효림으로 판정하므로, 상록 침엽수는 우점 여부 대신 생육 가능 여부(생물기후적 한계값을 만족하고 NPP가 0보다 큰 경우)로 판정하였다. 검증 결과는 그룹별로 정확도, 민감도, 특이도, TSS를 계산하여 평가하였으며, 판정 방식과 화분 비율 기준을 바꾸어 민감도 분석을 수행하였다.
+각 모델 시점에서 ±0.05 kyr 이내의 시료를 합산하여 그룹별 화분 비율을 구하고, 이 비율이 그룹별 기준값 이상이면 해당 PFT가 출현한 것으로 보았다. 모델에서는 유역 내 식생 격자 중 하나 이상에서 해당 PFT가 우점 PFT로 선택되면 출현한 것으로 판정하였다. 다만 BIOME4는 온대 낙엽활엽수(PFT4)가 우점 PFT이고 아한대 상록수(PFT6)가 생육 가능하면 냉량 혼효림으로 판정하므로, 상록 침엽수는 우점 여부 대신 생육 가능 여부(생물기후적 한계값을 만족하고 NPP가 0보다 큰 경우)로 판정하였다. 검증 결과는 그룹별로 정확도, 민감도, 특이도, TSS를 계산하여 평가하였으며, 판정 방식과 화분 비율 기준을 바꾸어 민감도 분석을 수행하였다. 건조지 목본은 대응하는 화분 분류군이 풍매화인 마황속뿐이고, 얕은 암반에 자라는 관목은 대부분 충매화여서 화분으로 출현을 확인하기 어려우므로, 이 그룹을 제외한 TSS도 함께 제시하였다.
 
 ---
 
@@ -143,6 +143,7 @@ Culling, W. E. H., 1960, Analytical theory of erosion, Journal of Geology, 68, 3
 Haxeltine, A. and Prentice, I. C., 1996, BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types, Global Biogeochemical Cycles, 10(4), 693-709.
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 1997, The soil production function and landscape equilibrium, Nature, 388, 358-361.
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 2001, Stochastic processes of soil production and transport: Erosion rates, topographic variation and cosmogenic nuclides in the Oregon Coast Range, Earth Surface Processes and Landforms, 26, 531-552.
+Hawker, L., Uhe, P., Paulo, L., Sosa, J., Savage, J., Sampson, C. and Neal, J., 2022, A 30 m global map of elevation with forests and buildings removed, Environmental Research Letters, 17(2), 024016.
 Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S. and Kempen, B., 2017, SoilGrids250m: Global gridded soil information based on machine learning, PLoS ONE, 12(2), e0169748.
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E. and Schulze, E.-D., 1996, A global analysis of root distributions for terrestrial biomes, Oecologia, 108, 389-411.
 Kaplan, J. O., 2001, Geophysical Applications of Vegetation Modeling, Ph.D. dissertation, Lund University, Lund.

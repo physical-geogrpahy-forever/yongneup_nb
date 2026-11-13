@@ -18,14 +18,23 @@
 
 ## 최종 모델 (2026-11-13, `final` 브랜치)
 
-U008에 산불잠재일수 근권 토양수분 정규화를 더한 모델을 최종 모델로 한다. 원본 BIOME4와 같이 산불 판정에 쓰는 뿌리 가중치의 합을 1로 맞추고, 수분 공급과 낙엽 계절성은 U008의 잘린 뿌리 가중치를 그대로 쓴다.
+U008에 다음 네 가지를 더한 모델을 최종 모델로 한다.
 
-- 패키지: `model/PB4Studio_v6.6.3_CHELSA21K.zip` (version `6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN`)
-- 이전 U008 패키지: `model/archive/PB4Studio_v6.6.3_CHELSA21K_U008_PRE_FIREWRN.zip`
-- 결과와 재현 확인: `results/final_fire_wetness_20261112/README_KO.md`
+1. 산불잠재일수: 원본 BIOME4와 같이 산불 판정에 쓰는 뿌리 가중치의 합을 1로 맞춘다.
+2. EEMT: Rasmussen & Tabor (2007)를 따라 월별 EPPT를 유효강수가 양수인 달만 더하고, 0 °C 아래 달은 0으로 둔다.
+3. 지형: FABDEM V1-2 30 m 격자를 쓴다. 유역은 용늪 유출로의 첫 합류점 아래 출구의 D8 유역(656셀, 59.0 ha)이다.
+4. 임계경사: Pelletier et al. (2013)의 0.7을 쓴다.
+
+- 패키지: `model/PB4Studio_v6.6.3_CHELSA21K.zip` (version `6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN-EEMT0-FAB30`)
+- 이전 패키지: `model/archive/PB4Studio_v6.6.3_CHELSA21K_FIREWRN_IDW20M_11P9HA.zip`(수치지형도 IDW 20 m, 11.9 ha), `model/archive/PB4Studio_v6.6.3_CHELSA21K_U008_PRE_FIREWRN.zip`
+- 결과, 재현 확인, 민감도: `results/final_fab30_20261113/README_KO.md`
+- 지형 원자료: `data/FABDEM_V1-2_yongneup_region_EPSG5187_27p4m.tif`
 - 연구 방법 원고: `manuscript/METHODS_VeSLEM_FINAL_20261113_KO.md`
 - 산불 그림: `plots/plot_max_firedays_3p5_2p0ka.py`
-- 검증: Jang et al. (2011) 정적 24/62, 동적 55/62. Park et al. (2021) PFT TSS 정적 0.522, 동적 0.588.
+- 검증 결과
+  - Jang et al. (2011): 정적 24/62, 동적 55/62
+  - Park et al. (2021) PFT TSS: 정적 0.522, 동적 0.473
+  - PFT TSS, DWD 제외: 정적 0.503, 동적 0.483
 
 아래 절은 이전 단계의 기록이다.
 
