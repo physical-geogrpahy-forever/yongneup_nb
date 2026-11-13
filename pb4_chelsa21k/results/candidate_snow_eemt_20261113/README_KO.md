@@ -71,7 +71,7 @@ Pelletier et al.(2013) 식 (3)은 수증기압 부족량이 필요하고(CHELSA-
 | 3.5~2.0 ka 산불 격자 최대 | 54 | 50 | 35 |
 
 - 검증군과 BIOME4 PFT의 대응은 `pb4studio/embedded_data/pft_groups_yongneup.csv`를 따른다: TBD = PFT4, BDE = PFT7(한대 낙엽수, Betula와 Salix), CON = PFT5와 6, TBE = PFT3, GRS = PFT8, DWD = PFT10(사막 목본, Ephedra).
-- 동적 TSS 차이는 모두 DWD 한 군에서 나온다. 화분 기록에는 Ephedra가 없으므로, 유역의 1% 이상에 PFT10이 나타난 검증 시점 수가 그대로 오탐이 된다. DWD를 빼면 세 경우의 TSS는 같다. 나머지 군의 TP/FP/FN/TN은 세 경우가 같다(TBD 28/0/0/0, BDE 19/9/0/0, CON 26/2/0/0, TBE 0/0/0/28, GRS 0/0/25/3).
+- 동적 TSS 차이는 모두 DWD 한 군에서 나온다. 화분 기록에는 Ephedra가 없으므로, 유역의 한 격자 이상에서 PFT10이 우점 PFT로 나타난 검증 시점 수가 그대로 오탐이 된다. DWD를 빼면 세 경우의 TSS는 같다. 나머지 군의 TP/FP/FN/TN은 세 경우가 같다(TBD 28/0/0/0, BDE 19/9/0/0, CON 26/2/0/0, TBE 0/0/0/28, GRS 0/0/25/3).
 - PFT7(한대 낙엽수) 격자 수는 경우마다 다르지만 BDE 판정은 세 경우 모두 같다.
 - 식생 변화의 순서(21 ka PFT6 전역 → 4 ka 무렵 PFT4 확장 → 1~0 ka PFT4 우점)는 세 경우가 같다. 차이는 얇은 토양 격자의 PFT7 수와 시점에 있다.
 - C에서는 EEMT가 커져 토양이 두꺼워지고, 얇은 토양 격자의 PFT7과 PFT10이 줄어든다. TSS 상승은 PFT10 오탐이 사라진 결과이며, 이것만으로 식생 재현성이 나아졌다고 보지 않는다.
