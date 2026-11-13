@@ -88,7 +88,7 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{13
 
 식 (13)에서 A[m²]는 기여면적, w[m]는 흐름의 유효 폭, K[1/kyr]는 침식계수이다. Langbein & Schumm(1958)은 연평균 유효강수량이 약 0.3 m를 넘는 지역에서는 강수가 많아질수록 식생 피복이 토양을 붙잡아 퇴적물 생산량이 감소한다고 보고하였으며, Pelletier et al.(2013)은 이를 반영하여 레골리스의 침식계수가 EEMT에 반비례하도록 하였다. K0는 Pelletier et al.(2013)과 같이 0.02 m²/MJ를 사용하였으며, 토층이 없는 곳에서는 기반암이 침식되도록 하되 기반암의 침식계수는 레골리스의 1/10로 하였다.
 
-흐름의 유효 폭은 포상류가 일어나는 사면에서는 격자 크기와 같고, 흐름이 곡저에 집중되는 곳에서는 기여면적의 거듭제곱 함수(w = gA^(1/2), g = 0.005)로 나타낸다(Leopold & Maddock, 1953; Pelletier et al., 2013). 사면과 곡저는 Pelletier(2010)의 방법에 따라 다방향 흐름 알고리즘으로 원래 격자와 절반 크기 격자에서 각각 계산한 기여면적의 비(f)를 이용하여 구분하였으며, 이 비가 1.2보다 작아 격자 해상도에 대한 의존성이 작은 격자를 곡저로 보았다.
+흐름의 유효 폭은 포상류가 일어나는 사면에서는 격자 크기와 같고, 흐름이 곡저에 집중되는 곳에서는 기여면적의 거듭제곱 함수(w = gA^(1/2), g = 0.005)로 나타낸다(Leopold & Maddock, 1953; Pelletier et al., 2013). 사면과 곡저는 Pelletier(2010)의 방법에 따라 다방향 흐름 알고리즘으로 원래 격자와 절반 크기 격자에서 각각 계산한 기여면적의 비(f)를 이용하여 구분하였으며, 이 비가 1.2보다 작아 격자 해상도에 대한 의존성이 작은 격자를 곡저로 보았다(Pelletier, 2013).
 
 ④ 융기
 
@@ -100,7 +100,7 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{13
 
 (4) 입력 자료와 모의 설정
 
-기후 자료는 CHELSA-TraCE21k(Karger et al., 2023)의 월평균 기온과 월강수량을 사용하였으며, 월평균 기온은 월 최저기온과 최고기온의 평균으로 산정하였다. CHELSA-TraCE21k는 지형의 영향을 고려하여 상세화된 자료이므로 유역 내 모든 격자에 용늪 지점의 값을 동일하게 적용하였다. CHELSA-TraCE21k에서 제공하지 않는 운량은 1,000년 간격으로 제공되는 Beyer et al.(2020)의 월별 운량을 0.1 kyr 간격으로 선형보간하여 사용하였으며, 대기 중 CO2 농도는 Bereiter et al.(2015)의 남극 빙하코어 기록을 사용하였다. 지형은 FABDEM V1-2(Hawker et al., 2022)를 이용하여 20 m 격자로 구성하였고, 초기 토심은 Shangguan et al.(2017)의 기반암까지의 깊이 자료를 이용하였다.
+기후 자료는 CHELSA-TraCE21k(Karger et al., 2023)의 월평균 기온과 월강수량을 사용하였으며, 월평균 기온은 월 최저기온과 최고기온의 평균으로 산정하였다. CHELSA-TraCE21k는 지형의 영향을 고려하여 상세화된 자료이므로 유역 내 모든 격자에 용늪 지점의 값을 동일하게 적용하였다. CHELSA-TraCE21k에서 제공하지 않는 운량은 1,000년 간격으로 제공되는 Beyer et al.(2020)의 월별 운량을 0.1 kyr 간격으로 선형보간하여 사용하였으며, 대기 중 CO2 농도는 Bereiter et al.(2015)의 남극 빙하코어 기록을 사용하였다. 지형은 FABDEM V1-2(Hawker et al., 2022)를 이용하여 20 m 격자로 구성하였고, 초기 토심은 SoilGrids(Hengl et al., 2017)의 1 km 기반암까지의 깊이 자료를 이용하였으며, 이 자료는 Shangguan et al.(2017)의 방법으로 추정된 것이다.
 
 모의는 21 ka BP부터 현재까지 0.1 kyr 간격으로 211개 시점에 대해 수행하였다. 동적 지형 모델은 각 시점에서 BIOME4로 식생을 계산한 뒤 이로부터 산정한 EEMT와 AGB를 이용하여 다음 0.1 kyr 동안의 지형발달을 계산하고, 변화한 고도와 토심을 다음 시점의 BIOME4에 입력하였다. 정적 지형 모델은 동일한 기후 조건에서 고도와 토심을 초기값으로 고정한 채 식생만 계산하였다. 두 모델의 결과를 고식생 기록과 비교하여, 토양과 지형을 시간에 따라 변화하는 요소로 고려하였을 때 고식생 복원 결과가 어떻게 달라지는지 평가하였다.
 
@@ -143,12 +143,14 @@ Culling, W. E. H., 1960, Analytical theory of erosion, Journal of Geology, 68, 3
 Haxeltine, A. and Prentice, I. C., 1996, BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types, Global Biogeochemical Cycles, 10(4), 693-709.
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 1997, The soil production function and landscape equilibrium, Nature, 388, 358-361.
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 2001, Stochastic processes of soil production and transport: Erosion rates, topographic variation and cosmogenic nuclides in the Oregon Coast Range, Earth Surface Processes and Landforms, 26, 531-552.
+Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S. and Kempen, B., 2017, SoilGrids250m: Global gridded soil information based on machine learning, PLoS ONE, 12(2), e0169748.
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E. and Schulze, E.-D., 1996, A global analysis of root distributions for terrestrial biomes, Oecologia, 108, 389-411.
 Kaplan, J. O., 2001, Geophysical Applications of Vegetation Modeling, Ph.D. dissertation, Lund University, Lund.
 Langbein, W. B. and Schumm, S. A., 1958, Yield of sediment in relation to mean annual precipitation, Transactions, American Geophysical Union, 39, 1076-1084.
 Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E. and Yu, B. Y., 2024, Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea, Earth Surface Dynamics, 12(5), 1091-1120.
 Leopold, L. B. and Maddock, T. Jr., 1953, The hydraulic geometry of stream channels and some physiographic implications, U.S. Geological Survey Professional Paper 252.
 Pelletier, J. D., 2010, Minimizing the grid-resolution dependence of flow-routing algorithms for geomorphic applications, Geomorphology, 122, 91-98.
+Pelletier, J. D., 2013, Fundamental principles and techniques of landscape evolution modeling, in Shroder, J. and Baas, A. C. W.(eds.), Treatise on Geomorphology, Vol. 2, Quantitative Modeling of Geomorphology, Academic Press, San Diego, 29-43.
 Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic controls on hillslope steepness and erosion rate, Lithosphere, 1, 73-80.
 Prentice, I. C., Guiot, J., Huntley, B., Jolly, D. and Cheddadi, R., 1996, Reconstructing biomes from palaeoecological data: A general method and its application to European pollen data at 0 and 6 ka, Climate Dynamics, 12(3), 185-194.
 Rasmussen, C. and Tabor, N., 2007, Application of a quantitative pedogenic energy model to predict soil development across a range of environmental gradients, Soil Science Society of America Journal, 71(5), 1719-1729.
