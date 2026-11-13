@@ -52,11 +52,11 @@ $$\frac{\partial H}{\partial t} = \frac{\rho_r}{\rho_s}\frac{P}{\cos\theta} - E_
 
 ① 기반암 풍화
 
-우주기원 핵종 연구에 따르면 사면에 수직인 방향의 기반암 풍화율은 그 위를 덮는 토층의 두께에 따라 지수적으로 감소한다(Heimsath et al., 1997, 2001). 또한 Rasmussen & Tabor(2007)는 풍화가 느린 화강암 사면에서 레골리스 두께가 EEMT에 따라 지수적으로 증가함을 보였으며, Pelletier et al.(2013)은 이를 바탕으로 토층이 없을 때의 풍화율이 EEMT에 따라 지수적으로 증가하도록 하였다.
+우주기원 핵종 연구에 따르면 사면에 수직인 방향의 기반암 풍화율은 그 위를 덮는 토층의 두께에 따라 지수적으로 감소한다(Heimsath et al., 1997, 2001). 또한 Rasmussen & Tabor(2007)는 경사가 완만한 안정 사면에서 레골리스 두께가 EEMT에 따라 지수적으로 증가함을 보였으며, Pelletier & Rasmussen(2009)은 이로부터 토층이 없을 때의 풍화율도 EEMT에 따라 지수적으로 증가한다고 보았다.
 
 $$P = P_0\,e^{-H\cos\theta/H_0}, \qquad P_0 = a\,e^{b_E\,\mathrm{EEMT}} \tag{8}$$
 
-식 (8)에서 P0[m/kyr]는 토층이 없을 때의 풍화율, H0[m]는 풍화 특성깊이로 Heimsath et al.(1997, 2001)의 자료에 근거한 0.5 m를 사용하였다. a와 bE는 Pelletier & Rasmussen(2009)이 화강암 지역 자료를 이용하여 산정한 0.037 m/kyr와 0.03 m² yr/MJ를 사용하였다.
+식 (8)에서 P0[m/kyr]는 토층이 없을 때의 풍화율, H0[m]는 풍화 특성깊이로 Heimsath et al.(1997, 2001)의 자료에 근거한 0.5 m를 사용하였다. a와 bE는 Pelletier & Rasmussen(2009)이 Riebe et al.(2004)의 화강암 유역 자료로 산정한 0.037 m/kyr와 0.03 m² yr/MJ를 사용하였다.
 
 EEMT(Effective Energy and Mass Transfer)는 유효강수에 의해 토양에 전달되는 열에너지(EPPT)와 순일차생산에 의해 고정되는 에너지(EBIO)의 합으로, 기후의 계절성을 반영하기 위해 월 단위로 계산한다(Pelletier et al., 2013). Pelletier et al.(2013)은 NPP와 증발산량 자료를 구하기 어려워 기온, 강수량, 수증기압 부족량에 대한 회귀식으로 EEMT를 추정하였으나, 본 연구에서는 BIOME4에서 계산된 각 격자의 NPP와 월별 실제증발산량을 이용하여 직접 계산하였다.
 
@@ -151,10 +151,11 @@ Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E. and Yu, B. Y., 2024, Top
 Leopold, L. B. and Maddock, T. Jr., 1953, The hydraulic geometry of stream channels and some physiographic implications, U.S. Geological Survey Professional Paper 252.
 Pelletier, J. D., 2010, Minimizing the grid-resolution dependence of flow-routing algorithms for geomorphic applications, Geomorphology, 122, 91-98.
 Pelletier, J. D., 2013, Fundamental principles and techniques of landscape evolution modeling, in Shroder, J. and Baas, A. C. W.(eds.), Treatise on Geomorphology, Vol. 2, Quantitative Modeling of Geomorphology, Academic Press, San Diego, 29-43.
-Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic controls on hillslope steepness and erosion rate, Lithosphere, 1, 73-80.
+Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic controls on hillslope steepness and erosion rate, Lithosphere, 1(2), 73-80.
 Prentice, I. C., Guiot, J., Huntley, B., Jolly, D. and Cheddadi, R., 1996, Reconstructing biomes from palaeoecological data: A general method and its application to European pollen data at 0 and 6 ka, Climate Dynamics, 12(3), 185-194.
-Rasmussen, C. and Tabor, N., 2007, Application of a quantitative pedogenic energy model to predict soil development across a range of environmental gradients, Soil Science Society of America Journal, 71(5), 1719-1729.
+Rasmussen, C. and Tabor, N. J., 2007, Applying a quantitative pedogenic energy model across a range of environmental gradients, Soil Science Society of America Journal, 71(6), 1719-1729.
 Reich, P. B., Walters, M. B. and Ellsworth, D. S., 1992, Leaf life-span in relation to leaf, plant, and stand characteristics among diverse ecosystems, Ecological Monographs, 62(3), 365-392.
+Riebe, C. S., Kirchner, J. W. and Finkel, R. C., 2004, Erosional and climatic effects on long-term chemical weathering rates in granitic landscapes spanning diverse climate regimes, Earth and Planetary Science Letters, 224(3-4), 547-562.
 Roering, J. J., Kirchner, J. W. and Dietrich, W. E., 1999, Evidence for nonlinear, diffusive sediment transport on hillslopes and implications for landscape morphology, Water Resources Research, 35(3), 853-870.
 Takahara, H., Sugita, S., Harrison, S. P., Miyoshi, N., Morita, Y. and Uchiyama, T., 2000, Pollen-based reconstructions of Japanese biomes at 0, 6000 and 18,000 14C yr BP, Journal of Biogeography, 27(3), 665-683.
 Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., de Sousa, L. and Heuvelink, G. B. M., 2023, Global mapping of volumetric water retention at 100, 330 and 15000 cm suction using the WoSIS database, International Soil and Water Conservation Research, 11(2), 225-239.
