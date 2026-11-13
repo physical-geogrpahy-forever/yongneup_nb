@@ -1,0 +1,13 @@
+﻿model_mode,mask_definition,variant,all_requested_outputs_exactly_equal,variables_different,total_different_values,max_abs_difference_any
+dynamic,A_depth_ge1p5,B,0,soil_depth_m;pft04_mod_npp_node;pft07_mod_npp_node;pft08_mod_npp_node,458,0.0007576942443847656
+dynamic,A_depth_ge1p5,C,0,soil_depth_m;pft04_mod_npp_node;pft07_mod_npp_node;pft08_mod_npp_node,1285,0.0007576942443847656
+dynamic,A_depth_ge1p5,D,0,soil_depth_m;npp_node;lai_node;wetness_node;pft04_mod_npp_node;pft04_mod_lai_node;pft07_mod_npp_node;pft07_mod_lai_node;pft08_mod_npp_node;pft08_mod_lai_node,60321,1.0
+dynamic,common_all_variants_depth_ge1p5,B,0,soil_depth_m;pft04_mod_npp_node;pft07_mod_npp_node;pft08_mod_npp_node,457,0.0007576942443847656
+dynamic,common_all_variants_depth_ge1p5,C,0,soil_depth_m;pft04_mod_npp_node;pft07_mod_npp_node;pft08_mod_npp_node,1282,0.0007576942443847656
+dynamic,common_all_variants_depth_ge1p5,D,0,soil_depth_m;npp_node;lai_node;wetness_node;pft04_mod_npp_node;pft04_mod_lai_node;pft07_mod_npp_node;pft07_mod_lai_node;pft08_mod_npp_node;pft08_mod_lai_node,60252,1.0
+static,A_depth_ge1p5,B,1,,0,0.0
+static,A_depth_ge1p5,C,1,,0,0.0
+static,A_depth_ge1p5,D,1,,0,0.0
+static,common_all_variants_depth_ge1p5,B,1,,0,0.0
+static,common_all_variants_depth_ge1p5,C,1,,0,0.0
+static,common_all_variants_depth_ge1p5,D,1,,0,0.0

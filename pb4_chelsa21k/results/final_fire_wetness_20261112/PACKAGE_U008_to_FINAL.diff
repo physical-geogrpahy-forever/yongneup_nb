@@ -1,0 +1,91 @@
+diff -ruN -x __pycache__ orig/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py x/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/__init__.py	2026-11-13 13:53:16.791620465 +0900
+@@ -1,4 +1,4 @@
+ # -*- coding: utf-8 -*-
+ """PB4Studio engine layer (GUI-independent, CLI-compatible)."""
+ 
+-__version__ = '6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008'
++__version__ = '6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN'
+diff -ruN -x __pycache__ orig/PB4Studio_v6.6.3_CHELSA21K/pb4studio/biome4_backend.py x/PB4Studio_v6.6.3_CHELSA21K/pb4studio/biome4_backend.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/biome4_backend.py	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/biome4_backend.py	2026-11-13 13:52:26.316653848 +0900
+@@ -467,14 +467,23 @@
+         )
+         text = text.replace(
+             "       real w(2),root,fvc,k(12),aet,r1(2),emax\n",
+-            "       real w(2),rtop_eff,rbot_eff,fvc,k(12),aet,r1(2),emax\n",
++            "       real w(2),rtop_eff,rbot_eff,fvc,k(12),aet,r1(2),emax,wr_n\n",
+             1,
+         )
+         text = text.replace(
+             "       wr =  root*w(1) + (1.-root)*w(2)\n",
+-            "       wr = rtop_eff*w(1) + rbot_eff*w(2)\n",
++            "       wr = rtop_eff*w(1) + rbot_eff*w(2)\n"
++            "       wr_n=wr/max(rtop_eff+rbot_eff,1.0e-6)\n",
+             1,
+         )
++        # Fire: original BIOME4 counts fire days from wet(d), the root-weighted
++        # wetness whose layer weights sum to 1. On thin soils rtop_eff+rbot_eff<1,
++        # so the fire wetness uses the weights normalized to sum to 1.
++        # Supply, phenology and meanwr keep the truncated weights (wr).
++        _fire_old = "       wet(d)=wr\n"
++        if text.count(_fire_old) != 1:
++            raise RuntimeError("Could not locate BIOME4 fire wetness assignment wet(d)=wr.")
++        text = text.replace(_fire_old, "       wet(d)=wr_n\n", 1)
+         text = text.replace(
+             "        r1(1) =      root  * (w(1)/wr)\n"
+             "        r1(2) =  (1.-root) * (w(2)/wr)       \n",
+@@ -842,7 +851,7 @@
+     # Use a unique DLL name on forced recompiles. On Windows, an already-loaded
+     # DLL is locked by the Python process, so overwriting the same path can fail.
+     env_key = f"BIOME4_BATCH_DLL_BASENAME_{variant.upper()}"
+-    dll_base = os.environ.get(env_key, f"biome4_batch_pb4_{variant}")
++    dll_base = os.environ.get(env_key, f"biome4_batch_pb4_{variant}_firewrn")
+     if force:
+         dll_base = f"{dll_base}_{os.getpid()}_{int(time.time())}"
+     lib = bdir / ((dll_base + ".dll") if os.name == "nt" else ("lib" + dll_base + ".so"))
+diff -ruN -x __pycache__ orig/PB4Studio_v6.6.3_CHELSA21K/pb4studio/config.py x/PB4Studio_v6.6.3_CHELSA21K/pb4studio/config.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/pb4studio/config.py	2026-11-12 16:05:05.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/pb4studio/config.py	2026-11-13 13:53:16.791328855 +0900
+@@ -362,8 +362,9 @@
+     # SoilGrids point values supplied by the user. Root-depth scaling follows
+     # McKenzie f(z)=exp(-z/Xi), with Xi analytically fixed from BIOME4's native
+     # Jackson-et-al. top-30-cm root fraction. No fitted depth→NPP/LAI/FVC
+-    # coefficient is used. PFT6 uses the Sitch et al. (2003) BoNE climate sieve; the pre-existing
+-    # PFT5 TCM=-8 C project setting is retained unchanged in this patch.
++    # coefficient is used. PFT climate limits are the native BIOME4 v4.2b2 limits.
++    # Fire days use the root-weighted wetness with weights normalized to sum to 1
++    # (wet(d)=wr_n); supply, phenology and meanwr use the truncated weights.
+     biome4_variant: str = "mckenzie2003"
+     light_input_kind: str = "cloud_percent"
+     force_compile_biome4: bool = False
+diff -ruN -x __pycache__ orig/PB4Studio_v6.6.3_CHELSA21K/tools/check_package_contract.py x/PB4Studio_v6.6.3_CHELSA21K/tools/check_package_contract.py
+--- a/PB4Studio_v6.6.3_CHELSA21K/tools/check_package_contract.py	2026-10-06 08:02:44.000000000 +0900
++++ b/PB4Studio_v6.6.3_CHELSA21K/tools/check_package_contract.py	2026-11-13 13:53:27.146529849 +0900
+@@ -5,7 +5,7 @@
+ import pb4studio
+ from pb4studio.pelletier_geomorph import PelletierStrictConfig
+ from pb4studio.standard_report import REPORT_AGES_KA
+-EXPECTED='6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008'
++EXPECTED='6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN'
+ assert pb4studio.__version__ == EXPECTED, (pb4studio.__version__, EXPECTED)
+ assert abs(PelletierStrictConfig().uplift_m_per_kyr-0.08)<1e-15
+ assert abs(PelletierStrictConfig().hillslope_critical_slope-1.50)<1e-15
+@@ -17,6 +17,9 @@
+ assert not any(str(r['record_id']).startswith('92_') for r in rows)
+ runner=(ROOT/'pb4studio/runner.py').read_text(encoding='utf-8')
+ assert 'yongneup_jang2011_primary_validation.csv' in runner
++backend=(ROOT/'pb4studio/biome4_backend.py').read_text(encoding='utf-8')
++assert 'wr_n=wr/max(rtop_eff+rbot_eff,1.0e-6)' in backend
++assert '"       wet(d)=wr_n\\n"' in backend
+ fig=(ROOT/'pb4studio/figures.py').read_text(encoding='utf-8')
+ for token in ['set_xlim(21, 0)','color="firebrick", linewidth=1.6','color="royalblue", linewidth=1.4','frameon=False']:
+     assert token in fig, token
+@@ -24,5 +27,6 @@
+     assert (ROOT/target).is_file(), target
+ print('PASS PB4 PACKAGE CONTRACT')
+ print('VERSION',EXPECTED)
++print('FIRE_WETNESS','wet(d)=wr_n (root weights normalized to sum 1)')
+ print('PRIMARY_VALIDATION','Jang2011 corrected mapping n=62; Park2021 excluded')
+ print('REPORT_AGES_KA',REPORT_AGES_KA)

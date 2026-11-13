@@ -1,0 +1,34 @@
+--- /mnt/data/pb4_normvariants_work/PB4Studio_v6.6.3_CHELSA21K/_normcheck/B.f	2026-11-12 10:25:57.297365217 +0000
++++ /mnt/data/pb4_normvariants_work/PB4Studio_v6.6.3_CHELSA21K/_normcheck/C.f	2026-11-12 10:25:57.298538854 +0000
+@@ -2436,18 +2436,18 @@
+         fvc = maxfvc*dphen(d,grass)  
+ 
+ c------new code-02.05.99----
+-        if(fvc.gt.0.01.and.wr.gt.offw)then  !drought deciduous
++        if(fvc.gt.0.01.and.wr_n.gt.offw)then  !drought deciduous
+           fvc = fvc
+-        else if(fvc.lt.0.01.and.wr.gt.onnw)then
++        else if(fvc.lt.0.01.and.wr_n.gt.onnw)then
+          fvc = fvc
+         else
+          fvc = 0.
+         end if
+ c------end new code---------
+ 
+-       elseif(fvc.gt.0.01.and.wr.gt.offw)then  !drought deciduous
++       elseif(fvc.gt.0.01.and.wr_n.gt.offw)then  !drought deciduous
+         fvc = maxfvc
+-       elseif(fvc.lt.0.01.and.wr.gt.onnw)then    
++       elseif(fvc.lt.0.01.and.wr_n.gt.onnw)then    
+         fvc = maxfvc
+        else
+         fvc = 0.0
+@@ -2603,7 +2603,7 @@
+        runoffmonth(month)=runoffmonth(month)+runnoff+drainage
+ 
+ c      Sum the daily fvc value and average the daily gc value
+-       meanwr(month,1) = meanwr(month,1) + wr   / days(month)
++       meanwr(month,1) = meanwr(month,1) + wr_n / days(month)
+        meanwr(month,2) = meanwr(month,2) + w(1) / days(month)
+        meanwr(month,3) = meanwr(month,3) + w(2) / days(month)
+ 

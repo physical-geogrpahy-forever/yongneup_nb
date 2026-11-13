@@ -1,0 +1,11 @@
+--- /mnt/data/pb4_normvariants_work/PB4Studio_v6.6.3_CHELSA21K/_normcheck/C.f	2026-11-12 10:25:57.298538854 +0000
++++ /mnt/data/pb4_normvariants_work/PB4Studio_v6.6.3_CHELSA21K/_normcheck/D.f	2026-11-12 10:25:57.300093688 +0000
+@@ -2501,7 +2501,7 @@
+        demand = aet + wetphytomass + waste   
+ 
+ c      Calculate daily supply function in mm/day
+-       supply = emax*wr
++       supply = emax*wr_n
+ 
+ c      If this optimal value of aet is greater than the supply function
+ c      Then limit aet to the supply function rate.

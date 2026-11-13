@@ -1,0 +1,11 @@
+--- /mnt/data/pb4_BE_work/generated_final/biome4_B.f	2026-11-12 13:38:11.364245444 +0000
++++ /mnt/data/pb4_BE_work/generated_final/biome4_E.f	2026-11-12 13:38:11.366258619 +0000
+@@ -2619,7 +2619,7 @@
+        end if
+        meanaet(month)= meanaet(month) +  aet / days(month)
+ 
+-       wet(d)=wr_n
++       wet(d)=w(1)
+        dayfvc(d)=fvc
+ 
+  120   continue

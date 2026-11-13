@@ -16,6 +16,19 @@
 - `manuscript/VESLEM_PB4_HWP_EQUATION_GUIDE_KO.md`: Pelletier/McKenzie 원문 대조용 참고 감사문서
 - `manuscript/WORKLOG_20261005_HWP_AGB_LITERATURE_AUDIT_KO.md`: 2026-10-05까지의 AGB coupling 문헌감사, BIOME4 v4.2b2 source audit, 잠정적 최종모델 위치, 미해결 과제 및 다음 실행 계획
 
+## 최종 모델 (2026-11-13, `final` 브랜치)
+
+U008에 산불잠재일수 근권 토양수분 정규화를 더한 모델을 최종 모델로 한다. 원본 BIOME4와 같이 산불 판정에 쓰는 뿌리 가중치의 합을 1로 맞추고, 수분 공급과 낙엽 계절성은 U008의 잘린 뿌리 가중치를 그대로 쓴다.
+
+- 패키지: `model/PB4Studio_v6.6.3_CHELSA21K.zip` (version `6.6.3-CHELSA21K-FINAL-nativeClimate-BIOME4AGB-U008-FIREWRN`)
+- 이전 U008 패키지: `model/archive/PB4Studio_v6.6.3_CHELSA21K_U008_PRE_FIREWRN.zip`
+- 결과와 재현 확인: `results/final_fire_wetness_20261112/README_KO.md`
+- 연구 방법 원고: `manuscript/METHODS_VeSLEM_FINAL_20261113_KO.md`
+- 산불 그림: `plots/plot_max_firedays_3p5_2p0ka.py`
+- 검증: Jang et al. (2011) 정적 24/62, 동적 55/62. Park et al. (2021) PFT TSS 정적 0.522, 동적 0.588.
+
+아래 절은 이전 단계의 기록이다.
+
 ## 현재 최종 과학모형
 
 AGB 검토와 통합 재실행을 완료했으며 최종 과학모형은 **PB4-McKenzie-nativeClimate + BIOME4-derived AGB***로 고정한다. AGB* 구현은 이제 candidate가 아니라 canonical production package에 통합되었다. AGB 변경 전 nativeClimate 패키지는 archive에 보존한다.

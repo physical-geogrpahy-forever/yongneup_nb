@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-12",
+  "source_package": "PB4Studio_v6.6.3_CHELSA21K_pftval.zip",
+  "source_package_sha256": "7b0b29bc658420feb0b09e246a2141e44d9fee4134c445de7e9ac095b8039256",
+  "variants": {
+    "A": "current U008: no wr normalization",
+    "B": "A + wet(d)=wr_n",
+    "C": "B + raingreen wr>offw/onnw and meanwr(month,1) use wr_n",
+    "D": "C + supply=emax*wr_n"
+  },
+  "wr_n": "wr/max(rtop_eff+rbot_eff,1.0e-6)",
+  "default_variant": "A",
+  "time": "21.0-0.0 ka BP, 0.1 kyr, 211 steps per mode",
+  "model_modes": [
+    "static",
+    "dynamic"
+  ],
+  "exit_codes": {
+    "A": 0,
+    "B": 0,
+    "C": 0,
+    "D": 0
+  },
+  "A_generated_fortran_sha256": "5faf96f58ef1a5db9b28c805e01929553514be911b2d4beadf0aea893ab97b24",
+  "original_A_generated_fortran_sha256": "5faf96f58ef1a5db9b28c805e01929553514be911b2d4beadf0aea893ab97b24",
+  "A_byte_identical_to_original_U008_generated_fortran": true
+}

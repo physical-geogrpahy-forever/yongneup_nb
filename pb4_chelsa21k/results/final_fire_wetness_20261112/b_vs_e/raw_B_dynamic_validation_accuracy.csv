@@ -1,0 +1,2 @@
+﻿case_label,primary_accuracy_method,validation_role,evaluation_unit,basin_presence_min_fraction,basin_presence_min_percent,n_palaeo_records,n_time_steps,correct_n,accuracy_pct,n,basin_presence_correct_n,basin_presence_accuracy_pct
+동적모델,basin_presence_fraction_per_output_time,primary_time_step_agreement,palaeo_record_x_model_output_time,0.01,1.0,4,62,55,88.70967741935483,62,55,88.70967741935483

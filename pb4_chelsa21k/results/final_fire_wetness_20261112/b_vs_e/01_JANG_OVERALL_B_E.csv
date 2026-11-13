@@ -1,0 +1,5 @@
+﻿variant,model_mode,correct_n,n,accuracy_pct
+B,static,24,62,38.70967741935484
+B,dynamic,55,62,88.70967741935483
+E,static,24,62,38.70967741935484
+E,dynamic,55,62,88.70967741935483

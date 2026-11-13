@@ -1,0 +1,9 @@
+﻿model_mode,criterion,variable,n_cell_times,n_equal,n_different,max_abs_diff
+static,B_depth<0.3 AND E_depth<0.3,firedays_node,0,0,0,
+static,B_depth<0.3 AND E_depth<0.3,raw_firedays_node,0,0,0,
+static,B_depth<0.3 AND E_depth<0.3,optpft_node,0,0,0,
+static,B_depth<0.3 AND E_depth<0.3,biome4_full_id_node,0,0,0,
+dynamic,B_depth<0.3 AND E_depth<0.3,firedays_node,4382,4382,0,0.0
+dynamic,B_depth<0.3 AND E_depth<0.3,raw_firedays_node,4382,4382,0,0.0
+dynamic,B_depth<0.3 AND E_depth<0.3,optpft_node,4382,4382,0,0.0
+dynamic,B_depth<0.3 AND E_depth<0.3,biome4_full_id_node,4382,4382,0,0.0

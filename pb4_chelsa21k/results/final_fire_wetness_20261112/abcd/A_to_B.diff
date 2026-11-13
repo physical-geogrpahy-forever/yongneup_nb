@@ -1,0 +1,28 @@
+--- /mnt/data/pb4_normvariants_work/PB4Studio_v6.6.3_CHELSA21K/_normcheck/A.f	2026-11-12 10:25:57.296248665 +0000
++++ /mnt/data/pb4_normvariants_work/PB4Studio_v6.6.3_CHELSA21K/_normcheck/B.f	2026-11-12 10:25:57.297365217 +0000
+@@ -2356,7 +2356,7 @@
+        integer month,twice,d,days(12),dayofmonth,phentype,grass
+        integer greendays,pft
+ 
+-       real w(2),rtop_eff,rbot_eff,fvc,k(12),aet,r1(2),emax
++       real w(2),rtop_eff,rbot_eff,fvc,k(12),aet,r1(2),emax,wr_n
+        real perc,runnoff,wr,meanfvc(12),meangc(12)
+        real dprec(365),deq(365),dphen(365,2),gcopt(365)
+        real maxfvc,wst,gc,dtemp(365),wet(365),dayfvc(365)
+@@ -2417,6 +2417,7 @@
+ 
+ c      Calculate effective soil moisture in rooting zone 
+        wr = rtop_eff*w(1) + rbot_eff*w(2)
++       wr_n=wr/max(rtop_eff+rbot_eff,1.0e-6)
+ 
+ c      deq is the daily PET
+ c      maxfvc is foliar vegetation cover (related to LAI).
+@@ -2614,7 +2615,7 @@
+        end if
+        meanaet(month)= meanaet(month) +  aet / days(month)
+ 
+-       wet(d)=wr
++       wet(d)=wr_n
+        dayfvc(d)=fvc
+ 
+  120   continue
