@@ -1,0 +1,7 @@
+run,model,max_firedays_3p5_2p0,max_cells_fire
+A,dynamic,56.0,54
+A,static,0.0,0
+B,dynamic,56.0,50
+B,static,0.0,0
+C,dynamic,55.0,35
+C,static,0.0,0
