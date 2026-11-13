@@ -26,10 +26,10 @@ jobs:
           sudo apt-get install -y -qq gfortran fonts-nanum
       - name: Install notebook shell (IPython)
         run: python -m pip install -q ipython
-      - name: Execute packaged Yakutsk dynamic and static model (120–118 ka)
+      - name: Execute packaged Yakutsk dynamic and static model (120–0 ka)
         run: |
           set -o pipefail
-          python pb4_chelsa21k/education/tests/verify_yakutia_dwd.py 2>&1 | tee yakutsk_run.log
+          PB4_END_KA=0 python pb4_chelsa21k/education/tests/verify_yakutia_dwd.py 2>&1 | tee yakutsk_run.log
       - name: Preserve verification evidence
         if: always()
         uses: actions/upload-artifact@v4
