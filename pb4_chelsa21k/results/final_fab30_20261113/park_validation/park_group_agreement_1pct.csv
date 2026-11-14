@@ -1,7 +1,0 @@
-﻿group,label,static_agree,static_TP,static_FP,static_FN,static_TN,dynamic_agree,dynamic_TP,dynamic_FP,dynamic_FN,dynamic_TN,n
-TBD,온대 낙엽활엽수,28,28,0,0,0,28,28,0,0,0,28
-BDE,아한대 낙엽수,9,0,0,19,9,19,19,9,0,0,28
-CON,상록 침엽수,26,26,2,0,0,26,26,2,0,0,28
-TBE,온대 상록활엽수,28,0,0,0,28,28,0,0,0,28,28
-GRS,초본(참고),3,0,0,25,3,3,0,0,25,3,28
-DWD,건조지 목본(참고),28,0,0,0,28,28,0,0,0,28,28
