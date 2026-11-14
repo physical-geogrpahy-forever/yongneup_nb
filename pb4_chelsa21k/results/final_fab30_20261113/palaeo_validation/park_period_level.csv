@@ -1,7 +1,0 @@
-﻿group,grains,pollen_sum,pct,ci_lo,ci_hi,threshold_pct,observed,static_windows_present,static_mean_share_pct,static_match,dynamic_windows_present,dynamic_mean_share_pct,dynamic_match
-TBD,10831,20755,52.185,51.503,52.867,2.0,present,28,91.393,yes,28,88.48,yes
-BDE,813,20755,3.917,3.657,4.19,2.0,present,0,0.0,no,28,2.885,yes
-CON,658,20755,3.17,2.936,3.418,1.0,present,28,100.0,yes,28,99.886,yes
-TBE,209,20755,1.007,0.876,1.152,5.0,uncertain,0,0.0,n/a,0,0.0,n/a
-GRS,1393,20755,6.712,6.375,7.061,2.0,present,0,0.0,no,0,0.0,no
-DWD,15,20755,0.072,0.04,0.119,5.0,absent,0,0.0,yes,0,0.049,yes
