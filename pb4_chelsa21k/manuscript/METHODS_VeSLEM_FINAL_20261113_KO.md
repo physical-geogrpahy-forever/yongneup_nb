@@ -106,7 +106,7 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{13
 
 (5) 고식생 검증
 
-모델 결과는 용늪의 두 고식생 기록과 비교하였다. 먼저 Jang et al.(2011)과 비교하기 위해 BIOME4의 생물군계를 활엽수림, 침엽수림, 혼효림, 초본 및 개방식생, 무식생의 다섯 식생유형으로 재분류하였다(표 3). 혼효림에 해당하는 생물군계는 활엽수 PFT(PFT2-4)와 침엽수 PFT(PFT5-7) 중 NPP가 가장 큰 값을 서로 비교하여, 한쪽이 51% 이상이면 해당 식생유형으로 분류하였다.
+모델 결과는 용늪의 두 고식생 기록과 비교하였다. 용늪(약 7,490 m²; Jang et al., 2011)과 같은 반경 약 50 m의 퇴적분지에서 화분은 주로 분지 가장자리로부터 300-400 m 이내의 식생을 반영하므로(Sugita, 1994), 화분 기록을 유역(59.0 ha) 단위의 모델 결과와 비교하였다. 다만 이 범위 안에서 유입되는 화분은 전체의 일부이고 나머지는 유역 밖에서 유입되므로(Sugita, 1994), 화분 비율을 식생 면적 비율과 직접 대응시키지 않고 식생유형과 PFT의 출현 여부를 비교하였다. 먼저 Jang et al.(2011)과 비교하기 위해 BIOME4의 생물군계를 활엽수림, 침엽수림, 혼효림, 초본 및 개방식생, 무식생의 다섯 식생유형으로 재분류하였다(표 3). 혼효림에 해당하는 생물군계는 활엽수 PFT(PFT2-4)와 침엽수 PFT(PFT5-7) 중 NPP가 가장 큰 값을 서로 비교하여, 한쪽이 51% 이상이면 해당 식생유형으로 분류하였다.
 
 표 3. BIOME4 생물군계의 검증용 식생유형 재분류
 
@@ -118,7 +118,7 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{13
 | 초본 및 개방식생 | 열대 사바나, 열대 건생관목림, 온대 건생관목림, 온대 경엽수 소림, 온대 활엽수 사바나, 개방 침엽수 소림, 아한대 소림지대, 열대 초지, 온대 초지, 툰드라, 식생이 있는 사막 |
 | 무식생 | 나지, 빙하, 식생이 없는 사막, 기반암 노출 격자 |
 
-Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수림, 4,800-3,400 cal yr BP와 390 cal yr BP 이후는 혼효림과 비교하였다. 각 시기에 속하는 0.1 kyr 간격의 모델 결과 62개 시점에 대해, 유역 내 식생 격자 중 관측된 식생유형이 1% 이상 나타나면 일치하는 것으로 판정하였다. 또한 판정 기준을 1개 격자에서 20개 격자까지 변화시켜 기준에 따른 결과의 차이를 확인하였다.
+Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수림, 4,800-3,400 cal yr BP와 390 cal yr BP 이후는 혼효림과 비교하였다. 각 시기에 속하는 0.1 kyr 간격의 모델 결과 62개 시점에 대해, 유역 내 식생 격자 중 관측된 식생유형이 1% 이상 나타나면 일치하는 것으로 판정하였다. 또한 판정 기준을 1개 격자에서 20개 격자까지 변화시켜 기준에 따른 결과의 차이를 확인하였다. Jang et al.(2011)은 3,400-390 cal yr BP를 낙엽활엽수림으로 구분하였으나, 고찰에서 약 1,300 cal yr BP까지 대암산 정상부와 그 주변에는 침엽수-낙엽활엽수 혼효림이 발달하였다고 해석하였다. 본 연구는 원저자의 화분대 구분을 따르되, 이 기간의 전부 또는 일부를 혼효림으로 본 경우의 결과를 함께 제시하였다. 또한 Jang et al.(2011)의 연대모델은 4개의 AMS 연대에 기반하므로, 화분대 경계 전후 0.1-0.3 kyr의 시점을 제외한 결과도 확인하였다.
 
 다음으로 Park et al.(2021)의 YN-C 코어 화분 자료(72개 시료, 약 3,181-515 cal yr BP)를 이용하여 PFT 단위로 모델 결과를 검증하였다. 화분 분류군은 Prentice et al.(1996)과 Takahara et al.(2000)을 참고하여 PFT 그룹으로 묶었으며(표 4), 용늪의 습원 식생을 반영하는 오리나무속, 산형과, 터리풀속, 오이풀속과 수생식물, 사초과, 포자는 화분 합에서 제외하였다. Park et al.(2021)은 수생식물을 제외한 화분과 포자의 합으로 비율을 계산하였으나, 본 연구는 유역 식생과 비교하므로 습원 분류군과 포자를 함께 제외하였다. 소나무속은 아속을 구분할 수 없어 육상 화분 합에는 포함하였으나 PFT 그룹에는 배정하지 않았다.
 
@@ -133,31 +133,37 @@ Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수�
 | 초본 | 벼과 | 8 | 2% | 우점 PFT |
 | 건조지 목본 | 마황속 | 10 | 5% | 우점 PFT |
 
-각 모델 시점에서 ±0.05 kyr 이내의 시료를 합산하여 그룹별 화분 비율을 구하고, 이 비율이 그룹별 기준값 이상이면 해당 PFT가 출현한 것으로 보았다. 모델에서는 Jang et al.(2011)과의 비교와 같이 유역 내 식생 격자의 1% 이상에서 해당 PFT가 우점 PFT로 선택되면 출현한 것으로 판정하였다. 다만 BIOME4는 온대 낙엽활엽수(PFT4)가 우점 PFT이고 아한대 상록수(PFT6)가 생육 가능하면 냉량 혼효림으로 판정하므로, 상록 침엽수는 우점 여부 대신 생육 가능 여부(생물기후적 한계값을 만족하고 NPP가 0보다 큰 경우)로 판정하였다. 검증은 여섯 그룹과 28개 모델 시점의 출현 여부를 모두 합산한 정확도를 주 지표로 하고, 민감도, 특이도, TSS(민감도와 특이도의 합에서 1을 뺀 값)와 그룹별 결과를 함께 제시하였다. 모델의 출현 기준(1개 격자, 유역의 1-5%)과 화분 비율 기준(모든 그룹에 0.5-10%를 동일하게 적용)을 바꾸어 민감도 분석을 수행하였다.
+화분 비율 기준은 분류군의 화분 생산량과 분산 특성을 고려하여 그룹별로 정하였다. 전나무속은 식생 피도에 비해 화분이 크게 과소대표되므로(Hebda et al., 2002; Pidek et al., 2013) 상록 침엽수의 기준을 1%로 낮게 두었고, 마황속은 수백 km 이상 장거리 수송된 화분이 흔히 검출되므로(Maher, 1964; Cambon et al., 1992) 건조지 목본의 기준을 5%로 높게 두었다. 온대 상록활엽수도 연구 지역보다 낮은 고도와 위도에서 유입될 수 있으므로 5%를 적용하였다. Park et al.(2021)의 연대모델은 17개의 AMS 연대에 기반하며, 각 모델 시점에서 ±0.05 kyr 이내의 시료를 합산하여 그룹별 화분 비율을 구하고, 이 비율이 그룹별 기준값 이상이면 해당 PFT가 출현한 것으로 보았다. 모델에서는 Jang et al.(2011)과의 비교와 같이 유역 내 식생 격자의 1% 이상에서 해당 PFT가 우점 PFT로 선택되면 출현한 것으로 판정하였다. 다만 BIOME4는 온대 낙엽활엽수(PFT4)가 우점 PFT이고 아한대 상록수(PFT6)가 생육 가능하면 냉량 혼효림으로 판정하므로, 상록 침엽수는 우점 여부 대신 생육 가능 여부(생물기후적 한계값을 만족하고 NPP가 0보다 큰 경우)로 판정하였다. 검증은 여섯 그룹과 28개 모델 시점의 출현 여부를 모두 합산한 정확도를 주 지표로 하고, 민감도, 특이도, TSS(민감도와 특이도의 합에서 1을 뺀 값; Allouche et al., 2006)와 그룹별 결과를 함께 제시하였다. 모델의 출현 기준(1개 격자, 유역의 1-5%)과 화분 비율 기준(모든 그룹에 0.5-10%를 동일하게 적용)을 바꾸어 민감도 분석을 수행하였다.
 
 ---
 
 이 절에서 새로 인용한 문헌(PPT 참고문헌에 없는 것)
 
+Allouche, O., Tsoar, A. and Kadmon, R., 2006, Assessing the accuracy of species distribution models: prevalence, kappa and the true skill statistic (TSS), Journal of Applied Ecology, 43(6), 1223-1232.
+Cambon, G., Ritchie, J. C. and Guinet, P., 1992, Long-distance transport of airborne pollen in southern Ontario (Canada), Canadian Journal of Botany, 70(11), 2284-2293.
 Culling, W. E. H., 1960, Analytical theory of erosion, Journal of Geology, 68, 336-344.
 Freeman, T. G., 1991, Calculating catchment area with divergent flow based on a regular grid, Computers & Geosciences, 17(3), 413-422.
+Hawker, L., Uhe, P., Paulo, L., Sosa, J., Savage, J., Sampson, C. and Neal, J., 2022, A 30 m global map of elevation with forests and buildings removed, Environmental Research Letters, 17(2), 024016.
 Haxeltine, A. and Prentice, I. C., 1996, BIOME3: An equilibrium terrestrial biosphere model based on ecophysiological constraints, resource availability, and competition among plant functional types, Global Biogeochemical Cycles, 10(4), 693-709.
+Hebda, R. J., Heinrichs, M. L., Allen, G. B. and Antos, J. A., 2002, Abies lasiocarpa (Hook.) Nutt. in the late-glacial and early-Holocene vegetation of British Columbia, Canada, and adjacent regions in Washington, USA, Review of Palaeobotany and Palynology, 120, 107-122.
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 1997, The soil production function and landscape equilibrium, Nature, 388, 358-361.
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 2001, Stochastic processes of soil production and transport: Erosion rates, topographic variation and cosmogenic nuclides in the Oregon Coast Range, Earth Surface Processes and Landforms, 26, 531-552.
-Hawker, L., Uhe, P., Paulo, L., Sosa, J., Savage, J., Sampson, C. and Neal, J., 2022, A 30 m global map of elevation with forests and buildings removed, Environmental Research Letters, 17(2), 024016.
 Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S. and Kempen, B., 2017, SoilGrids250m: Global gridded soil information based on machine learning, PLoS ONE, 12(2), e0169748.
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E. and Schulze, E.-D., 1996, A global analysis of root distributions for terrestrial biomes, Oecologia, 108, 389-411.
 Kaplan, J. O., 2001, Geophysical Applications of Vegetation Modeling, Ph.D. dissertation, Lund University, Lund.
 Langbein, W. B. and Schumm, S. A., 1958, Yield of sediment in relation to mean annual precipitation, Transactions, American Geophysical Union, 39, 1076-1084.
 Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E. and Yu, B. Y., 2024, Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea, Earth Surface Dynamics, 12(5), 1091-1120.
 Leopold, L. B. and Maddock, T. Jr., 1953, The hydraulic geometry of stream channels and some physiographic implications, U.S. Geological Survey Professional Paper 252.
+Maher, L. J. Jr., 1964, Ephedra pollen in sediments of the Great Lakes region, Ecology, 45, 391-395.
 Pelletier, J. D., 2010, Minimizing the grid-resolution dependence of flow-routing algorithms for geomorphic applications, Geomorphology, 122, 91-98.
 Pelletier, J. D., 2013, Fundamental principles and techniques of landscape evolution modeling, in Shroder, J. and Baas, A. C. W.(eds.), Treatise on Geomorphology, Vol. 2, Quantitative Modeling of Geomorphology, Academic Press, San Diego, 29-43.
 Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic controls on hillslope steepness and erosion rate, Lithosphere, 1(2), 73-80.
+Pidek, I. A., Svitavská-Svobodová, H., van der Knaap, W. O. and Magyari, E., 2013, Pollen percentage thresholds of Abies alba based on 13-year annual records of pollen deposition in modified Tauber traps: perspectives of application to fossil situations, Review of Palaeobotany and Palynology, 195, 26-36.
 Prentice, I. C., Guiot, J., Huntley, B., Jolly, D. and Cheddadi, R., 1996, Reconstructing biomes from palaeoecological data: A general method and its application to European pollen data at 0 and 6 ka, Climate Dynamics, 12(3), 185-194.
 Rasmussen, C. and Tabor, N. J., 2007, Applying a quantitative pedogenic energy model across a range of environmental gradients, Soil Science Society of America Journal, 71(6), 1719-1729.
 Reich, P. B., Walters, M. B. and Ellsworth, D. S., 1992, Leaf life-span in relation to leaf, plant, and stand characteristics among diverse ecosystems, Ecological Monographs, 62(3), 365-392.
 Riebe, C. S., Kirchner, J. W. and Finkel, R. C., 2004, Erosional and climatic effects on long-term chemical weathering rates in granitic landscapes spanning diverse climate regimes, Earth and Planetary Science Letters, 224(3-4), 547-562.
 Roering, J. J., Kirchner, J. W. and Dietrich, W. E., 1999, Evidence for nonlinear, diffusive sediment transport on hillslopes and implications for landscape morphology, Water Resources Research, 35(3), 853-870.
+Sugita, S., 1994, Pollen representation of vegetation in Quaternary sediments: theory and method in patchy vegetation, Journal of Ecology, 82, 881-897.
 Takahara, H., Sugita, S., Harrison, S. P., Miyoshi, N., Morita, Y. and Uchiyama, T., 2000, Pollen-based reconstructions of Japanese biomes at 0, 6000 and 18,000 14C yr BP, Journal of Biogeography, 27(3), 665-683.
 Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., de Sousa, L. and Heuvelink, G. B. M., 2023, Global mapping of volumetric water retention at 100, 330 and 15000 cm suction using the WoSIS database, International Soil and Water Conservation Research, 11(2), 225-239.
