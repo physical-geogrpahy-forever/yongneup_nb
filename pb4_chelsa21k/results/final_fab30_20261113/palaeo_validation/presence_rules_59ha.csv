@@ -1,0 +1,17 @@
+﻿run,model,rule,min_cells,jang,park_acc,park_TSS,BDE_present,DWD_present
+59ha,static,1 cell,1.0,24,0.726,0.522,0,0
+59ha,static,1%,7.0,24,0.726,0.522,0,0
+59ha,static,2%,14.0,24,0.726,0.522,0,0
+59ha,static,3%,20.0,24,0.726,0.522,0,0
+59ha,static,4%,27.0,24,0.726,0.522,0,0
+59ha,static,5%,33.0,24,0.726,0.522,0,0
+59ha,static,distance 1/d^1,,24,0.726,0.522,0,0
+59ha,static,distance 1/d^2,,24,0.726,0.522,0,0
+59ha,dynamic,1 cell,1.0,55,0.738,0.473,28,8
+59ha,dynamic,1%,7.0,55,0.786,0.588,28,0
+59ha,dynamic,2%,14.0,55,0.786,0.588,28,0
+59ha,dynamic,3%,20.0,55,0.702,0.465,4,0
+59ha,dynamic,4%,27.0,42,0.726,0.522,0,0
+59ha,dynamic,5%,33.0,29,0.726,0.522,0,0
+59ha,dynamic,distance 1/d^1,,55,0.786,0.588,28,0
+59ha,dynamic,distance 1/d^2,,55,0.786,0.588,28,0

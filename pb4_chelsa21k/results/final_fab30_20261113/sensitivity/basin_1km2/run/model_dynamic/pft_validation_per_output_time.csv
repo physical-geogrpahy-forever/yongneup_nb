@@ -1,0 +1,169 @@
+﻿case_label,ka_bp,pft_group,label,biome4_pfts,obs_pct,threshold_pct,obs_present,model_method,model_cells,model_min_cells,model_present,outcome,n_pollen_samples,terrestrial_sum
+동적모델,3.2,TBD,temperate broadleaved summergreen,4,48.501,2.0,1,optpft,794,1,1,TP,2,567
+동적모델,3.2,BDE,"boreal deciduous (Betula, Salix)",7,1.411,2.0,0,optpft,27,1,1,FP,2,567
+동적모델,3.2,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.88,1.0,1,potential,1053,1,1,TP,2,567
+동적모델,3.2,TBE,temperate broadleaved evergreen,3,2.293,5.0,0,optpft,0,1,0,TN,2,567
+동적모델,3.2,GRS,C3/C4 temperate grass,8,19.048,2.0,1,optpft,0,1,0,FN,2,567
+동적모델,3.2,DWD,woody desert (Ephedra),10,0.353,5.0,0,optpft,5,1,1,FP,2,567
+동적모델,3.1,TBD,temperate broadleaved summergreen,4,52.582,2.0,1,optpft,563,1,1,TP,5,1491
+동적모델,3.1,BDE,"boreal deciduous (Betula, Salix)",7,1.476,2.0,0,optpft,29,1,1,FP,5,1491
+동적모델,3.1,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.957,1.0,1,potential,1052,1,1,TP,5,1491
+동적모델,3.1,TBE,temperate broadleaved evergreen,3,1.878,5.0,0,optpft,0,1,0,TN,5,1491
+동적모델,3.1,GRS,C3/C4 temperate grass,8,15.225,2.0,1,optpft,0,1,0,FN,5,1491
+동적모델,3.1,DWD,woody desert (Ephedra),10,0.268,5.0,0,optpft,2,1,1,FP,5,1491
+동적모델,3.0,TBD,temperate broadleaved summergreen,4,47.672,2.0,1,optpft,1013,1,1,TP,2,537
+동적모델,3.0,BDE,"boreal deciduous (Betula, Salix)",7,1.676,2.0,0,optpft,30,1,1,FP,2,537
+동적모델,3.0,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,4.097,1.0,1,potential,1056,1,1,TP,2,537
+동적모델,3.0,TBE,temperate broadleaved evergreen,3,1.304,5.0,0,optpft,0,1,0,TN,2,537
+동적모델,3.0,GRS,C3/C4 temperate grass,8,11.359,2.0,1,optpft,0,1,0,FN,2,537
+동적모델,3.0,DWD,woody desert (Ephedra),10,0.372,5.0,0,optpft,5,1,1,FP,2,537
+동적모델,2.9,TBD,temperate broadleaved summergreen,4,55.862,2.0,1,optpft,959,1,1,TP,1,290
+동적모델,2.9,BDE,"boreal deciduous (Betula, Salix)",7,0.69,2.0,0,optpft,31,1,1,FP,1,290
+동적모델,2.9,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,2.759,1.0,1,potential,1055,1,1,TP,1,290
+동적모델,2.9,TBE,temperate broadleaved evergreen,3,1.034,5.0,0,optpft,0,1,0,TN,1,290
+동적모델,2.9,GRS,C3/C4 temperate grass,8,18.966,2.0,1,optpft,0,1,0,FN,1,290
+동적모델,2.9,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,1,290
+동적모델,2.8,TBD,temperate broadleaved summergreen,4,51.103,2.0,1,optpft,689,1,1,TP,1,272
+동적모델,2.8,BDE,"boreal deciduous (Betula, Salix)",7,1.838,2.0,0,optpft,36,1,1,FP,1,272
+동적모델,2.8,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.309,1.0,1,potential,1059,1,1,TP,1,272
+동적모델,2.8,TBE,temperate broadleaved evergreen,3,1.471,5.0,0,optpft,0,1,0,TN,1,272
+동적모델,2.8,GRS,C3/C4 temperate grass,8,22.059,2.0,1,optpft,0,1,0,FN,1,272
+동적모델,2.8,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,1,272
+동적모델,2.7,TBD,temperate broadleaved summergreen,4,46.429,2.0,1,optpft,929,1,1,TP,2,560
+동적모델,2.7,BDE,"boreal deciduous (Betula, Salix)",7,1.429,2.0,0,optpft,35,1,1,FP,2,560
+동적모델,2.7,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,2.857,1.0,1,potential,1058,1,1,TP,2,560
+동적모델,2.7,TBE,temperate broadleaved evergreen,3,1.429,5.0,0,optpft,0,1,0,TN,2,560
+동적모델,2.7,GRS,C3/C4 temperate grass,8,22.679,2.0,1,optpft,0,1,0,FN,2,560
+동적모델,2.7,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,0,1,0,TN,2,560
+동적모델,2.6,TBD,temperate broadleaved summergreen,4,48.571,2.0,1,optpft,970,1,1,TP,1,280
+동적모델,2.6,BDE,"boreal deciduous (Betula, Salix)",7,1.429,2.0,0,optpft,29,1,1,FP,1,280
+동적모델,2.6,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,4.643,1.0,1,potential,1054,1,1,TP,1,280
+동적모델,2.6,TBE,temperate broadleaved evergreen,3,0.357,5.0,0,optpft,0,1,0,TN,1,280
+동적모델,2.6,GRS,C3/C4 temperate grass,8,23.214,2.0,1,optpft,0,1,0,FN,1,280
+동적모델,2.6,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,1,280
+동적모델,2.5,TBD,temperate broadleaved summergreen,4,46.52,2.0,1,optpft,872,1,1,TP,1,273
+동적모델,2.5,BDE,"boreal deciduous (Betula, Salix)",7,0.733,2.0,0,optpft,30,1,1,FP,1,273
+동적모델,2.5,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,0.366,1.0,0,potential,1055,1,1,FP,1,273
+동적모델,2.5,TBE,temperate broadleaved evergreen,3,1.099,5.0,0,optpft,0,1,0,TN,1,273
+동적모델,2.5,GRS,C3/C4 temperate grass,8,33.7,2.0,1,optpft,0,1,0,FN,1,273
+동적모델,2.5,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,1,273
+동적모델,2.4,TBD,temperate broadleaved summergreen,4,53.358,2.0,1,optpft,920,1,1,TP,1,268
+동적모델,2.4,BDE,"boreal deciduous (Betula, Salix)",7,5.224,2.0,1,optpft,29,1,1,TP,1,268
+동적모델,2.4,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,1.119,1.0,1,potential,1055,1,1,TP,1,268
+동적모델,2.4,TBE,temperate broadleaved evergreen,3,0.0,5.0,0,optpft,0,1,0,TN,1,268
+동적모델,2.4,GRS,C3/C4 temperate grass,8,12.313,2.0,1,optpft,0,1,0,FN,1,268
+동적모델,2.4,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,1,268
+동적모델,2.3,TBD,temperate broadleaved summergreen,4,50.368,2.0,1,optpft,950,1,1,TP,1,272
+동적모델,2.3,BDE,"boreal deciduous (Betula, Salix)",7,2.574,2.0,1,optpft,34,1,1,TP,1,272
+동적모델,2.3,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,1.103,1.0,1,potential,1058,1,1,TP,1,272
+동적모델,2.3,TBE,temperate broadleaved evergreen,3,0.735,5.0,0,optpft,0,1,0,TN,1,272
+동적모델,2.3,GRS,C3/C4 temperate grass,8,19.485,2.0,1,optpft,0,1,0,FN,1,272
+동적모델,2.3,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,1,272
+동적모델,2.2,TBD,temperate broadleaved summergreen,4,55.598,2.0,1,optpft,780,1,1,TP,1,259
+동적모델,2.2,BDE,"boreal deciduous (Betula, Salix)",7,4.633,2.0,1,optpft,34,1,1,TP,1,259
+동적모델,2.2,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,0.772,1.0,0,potential,1056,1,1,FP,1,259
+동적모델,2.2,TBE,temperate broadleaved evergreen,3,0.0,5.0,0,optpft,0,1,0,TN,1,259
+동적모델,2.2,GRS,C3/C4 temperate grass,8,16.988,2.0,1,optpft,0,1,0,FN,1,259
+동적모델,2.2,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,2,1,1,FP,1,259
+동적모델,2.1,TBD,temperate broadleaved summergreen,4,57.565,2.0,1,optpft,856,1,1,TP,2,542
+동적모델,2.1,BDE,"boreal deciduous (Betula, Salix)",7,2.03,2.0,1,optpft,37,1,1,TP,2,542
+동적모델,2.1,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,2.214,1.0,1,potential,1060,1,1,TP,2,542
+동적모델,2.1,TBE,temperate broadleaved evergreen,3,0.923,5.0,0,optpft,0,1,0,TN,2,542
+동적모델,2.1,GRS,C3/C4 temperate grass,8,5.72,2.0,1,optpft,0,1,0,FN,2,542
+동적모델,2.1,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,2,1,1,FP,2,542
+동적모델,2.0,TBD,temperate broadleaved summergreen,4,52.145,2.0,1,optpft,962,1,1,TP,1,303
+동적모델,2.0,BDE,"boreal deciduous (Betula, Salix)",7,2.97,2.0,1,optpft,29,1,1,TP,1,303
+동적모델,2.0,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,2.97,1.0,1,potential,1057,1,1,TP,1,303
+동적모델,2.0,TBE,temperate broadleaved evergreen,3,0.99,5.0,0,optpft,0,1,0,TN,1,303
+동적모델,2.0,GRS,C3/C4 temperate grass,8,3.96,2.0,1,optpft,0,1,0,FN,1,303
+동적모델,2.0,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,8,1,1,FP,1,303
+동적모델,1.9,TBD,temperate broadleaved summergreen,4,56.311,2.0,1,optpft,1001,1,1,TP,2,618
+동적모델,1.9,BDE,"boreal deciduous (Betula, Salix)",7,2.589,2.0,1,optpft,31,1,1,TP,2,618
+동적모델,1.9,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,1.133,1.0,1,potential,1053,1,1,TP,2,618
+동적모델,1.9,TBE,temperate broadleaved evergreen,3,1.618,5.0,0,optpft,0,1,0,TN,2,618
+동적모델,1.9,GRS,C3/C4 temperate grass,8,2.751,2.0,1,optpft,0,1,0,FN,2,618
+동적모델,1.9,DWD,woody desert (Ephedra),10,0.162,5.0,0,optpft,3,1,1,FP,2,618
+동적모델,1.8,TBD,temperate broadleaved summergreen,4,64.092,2.0,1,optpft,1018,1,1,TP,3,958
+동적모델,1.8,BDE,"boreal deciduous (Betula, Salix)",7,3.549,2.0,1,optpft,33,1,1,TP,3,958
+동적모델,1.8,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.132,1.0,1,potential,1057,1,1,TP,3,958
+동적모델,1.8,TBE,temperate broadleaved evergreen,3,1.566,5.0,0,optpft,0,1,0,TN,3,958
+동적모델,1.8,GRS,C3/C4 temperate grass,8,1.67,2.0,0,optpft,0,1,0,TN,3,958
+동적모델,1.8,DWD,woody desert (Ephedra),10,0.209,5.0,0,optpft,6,1,1,FP,3,958
+동적모델,1.7,TBD,temperate broadleaved summergreen,4,60.748,2.0,1,optpft,1019,1,1,TP,2,642
+동적모델,1.7,BDE,"boreal deciduous (Betula, Salix)",7,2.96,2.0,1,optpft,33,1,1,TP,2,642
+동적모델,1.7,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,4.206,1.0,1,potential,1057,1,1,TP,2,642
+동적모델,1.7,TBE,temperate broadleaved evergreen,3,0.312,5.0,0,optpft,0,1,0,TN,2,642
+동적모델,1.7,GRS,C3/C4 temperate grass,8,2.336,2.0,1,optpft,0,1,0,FN,2,642
+동적모델,1.7,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,5,1,1,FP,2,642
+동적모델,1.6,TBD,temperate broadleaved summergreen,4,62.522,2.0,1,optpft,1019,1,1,TP,2,571
+동적모델,1.6,BDE,"boreal deciduous (Betula, Salix)",7,4.378,2.0,1,optpft,35,1,1,TP,2,571
+동적모델,1.6,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.152,1.0,1,potential,1055,1,1,TP,2,571
+동적모델,1.6,TBE,temperate broadleaved evergreen,3,0.35,5.0,0,optpft,0,1,0,TN,2,571
+동적모델,1.6,GRS,C3/C4 temperate grass,8,1.401,2.0,0,optpft,0,1,0,TN,2,571
+동적모델,1.6,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,1,1,1,FP,2,571
+동적모델,1.5,TBD,temperate broadleaved summergreen,4,58.657,2.0,1,optpft,1018,1,1,TP,1,283
+동적모델,1.5,BDE,"boreal deciduous (Betula, Salix)",7,1.413,2.0,0,optpft,35,1,1,FP,1,283
+동적모델,1.5,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,5.3,1.0,1,potential,1055,1,1,TP,1,283
+동적모델,1.5,TBE,temperate broadleaved evergreen,3,1.06,5.0,0,optpft,0,1,0,TN,1,283
+동적모델,1.5,GRS,C3/C4 temperate grass,8,1.06,2.0,0,optpft,0,1,0,TN,1,283
+동적모델,1.5,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,2,1,1,FP,1,283
+동적모델,1.4,TBD,temperate broadleaved summergreen,4,55.497,2.0,1,optpft,1015,1,1,TP,2,573
+동적모델,1.4,BDE,"boreal deciduous (Betula, Salix)",7,4.014,2.0,1,optpft,39,1,1,TP,2,573
+동적모델,1.4,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,4.887,1.0,1,potential,1056,1,1,TP,2,573
+동적모델,1.4,TBE,temperate broadleaved evergreen,3,0.524,5.0,0,optpft,0,1,0,TN,2,573
+동적모델,1.4,GRS,C3/C4 temperate grass,8,2.618,2.0,1,optpft,0,1,0,FN,2,573
+동적모델,1.4,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,2,1,1,FP,2,573
+동적모델,1.3,TBD,temperate broadleaved summergreen,4,57.913,2.0,1,optpft,999,1,1,TP,3,872
+동적모델,1.3,BDE,"boreal deciduous (Betula, Salix)",7,5.161,2.0,1,optpft,34,1,1,TP,3,872
+동적모델,1.3,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,2.638,1.0,1,potential,1053,1,1,TP,3,872
+동적모델,1.3,TBE,temperate broadleaved evergreen,3,0.688,5.0,0,optpft,0,1,0,TN,3,872
+동적모델,1.3,GRS,C3/C4 temperate grass,8,2.752,2.0,1,optpft,0,1,0,FN,3,872
+동적모델,1.3,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,3,872
+동적모델,1.2,TBD,temperate broadleaved summergreen,4,54.628,2.0,1,optpft,1015,1,1,TP,2,551
+동적모델,1.2,BDE,"boreal deciduous (Betula, Salix)",7,4.174,2.0,1,optpft,38,1,1,TP,2,551
+동적모델,1.2,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,5.626,1.0,1,potential,1053,1,1,TP,2,551
+동적모델,1.2,TBE,temperate broadleaved evergreen,3,1.089,5.0,0,optpft,0,1,0,TN,2,551
+동적모델,1.2,GRS,C3/C4 temperate grass,8,2.722,2.0,1,optpft,0,1,0,FN,2,551
+동적모델,1.2,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,0,1,0,TN,2,551
+동적모델,1.1,TBD,temperate broadleaved summergreen,4,57.779,2.0,1,optpft,1015,1,1,TP,10,2719
+동적모델,1.1,BDE,"boreal deciduous (Betula, Salix)",7,3.2,2.0,1,optpft,36,1,1,TP,10,2719
+동적모델,1.1,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.163,1.0,1,potential,1054,1,1,TP,10,2719
+동적모델,1.1,TBE,temperate broadleaved evergreen,3,1.471,5.0,0,optpft,0,1,0,TN,10,2719
+동적모델,1.1,GRS,C3/C4 temperate grass,8,3.457,2.0,1,optpft,0,1,0,FN,10,2719
+동적모델,1.1,DWD,woody desert (Ephedra),10,0.037,5.0,0,optpft,3,1,1,FP,10,2719
+동적모델,1.0,TBD,temperate broadleaved summergreen,4,48.673,2.0,1,optpft,1014,1,1,TP,6,1658
+동적모델,1.0,BDE,"boreal deciduous (Betula, Salix)",7,5.428,2.0,1,optpft,37,1,1,TP,6,1658
+동적모델,1.0,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,2.232,1.0,1,potential,1053,1,1,TP,6,1658
+동적모델,1.0,TBE,temperate broadleaved evergreen,3,0.905,5.0,0,optpft,0,1,0,TN,6,1658
+동적모델,1.0,GRS,C3/C4 temperate grass,8,2.473,2.0,1,optpft,0,1,0,FN,6,1658
+동적모델,1.0,DWD,woody desert (Ephedra),10,0.06,5.0,0,optpft,2,1,1,FP,6,1658
+동적모델,0.9,TBD,temperate broadleaved summergreen,4,46.186,2.0,1,optpft,1015,1,1,TP,5,1455
+동적모델,0.9,BDE,"boreal deciduous (Betula, Salix)",7,7.698,2.0,1,optpft,36,1,1,TP,5,1455
+동적모델,0.9,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.162,1.0,1,potential,1054,1,1,TP,5,1455
+동적모델,0.9,TBE,temperate broadleaved evergreen,3,0.481,5.0,0,optpft,0,1,0,TN,5,1455
+동적모델,0.9,GRS,C3/C4 temperate grass,8,3.505,2.0,1,optpft,0,1,0,FN,5,1455
+동적모델,0.9,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,5,1455
+동적모델,0.8,TBD,temperate broadleaved summergreen,4,41.27,2.0,1,optpft,980,1,1,TP,5,1323
+동적모델,0.8,BDE,"boreal deciduous (Betula, Salix)",7,6.803,2.0,1,optpft,40,1,1,TP,5,1323
+동적모델,0.8,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.553,1.0,1,potential,1054,1,1,TP,5,1323
+동적모델,0.8,TBE,temperate broadleaved evergreen,3,0.454,5.0,0,optpft,0,1,0,TN,5,1323
+동적모델,0.8,GRS,C3/C4 temperate grass,8,2.948,2.0,1,optpft,0,1,0,FN,5,1323
+동적모델,0.8,DWD,woody desert (Ephedra),10,0.076,5.0,0,optpft,1,1,1,FP,5,1323
+동적모델,0.7,TBD,temperate broadleaved summergreen,4,45.291,2.0,1,optpft,998,1,1,TP,4,1338
+동적모델,0.7,BDE,"boreal deciduous (Betula, Salix)",7,4.858,2.0,1,optpft,37,1,1,TP,4,1338
+동적모델,0.7,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.587,1.0,1,potential,1052,1,1,TP,4,1338
+동적모델,0.7,TBE,temperate broadleaved evergreen,3,0.598,5.0,0,optpft,0,1,0,TN,4,1338
+동적모델,0.7,GRS,C3/C4 temperate grass,8,2.84,2.0,1,optpft,0,1,0,FN,4,1338
+동적모델,0.7,DWD,woody desert (Ephedra),10,0.075,5.0,0,optpft,3,1,1,FP,4,1338
+동적모델,0.6,TBD,temperate broadleaved summergreen,4,47.604,2.0,1,optpft,1010,1,1,TP,3,939
+동적모델,0.6,BDE,"boreal deciduous (Betula, Salix)",7,4.686,2.0,1,optpft,39,1,1,TP,3,939
+동적모델,0.6,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,3.408,1.0,1,potential,1051,1,1,TP,3,939
+동적모델,0.6,TBE,temperate broadleaved evergreen,3,0.532,5.0,0,optpft,0,1,0,TN,3,939
+동적모델,0.6,GRS,C3/C4 temperate grass,8,2.449,2.0,1,optpft,0,1,0,FN,3,939
+동적모델,0.6,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,2,1,1,FP,3,939
+동적모델,0.5,TBD,temperate broadleaved summergreen,4,43.988,2.0,1,optpft,1009,1,1,TP,1,341
+동적모델,0.5,BDE,"boreal deciduous (Betula, Salix)",7,6.745,2.0,1,optpft,39,1,1,TP,1,341
+동적모델,0.5,CON,"needleleaf evergreen (Abies, Picea, Tsuga, Cupressaceae)",5;6,1.173,1.0,1,potential,1051,1,1,TP,1,341
+동적모델,0.5,TBE,temperate broadleaved evergreen,3,1.173,5.0,0,optpft,0,1,0,TN,1,341
+동적모델,0.5,GRS,C3/C4 temperate grass,8,7.625,2.0,1,optpft,0,1,0,FN,1,341
+동적모델,0.5,DWD,woody desert (Ephedra),10,0.0,5.0,0,optpft,3,1,1,FP,1,341

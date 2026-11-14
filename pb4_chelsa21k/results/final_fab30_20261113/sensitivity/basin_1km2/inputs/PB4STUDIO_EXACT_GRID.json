@@ -1,0 +1,40 @@
+{
+ "marker": "PB4STUDIO_EXACT_EMBEDDED_GRID_V1",
+ "purpose": "Yongneup production 30 m grid: FABDEM V1-2 projected to EPSG:5187 and resampled to 30 m; basin = D8 catchment above the first confluence downstream of the bog outflow at which the basin exceeds 1 km2 (sensitivity run). Legacy file names (*_20m_exact*) are kept for loader compatibility.",
+ "dem_filename": "dem_20m_exact.tif",
+ "soil_depth_filename": "soil_depth_20m_exact_m.tif",
+ "soil_texture_filename": "soil_texture_20m_exact.tif",
+ "basin_filename": "basin_exact20m.geojson",
+ "outlet_filename": "outlet_open_free_exact20m.geojson",
+ "climate_filename": "YONGNEUP_CHELSA_TRACE21k_ENVICLOUD_RAW_WIDE.csv",
+ "shape": [
+  41,
+  49
+ ],
+ "active_cells": 1119,
+ "model_resolution_m": 30.0,
+ "outlet_row_col": [
+  6,
+  47
+ ],
+ "crs": "EPSG:5187",
+ "transform": [
+  30.0,
+  0.0,
+  122623.3057,
+  0.0,
+  -30.0,
+  625198.8839,
+  0.0,
+  0.0,
+  1.0
+ ],
+ "climate_mode": "CHELSA-TraCE21k EnviCloud RAW WIDE; K->C at runtime; no elevation lapse correction",
+ "cloud_auxiliary_filename": "AUX_BEYER_CLOUD_0_21KA.csv",
+ "max_start_ka": 21.0,
+ "basin_area_ha": 100.71,
+ "initial_mean_elevation_m": 1181.2244873046875,
+ "initial_min_elevation_m": 975.457275390625,
+ "initial_max_elevation_m": 1283.77685546875,
+ "initial_mean_soil_depth_m": 1.940000295639038
+}
