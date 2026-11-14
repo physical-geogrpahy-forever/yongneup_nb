@@ -1,0 +1,9 @@
+﻿case,age_start_ka_bp,age_end_ka_bp,vegetation_original_ko,expected_label,windows,majority_match
+model_dynamic,0.39,0.0,침엽수림-교목,mixed_forest,4,3
+model_dynamic,3.4,0.39,낙엽활엽수림-교목,deciduous_broadleaf_forest,31,0
+model_dynamic,4.8,3.4,침엽수림-교목,mixed_forest,15,7
+model_dynamic,5.9,4.8,활엽침엽수림-교목,deciduous_broadleaf_forest,12,12
+model_static,0.39,0.0,침엽수림-교목,mixed_forest,4,3
+model_static,3.4,0.39,낙엽활엽수림-교목,deciduous_broadleaf_forest,31,0
+model_static,4.8,3.4,침엽수림-교목,mixed_forest,15,7
+model_static,5.9,4.8,활엽침엽수림-교목,deciduous_broadleaf_forest,12,12
