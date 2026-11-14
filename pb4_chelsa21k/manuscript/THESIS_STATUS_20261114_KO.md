@@ -30,6 +30,8 @@
 6. 연구방법에 문헌 근거 추가: Sugita (1994), Hebda et al. (2002), Pidek et al. (2013), Maher (1964), Cambon et al. (1992), Allouche et al. (2006).
 7. 그림: `plots/YONGNEUP_FINAL_basin_flowdir_flowacc.png` (유역, D8 흐름방향, 누적흐름).
 8. 한글 원고: 서론, 선행연구, 연구 지역 6곳 수정본 전달.
+9. 유역 1 km² 민감도(100.7 ha): 1~2%와 거리 가중 기준에서 59 ha와 결과가 같고, 1 km²에서는 3%까지 유지. 최종은 59 ha 유지.
+10. 이후 추가한 Park 분석(세 범주 판정, 기간 단위 판정, 화분 순방향 모의, 모델 차이 원인 점검)은 쓰지 않음. 기록은 `archive-palaeo-analyses-20261114` 브랜치.
 
 ## 남은 작업
 
