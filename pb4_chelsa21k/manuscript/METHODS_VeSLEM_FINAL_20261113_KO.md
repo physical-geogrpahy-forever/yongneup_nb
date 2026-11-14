@@ -133,13 +133,14 @@ Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수�
 | 초본 | 벼과 | 8 | 2% | 우점 PFT |
 | 건조지 목본 | 마황속 | 10 | 5% | 우점 PFT |
 
-화분 비율 기준은 분류군의 화분 생산량과 분산 특성을 고려하여 그룹별로 정하였다. 전나무속은 식생 피도에 비해 화분이 크게 과소대표되므로(Hebda et al., 2002; Pidek et al., 2013) 상록 침엽수의 기준을 1%로 낮게 두었고, 마황속은 수백 km 이상 장거리 수송된 화분이 흔히 검출되므로(Maher, 1964; Cambon et al., 1992) 건조지 목본의 기준을 5%로 높게 두었다. 온대 상록활엽수도 연구 지역보다 낮은 고도와 위도에서 유입될 수 있으므로 5%를 적용하였다. Park et al.(2021)의 연대모델은 17개의 AMS 연대에 기반하며, 각 모델 시점에서 ±0.05 kyr 이내의 시료를 합산하여 그룹별 화분 비율을 구하고, 이 비율이 그룹별 기준값 이상이면 해당 PFT가 출현한 것으로 보았다. 모델에서는 Jang et al.(2011)과의 비교와 같이 유역 내 식생 격자의 1% 이상에서 해당 PFT가 우점 PFT로 선택되면 출현한 것으로 판정하였다. 다만 BIOME4는 온대 낙엽활엽수(PFT4)가 우점 PFT이고 아한대 상록수(PFT6)가 생육 가능하면 냉량 혼효림으로 판정하므로, 상록 침엽수는 우점 여부 대신 생육 가능 여부(생물기후적 한계값을 만족하고 NPP가 0보다 큰 경우)로 판정하였다. 검증은 여섯 그룹과 28개 모델 시점의 출현 여부를 모두 합산한 정확도를 주 지표로 하고, 민감도, 특이도, TSS(민감도와 특이도의 합에서 1을 뺀 값; Allouche et al., 2006)와 그룹별 결과를 함께 제시하였다. 모델의 출현 기준(1개 격자, 유역의 1-5%)과 화분 비율 기준(모든 그룹에 0.5-10%를 동일하게 적용)을 바꾸어 민감도 분석을 수행하였다.
+화분 비율 기준은 분류군의 화분 생산량과 분산 특성을 고려하여 그룹별로 정하였다. 전나무속은 식생 피도에 비해 화분이 크게 과소대표되므로(Hebda et al., 2002; Pidek et al., 2013) 상록 침엽수의 기준을 1%로 낮게 두었고, 마황속은 수백 km 이상 장거리 수송된 화분이 흔히 검출되므로(Maher, 1964; Cambon et al., 1992) 건조지 목본의 기준을 5%로 높게 두었다. 온대 상록활엽수도 연구 지역보다 낮은 고도와 위도에서 유입될 수 있으므로 5%를 적용하였다. Park et al.(2021)의 연대모델은 17개의 AMS 연대에 기반하며, 각 모델 시점에서 ±0.05 kyr 이내의 시료를 합산하여 그룹별 화분 비율을 구하고, 이 비율이 그룹별 기준값 이상이면 해당 PFT가 출현한 것으로 보았다. 모델에서는 Jang et al.(2011)과의 비교와 같이 유역 내 식생 격자의 1% 이상에서 해당 PFT가 우점 PFT로 선택되면 출현한 것으로 판정하였다. 다만 BIOME4는 온대 낙엽활엽수(PFT4)가 우점 PFT이고 아한대 상록수(PFT6)가 생육 가능하면 냉량 혼효림으로 판정하므로, 상록 침엽수는 우점 여부 대신 생육 가능 여부(생물기후적 한계값을 만족하고 NPP가 0보다 큰 경우)로 판정하였다. 검증은 여섯 그룹과 28개 모델 시점의 출현 여부를 모두 합산한 정확도를 주 지표로 하고, 민감도, 특이도, TSS(민감도와 특이도의 합에서 1을 뺀 값; Allouche et al., 2006)와 그룹별 결과를 함께 제시하였다. 모델의 출현 기준(1개 격자, 유역의 1-5%)과 화분 비율 기준(모든 그룹에 0.5-10%를 동일하게 적용)을 바꾸어 민감도 분석을 수행하였다. 한편 화분 자료만으로는 분류군의 비출현을 증명할 수 없고(Prentice et al., 1996; Hicks, 2006; Ammann et al., 2014), 기준값보다 낮은 화분 비율은 개체가 드물게 분포하는 경우와 유역 밖에서 화분이 유입된 경우 모두에 나타날 수 있다. 따라서 위의 이분 판정과 함께, 화분 비율이 그룹별 기준값 이상이면 출현, 0.5% 미만이면 비출현, 그 사이는 판정 불가로 나누고 판정 가능한 시점만으로 민감도, 특이도, TSS를 계산하였다. 0.5%는 Prentice et al.(1996)이 화분 비율을 생물군계 판정에 반영하기 시작한 하한이며, 비출현을 화분이 전혀 없는 경우로 엄격하게 둔 결과와 출현 기준을 1-10%로 바꾼 결과도 함께 제시하였다. 기준값 부근 판정의 계수 오차는 이항분포의 95% 신뢰구간으로 확인하였다(Maher, 1972).
 
 ---
 
 이 절에서 새로 인용한 문헌(PPT 참고문헌에 없는 것)
 
 Allouche, O., Tsoar, A. and Kadmon, R., 2006, Assessing the accuracy of species distribution models: prevalence, kappa and the true skill statistic (TSS), Journal of Applied Ecology, 43(6), 1223-1232.
+Ammann, B., van der Knaap, W. O., Lang, G., Gaillard, M.-J., Kaltenrieder, P., Rösch, M., Finsinger, W., Wright, H. E. and Tinner, W., 2014, The potential of stomata analysis in conifers to estimate presence of conifer trees: examples from the Alps, Vegetation History and Archaeobotany, 23, 249-264.
 Cambon, G., Ritchie, J. C. and Guinet, P., 1992, Long-distance transport of airborne pollen in southern Ontario (Canada), Canadian Journal of Botany, 70(11), 2284-2293.
 Culling, W. E. H., 1960, Analytical theory of erosion, Journal of Geology, 68, 336-344.
 Freeman, T. G., 1991, Calculating catchment area with divergent flow based on a regular grid, Computers & Geosciences, 17(3), 413-422.
@@ -149,12 +150,14 @@ Hebda, R. J., Heinrichs, M. L., Allen, G. B. and Antos, J. A., 2002, Abies lasio
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 1997, The soil production function and landscape equilibrium, Nature, 388, 358-361.
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 2001, Stochastic processes of soil production and transport: Erosion rates, topographic variation and cosmogenic nuclides in the Oregon Coast Range, Earth Surface Processes and Landforms, 26, 531-552.
 Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S. and Kempen, B., 2017, SoilGrids250m: Global gridded soil information based on machine learning, PLoS ONE, 12(2), e0169748.
+Hicks, S., 2006, When no pollen does not mean no trees, Vegetation History and Archaeobotany, 15, 253-261.
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E. and Schulze, E.-D., 1996, A global analysis of root distributions for terrestrial biomes, Oecologia, 108, 389-411.
 Kaplan, J. O., 2001, Geophysical Applications of Vegetation Modeling, Ph.D. dissertation, Lund University, Lund.
 Langbein, W. B. and Schumm, S. A., 1958, Yield of sediment in relation to mean annual precipitation, Transactions, American Geophysical Union, 39, 1076-1084.
 Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E. and Yu, B. Y., 2024, Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea, Earth Surface Dynamics, 12(5), 1091-1120.
 Leopold, L. B. and Maddock, T. Jr., 1953, The hydraulic geometry of stream channels and some physiographic implications, U.S. Geological Survey Professional Paper 252.
 Maher, L. J. Jr., 1964, Ephedra pollen in sediments of the Great Lakes region, Ecology, 45, 391-395.
+Maher, L. J. Jr., 1972, Nomograms for computing 0.95 confidence limits of pollen data, Review of Palaeobotany and Palynology, 13, 85-93.
 Pelletier, J. D., 2010, Minimizing the grid-resolution dependence of flow-routing algorithms for geomorphic applications, Geomorphology, 122, 91-98.
 Pelletier, J. D., 2013, Fundamental principles and techniques of landscape evolution modeling, in Shroder, J. and Baas, A. C. W.(eds.), Treatise on Geomorphology, Vol. 2, Quantitative Modeling of Geomorphology, Academic Press, San Diego, 29-43.
 Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic controls on hillslope steepness and erosion rate, Lithosphere, 1(2), 73-80.
