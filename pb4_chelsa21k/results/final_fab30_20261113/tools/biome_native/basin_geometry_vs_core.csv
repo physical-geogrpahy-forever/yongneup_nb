@@ -1,3 +1,5 @@
-﻿basin,cells,area_ha,dist_median,dist_max,within_50,within_300,within_400,within_1000,elev_range_within400,elev_range_all,moor_upstream_cells,moor_upstream_ha
-59 ha,656,59.0,340,1056,9,278,397,649,1138-1246,1138-1284,4,0.36
-1 km²,1119,100.7,501,1088,9,278,420,1103,1138-1246,975-1284,4,0.36
+﻿basin,reference,cells,Jang_inside,YNC_inside,dJ_median,dJ_max,dP_median,dP_max,Jwithin300,Jwithin400,Pwithin300,Pwithin400
+59 ha,Jang 코어 / YN-C 코어,656,"(True, 1173.6650390625)","(True, 1181.792236328125)",343,1085,349,1084,283,376,265,383
+59 ha,이전 기준점,656,"(True, 1173.6650390625)","(True, 1181.792236328125)",340,1056,340,1056,278,397,278,397
+1 km²,Jang 코어 / YN-C 코어,1119,"(True, 1173.6650390625)","(True, 1181.792236328125)",463,1085,528,1104,315,473,265,397
+1 km²,이전 기준점,1119,"(True, 1173.6650390625)","(True, 1181.792236328125)",501,1088,501,1088,278,420,278,420
