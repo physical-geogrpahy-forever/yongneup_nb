@@ -37,7 +37,7 @@
 
 - Park 화분 처리를 문헌 체계로 확정: Ni et al. (2010) 표 1의 교목 PFT 다중 배정(자작나무속, 버드나무속은 아한대와 온대 낙엽수 양쪽, 소나무속은 상록 침엽수), 모든 그룹 0.5% 기준(Prentice et al., 1996; Ni et al., 2010), 화분합에서 오리나무속, 산형과, 오이풀속, 수생, 사초과, 포자 제외(터리풀속은 포함). 모델 기준은 유역 1% 그대로. 결과 정확도 0.536 / 0.702, TSS 0.418 / 0.627. 스크립트 `results/final_fab30_20261113/palaeo_validation/park_reference_scheme.py`.
 - 방법론을 코드와 대조해 재현 수준으로 보강: 입력 좌표와 출처, 절대최저기온 회귀식, 기압식, 투수 지수, AGB 식, 계산 순서, 임계경사 조정식, 계산 간격 규칙, 경계조건, 와지 처리, Jang 시점 배정, Park 연대모델(11개 전암 AMS) 정정.
-- 확인 필요: 토성 class 2(FAO 중간 토성)의 출처, GitHub 저장소 공개 여부, Pelletier 곡저 판별값 1.2의 출처(Pelletier 2010 또는 2013).
+- 확인 완료: 토성은 Soilbrick 자료(사용자 확인, 서지 표기 미정), GitHub 저장소는 공개, 곡저 판별값 1.2는 Pelletier (2013) Treatise 2.3장 p. 39("a cutoff value of 1.2 works best").
 
 ## 남은 작업
 
