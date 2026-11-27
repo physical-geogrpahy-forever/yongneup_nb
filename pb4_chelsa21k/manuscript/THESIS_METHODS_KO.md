@@ -6,7 +6,7 @@
 
 (2) 식생모델
 
-BIOME4는 BIOME3(Haxeltine & Prentice, 1996)를 발전시킨 탄소와 수분 플럭스 결합 모델로, 월평균 기온, 강수량, 운량, 대기 중 CO2 농도와 토양 특성을 이용하여 평형 상태의 식생 분포와 구조, 생지화학적 특성을 계산한다(Kaplan, 2001; Kaplan et al., 2003). 생물기후적 한계값을 만족하는 식물기능형(PFT)마다 일 단위 토양수분수지와 월 단위 광합성, 호흡, 생물계절 계산을 통해 NPP를 최대화하는 LAI와 그때의 NPP를 구하고, NPP, LAI, 연평균 토양수분으로 우점 PFT와 부우점 PFT를 정한 뒤 그 조합과 환경 조건에 따라 28개 생물군계 중 하나를 판정한다(Kaplan et al., 2003). 본 연구에서는 생물기후적 한계값, 생리 계수, 판정 규칙을 BIOME4 v4.2b2 원본 코드(Kaplan, 1999)대로 두고, 토심의 변화가 식생 계산에 반영되도록 다음 세 가지를 수정하였다.
+BIOME4는 BIOME3(Haxeltine & Prentice, 1996)를 발전시킨 탄소와 수분 플럭스 결합 모델로, 월평균 기온, 강수량, 일조율, 대기 중 CO2 농도와 토양 특성을 이용하여 평형 상태의 식생 분포와 구조, 생지화학적 특성을 계산한다(Kaplan, 2001; Kaplan et al., 2003). 생물기후적 한계값을 만족하는 식물기능형(PFT)마다 일 단위 토양수분수지와 월 단위 광합성, 호흡, 생물계절 계산을 통해 NPP를 최대화하는 LAI와 그때의 NPP를 구하고, NPP, LAI, 연평균 토양수분으로 우점 PFT와 부우점 PFT를 정한 뒤 그 조합과 환경 조건에 따라 27개 생물군계 중 하나를 판정한다(Kaplan et al., 2003). 본 연구에서는 생물기후적 한계값, 생리 계수, 판정 규칙을 BIOME4 v4.2b2 원본 코드(Kaplan, 1999)대로 두고, 토심의 변화가 식생 계산에 반영되도록 다음 세 가지를 수정하였다.
 
 ① 토양수분보유능력
 
@@ -40,7 +40,7 @@ $$W_r = r_{top}\,W_1 + r_{bottom}\,W_2 \tag{4}$$
 
 (3) 지형발달모델
 
-Pelletier et al.(2013)은 토층이 덮인 산지 사면이 기반암의 물리적 풍화에 의한 레골리스 생성과 사면 물질이동에 의한 제거로 발달하며, 레골리스 두께는 이 둘의 장기적인 균형으로 정해진다고 보고, 지표 고도, 기반암 고도, 레골리스 두께를 식 (5)-(7)과 같이 나타내었다.
+Pelletier et al.(2013)은 토층이 덮인 산지 사면이 기반암의 물리적 풍화에 의한 레골리스 생성과 사면 물질이동에 의한 제거로 발달하며, 레골리스 두께는 물리적 풍화율과 침식률의 장기적인 균형으로 정해진다고 보고, 지표 고도, 기반암 고도, 레골리스 두께를 식 (5)-(7)과 같이 나타내었다.
 
 $$z = b + H \tag{5}$$
 
@@ -52,21 +52,21 @@ $$\frac{\partial H}{\partial t} = \frac{\rho_r}{\rho_s}\frac{P}{\cos\theta} - E_
 
 ① 기반암 풍화
 
-사면에 수직인 방향의 기반암 풍화율은 그 위를 덮는 토층의 두께에 따라 지수적으로 감소한다(Heimsath et al., 1997, 2001). Rasmussen & Tabor(2007)는 경사가 완만한 안정 사면에서 레골리스 두께가 EEMT에 따라 지수적으로 증가함을 보였으며, Pelletier & Rasmussen(2009)은 이를 바탕으로 토층이 없을 때의 풍화율도 EEMT에 따라 지수적으로 증가한다고 보았다(식 8).
+사면에 수직인 방향의 기반암 풍화율은 그 위를 덮는 토층의 두께에 따라 지수적으로 감소한다(Heimsath et al., 1997, 2001). Rasmussen & Tabor(2007)는 안정된 지형 위치에서 토양 단면의 깊이가 EEMT에 따라 지수적으로 증가함을 보였으며, Pelletier & Rasmussen(2009)은 이를 바탕으로 토층이 없을 때의 풍화율도 EEMT에 따라 지수적으로 증가한다고 보았다(식 8).
 
 $$P = P_0\,e^{-H\cos\theta/H_0}, \qquad P_0 = a\,e^{b_E\,\mathrm{EEMT}} \tag{8}$$
 
 식 (8)에서 P0[m/kyr]는 토층이 없을 때의 풍화율, H0[m]는 Heimsath et al.(1997, 2001)의 자료에 근거한 풍화 특성깊이 0.5 m이며, a와 bE는 Pelletier & Rasmussen(2009)이 Riebe et al.(2004)의 화강암 유역 자료로 구한 0.037 m/kyr와 0.03 m² yr/MJ이다.
 
-EEMT는 유효강수(강수량에서 증발산량을 뺀 값)가 토양에 전달하는 열에너지(EPPT)와 순일차생산으로 고정되는 에너지(EBIO)의 합이다(Pelletier et al., 2013). Rasmussen & Tabor(2007)는 유효강수가 0 °C에서 그 달의 평균기온까지 데워진다고 보고 유효강수가 양수인 달만 더하여 연간 EEMT를 구하였다. Pelletier et al.(2013)은 기온, 강수량, 수증기압 부족량의 회귀식으로 EEMT를 추정하였으나, 본 연구에서는 BIOME4가 계산한 격자별 NPP와 월 실제증발산량으로 EEMT를 직접 계산하였다(식 9).
+EEMT는 유효강수(강수량에서 증발산량을 뺀 값)가 토양에 전달하는 열에너지(EPPT)와 순일차생산으로 고정되는 에너지(EBIO)의 합이다(Pelletier et al., 2013). Rasmussen & Tabor(2007)는 유효강수가 0 °C에서 그 달의 평균기온까지 데워진다고 보고 유효강수가 양수인 달만 더하여 연간 EEMT를 구하였다. Pelletier et al.(2013)은 기온, 강수량, 수증기압 부족량에 기반한 회귀식으로 EEMT를 추정하였으나, 본 연구에서는 BIOME4가 계산한 격자별 NPP와 월 실제증발산량으로 EEMT를 직접 계산하였다(식 9).
 
 $$\mathrm{EEMT} = E_{PPT} + E_{BIO} = \sum_{m=1}^{12} c_w\,\max(T_m,\,0)\,\max(P_m - \mathrm{AET}_m,\,0) + \frac{h_{BIO}}{f_C}\,\max(\mathrm{NPP},\,0) \tag{9}$$
 
-식 (9)에서 EEMT의 단위는 MJ/m²/yr이며, Tm[°C]은 m월의 평균기온, Pm과 AETm[kg/m²]은 m월의 강수량과 실제증발산량, NPP[kgC/m²/yr]는 순일차생산량, cw는 물의 비열(4,186 J/kg/K), hBIO는 생체량의 에너지 함량(22 MJ/kg), fC는 생체량의 탄소 비율(0.5)이다. 평균기온이 0 °C 이하인 달의 EPPT는 0으로 두었다(Pelletier & Rasmussen, 2009).
+식 (9)에서 EEMT의 단위는 MJ/m²/yr이며, Tm[°C]은 m월의 평균기온, Pm과 AETm[kg/m²]은 m월의 강수량과 실제증발산량, NPP[kgC/m²/yr]는 순일차생산량, cw는 물의 비열(4,186 J/kg/K), hBIO는 생체량의 에너지 함량(22 MJ/kg), fC는 생체량의 탄소 비율(0.5)이다. EPPT는 액체 상태의 물을 가정하여 0 °C를 기준으로 계산하므로(Rasmussen & Tabor, 2007), 평균기온이 0 °C 이하인 달의 EPPT는 0으로 두었다.
 
 ② 사면 물질이동
 
-토양포행과 생물교란 같은 붕적 과정에 의한 침식과 퇴적은 물질 이동량(q)의 발산으로 나타낸다(Ec = ∇·q). Culling(1960)은 이동량이 경사에 비례하는 확산식을 제시하였으며, Roering et al.(1999)은 이동량이 임계경사에 가까워질수록 급격히 커지는 비선형 경사의존모델을 제시하였다. Pelletier et al.(2013)은 여기에 이동량이 사면에 수직인 방향의 토심에 비례하는 항을 더하였다(식 10).
+토양포행과 생물교란 같은 붕적 과정에 의한 침식과 퇴적은 물질 이동량(q)의 발산으로 나타낸다(Ec = ∇·q). Culling(1960)은 이동량이 경사에 비례하는 확산식을 제시하였으며, Roering et al.(1999)은 이동량이 임계경사에 가까워질수록 급격히 커지는 비선형 경사의존모델을 제시하였다. Pelletier et al.(2013)은 이 비선형 경사의존식의 이동량이 사면에 수직인 방향의 토심에 비례하도록 한 식을 사용하였다(식 10).
 
 $$\mathbf{q} = -\frac{k_d\,H\cos\theta\,\nabla z}{1 - \left(|\nabla z|/S_c\right)^2} \tag{10}$$
 
@@ -88,9 +88,9 @@ $$\mathrm{AGB} = \mathrm{LAI}\left(s + \frac{L^{0.43}}{0.1\times10^{2.44}}\right
 
 $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{14}$$
 
-식 (14)에서 A[m²]는 기여면적, w[m]는 흐름의 유효 폭, K[1/kyr]는 침식계수이다. Langbein & Schumm(1958)은 연평균 유효강수량이 약 0.3 m를 넘으면 식생 피복이 토양을 붙잡아 강수가 많을수록 퇴적물 생산량이 줄어든다고 보고하였으며, Pelletier et al.(2013)은 이를 반영하여 레골리스의 침식계수를 EEMT에 반비례하도록 하였다. K0는 0.02 m²/MJ이며, 레골리스가 모두 침식되면 남은 침식능으로 레골리스 침식계수의 1/10로 기반암을 침식한다(Pelletier et al., 2013).
+식 (14)에서 A[m²]는 기여면적, w[m]는 흐름의 유효 폭, K[1/kyr]는 침식계수이다. Langbein & Schumm(1958)은 연평균 유효강수량이 약 0.3 m를 넘으면 식생 밀도가 높아져 강수가 많을수록 퇴적물 생산량이 줄어든다고 보고하였으며, Pelletier et al.(2013)은 이를 반영하여 레골리스의 침식계수를 EEMT에 반비례하도록 하였다. K0는 0.02 m²/MJ이며, 레골리스가 모두 침식되면 남은 침식능으로 레골리스 침식계수의 1/10로 기반암을 침식한다(Pelletier et al., 2013).
 
-기여면적은 다방향 흐름 알고리즘(Freeman, 1991)으로 구하였으며, 각 격자의 흐름은 하류 방향 인접 격자에 경사의 1.1제곱에 비례하여 나누었다. 흐름 경로는 우선순위 채우기(Barnes et al., 2014)로 와지를 채운 지형에서 구하였고, 채운 지형은 흐름 계산에만 사용하였다. 흐름의 유효 폭은 포상류가 일어나는 사면에서 격자 크기와 같고, 흐름이 곡저에 집중되는 곳에서 w = gA^(1/2), g = 0.005이다(Leopold & Maddock, 1953; Pelletier et al., 2013). 사면과 곡저는 Pelletier(2010, 2013)의 방법에 따라, 30 m 격자의 기여면적과 지형을 쌍선형 보간한 15 m 격자에서 대응하는 네 격자 기여면적의 최댓값 사이의 비(f)가 1.2보다 작은 격자를 곡저로 구분하였다.
+기여면적은 다방향 흐름 알고리즘(Freeman, 1991)으로 구하였으며, 각 격자의 흐름은 하류 방향 인접 격자에 경사의 1.1제곱에 비례하여 나누었다. 흐름 경로는 우선순위 채우기(Barnes et al., 2014)로 와지를 채운 지형에서 구하였고, 채운 지형은 흐름 계산에만 사용하였다. 흐름의 유효 폭은 포상류가 일어나는 사면에서 격자 크기와 같고, 흐름이 곡저에 집중되는 곳에서 w = gA^(1/2), g = 0.005이다(Leopold & Maddock, 1953; Pelletier et al., 2013). 사면과 곡저는 Pelletier(2010)의 방법에 따라, 30 m 격자의 기여면적과 지형을 쌍선형 보간한 15 m 격자에서 대응하는 네 격자 기여면적의 최댓값 사이의 비(f)가 1.2보다 작은 격자를 곡저로 구분하였다.
 
 ④ 융기
 
@@ -98,7 +98,7 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{14
 
 ⑤ 수치 계산
 
-지형발달모델은 BIOME4가 계산한 EEMT와 AGB를 0.1 kyr 동안 일정하게 두고, 이 기간을 여러 계산 간격(Δt)으로 나누어 진행하였다. 각 계산 간격에서는 임계경사 조정, 기반암 풍화, 사면 물질이동, 유수침식, 융기, 임계경사 조정의 순서로 계산하였다. 임계경사를 넘는 사면은 Campforts et al.(2017)의 방법으로 임계경사까지 낮추었으며(식 15), 낮아진 만큼은 토층에서 먼저 빼고 토층이 모자라면 기반암에서 뺀 뒤 유역 밖으로 내보냈다.
+지형발달모델은 BIOME4가 계산한 EEMT와 AGB를 0.1 kyr 동안 일정하게 두고, 이 기간을 여러 계산 간격(Δt)으로 나누어 진행하였다. 각 계산 간격에서는 임계경사 조정, 기반암 풍화, 사면 물질이동, 유수침식, 융기, 임계경사 조정의 순서로 계산하였다. 임계경사를 넘는 사면은 Blöthe et al.(2015)의 초과 지형 알고리즘을 수정한 Campforts et al.(2017)의 방법으로 임계경사까지 낮추었으며(식 15), 낮아진 만큼은 토층에서 먼저 빼고 토층이 모자라면 기반암에서 뺀 뒤 유역 밖으로 내보냈다.
 
 $$z'_i = \min\left[\,z_i,\ \min_{j}\left(z_j + S_c\,d_{ij}\right)\right] \tag{15}$$
 
@@ -106,7 +106,7 @@ $$z'_i = \min\left[\,z_i,\ \min_{j}\left(z_j + S_c\,d_{ij}\right)\right] \tag{15
 
 $$q_{x,\,i+1/2} = -\,\bar{k}_d\,\bar{H}\,\frac{(z_{i+1} - z_i)/\Delta x}{1 - \left[(z_{i+1} - z_i)/(\Delta x\,S_c)\right]^2} \tag{16}$$
 
-식 (16)에서 k̄d와 H̄는 인접한 두 격자의 평균, Δx는 격자 크기(30 m)이며, y 방향도 같은 방식으로 계산하였다. 계산 간격은 0.1 kyr에서 시작하여 0.01Δx²/(2kd) 이하가 될 때까지 절반으로 줄였고, 한 계산 간격의 최대 고도 변화가 0.025 m를 넘으면 그 계산을 버리고 간격을 절반으로 줄여 다시 계산하였다(Pelletier et al., 2013). 유출구 격자는 융기하지 않는 고정 침식기준면으로 두어 고도, 기반암 고도, 토심을 초기값으로 고정하였으며(Pelletier et al., 2013), 나머지 경계에서는 물질이 드나들지 않도록 하였다.
+식 (16)에서 k̄d와 H̄는 인접한 두 격자의 평균, Δx는 격자 크기(30 m)이며, y 방향도 같은 방식으로 계산하였다. 계산 간격의 상한은 Pelletier et al.(2013)과 같이 0.01Δx²/(2kd)로 하였다. 이를 위해 계산 간격을 0.1 kyr에서 시작하여 이 상한 이하가 될 때까지 절반으로 줄였으며, 한 계산 간격의 최대 고도 변화가 0.025 m를 넘으면 그 계산을 버리고 간격을 절반으로 줄여 다시 계산하였다. 유출구 격자는 Pelletier et al.(2013)과 같이 융기하지 않는 고정 침식기준면으로 두어 고도, 기반암 고도, 토심을 초기값으로 고정하였으며, 나머지 경계에서는 물질이 드나들지 않도록 하였다.
 
 (4) 입력 자료와 모의 설정
 
@@ -118,13 +118,13 @@ $$T_{min} = 0.006\,T_c^2 + 1.316\,T_c - 21.9 \tag{17}$$
 
 $$p = 101325\,(1 - 2.25577\times10^{-5}\,z)^{5.25588} \tag{18}$$
 
-지형은 FABDEM V1-2(Hawker et al., 2022)를 EPSG:5187로 투영한 뒤 쌍선형 보간으로 30 m 격자로 구성하였다. 유역은 우선순위 채우기(Barnes et al., 2014)로 와지를 채운 지형의 D8 흐름 방향으로 구하였으며, 유출구는 용늪에서 나가는 유로가 처음 지류와 합류하는 지점 바로 아래 격자(128.1265°E, 38.2180°N)로 하였다. 이에 따라 유출구로 흘러드는 656개 격자(59.0 ha, 고도 1,138-1,284 m)를 모델 유역으로 설정하였다(그림 ?). 초기 토심은 SoilGrids(Hengl et al., 2017)의 1 km 기반암 깊이 자료(Shangguan et al., 2017)에 따라 유역 전체에 1.94 m를 적용하였으며, 초기 기반암 고도는 지표 고도에서 초기 토심을 뺀 값으로 하였다.
+지형은 FABDEM V1-2(Hawker et al., 2022)를 EPSG:5187로 투영한 뒤 쌍선형 보간으로 30 m 격자로 구성하였다. 유역은 우선순위 채우기(Barnes et al., 2014)로 와지를 채운 지형의 D8 흐름 방향으로 구하였으며, 유출구는 용늪에서 나가는 유로가 처음 지류와 합류하는 지점 바로 아래 격자(128.1265°E, 38.2180°N)로 하였다. 이에 따라 유출구로 흘러드는 656개 격자(59.0 ha, 고도 1,138-1,284 m)를 모델 유역으로 설정하였다(그림 ?). 초기 토심은 SoilGrids의 기반암(R층) 깊이 예측(Hengl et al., 2017; Shangguan et al., 2017)을 1 km로 집계한 ISRIC 배포 자료(BDRICM)에 따라 유역 전체에 1.94 m를 적용하였으며, 초기 기반암 고도는 지표 고도에서 초기 토심을 뺀 값으로 하였다.
 
 모의는 21 ka BP부터 현재까지 0.1 kyr 간격으로 211개 시점에 대해 수행하였다. 동적 지형 모델은 각 시점에서 BIOME4로 식생을 계산하고, 그 EEMT와 AGB로 다음 0.1 kyr 동안의 지형발달을 계산한 뒤 변화한 고도와 토심을 다음 시점의 BIOME4에 입력하였다. 반면, 정적 지형 모델은 같은 기후 조건에서 고도와 토심을 초기값으로 고정하고 식생만 계산하였다. 두 모델의 결과를 비교함으로써 지형과 토심의 변화가 식생 복원에 미치는 영향을 확인하고자 하였다.
 
 (5) 고식생 검증
 
-모델 결과는 용늪의 두 고식생 기록과 비교하였다. Jang et al.(2011)의 코어(38°12′57.4″N, 128°7′30.2″E)와 Park et al.(2021)의 YN-C 코어(38°12′54.40″N, 128°7′25.1″E, 해발 1,189 m)는 약 155 m 떨어져 있으며, 모두 모델 유역 안에 위치한다. 반경 약 50 m의 분지에서 관련 화분 공급원 범위는 분지 가장자리에서 300-400 m이며, 이 범위 안에서 오는 화분은 전체의 30-45%이다(Sugita, 1994). 따라서 본 연구에서는 용늪(약 7,490 m²; Jang et al., 2011)의 화분 기록을 유역 단위 모델 결과와 비교하되, 화분 비율을 식생 면적 비율에 대응시키지 않고 식생유형과 PFT의 출현 여부를 비교하였다. 모델에서는 기반암 노출 격자를 제외한 식생 격자의 1% 이상(7개 격자 이상)을 차지하는 식생유형 또는 PFT를 출현으로 판정하였다.
+모델 결과는 용늪의 두 고식생 기록과 비교하였다. Jang et al.(2011)의 코어(38°12′57.4″N, 128°7′30.2″E)와 Park et al.(2021)의 YN-C 코어(38°12′54.40″N, 128°7′25.1″E, 해발 1,189 m)는 약 155 m 떨어져 있으며, 모두 모델 유역 안에 위치한다. 모의 경관에서 반경 약 50 m의 분지의 관련 화분 공급원 범위는 분지 가장자리에서 300-400 m이며, 이 범위 안에서 오는 화분은 전체의 30-45%이다(Sugita, 1994). 따라서 본 연구에서는 용늪(약 7,490 m²; Jang et al., 2011)의 화분 기록을 유역 단위 모델 결과와 비교하되, 화분 비율을 식생 면적 비율에 대응시키지 않고 식생유형과 PFT의 출현 여부를 비교하였다. 모델에서는 기반암 노출 격자를 제외한 식생 격자의 1% 이상(7개 격자 이상)을 차지하는 식생유형 또는 PFT를 출현으로 판정하였다.
 
 첫째, Jang et al.(2011)과 비교하기 위해 BIOME4가 판정한 생물군계를 그대로 다섯 식생유형으로 묶었다(표 3). Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수림, 4,800-3,400 cal yr BP와 390 cal yr BP 이후는 혼효림과 비교하였으며, 각 화분대 연대 구간에 속하는 0.1 kyr 간격의 모델 시점을 평가하였다. 이때 화분대 경계인 4.8 ka와 3.4 ka는 양쪽 화분대에서 모두 평가하여 총 62개 시점을 비교하였다. 또한, Jang et al.(2011)은 3,400-390 cal yr BP를 낙엽활엽수림으로 구분하였으나 약 1,300 cal yr BP까지 대암산 정상부와 그 주변에 침엽수-낙엽활엽수 혼효림이 발달하였다고 해석하였으므로, 이 기간의 전부 또는 일부를 혼효림으로 본 경우도 비교하였다. 연대모델이 5개의 AMS 연대 중 역전된 1개를 뺀 4개에 기반하므로(Jang et al., 2011), 화분대 경계 전후 0.1-0.3 kyr의 시점을 제외한 경우도 함께 비교하였다.
 
@@ -140,7 +140,7 @@ $$p = 101325\,(1 - 2.25577\times10^{-5}\,z)^{5.25588} \tag{18}$$
 
 둘째, Park et al.(2021)의 YN-C 코어 화분 자료로 PFT 단위의 검증을 수행하였다. 해당 자료는 16-88 cm 구간에서 1 cm 간격으로 분석한 72개 시료(50 cm 제외)이며, 16-90 cm 구간 전암 시료 11개의 AMS 연대를 rbacon(Blaauw & Christen, 2011)과 IntCal20(Reimer et al., 2020)으로 보정한 연대모델에 따라 3,181-515 cal yr BP에 해당한다(Park et al., 2021). 분석에는 Park et al.(2021) 부록의 분류군별 계수 자료를 사용하였다.
 
-화분 분류군은 Ni et al.(2010)의 PFT 배정에 따라 BIOME4의 PFT 그룹으로 묶었다(표 4). 교목 PFT 중 아한대 냉량 낙엽 활엽교목은 아한대 낙엽수(PFT7), 온대와 난온대의 냉량 낙엽 활엽교목은 온대 낙엽활엽수(PFT4), 상록 침엽교목은 상록 침엽수(PFT5, 6), 난온대 상록 활엽교목은 온대 상록활엽수(PFT3)에 대응시켰으며, 초본 PFT 중 벼과는 온대 초본(PFT8), 마황속이 속한 내한성 소엽 관목은 건조지 목본(PFT10)에 대응시켰다. 여러 PFT에 배정된 분류군의 화분은 Ni et al.(2010)과 같이 해당 그룹 모두에 더하였다. 화분 합은 Park et al.(2021)의 목본과 초본의 합에서 습원과 그 주변에 사는 오리나무속(Jang et al., 2011)과 습원 초본인 산형과, 오이풀속(Jang et al., 2011; Park et al., 2021)을 뺀 값으로 하였고, 포자는 Ni et al.(2010)과 같이 포함하지 않았다.
+화분 분류군은 Ni et al.(2010)의 PFT 배정에 따라 BIOME4의 PFT 그룹으로 묶었다(표 4). 교목 PFT 중 아한대 냉량 낙엽 활엽교목은 아한대 낙엽수(PFT7), 온대와 난온대의 냉량 낙엽 활엽교목은 온대 낙엽활엽수(PFT4), 상록 침엽교목은 상록 침엽수(PFT5, 6), 난온대 상록 활엽교목은 온대 상록활엽수(PFT3)에 대응시켰으며, 초본 PFT 중 벼과는 온대 초본(PFT8), 마황속이 속한 내한성 소엽 관목은 건조지 목본(PFT10)에 대응시켰다. 여러 PFT에 배정된 분류군의 화분은 해당 그룹 모두에 더하였는데, 이는 생물군계화에서 한 분류군이 그 분류군이 나타날 수 있는 모든 생물군계의 친화도에 더해지는 방식(Prentice et al., 1996; Ni et al., 2010)을 PFT 그룹에 적용한 것이다. 화분 합은 Park et al.(2021)의 목본과 초본의 합에서 습원과 그 주변에 사는 오리나무속(Jang et al., 2011)과 습원 초본인 산형과, 오이풀속(Jang et al., 2011; Park et al., 2021)을 뺀 값으로 하였고, 포자는 Ni et al.(2010)과 같이 포함하지 않았다.
 
 표 4. 화분 분류군의 PFT 그룹(Ni et al., 2010)
 
@@ -196,7 +196,6 @@ NOAA, NASA and USAF, 1976, U.S. Standard Atmosphere, 1976, U.S. Government Print
 Park, J., Jin, Q., Choi, J., Bahk, J. and Park, J., 2021, Late Holocene climate variability in central Korea indicated by vegetation, geochemistry, and fire records of the Yongneup moor, Palaeogeography, Palaeoclimatology, Palaeoecology, 584, 110705.
 Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic controls on hillslope steepness and erosion rate, Lithosphere, 1(2), 73-80.
 Pelletier, J. D., 2010, Minimizing the grid-resolution dependence of flow-routing algorithms for geomorphic applications, Geomorphology, 122, 91-98.
-Pelletier, J. D., 2013, Fundamental principles and techniques of landscape evolution modeling, in Shroder, J. and Baas, A. C. W.(eds.), Treatise on Geomorphology, Vol. 2, Quantitative Modeling of Geomorphology, Academic Press, San Diego, 29-43.
 Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorover, J., Durcik, M., Harman, C. J., Huxman, T. E., Lohse, K. A., Lybrand, R., Meixner, T., McIntosh, J. C., Papuga, S. A., Rasmussen, C., Schaap, M., Swetnam, T. L. and Troch, P. A., 2013, Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona, Journal of Geophysical Research: Earth Surface, 118(2), 741-758.
 Poggio, L., de Sousa, L. M., Batjes, N. H., Heuvelink, G. B. M., Kempen, B., Ribeiro, E. and Rossiter, D., 2021, SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty, SOIL, 7(1), 217-240.
 Prentice, I. C., Cramer, W., Harrison, S. P., Leemans, R., Monserud, R. A. and Solomon, A. M., 1992, A global biome model based on plant physiology and dominance, soil properties and climate, Journal of Biogeography, 19(2), 117-134.
