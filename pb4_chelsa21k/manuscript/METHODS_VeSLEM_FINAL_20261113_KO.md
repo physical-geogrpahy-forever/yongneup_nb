@@ -34,9 +34,9 @@ $$W_r = r_{top}\,W_1 + r_{bottom}\,W_2 \tag{4}$$
 
 식 (2)-(4)에서 d[cm]는 토심이며, 토심이 30 cm 이하이면 rbottom은 0이다. 토심이 얕을수록 rtop과 rbottom의 합은 1보다 작아지고, 상층 뿌리 비율이 낮은 PFT일수록 이용할 수 있는 수분이 크게 줄어든다. Wr은 증산 공급량, 잎의 전개와 낙엽 시기, 우점 PFT와 생물군계 판정에 쓰이는 연평균 토양수분의 계산에 썼다.
 
-③ 산불잠재일수와 기반암 노출 격자
+③ 기반암 노출 격자
 
-BIOME4의 산불잠재일수는 근권 토양수분이 PFT별 임계값보다 낮은 날의 수를 NPP로 보정한 값으로, 우점 PFT 판정에 쓰인다(Kaplan, 1999, 2001). 산불잠재일수 계산에는 BIOME4와 같이 가중치의 합이 1이 되도록 Wr을 (rtop + rbottom)으로 나눈 값을 썼다. 토심이 10⁻⁶ m 이하인 격자는 기반암 노출 격자로 보아 무식생으로 처리하고 실제증발산량, NPP, AGB를 0으로 두었다.
+토심이 10⁻⁶ m 이하인 격자는 기반암 노출 격자로 보아 BIOME4 계산에서 제외하고 무식생으로 처리하였으며, 실제증발산량, NPP, AGB를 0으로 두었다.
 
 (3) 지형발달모델
 
@@ -58,7 +58,7 @@ $$P = P_0\,e^{-H\cos\theta/H_0}, \qquad P_0 = a\,e^{b_E\,\mathrm{EEMT}} \tag{8}$
 
 식 (8)에서 P0[m/kyr]는 토층이 없을 때의 풍화율, H0[m]는 풍화 특성깊이로 Heimsath et al.(1997, 2001)의 자료에 근거한 0.5 m이다. a와 bE는 Pelletier & Rasmussen(2009)이 Riebe et al.(2004)의 화강암 유역 자료로 구한 0.037 m/kyr와 0.03 m² yr/MJ이다.
 
-EEMT(Effective Energy and Mass Transfer)는 유효강수가 토양에 전달하는 열에너지(EPPT)와 순일차생산으로 고정되는 에너지(EBIO)의 합이다. Rasmussen & Tabor(2007)는 유효강수가 0 °C에서 그 달의 평균기온까지 데워진다고 보고, 유효강수가 양수인 달만 더하여 연간 EEMT를 구하였다. Pelletier et al.(2013)은 기온, 강수량, 수증기압 부족량의 회귀식으로 EEMT를 추정하였으나, 본 연구는 BIOME4가 계산한 격자별 NPP와 월 실제증발산량으로 직접 계산하였다.
+EEMT(Effective Energy and Mass Transfer)는 유효강수(강수량에서 증발산량을 뺀 값)가 토양에 전달하는 열에너지(EPPT)와 순일차생산으로 고정되는 에너지(EBIO)의 합이다(Pelletier et al., 2013). Rasmussen & Tabor(2007)는 유효강수가 0 °C에서 그 달의 평균기온까지 데워진다고 보고, 유효강수가 양수인 달만 더하여 연간 EEMT를 구하였다. Pelletier et al.(2013)은 기온, 강수량, 수증기압 부족량의 회귀식으로 EEMT를 추정하였으나, 본 연구는 BIOME4가 계산한 격자별 NPP와 월 실제증발산량으로 직접 계산하였다.
 
 $$\mathrm{EEMT} = E_{PPT} + E_{BIO} = \sum_{m=1}^{12} c_w\,\max(T_m,\,0)\,\max(P_m - \mathrm{AET}_m,\,0) + \frac{h_{BIO}}{f_C}\,\max(\mathrm{NPP},\,0) \tag{9}$$
 
