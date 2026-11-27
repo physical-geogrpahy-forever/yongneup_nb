@@ -6,15 +6,15 @@ VeSLEM은 BIOME4 v4.2b2(Kaplan et al., 2003)와 Pelletier et al.(2013)의 지형
 
 (2) 식생모델
 
-BIOME4는 Haxeltine & Prentice(1996)의 BIOME3를 발전시킨 탄소 및 수분 플럭스 결합 모델로, 월평균 기온, 강수량, 운량과 대기 중 CO2 농도, 토양 특성을 입력받아 평형 상태의 식생 분포와 구조, 생지화학적 특성을 예측한다(Kaplan, 2001; Kaplan et al., 2003). 각 PFT에는 몇 가지 생물기후적 한계값이 주어지며, 이를 만족하는 PFT에 대해서만 일 단위 토양수분수지와 월 단위 광합성, 호흡, 생물계절 계산을 통해 NPP를 최대화하는 LAI와 그때의 NPP를 구한다. 이후 NPP, LAI, 연평균 토양수분을 기준으로 우점 PFT와 부우점 PFT를 정하고, 이들의 조합과 환경 조건에 따라 생물군계를 판정한다(Kaplan et al., 2003). BIOME4에는 격자마다 위도, 기압, 월평균 기온, 월강수량, 월 일조율, 절대최저기온, 대기 중 CO2 농도와 상층 및 하층의 투수 지수와 수분보유능력이 입력되며, 각 입력의 출처는 (4)에 정리하였다. 본 연구에서는 BIOME4의 생물기후적 한계값과 생리 계수, 우점 PFT와 생물군계의 판정 규칙을 그대로 사용하였으며, 토심의 변화를 반영하기 위해 토양수분보유능력과 뿌리 분포의 계산을 다음과 같이 수정하였다.
+BIOME4는 Haxeltine & Prentice(1996)의 BIOME3를 발전시킨 탄소 및 수분 플럭스 결합 모델로, 월평균 기온, 강수량, 운량과 대기 중 CO2 농도, 토양 특성을 입력받아 평형 상태의 식생 분포와 구조, 생지화학적 특성을 예측한다(Kaplan, 2001; Kaplan et al., 2003). 각 PFT에는 몇 가지 생물기후적 한계값이 주어지며, 이를 만족하는 PFT에 대해서만 일 단위 토양수분수지와 월 단위 광합성, 호흡, 생물계절 계산을 통해 NPP를 최대화하는 LAI와 그때의 NPP를 구한다. 이후 NPP, LAI, 연평균 토양수분을 기준으로 우점 PFT와 부우점 PFT를 정하고, 이들의 조합과 환경 조건에 따라 생물군계를 판정한다(Kaplan et al., 2003). BIOME4에는 격자마다 위도, 기압, 월평균 기온, 월강수량, 월 일조율, 절대최저기온, 대기 중 CO2 농도와 상층 및 하층의 투수 지수와 수분보유능력이 입력되며, 각 입력의 출처는 (4)에 정리하였다. 본 연구는 BIOME4 v4.2b2 원본 코드(Kaplan, 1999)의 생물기후적 한계값과 생리 계수, 우점 PFT와 생물군계의 판정 규칙을 그대로 사용하였으며, 토심의 변화를 반영하기 위해 토양수분보유능력과 뿌리 분포의 계산을 다음과 같이 수정하였다.
 
 ① 토양수분보유능력
 
-BIOME4는 토양을 상층(0-30 cm)과 그 아래의 하층으로 나누고, 토양 자료로부터 산정한 각 층의 수분보유능력(WHC)과 투수 지수를 입력받아 토양수분수지를 계산한다(Kaplan, 2001). 본 연구에서는 하층을 0.3-1.5 m로 두고, 각 층의 WHC를 토심(H)까지 적분하여 매 시점 다시 계산하였다.
+BIOME4는 토양을 상층(0-30 cm)과 그 아래의 하층으로 나누고, 토양 자료로부터 산정한 각 층의 수분보유능력(WHC)과 투수 지수를 입력받아 토양수분수지를 계산한다(Kaplan, 1999). 본 연구에서는 하층을 0.3-1.5 m로 두고, 각 층의 WHC를 토심(H)까지 적분하여 매 시점 다시 계산하였다.
 
 $$WHC(H) = 1000\int_{0}^{\min(H,\,0.3)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi + 1000\int_{0.3}^{\min(\max(H,\,0.3),\,1.5)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi \tag{1}$$
 
-식 (1)에서 WHC[mm]의 첫째 항과 둘째 항은 각각 상층과 하층의 수분보유능력이며, ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이다. 두 체적수분함량의 차이는 식물이 이용할 수 있는 수분량에 해당하며(McKenzie et al., 2003), 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점(128.1236°E, 38.2153°N)의 값을 사용하였다(표 2). 각 깊이 구간 안에서는 값이 일정하다고 보았으므로, 토심이 1.5 m 이상이면 상층과 하층의 WHC는 각각 67.8 mm와 230.8 mm(합 298.6 mm)이다. 토성은 Soilbrick 자료에서 가져왔으며, 유역 전체가 BIOME4의 FAO 중간 토성(class 2)에 해당한다. BIOME4는 토성에 따라 상층의 투수 지수(k1)를 정하고 상층에서 하층으로의 일별 침루량을 k1W1⁴로 계산하므로(Kaplan, 2001), 중간 토성의 원래 값인 k1 = 4를 그대로 사용하였다. 하층에서 포장용수량을 넘는 수분은 배수된다.
+식 (1)에서 WHC[mm]의 첫째 항과 둘째 항은 각각 상층과 하층의 수분보유능력이며, ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이다. 두 체적수분함량의 차이는 식물이 이용할 수 있는 수분량에 해당하며(McKenzie et al., 2003), 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점(128.1236°E, 38.2153°N)의 값을 사용하였다(표 2). 각 깊이 구간 안에서는 값이 일정하다고 보았으므로, 토심이 1.5 m 이상이면 상층과 하층의 WHC는 각각 67.8 mm와 230.8 mm(합 298.6 mm)이다. 토성은 Soilbrick 자료에서 가져왔으며, 유역 전체가 BIOME4의 FAO 중간 토성(class 2)에 해당하므로 투수 지수는 BIOME4의 해당 값을 그대로 사용하였다(Kaplan, 1999).
 
 표 2. 연구 지역의 깊이별 식물 이용 가능 수분량(θ−10 − θ−1500)
 
@@ -24,7 +24,7 @@ $$WHC(H) = 1000\int_{0}^{\min(H,\,0.3)} \left[\theta_{-10}(\xi) - \theta_{-1500}
 
 ② 뿌리 분포와 근권 토양수분
 
-BIOME4는 PFT별로 상층에 분포하는 뿌리의 비율(r30)을 정하고, 상층과 하층의 상대 토양수분(W1, W2)을 r30과 1 − r30으로 가중평균하여 근권 토양수분을 구한다(Kaplan, 2001). 그러나 토심이 1.5 m보다 얕아지면 하층의 일부 또는 전부가 존재하지 않으므로, 본 연구에서는 Jackson et al.(1996)의 누적 뿌리분포식(Y = 1 − β^d)을 이용하여 뿌리분포를 토심에서 절단하였다. r30으로부터 PFT별 β를 구한 뒤(식 2), 토심 안에 분포하는 상층과 하층의 뿌리 비율을 계산하고(식 3), 이를 가중치로 근권 토양수분(Wr)을 구하였다(식 4).
+BIOME4는 PFT별로 상층에 분포하는 뿌리의 비율(r30)을 정하고, 상층과 하층의 상대 토양수분(W1, W2)을 r30과 1 − r30으로 가중평균하여 근권 토양수분을 구한다(Kaplan, 1999, 2001). 그러나 토심이 1.5 m보다 얕아지면 하층의 일부 또는 전부가 존재하지 않으므로, 본 연구에서는 Jackson et al.(1996)의 누적 뿌리분포식(Y = 1 − β^d)을 이용하여 뿌리분포를 토심에서 절단하였다. r30으로부터 PFT별 β를 구한 뒤(식 2), 토심 안에 분포하는 상층과 하층의 뿌리 비율을 계산하고(식 3), 이를 가중치로 근권 토양수분(Wr)을 구하였다(식 4).
 
 $$\beta = (1 - r_{30})^{1/30} \tag{2}$$
 
@@ -36,7 +36,7 @@ $$W_r = r_{top}\,W_1 + r_{bottom}\,W_2 \tag{4}$$
 
 ③ 산불잠재일수와 기반암 노출 격자
 
-BIOME4의 산불잠재일수는 근권 토양수분이 PFT별로 정해진 포장용수량 대비 비율보다 낮은 날의 수를 NPP에 따라 보정한 값으로, 우점 PFT를 정하는 규칙에 사용된다(Kaplan, 2001). 그런데 식 (4)를 그대로 적용하면 토심이 얕은 격자에서는 두 뿌리 비율의 합이 1보다 작아 토양이 포화되더라도 근권 토양수분이 임계값을 넘지 못하므로, 연중 모든 날이 건조한 날로 계산된다. 따라서 산불잠재일수를 계산할 때에는 원래의 BIOME4와 같이 가중치의 합이 1이 되도록 Wr을 (rtop + rbottom)으로 나눈 값을 사용하였다. 한편, 토심이 10⁻⁶ m 이하인 격자는 기반암이 노출된 것으로 보아 BIOME4 계산에서 제외하고 무식생으로 처리하였으며, 이 격자의 실제증발산량, NPP, AGB는 0으로 두었다.
+BIOME4의 산불잠재일수는 근권 토양수분이 PFT별로 정해진 포장용수량 대비 비율보다 낮은 날의 수를 NPP에 따라 보정한 값으로, 우점 PFT를 정하는 규칙에 사용된다(Kaplan, 1999, 2001). 그런데 식 (4)를 그대로 적용하면 토심이 얕은 격자에서는 두 뿌리 비율의 합이 1보다 작아 토양이 포화되더라도 근권 토양수분이 임계값을 넘지 못하므로, 연중 모든 날이 건조한 날로 계산된다. 따라서 산불잠재일수를 계산할 때에는 원래의 BIOME4와 같이 가중치의 합이 1이 되도록 Wr을 (rtop + rbottom)으로 나눈 값을 사용하였다. 한편, 토심이 10⁻⁶ m 이하인 격자는 기반암이 노출된 것으로 보아 BIOME4 계산에서 제외하고 무식생으로 처리하였으며, 이 격자의 실제증발산량, NPP, AGB는 0으로 두었다.
 
 (3) 지형발달모델
 
@@ -74,13 +74,13 @@ $$k_d = c_E\,\mathrm{EEMT} + c_A\,\mathrm{AGB} \tag{11}$$
 
 식 (10), (11)에서 q[m²/kyr]는 단위폭당 물질 이동량, kd[m/kyr]는 사면 물질이동 계수, Sc는 임계경사, AGB[kg/m²]는 지상부 생체량이다. Pelletier et al.(2013)은 습윤한 기후일수록, 또 식생이 많을수록 사면 물질이동 계수가 커진다는 선행연구를 바탕으로 이를 토양포행에 의한 성분과 생물교란에 의한 성분의 합으로 나타내었다. 물이 제한된 환경에서 토양포행은 동결과 융해에 필요한 수분이 많을수록 활발하므로 EEMT에 비례하도록 하였고, 생물교란은 이를 일으키는 식물이 많을수록 활발하므로 AGB에 비례하도록 하였다. cE와 cA는 Pelletier et al.(2013)이 건조한 저지대와 습윤한 고지대의 kd 값을 맞추어 산정한 0.033과 0.05를 사용하였으며, EEMT[MJ/m²/yr]와 AGB[kg/m²]를 넣으면 kd가 m/kyr 단위가 된다.
 
-Pelletier et al.(2013)은 항공 라이다로 추정한 AGB와 EEMT의 경험적 관계를 이용하였으나, BIOME4는 지상부 생체량을 계산하지 않으므로 본 연구에서는 우점 PFT의 잎과 변재의 건조생체량의 합으로 AGB를 산정하였다(식 13). 잎 생체량은 BIOME4가 계산한 우점 PFT의 LAI를 Reich et al.(1992)의 잎 수명(L[월])과 비엽면적(SLA[cm²/g])의 관계(식 12)로 환산하였다. 변재 생체량은 Haxeltine & Prentice(1996)의 LAI와 변재 탄소량의 비례 관계에 BIOME4의 계수(LAI당 0.5 kgC/m²)를 적용한 뒤 탄소 비율 0.5로 나누어 구하였으므로, 수치상 LAI와 같다.
+Pelletier et al.(2013)은 항공 라이다로 추정한 AGB와 EEMT의 경험적 관계를 이용하였으나, BIOME4는 지상부 생체량을 계산하지 않으므로 본 연구에서는 우점 PFT의 잎과 변재의 건조생체량의 합으로 AGB를 산정하였다(식 13). 잎 생체량은 BIOME4가 계산한 우점 PFT의 LAI를 Reich et al.(1992)이 전체 잎 자료로 구한 잎 수명(L[월])과 비엽면적(SLA[cm²/g])의 관계(식 12)로 환산하였다. 변재 생체량은 Haxeltine & Prentice(1996)의 LAI와 변재 탄소량의 비례 관계에 BIOME4의 계수(LAI당 0.5 kgC/m²)를 적용한 뒤 탄소 비율 0.5로 나누어 구하였으므로, 수치상 LAI와 같다.
 
 $$\log_{10}\mathrm{SLA} = 2.44 - 0.43\,\log_{10}L \tag{12}$$
 
 $$\mathrm{AGB} = \mathrm{LAI}\left(s + \frac{L^{0.43}}{0.1\times10^{2.44}}\right) \tag{13}$$
 
-식 (13)에서 0.1은 SLA[cm²/g]를 m²/kg으로 바꾸는 계수이며, L은 BIOME4의 PFT별 예상 잎 수명(PFT4 7개월, PFT5 30개월, PFT6과 PFT7 24개월, PFT8 8개월 등)이다. s는 변재 호흡이 있는 PFT에서 1, 없는 PFT(PFT8, 9, 12)에서 0이다(Kaplan, 2001).
+식 (13)에서 0.1은 SLA[cm²/g]를 m²/kg으로 바꾸는 계수이며, L은 BIOME4의 PFT별 예상 잎 수명(PFT4 7개월, PFT5 30개월, PFT6과 PFT7 24개월, PFT8 8개월 등)이다. s는 변재 호흡이 있는 PFT에서 1, 없는 PFT(PFT8, 9, 12)에서 0이다(Kaplan, 1999, 2001).
 
 임계경사는 Pelletier et al.(2013)과 같이 미고결 물질의 일반적인 안식각(35°)에 해당하는 0.7을 사용하였다. 초기 지형에서 인접 격자 간 최대 경사는 0.60으로 임계경사보다 작다.
 
@@ -92,7 +92,7 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{14
 
 식 (14)에서 A[m²]는 기여면적, w[m]는 흐름의 유효 폭, K[1/kyr]는 침식계수이다. Langbein & Schumm(1958)은 연평균 유효강수량이 약 0.3 m를 넘는 지역에서는 강수가 많아질수록 식생 피복이 토양을 붙잡아 퇴적물 생산량이 감소한다고 보고하였으며, Pelletier et al.(2013)은 이를 반영하여 레골리스의 침식계수가 EEMT에 반비례하도록 하였다. K0는 Pelletier et al.(2013)과 같이 0.02 m²/MJ를 사용하였다. 레골리스가 모두 침식되면 남은 침식능으로 기반암을 침식하되, 기반암의 침식계수는 Pelletier et al.(2013)과 같이 레골리스의 1/10로 하였다.
 
-기여면적은 다방향 흐름 알고리즘(Freeman, 1991)으로 계산하였으며, 각 격자의 흐름은 하류 방향의 8개 인접 격자에 경사의 1.1제곱에 비례하여 나누었다. 흐름 경로는 유역 출구로 배수되도록 와지를 채운 지형에서 구하였으며, 와지 채우기는 흐름 계산에만 사용하고 모델의 실제 고도는 바꾸지 않았다. 따라서 용늪과 같은 와지에서도 지표 고도와 토심은 식 (5)-(7)로만 변한다. 흐름의 유효 폭은 포상류가 일어나는 사면에서는 격자 크기와 같고, 흐름이 곡저에 집중되는 곳에서는 기여면적의 거듭제곱 함수(w = gA^(1/2), g = 0.005)로 나타낸다(Leopold & Maddock, 1953; Pelletier et al., 2013). 사면과 곡저는 Pelletier(2010)의 방법에 따라 구분하였다. 원래 격자(30 m)에서 계산한 기여면적과, 지형을 쌍선형 보간하여 만든 절반 크기 격자(15 m)에서 계산한 기여면적 중 원래 격자 하나에 대응하는 네 격자의 최댓값의 비(f)를 구하고, 이 비가 1.2보다 작아 격자 해상도에 대한 의존성이 작은 격자를 곡저로 보았다(Pelletier, 2013). 식 (14)의 경사는 와지를 채운 지형에서 D8 방향의 하류 격자와의 경사를 사용하였다.
+기여면적은 다방향 흐름 알고리즘(Freeman, 1991)으로 계산하였으며, 각 격자의 흐름은 하류 방향의 8개 인접 격자에 경사의 1.1제곱에 비례하여 나누었다. 흐름 경로는 유역 출구로 배수되도록 우선순위 채우기(priority-flood; Barnes et al., 2014)로 와지를 채운 지형에서 구하였으며, 와지 채우기는 흐름 계산에만 사용하고 모델의 실제 고도는 바꾸지 않았다. 따라서 용늪과 같은 와지에서도 지표 고도와 토심은 식 (5)-(7)로만 변한다. 흐름의 유효 폭은 포상류가 일어나는 사면에서는 격자 크기와 같고, 흐름이 곡저에 집중되는 곳에서는 기여면적의 거듭제곱 함수(w = gA^(1/2), g = 0.005)로 나타낸다(Leopold & Maddock, 1953; Pelletier et al., 2013). 사면과 곡저는 Pelletier(2010)의 방법에 따라 구분하였다. 원래 격자(30 m)에서 계산한 기여면적과, 지형을 쌍선형 보간하여 만든 절반 크기 격자(15 m)에서 계산한 기여면적 중 원래 격자 하나에 대응하는 네 격자의 최댓값의 비(f)를 구하고, 이 비가 1.2보다 작아 격자 해상도에 대한 의존성이 작은 격자를 곡저로 보았다(Pelletier, 2013). 식 (14)의 경사는 와지를 채운 지형에서 D8 방향의 하류 격자와의 경사를 사용하였다.
 
 ④ 융기
 
@@ -100,25 +100,25 @@ $$E_f = K\,\frac{A}{w}\,|\nabla z|, \qquad K = \frac{K_0}{\mathrm{EEMT}} \tag{14
 
 ⑤ 수치 계산
 
-지형발달모델은 다음 0.1 kyr 동안 BIOME4가 계산한 EEMT와 AGB를 일정하게 두고, 이 기간을 여러 계산 간격으로 나누어 진행하였다. 한 계산 간격(Δt)에서는 다음 순서로 계산하였다. 먼저 임계경사를 넘는 사면이 있으면 지형을 임계경사까지 낮추었다(식 15). 다음으로 계산 간격 시작 시점의 토심으로 기반암 풍화량(PΔt/cosθ)을 구하고(Pelletier et al., 2013), 여기에 밀도비를 곱한 레골리스 생성량을 토심에 더하였다. 이 토심으로 사면 물질이동량을 계산하였으며, Pelletier et al.(2013)과 같이 격자 경계에서의 이동량은 인접한 두 격자의 kd와 토심의 평균을 이용하여 구하였다(식 16). 한 계산 간격 동안 격자에서 빠져나가는 양이 토심을 넘으면 그 격자의 유출량을 비례적으로 줄였다. 이어서 계산 간격 시작 시점의 지형에서 구한 기여면적과 경사로 유수침식을 계산하되, 레골리스 침식량은 사면 물질이동 뒤에 남은 토심을 넘지 않도록 하고 그 초과분으로 기반암을 침식하였다. 마지막으로 기반암 고도에 융기와 풍화, 기반암 침식을 반영한 뒤, 다시 임계경사를 넘는 사면을 낮추었다.
+지형발달모델은 다음 0.1 kyr 동안 BIOME4가 계산한 EEMT와 AGB를 일정하게 두고, 이 기간을 여러 계산 간격으로 나누어 진행하였다. 한 계산 간격(Δt)에서는 다음 순서로 계산하였다. 먼저 임계경사를 넘는 사면이 있으면 Campforts et al.(2017)의 방법으로 지형을 임계경사까지 낮추었다(식 15). 다음으로 계산 간격 시작 시점의 토심으로 기반암 풍화량(PΔt/cosθ)을 구하고(Pelletier et al., 2013), 여기에 밀도비를 곱한 레골리스 생성량을 토심에 더하였다. 이 토심으로 사면 물질이동량을 계산하였으며, Pelletier et al.(2013)과 같이 격자 경계에서의 이동량은 인접한 두 격자의 kd와 토심의 평균을 이용하여 구하였다(식 16). 한 계산 간격 동안 격자에서 빠져나가는 양이 토심을 넘으면 그 격자의 유출량을 비례적으로 줄였다. 이어서 계산 간격 시작 시점의 지형에서 구한 기여면적과 경사로 유수침식을 계산하되, 레골리스 침식량은 사면 물질이동 뒤에 남은 토심을 넘지 않도록 하고 그 초과분으로 기반암을 침식하였다. 마지막으로 기반암 고도에 융기와 풍화, 기반암 침식을 반영한 뒤, 다시 임계경사를 넘는 사면을 낮추었다.
 
 $$z'_i = \min\left[\,z_i,\ \min_{j}\left(z_j + S_c\,d_{ij}\right)\right] \tag{15}$$
 
 $$q_{x,\,i+1/2} = -\,\bar{k}_d\,\bar{H}\,\frac{(z_{i+1} - z_i)/\Delta x}{1 - \left[(z_{i+1} - z_i)/(\Delta x\,S_c)\right]^2} \tag{16}$$
 
-식 (15)에서 dij[m]는 격자 i와 j 사이의 수평 거리이며, 낮아진 만큼은 토층에서 먼저 제거하고 토층이 부족하면 기반암을 제거하였다. 제거된 물질은 인접 격자에 퇴적시키지 않고 유역 밖으로 빠져나간 것으로 처리하였으며, 유역 출구는 바꾸지 않았다. 식 (16)에서 k̄d와 H̄는 인접한 두 격자의 평균, Δx는 격자 크기(30 m)이며, y 방향도 같은 방식으로 계산하였다. 식 (16)은 식 (10)의 차분식으로, Pelletier et al.(2013)과 같이 격자 경계에서는 토심의 cosθ 보정을 하지 않았다. 계산 간격은 0.1 kyr에서 시작하여 Pelletier et al.(2013)이 제시한 0.01Δx²/(2kd) 이하가 될 때까지 절반으로 줄였다. 이때 kd는 유역 안 최댓값을 사용하였다. 또한 한 계산 간격 동안 사면 물질이동에 의한 고도 변화, 유수침식량, 임계경사 조정에 의한 고도 저하 중 최댓값이 0.025 m를 넘으면 그 계산을 버리고 간격을 절반으로 줄여 다시 계산하였다. Pelletier et al.(2013)은 이 기준값을 제시하지 않았다. 계산이 받아들여지면 다음 간격은 두 배로 늘리되 0.1 kyr를 넘지 않도록 하였다. 본 모의에서 실제 계산 간격은 2.3-15.6년이었다. 유역 출구 격자는 고도와 기반암 고도, 토심을 초기값으로 고정하였고, 나머지 경계는 물질의 출입이 없도록 설정하였다.
+식 (15)에서 dij[m]는 격자 i와 j 사이의 수평 거리이다. 이 방법은 Blöthe et al.(2015)의 과잉지형(excess topography) 계산을 사면 조정에 적용한 것으로, 임계경사를 넘는 사면은 계산 간격 안에 붕괴하여 임계경사로 돌아간다고 본다(Campforts et al., 2017). 낮아진 만큼은 토층에서 먼저 제거하고 토층이 부족하면 기반암을 제거하였다. 제거된 물질은 인접 격자에 퇴적시키지 않고 유역 밖으로 빠져나간 것으로 처리하였으며, 유역 출구는 바꾸지 않았다. 식 (16)에서 k̄d와 H̄는 인접한 두 격자의 평균, Δx는 격자 크기(30 m)이며, y 방향도 같은 방식으로 계산하였다. 식 (16)은 식 (10)의 차분식으로, Pelletier et al.(2013)과 같이 격자 경계에서는 토심의 cosθ 보정을 하지 않았다. 계산 간격은 0.1 kyr에서 시작하여 Pelletier et al.(2013)이 제시한 0.01Δx²/(2kd) 이하가 될 때까지 절반으로 줄였다. 이때 kd는 유역 안 최댓값을 사용하였다. 또한 Pelletier et al.(2013)은 한 계산 간격의 최대 침식 또는 퇴적량이 작은 기준값을 넘지 않도록 계산 간격을 조절하였으나 그 값을 제시하지 않았으므로, 본 연구에서는 사면 물질이동에 의한 고도 변화, 유수침식량, 임계경사 조정에 의한 고도 저하 중 최댓값이 0.025 m를 넘으면 그 계산을 버리고 간격을 절반으로 줄여 다시 계산하였다. 계산이 받아들여지면 다음 간격은 두 배로 늘리되 0.1 kyr를 넘지 않도록 하였다. 본 모의에서 실제 계산 간격은 2.3-15.6년이었다. 유역 출구 격자는 Pelletier et al.(2013)의 융기하지 않는 고정 침식기준면 경계와 같이 고도와 기반암 고도, 토심을 초기값으로 고정하였고, 나머지 경계는 물질의 출입이 없도록 설정하였다.
 
 (4) 입력 자료와 모의 설정
 
-기후 자료는 CHELSA-TraCE21k(Karger et al., 2023)에서 용늪 지점(128.1225°E, 38.2146°N)을 포함하는 격자의 월 최저기온, 월 최고기온, 월강수량을 사용하였다. 이 자료는 100년 간격이므로 모델 시점과 그대로 대응한다. 월평균 기온은 월 최저기온과 최고기온의 평균으로 산정하였다. CHELSA-TraCE21k는 지형의 영향을 고려하여 상세화된 자료이므로, 고도에 따른 기온 보정 없이 유역 내 모든 격자에 같은 값을 적용하였다. BIOME4의 절대최저기온은 CHELSA-TraCE21k에서 제공하지 않으므로 BIOME4의 회귀식(식 17)을 그대로 사용하였다(Kaplan, 2001).
+기후 자료는 CHELSA-TraCE21k(Karger et al., 2023)에서 용늪 지점(128.1225°E, 38.2146°N)을 포함하는 격자의 월 최저기온, 월 최고기온, 월강수량을 사용하였다. 이 자료는 100년 간격이므로 모델 시점과 그대로 대응한다. 월평균 기온은 월 최저기온과 최고기온의 평균으로 산정하였다. CHELSA-TraCE21k는 지형의 영향을 고려하여 상세화된 자료이므로, 고도에 따른 기온 보정 없이 유역 내 모든 격자에 같은 값을 적용하였다. BIOME4에 입력하는 절대최저기온은 CHELSA-TraCE21k에서 제공하지 않으므로 Prentice et al.(1992)의 회귀식(식 17)으로 추정하였으며, 이 식은 BIOME4 원본 코드에도 포함되어 있다(Kaplan, 1999).
 
 $$T_{min} = 0.006\,T_c^2 + 1.316\,T_c - 21.9 \tag{17}$$
 
-식 (17)에서 Tc[°C]는 가장 추운 달의 평균기온이다. CHELSA-TraCE21k에서 제공하지 않는 운량은 Beyer et al.(2020)의 0.5° 격자(128.0-128.5°E, 38.0-38.5°N)에서 1,000년 간격으로 제공되는 월별 운량을 0.1 kyr 간격으로 선형보간하였으며, BIOME4에는 100에서 운량[%]을 뺀 값을 일조율로 입력하였다. 대기 중 CO2 농도는 Bereiter et al.(2015)의 남극 빙하코어 종합 기록을 각 모델 시점으로 선형보간하여 사용하였다. 기압은 각 격자의 고도(z[m])로부터 표준대기식(식 18)으로 계산하였으며, 동적 지형 모델에서는 매 시점 변화한 고도를 사용하였다.
+식 (17)에서 Tc[°C]는 가장 추운 달의 평균기온이다. CHELSA-TraCE21k에서 제공하지 않는 운량은 Beyer et al.(2020)의 0.5° 격자(128.0-128.5°E, 38.0-38.5°N)에서 1,000년 간격으로 제공되는 월별 운량을 0.1 kyr 간격으로 선형보간하였으며, BIOME4에는 100에서 운량[%]을 뺀 값을 일조율로 입력하였다. 대기 중 CO2 농도는 Bereiter et al.(2015)의 남극 빙하코어 종합 기록을 각 모델 시점으로 선형보간하여 사용하였다. 기압은 각 격자의 고도(z[m])로부터 미국 표준대기(NOAA et al., 1976)의 식(식 18)으로 계산하였으며, 동적 지형 모델에서는 매 시점 변화한 고도를 사용하였다.
 
 $$p = 101325\,(1 - 2.25577\times10^{-5}\,z)^{5.25588} \tag{18}$$
 
-지형은 FABDEM V1-2(Hawker et al., 2022)를 EPSG:5187 좌표계(약 27.4 m)로 투영한 뒤 쌍선형 보간으로 30 m 격자로 구성하였다. 모델 격자는 41행 36열이며, 왼쪽 위 모서리의 좌표는 (122,623.3 m, 625,198.9 m)이다. 유역은 이 지형에서 와지를 채운 뒤 D8 흐름 방향으로 구하였으며, 와지는 유역 가장자리에서부터 낮은 격자 순으로 채우되 흐름이 끊기지 않도록 인접 격자보다 10⁻⁴ m씩 높게 하였다. 출구는 용늪에서 흘러나가는 유로가 처음 지류와 합류하는 지점의 바로 아래 격자(123,508.3 m, 624,553.9 m; 128.1265°E, 38.2180°N)로 하였으며, 이 격자로 흘러드는 656개 격자(59.0 ha, 고도 1,138-1,284 m)를 모델 유역으로 하였다. 초기 토심은 SoilGrids(Hengl et al., 2017)의 1 km 기반암까지의 깊이 자료를 이용하였으며, 이 자료는 Shangguan et al.(2017)의 방법으로 추정된 것이다. 이 자료에서 유역의 초기 토심은 모든 격자에서 1.94 m이며, 초기 기반암 고도는 지표 고도에서 초기 토심을 뺀 값으로 하였다.
+지형은 FABDEM V1-2(Hawker et al., 2022)를 EPSG:5187 좌표계(약 27.4 m)로 투영한 뒤 쌍선형 보간으로 30 m 격자로 구성하였다. 모델 격자는 41행 36열이며, 왼쪽 위 모서리의 좌표는 (122,623.3 m, 625,198.9 m)이다. 유역은 이 지형에서 와지를 채운 뒤 D8 흐름 방향으로 구하였으며, 와지는 Barnes et al.(2014)의 우선순위 채우기로 채우되 평탄면에서도 흐름이 이어지도록 인접 격자보다 10⁻⁴ m씩 높게 하였다. 출구는 용늪에서 흘러나가는 유로가 처음 지류와 합류하는 지점의 바로 아래 격자(123,508.3 m, 624,553.9 m; 128.1265°E, 38.2180°N)로 하였으며, 이 격자로 흘러드는 656개 격자(59.0 ha, 고도 1,138-1,284 m)를 모델 유역으로 하였다. 초기 토심은 SoilGrids(Hengl et al., 2017)의 1 km 기반암까지의 깊이 자료를 이용하였으며, 이 자료는 Shangguan et al.(2017)의 방법으로 추정된 것이다. 이 자료에서 유역의 초기 토심은 모든 격자에서 1.94 m이며, 초기 기반암 고도는 지표 고도에서 초기 토심을 뺀 값으로 하였다.
 
 모의는 21 ka BP부터 현재까지 0.1 kyr 간격으로 211개 시점에 대해 수행하였다. 동적 지형 모델은 각 시점에서 BIOME4로 식생을 계산한 뒤 이로부터 산정한 EEMT와 AGB를 이용하여 다음 0.1 kyr 동안의 지형발달을 계산하고, 변화한 고도와 토심을 다음 시점의 BIOME4에 입력하였다. 정적 지형 모델은 동일한 기후 조건에서 고도와 토심을 초기값으로 고정한 채 식생만 계산하였다. 두 모델의 결과를 고식생 기록과 비교하여, 토양과 지형을 시간에 따라 변화하는 요소로 고려하였을 때 고식생 복원 결과가 어떻게 달라지는지 평가하였다. 모의에 사용한 코드(PB4Studio v6.6.3-CHELSA21K)와 입력 자료, 실행 설정, 검증 스크립트는 GitHub 저장소(https://github.com/physical-geogrpahy-forever/yongneup_nb)에 보존하였다.
 
@@ -157,10 +157,15 @@ Jang et al.(2011)의 5,900-4,800 cal yr BP와 3,400-390 cal yr BP는 활엽수�
 
 ---
 
-이 절에서 새로 인용한 문헌(PPT 참고문헌에 없는 것)
+참고문헌(연구 방법)
 
 Allouche, O., Tsoar, A. and Kadmon, R., 2006, Assessing the accuracy of species distribution models: prevalence, kappa and the true skill statistic (TSS), Journal of Applied Ecology, 43(6), 1223-1232.
+Barnes, R., Lehman, C. and Mulla, D., 2014, Priority-flood: An optimal depression-filling and watershed-labeling algorithm for digital elevation models, Computers & Geosciences, 62, 117-127.
+Bereiter, B., Eggleston, S., Schmitt, J., Nehrbass-Ahles, C., Stocker, T. F., Fischer, H., Kipfstuhl, S. and Chappellaz, J., 2015, Revision of the EPICA Dome C CO2 record from 800 to 600 kyr before present, Geophysical Research Letters, 42(2), 542-549.
+Beyer, R. M., Krapp, M. and Manica, A., 2020, High-resolution terrestrial climate, bioclimate and vegetation for the last 120,000 years, Scientific Data, 7, 236.
 Blaauw, M. and Christen, J. A., 2011, Flexible paleoclimate age-depth models using an autoregressive gamma process, Bayesian Analysis, 6(3), 457-474.
+Blöthe, J. H., Korup, O. and Schwanghart, W., 2015, Large landslides lie low: Excess topography in the Himalaya-Karakoram ranges, Geology, 43(6), 523-526.
+Campforts, B., Schwanghart, W. and Govers, G., 2017, Accurate simulation of transient landscape evolution by eliminating numerical diffusion: the TTLEM 1.0 model, Earth Surface Dynamics, 5(1), 47-66.
 Culling, W. E. H., 1960, Analytical theory of erosion, Journal of Geology, 68, 336-344.
 Freeman, T. G., 1991, Calculating catchment area with divergent flow based on a regular grid, Computers & Geosciences, 17(3), 413-422.
 Hawker, L., Uhe, P., Paulo, L., Sosa, J., Savage, J., Sampson, C. and Neal, J., 2022, A 30 m global map of elevation with forests and buildings removed, Environmental Research Letters, 17(2), 024016.
@@ -169,19 +174,29 @@ Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 1997, The so
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 2001, Stochastic processes of soil production and transport: Erosion rates, topographic variation and cosmogenic nuclides in the Oregon Coast Range, Earth Surface Processes and Landforms, 26, 531-552.
 Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S. and Kempen, B., 2017, SoilGrids250m: Global gridded soil information based on machine learning, PLoS ONE, 12(2), e0169748.
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E. and Schulze, E.-D., 1996, A global analysis of root distributions for terrestrial biomes, Oecologia, 108, 389-411.
-Kaplan, J. O., 2001, Geophysical Applications of Vegetation Modeling, Ph.D. dissertation, Lund University, Lund.
+Jang, B.-O., Kang, S. J. and Choi, K. R., 2011, Vegetation history around Yongneup moor at Mt. Daeamsan, Korea, Journal of Ecology and Field Biology, 34(3), 259-267.
+Kaplan, J. O., 1999, BIOME4 v4.2b2 source code (biome4.f), https://pmip2.lsce.ipsl.fr/synth/biome4.shtml.
+Kaplan, J. O., 2001, Geophysical Applications of Vegetation Modeling, Ph.D. dissertation, Lund University, Lund, doi:10.5281/zenodo.1492908.
+Kaplan, J. O., Bigelow, N. H., Prentice, I. C., Harrison, S. P., Bartlein, P. J., Christensen, T. R., Cramer, W., Matveyeva, N. V., McGuire, A. D., Murray, D. F., Razzhivin, V. Y., Smith, B., Walker, D. A., Anderson, P. M., Andreev, A. A., Brubaker, L. B., Edwards, M. E. and Lozhkin, A. V., 2003, Climate change and Arctic ecosystems: 2. Modeling, paleodata-model comparisons, and future projections, Journal of Geophysical Research, 108(D19), 8171.
+Karger, D. N., Nobis, M. P., Normand, S., Graham, C. H. and Zimmermann, N. E., 2023, CHELSA-TraCE21k - high-resolution (1 km) downscaled transient temperature and precipitation data since the Last Glacial Maximum, Climate of the Past, 19(2), 439-456.
 Langbein, W. B. and Schumm, S. A., 1958, Yield of sediment in relation to mean annual precipitation, Transactions, American Geophysical Union, 39, 1076-1084.
 Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E. and Yu, B. Y., 2024, Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea, Earth Surface Dynamics, 12(5), 1091-1120.
 Leopold, L. B. and Maddock, T. Jr., 1953, The hydraulic geometry of stream channels and some physiographic implications, U.S. Geological Survey Professional Paper 252.
+McKenzie, N. J., Gallant, J. C. and Gregory, L. J., 2003, Estimating water storage capacities in soil at catchment scales, Technical Report 03/3, Cooperative Research Centre for Catchment Hydrology, Canberra.
 Ni, J., Yu, G., Harrison, S. P. and Prentice, I. C., 2010, Palaeovegetation in China during the late Quaternary: Biome reconstructions based on a global scheme of plant functional types, Palaeogeography, Palaeoclimatology, Palaeoecology, 289, 44-61.
+NOAA, NASA and USAF, 1976, U.S. Standard Atmosphere, 1976, U.S. Government Printing Office, Washington, D.C.
+Park, J., Jin, Q., Choi, J., Bahk, J. and Park, J., 2021, Late Holocene climate variability in central Korea indicated by vegetation, geochemistry, and fire records of the Yongneup moor, Palaeogeography, Palaeoclimatology, Palaeoecology, 584, 110705.
 Pelletier, J. D., 2010, Minimizing the grid-resolution dependence of flow-routing algorithms for geomorphic applications, Geomorphology, 122, 91-98.
 Pelletier, J. D., 2013, Fundamental principles and techniques of landscape evolution modeling, in Shroder, J. and Baas, A. C. W.(eds.), Treatise on Geomorphology, Vol. 2, Quantitative Modeling of Geomorphology, Academic Press, San Diego, 29-43.
+Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorover, J., Durcik, M., Harman, C. J., Huxman, T. E., Lohse, K. A., Lybrand, R., Meixner, T., McIntosh, J. C., Papuga, S. A., Rasmussen, C., Schaap, M., Swetnam, T. L. and Troch, P. A., 2013, Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona, Journal of Geophysical Research: Earth Surface, 118(2), 741-758.
 Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic controls on hillslope steepness and erosion rate, Lithosphere, 1(2), 73-80.
+Prentice, I. C., Cramer, W., Harrison, S. P., Leemans, R., Monserud, R. A. and Solomon, A. M., 1992, A global biome model based on plant physiology and dominance, soil properties and climate, Journal of Biogeography, 19(2), 117-134.
 Prentice, I. C., Guiot, J., Huntley, B., Jolly, D. and Cheddadi, R., 1996, Reconstructing biomes from palaeoecological data: A general method and its application to European pollen data at 0 and 6 ka, Climate Dynamics, 12(3), 185-194.
 Rasmussen, C. and Tabor, N. J., 2007, Applying a quantitative pedogenic energy model across a range of environmental gradients, Soil Science Society of America Journal, 71(6), 1719-1729.
 Reich, P. B., Walters, M. B. and Ellsworth, D. S., 1992, Leaf life-span in relation to leaf, plant, and stand characteristics among diverse ecosystems, Ecological Monographs, 62(3), 365-392.
 Reimer, P. J. et al., 2020, The IntCal20 Northern Hemisphere radiocarbon age calibration curve (0-55 cal kBP), Radiocarbon, 62(4), 725-757.
 Riebe, C. S., Kirchner, J. W. and Finkel, R. C., 2004, Erosional and climatic effects on long-term chemical weathering rates in granitic landscapes spanning diverse climate regimes, Earth and Planetary Science Letters, 224(3-4), 547-562.
 Roering, J. J., Kirchner, J. W. and Dietrich, W. E., 1999, Evidence for nonlinear, diffusive sediment transport on hillslopes and implications for landscape morphology, Water Resources Research, 35(3), 853-870.
+Shangguan, W., Hengl, T., Mendes de Jesus, J., Yuan, H. and Dai, Y., 2017, Mapping the global depth to bedrock for land surface modeling, Journal of Advances in Modeling Earth Systems, 9(1), 65-88.
 Sugita, S., 1994, Pollen representation of vegetation in Quaternary sediments: theory and method in patchy vegetation, Journal of Ecology, 82, 881-897.
-Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., de Sousa, L. and Heuvelink, G. B. M., 2023, Global mapping of volumetric water retention at 100, 330 and 15000 cm suction using the WoSIS database, International Soil and Water Conservation Research, 11(2), 225-239.
+Turek, M. E., Poggio, L., Batjes, N. H., Armindo, R. A., de Jong van Lier, Q., de Sousa, L. and Heuvelink, G. B. M., 2023, Global mapping of volumetric water retention at 100, 330 and 15 000 cm suction using the WoSIS database, International Soil and Water Conservation Research, 11(2), 225-239.
