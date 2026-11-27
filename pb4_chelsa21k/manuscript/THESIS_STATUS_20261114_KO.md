@@ -39,7 +39,7 @@
 - 방법론을 코드와 대조해 재현 수준으로 보강: 입력 좌표와 출처, 절대최저기온 회귀식, 기압식, 투수 지수, AGB 식, 계산 순서, 임계경사 조정식, 계산 간격 규칙, 경계조건, 와지 처리, Jang 시점 배정, Park 연대모델(11개 전암 AMS) 정정.
 - 방법론 원칙: 원 모델(BIOME4 v4.2b2, Pelletier et al. 2013)과 달라진 점만 쓰고, 각 변경에 원문 확인한 문헌을 단다. 코드 그대로 쓴 부분은 원본 코드(Kaplan, 1999)로 인용. 참고문헌 목록 전체 정리.
 - 원문 확인: Freeman (1991) p = 1.1, Pelletier (2013) Treatise 곡저 판별값 1.2, Pelletier et al. (2013) 고정 침식기준면 경계와 동적 계산 간격(기준값 미제시), Lee et al. (2024) 0.08 m/kyr는 태백산맥 장기 삭박률, BIOME4 코드 stemcarbon 0.5.
-- 확인 완료: 토성은 SoilGrids 2.0 (Poggio et al., 2021) 모래, 실트, 점토 함량, GitHub 저장소는 공개, 곡저 판별값 1.2는 Pelletier (2013) Treatise 2.3장 p. 39("a cutoff value of 1.2 works best").
+- 확인 완료: 토성은 SoilGrids 2.0 (Poggio et al., 2021) 모래, 미사, 점토 함량, GitHub 저장소는 공개, 곡저 판별값 1.2는 Pelletier (2013) Treatise 2.3장 p. 39("a cutoff value of 1.2 works best").
 
 ## 남은 작업
 
