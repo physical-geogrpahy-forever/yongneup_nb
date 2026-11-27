@@ -1,0 +1,13 @@
+{
+ "elev_change_21_0": {
+  "mean": 0.488771205995141,
+  "min": -14.02783203125,
+  "max": 3.6798095703125,
+  "n_lower": 95,
+  "n_higher": 560,
+  "uplift_total": 1.68
+ },
+ "soil_vs_area_0ka_spearman": 0.07664112971909874,
+ "holocene_nondominant_share_model_static": 0.0033071517155849528,
+ "holocene_nondominant_share_model_dynamic": 0.032025113683340226
+}
