@@ -1,0 +1,8 @@
+747a748,754
+>             # 진단 출력: BIOME4 원래 생물군계 코드와 혼효림 판정에 쓰는 PFT별 NPP (계산에는 영향 없음)
+>             if "biome4_full_id_node" in veg:
+>                 snapshot_fields["biome4_native"] = np.asarray(veg["biome4_full_id_node"], dtype="float32")
+>             for _p in (2, 3, 4, 5, 6, 7):
+>                 _k = f"pft{_p:02d}_mod_npp_node"
+>                 if _k in veg:
+>                     snapshot_fields[f"pft{_p:02d}_npp"] = np.asarray(veg[_k], dtype="float32")
