@@ -14,7 +14,7 @@ BIOME4는 토양을 상층(0-30 cm)과 그 아래의 하층으로 나누고, 토
 
 $$WHC(H) = 1000\int_{0}^{\min(H,\,0.3)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi + 1000\int_{0.3}^{\min(\max(H,\,0.3),\,1.5)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi \tag{1}$$
 
-식 (1)에서 WHC[mm]의 첫째 항과 둘째 항은 각각 상층과 하층의 수분보유능력이며, ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이다. 두 체적수분함량의 차이는 식물이 이용할 수 있는 수분량에 해당하며(McKenzie et al., 2003), 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점(128.1236°E, 38.2153°N)의 값을 사용하였다(표 2). 각 깊이 구간 안에서는 값이 일정하다고 보았으므로, 토심이 1.5 m 이상이면 상층과 하층의 WHC는 각각 67.8 mm와 230.8 mm(합 298.6 mm)이다. 토성은 Soilbrick 자료에서 가져왔으며, 유역 전체가 BIOME4의 FAO 중간 토성(class 2)에 해당하므로 투수 지수는 BIOME4의 해당 값을 그대로 사용하였다(Kaplan, 1999).
+식 (1)에서 WHC[mm]의 첫째 항과 둘째 항은 각각 상층과 하층의 수분보유능력이며, ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이다. 두 체적수분함량의 차이는 식물이 이용할 수 있는 수분량에 해당하며(McKenzie et al., 2003), 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점(128.1236°E, 38.2153°N)의 값을 사용하였다(표 2). 각 깊이 구간 안에서는 값이 일정하다고 보았으므로, 토심이 1.5 m 이상이면 상층과 하층의 WHC는 각각 67.8 mm와 230.8 mm(합 298.6 mm)이다. 토성은 SoilGrids 2.0(Poggio et al., 2021)의 모래, 실트, 점토 함량 자료를 이용하였으며, 유역 전체가 BIOME4의 FAO 중간 토성(class 2)에 해당하므로 투수 지수는 BIOME4의 해당 값을 그대로 사용하였다(Kaplan, 1999).
 
 표 2. 연구 지역의 깊이별 식물 이용 가능 수분량(θ−10 − θ−1500)
 
@@ -190,6 +190,7 @@ Pelletier, J. D., 2010, Minimizing the grid-resolution dependence of flow-routin
 Pelletier, J. D., 2013, Fundamental principles and techniques of landscape evolution modeling, in Shroder, J. and Baas, A. C. W.(eds.), Treatise on Geomorphology, Vol. 2, Quantitative Modeling of Geomorphology, Academic Press, San Diego, 29-43.
 Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorover, J., Durcik, M., Harman, C. J., Huxman, T. E., Lohse, K. A., Lybrand, R., Meixner, T., McIntosh, J. C., Papuga, S. A., Rasmussen, C., Schaap, M., Swetnam, T. L. and Troch, P. A., 2013, Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona, Journal of Geophysical Research: Earth Surface, 118(2), 741-758.
 Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic controls on hillslope steepness and erosion rate, Lithosphere, 1(2), 73-80.
+Poggio, L., de Sousa, L. M., Batjes, N. H., Heuvelink, G. B. M., Kempen, B., Ribeiro, E. and Rossiter, D., 2021, SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty, SOIL, 7(1), 217-240.
 Prentice, I. C., Cramer, W., Harrison, S. P., Leemans, R., Monserud, R. A. and Solomon, A. M., 1992, A global biome model based on plant physiology and dominance, soil properties and climate, Journal of Biogeography, 19(2), 117-134.
 Prentice, I. C., Guiot, J., Huntley, B., Jolly, D. and Cheddadi, R., 1996, Reconstructing biomes from palaeoecological data: A general method and its application to European pollen data at 0 and 6 ka, Climate Dynamics, 12(3), 185-194.
 Rasmussen, C. and Tabor, N. J., 2007, Applying a quantitative pedogenic energy model across a range of environmental gradients, Soil Science Society of America Journal, 71(6), 1719-1729.
