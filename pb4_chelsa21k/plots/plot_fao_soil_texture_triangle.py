@@ -165,7 +165,7 @@ def main() -> None:
               fontsize=10.1, color="#555555")
 
     fig.text(
-        0.5, 0.958, "FAO 토성 삼각도 — PB4Studio / BIOME4 등급 1·2·3",
+        0.5, 0.958, "FAO 토성 삼각도와 BIOME4 토성 등급 1, 2, 3",
         ha="center", va="center", fontsize=18, weight="bold"
     )
     fig.text(

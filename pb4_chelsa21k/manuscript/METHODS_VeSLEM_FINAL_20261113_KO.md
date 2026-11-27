@@ -14,7 +14,7 @@ BIOME4는 토양을 상층(0-30 cm)과 그 아래의 하층으로 나누고, 토
 
 $$WHC(H) = 1000\int_{0}^{\min(H,\,0.3)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi + 1000\int_{0.3}^{\min(\max(H,\,0.3),\,1.5)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi \tag{1}$$
 
-식 (1)에서 WHC[mm]의 첫째 항과 둘째 항은 각각 상층과 하층의 수분보유능력이며, ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이다. 두 체적수분함량의 차이는 식물이 이용할 수 있는 수분량에 해당하며(McKenzie et al., 2003), 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점(128.1236°E, 38.2153°N)의 값을 사용하였다(표 2). 각 깊이 구간 안에서는 값이 일정하다고 보았으므로, 토심이 1.5 m 이상이면 상층과 하층의 WHC는 각각 67.8 mm와 230.8 mm(합 298.6 mm)이다. 토성은 SoilGrids 2.0(Poggio et al., 2021)의 모래, 실트, 점토 함량 자료를 이용하였으며, 유역 전체가 BIOME4의 FAO 중간 토성(class 2)에 해당하므로 투수 지수는 BIOME4의 해당 값을 그대로 사용하였다(Kaplan, 1999).
+식 (1)에서 WHC[mm]의 첫째 항과 둘째 항은 각각 상층과 하층의 수분보유능력이며, ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이다. 두 체적수분함량의 차이는 식물이 이용할 수 있는 수분량에 해당하며(McKenzie et al., 2003), 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점(128.1236°E, 38.2153°N)의 값을 사용하였다(표 2). 각 깊이 구간 안에서는 값이 일정하다고 보았으므로, 토심이 1.5 m 이상이면 상층과 하층의 WHC는 각각 67.8 mm와 230.8 mm(합 298.6 mm)이다. 토성은 SoilGrids 2.0(Poggio et al., 2021)의 모래, 실트, 점토 함량 자료를 이용하였으며, 유역 전체가 BIOME4가 사용하는 FAO-UNESCO(1974)의 세 토성 구분 중 중립질(class 2; 점토 35% 미만이면서 모래 65% 초과이고 점토 18% 미만인 조립질을 제외한 범위, 그림 ?)에 해당하므로 투수 지수는 BIOME4의 해당 값을 그대로 사용하였다(Kaplan, 1999).
 
 표 2. 연구 지역의 깊이별 식물 이용 가능 수분량(θ−10 − θ−1500)
 
@@ -166,6 +166,7 @@ Beyer, R. M., Krapp, M. and Manica, A., 2020, High-resolution terrestrial climat
 Blaauw, M. and Christen, J. A., 2011, Flexible paleoclimate age-depth models using an autoregressive gamma process, Bayesian Analysis, 6(3), 457-474.
 Blöthe, J. H., Korup, O. and Schwanghart, W., 2015, Large landslides lie low: Excess topography in the Himalaya-Karakoram ranges, Geology, 43(6), 523-526.
 Campforts, B., Schwanghart, W. and Govers, G., 2017, Accurate simulation of transient landscape evolution by eliminating numerical diffusion: the TTLEM 1.0 model, Earth Surface Dynamics, 5(1), 47-66.
+FAO-UNESCO, 1974, Soil Map of the World, 1:5 000 000, Volume I, Legend, UNESCO, Paris.
 Culling, W. E. H., 1960, Analytical theory of erosion, Journal of Geology, 68, 336-344.
 Freeman, T. G., 1991, Calculating catchment area with divergent flow based on a regular grid, Computers & Geosciences, 17(3), 413-422.
 Hawker, L., Uhe, P., Paulo, L., Sosa, J., Savage, J., Sampson, C. and Neal, J., 2022, A 30 m global map of elevation with forests and buildings removed, Environmental Research Letters, 17(2), 024016.
