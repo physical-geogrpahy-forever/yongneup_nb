@@ -12,10 +12,10 @@
 - 고승연 외 (2014), 이호영 외 (2021): 국내 아고산 산지에서 거제수나무는 암석노출도 50~60%의 계곡부, 사스래나무는 능선과 사면 상부에서 우세.
 
 ## 주장 3. 식생과 지형의 결합 모델링에서의 위치
-- Werner, C., Schmid, M., Ehlers, T. A., Fuentes-Espoz, J. P., Steinkamp, J., Forrest, M., Liakka, J., Maldonado, A. and Hickler, T., 2018, Effect of changing vegetation and precipitation on denudation - Part 1, Earth Surface Dynamics, 6, 829-858.
-- Schmid, M., Ehlers, T. A., Werner, C., Hickler, T. and Fuentes-Espoz, J.-P., 2018, Effect of changing vegetation and precipitation on denudation - Part 2, Earth Surface Dynamics, 6, 859-881.
+- Werner, C. et al., 2018, Effect of changing vegetation and precipitation on denudation - Part 1: Predicted vegetation composition and cover over the last 21 thousand years along the Coastal Cordillera of Chile, Earth Surface Dynamics, 6, 829-858. (전체 저자 목록은 원문으로 확인 필요)
+- Schmid, M., Ehlers, T. A., Werner, C., Hickler, T. and Fuentes-Espoz, J.-P., 2018, Effect of changing vegetation and precipitation on denudation - Part 2: Predicted landscape response to transient climate and vegetation cover over millennial to million-year timescales, Earth Surface Dynamics, 6, 859-. (끝 쪽수 확인 필요)
   - LPJ-GUESS로 21 ka 이후 식생을 모의하고 그 결과를 지형발달모델 입력으로 사용(단방향). 완전 결합은 향후 과제로 제시.
-- Yetemen, O., Istanbulluoglu, E., Flores-Cervantes, J. H., Vivoni, E. R. and Bras, R. L., 2015, Ecohydrologic role of solar radiation on landscape evolution, Water Resources Research, 51, 1127-1157.
+- Yetemen, O., Istanbulluoglu, E., Flores-Cervantes, J. H., Vivoni, E. R. and Bras, R. L., 2015, Ecohydrologic role of solar radiation on landscape evolution, Water Resources Research, 51. (호와 쪽수 확인 필요)
   - 반건조 유역에서 생태수문 식생 동역학과 지형발달을 양방향으로 결합한 선례. 식생은 생물량 동역학으로 단순화.
 - Pelletier et al. (2013): 식생, 토양, 지형의 공진화를 EEMT와 AGB로 연결. AGB는 경험식.
 - 따라서 "최초"라는 표현은 쓰지 않는다. VeSLEM의 차별점은 (1) PFT 경쟁을 계산하는 평형 생물군계 모델(BIOME4)을 (2) 토심을 매개로 양방향 결합하여 (3) 21 ka 동안 모의하고 (4) 화분 기록의 PFT 출현과 비교한 것.
