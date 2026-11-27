@@ -12,7 +12,7 @@
 
 이러한 차이는 토심에 따른 수분 이용 가능성의 차이에서 비롯된다. BIOME4의 상층 뿌리 비율(r30)은 Jackson et al.(1996)의 누적 뿌리분포에 근거하며, PFT7의 r30(0.83)은 Jackson et al.(1996)이 제시한 아한대림의 얕은 뿌리 분포(β = 0.943)에 해당하여 PFT4(0.65)보다 크다. 따라서 뿌리 분포를 토심에서 자르면 토심이 얕은 격자일수록 PFT4가 이용할 수 있는 수분이 PFT7보다 크게 줄어들며, 이 격자에서 PFT7이 우점하게 된다. 즉, 정적 지형 모델은 유역 전체에 같은 토심을 적용하였기 때문에 이러한 국지적인 경쟁 관계의 역전이 나타날 수 없었으며, 기후만으로 식생을 모의할 경우 토심에 따라 나타나는 국지적인 식생 신호를 포착하지 못한다는 것을 보여준다.
 
-모델에서 나타난 얇은 토양 위의 PFT7 격자는 실제 아고산대 자작나무속의 입지와도 일부 부합한다. 자작나무속은 흔히 산불이나 벌채 이후의 개척종으로 알려져 있으나, 일부 종은 암벽과 능선에서 토양 조건에 의해 유지되는 극상림을 이루며, 사스래나무(Betula ermanii)는 아고산대의 이러한 극상림에서 흔히 나타난다(Nakamura et al., 2015). 국내에서도 계방산의 암석노출도 60.0%인 계곡부 식생단위에서 거제수나무가 교목층 중요치 15.25%로 우세하게 나타났으며(고승연 등, 2014), 설악산에서는 암석비율 60.0%인 계곡 상류부에 분비나무-거제수나무군락이 분포하는 것으로 보고되었다(이호영 등, 2021). 또한, 현재 용늪 주변의 숲에도 사스래나무가 분포한다(Park et al., 2021). 다만 사스래나무는 능선과 사면 상부에서도 우세하게 나타나는데(고승연 등, 2014; 이호영 등, 2021), 본 모델에서는 PFT7이 곡저 축에서만 나타나 능선의 얕은 토양은 재현되지 않았다. 이는 모델에서 능선의 토심이 유수침식이 아닌 사면 물질이동과 풍화의 균형으로 유지되어 곡저 축만큼 얇아지지 않았기 때문으로 보인다.
+모델에서 나타난 얇은 토양 위의 PFT7 격자는 실제 아고산대 자작나무속의 입지와도 일부 부합한다. 자작나무속은 흔히 산불이나 벌채 이후의 개척종으로 알려져 있으나, 일부 종은 암벽과 능선에서 토양 조건에 의해 유지되는 극상림을 이루며, 사스래나무(Betula ermanii)는 아고산대의 이러한 극상림에서 흔히 나타난다(Nakamura et al., 2015). 국내에서도 계방산의 암석노출도 60.0%인 계곡부 식생단위에서 거제수나무가 교목층 중요치 15.25%를 차지하였으며(고승연 등, 2014), 설악산에서는 암석비율 60.0%인 계곡 상류부에 분비나무-거제수나무군락이 분포하는 것으로 보고되었다(이호영 등, 2021). 또한, 현재 용늪 주변의 숲에도 사스래나무가 분포한다(Park et al., 2021). 다만 사스래나무는 계곡부보다 사면 상부(고승연 등, 2014)와 능선 쪽 군락(이호영 등, 2021)에서 더 높은 중요치와 상재도를 보이는데, 본 모델에서는 PFT7이 곡저 축에서만 나타나 능선의 얕은 토양은 재현되지 않았다. 이는 모델에서 능선의 토심이 유수침식이 아닌 사면 물질이동과 풍화의 균형으로 유지되어 곡저 축만큼 얇아지지 않았기 때문으로 보인다.
 
 3) 고식생 기록과의 비교
 
@@ -22,7 +22,7 @@ Jang et al.(2011)과 비교한 결과, 정적 지형 모델은 혼효림으로 �
 
 한편, 중국 온대 지역의 상대 화분 생산성에 따르면 자작나무속(12.42-16.99)은 소나무속(18.37)과 비슷한 수준으로 화분을 많이 생산하며(Li et al., 2018), 낙하 속도도 자작나무속이 0.024 m/s로 소나무속(0.031 m/s)보다 느려 더 멀리 이동할 수 있다(Abraham et al., 2014). 또한, 자작나무속 화분은 토양에서 소나무속보다 분해에 약한 것으로 보고되었다(Havinga, 1984). 따라서 자작나무속 화분 비율이 생산성의 차이만으로 과대 대표되었다고 보기는 어려우나, 이러한 생산성과 분해율의 차이를 정량적으로 보정하지 않았으므로 화분 비율을 식생 면적으로 환산하는 해석은 하지 않았다.
 
-이 외에도 두 모델이 공통으로 일치하지 않은 항목이 있다. 첫째, 벼과 화분은 28개 시점 모두에서 출현 기준을 넘었으나 두 모델 모두 초본을 우점 PFT로 만들지 않았다. BIOME4에서는 교목 PFT가 생육 가능하면 초본보다 우점하므로(Kaplan et al., 2003), 우점 PFT로 판정하는 한 숲 속의 초본은 출현할 수 없다. 둘째, 온대 상록활엽수 화분은 22개 시점에서 0.5%를 넘었으나 두 모델 모두 출현하지 않았는데, 이는 낮은 화분 비율의 기준에서는 소수의 화분만으로도 실제로 분포하지 않는 분류군이 출현으로 판정될 수 있기 때문으로 보인다(Prentice et al., 1996). 셋째, Jang et al.(2011)의 4대(390 cal yr BP 이후)는 저지대에서 인간의 간섭으로 형성된 소나무 이차림의 영향을 받은 것으로 해석되었다. 본 연구에서는 최근 2,000년의 식생 변화는 해석하지 않았다.
+이 외에도 두 모델이 공통으로 일치하지 않은 항목이 있다. 첫째, 벼과 화분은 28개 시점 모두에서 출현 기준을 넘었으나 두 모델 모두 초본을 우점 PFT로 만들지 않았다. BIOME4에서는 교목 PFT의 NPP나 엽면적지수가 일정 값보다 낮을 때에만 초본이 우점 PFT로 선택되므로(Kaplan, 1999), 우점 PFT로 판정하는 한 숲 속의 초본은 출현할 수 없다. 둘째, 온대 상록활엽수 화분은 22개 시점에서 0.5%를 넘었으나 두 모델 모두 출현하지 않았는데, 이는 낮은 화분 비율의 기준에서는 소수의 화분만으로도 실제로 분포하지 않는 분류군이 출현으로 판정될 수 있기 때문으로 보인다(Prentice et al., 1996). 셋째, Jang et al.(2011)의 4대(390 cal yr BP 이후)는 대암산 주변 저지대에 사람에 의해 형성된 소나무 이차림에서 날아온 화분의 영향을 받은 것으로 해석되었다. 본 연구에서는 최근 2,000년의 식생 변화는 해석하지 않았다.
 
 4) 연구의 한계
 
@@ -63,7 +63,7 @@ Hahm, W. J., Rempe, D. M., Dralle, D. N., Dawson, T. E., Lovill, S. M., Bryk, A.
 Havinga, A. J., 1984, A 20-year experimental investigation into the differential corrosion susceptibility of pollen and spores in various soil types, Pollen et Spores, 26, 541-558.
 Hellman, S., Gaillard, M.-J., Bunting, M. J. and Mazier, F., 2009, Estimating the relevant source area of pollen in the past cultural landscapes of southern Sweden: a forward modelling approach, Review of Palaeobotany and Palynology, 153, 259-271.
 Li, F., Gaillard, M.-J., Xu, Q., Bunting, M. J., Li, Y., Li, J., Mu, H., Lu, J., Zhang, P., Zhang, S., Cui, Q., Zhang, Y. and Shen, W., 2018, A review of relative pollen productivity estimates from temperate China for pollen-based quantitative reconstruction of past plant cover, Frontiers in Plant Science, 9, 1214.
-Li, Y., Nielsen, A. B., Zhao, X., Shan, L. et al., 2015, Pollen production estimates (PPEs) and fall speeds for major tree taxa and relevant source areas of pollen (RSAP) in Changbai Mountain, northeastern China, Review of Palaeobotany and Palynology, 216, 92-100.
+Li, Y., Nielsen, A. B., Zhao, X., Shan, L., Wang, S., Wu, J. and Zhou, L., 2015, Pollen production estimates (PPEs) and fall speeds for major tree taxa and relevant source areas of pollen (RSAP) in Changbai Mountain, northeastern China, Review of Palaeobotany and Palynology, 216, 92-100.
 Lisitsyna, O. V., Giesecke, T. and Hicks, S., 2011, Exploring pollen percentage threshold values as an indication for the regional presence of major European trees, Review of Palaeobotany and Palynology, 166(3-4), 311-324, doi:10.1016/j.revpalbo.2011.06.004.
 Montgomery, D. R. and Dietrich, W. E., 1989, Source areas, drainage density, and channel initiation, Water Resources Research, 25(8), 1907-1918.
 Nakamura, Y., Shitara, T., Krestov, P., Ishida, Y. and Suzuki, S., 2015, Distribution of Betula species in Japan, Berichte der Reinhold-Tüxen-Gesellschaft, 27, 35-48.
