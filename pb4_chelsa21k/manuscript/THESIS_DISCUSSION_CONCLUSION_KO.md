@@ -20,7 +20,7 @@ Jang et al.(2011)과 비교한 결과, 정적 지형 모델은 혼효림으로 �
 
 여기서 비교한 것은 식생의 면적이 아니라 출현 여부이다. 화분 쪽의 출현 기준 0.5%는 Prentice et al.(1996)이 생물군계 복원에서 가장 좋은 결과를 보인 일괄 기준으로 선정한 값으로 Ni et al.(2010)도 같은 값을 사용하였으며, 유럽의 표층 화분과 수목 분포를 비교한 연구에서도 수목의 지역적 출현을 판정하는 기준으로 연속적인 화분 곡선보다 0.5%가 적합한 것으로 나타났다(Lisitsyna et al., 2011). 모델 쪽 기준은 유역의 1-5%를 모두 비교하였다. 따라서 본 연구의 결과는 화분 기록에서 출현으로 판정되는 아한대 낙엽수를 정적 지형 모델은 만들 수 없었고, 동적 지형 모델은 얇은 토양 격자에서 만들었다는 것으로 해석할 수 있다.
 
-한편, 중국 온대 지역의 상대 화분 생산성에 따르면 자작나무속(12.42-16.99)은 소나무속(18.37)과 비슷한 수준으로 화분을 많이 생산하며(Li et al., 2018), 낙하 속도도 자작나무속이 0.024 m/s로 소나무속(0.031 m/s)보다 느려 더 멀리 이동할 수 있다(Abraham et al., 2014). 또한, 자작나무속 화분은 토양에서 소나무속보다 분해에 약한 것으로 보고되었다(Havinga, 1984). 따라서 자작나무속 화분 비율이 생산성의 차이만으로 과대 대표되었다고 보기는 어려우나, 이러한 생산성과 분해율의 차이를 정량적으로 보정하지 않았으므로 화분 비율을 식생 면적으로 환산하는 해석은 하지 않았다.
+한편, 중국 온대 지역의 상대 화분 생산성에 따르면 자작나무속(12.42-16.99)은 소나무속(18.37)과 비슷한 수준으로 화분을 많이 생산하며(Li et al., 2018), 낙하 속도도 자작나무속이 0.024 m/s로 소나무속(0.031 m/s)보다 느려 더 멀리 이동할 수 있다(Abraham et al., 2014). 따라서 자작나무속 화분 비율이 생산성의 차이만으로 과대 대표되었다고 보기는 어려우나, 이러한 생산성과 낙하 속도의 차이를 정량적으로 보정하지 않았으므로 화분 비율을 식생 면적으로 환산하는 해석은 하지 않았다.
 
 이 외에도 두 모델이 공통으로 일치하지 않은 항목이 있다. 첫째, 벼과 화분은 28개 시점 모두에서 출현 기준을 넘었으나 두 모델 모두 초본을 우점 PFT로 만들지 않았다. BIOME4에서는 교목 PFT의 NPP나 엽면적지수가 일정 값보다 낮을 때에만 초본이 우점 PFT로 선택되므로(Kaplan, 1999), 우점 PFT로 판정하는 한 숲 속의 초본은 출현할 수 없다. 둘째, 온대 상록활엽수 화분은 22개 시점에서 0.5%를 넘었으나 두 모델 모두 출현하지 않았는데, 이는 낮은 화분 비율의 기준에서는 소수의 화분만으로도 실제로 분포하지 않는 분류군이 출현으로 판정될 수 있기 때문으로 보인다(Prentice et al., 1996). 셋째, Jang et al.(2011)의 4대(390 cal yr BP 이후)는 대암산 주변 저지대에 사람에 의해 형성된 소나무 이차림에서 날아온 화분의 영향을 받은 것으로 해석되었다. 본 연구에서는 최근 2,000년의 식생 변화는 해석하지 않았다.
 
@@ -30,7 +30,7 @@ Jang et al.(2011)과 비교한 결과, 정적 지형 모델은 혼효림으로 �
 
 우선 두 모델의 차이는 하나의 PFT 그룹과 유역의 2.6-3.2%에 해당하는 소수 격자에서 나타났다. 이에 따라 모델의 출현 기준을 1-2%로 둘 때에는 결과가 유지되었으나, 3% 이상에서는 차이가 줄어들고 5%에서는 사라졌다. 또한, 자작나무속과 버드나무속을 온대 낙엽활엽수에만 배정하면 결과가 뒤집히므로, 한국의 자작나무속에 온대 종이 포함된다는 점을 고려할 때 분류군의 PFT 배정에 따른 불확실성이 존재한다. 더불어 Park et al.(2021)의 28개 시점 중 8개는 화분합이 300개 미만이며, 인접한 시점은 서로 독립적이지 않으므로 정확도와 TSS에 통계적 유의성을 부여할 수 없다.
 
-또한, 화분의 관련 공급원 범위는 경관에 따라 수십 m에서 수 km까지 달라지며(Bunting et al., 2004; Hellman et al., 2009), 중국 창바이산 온대림에서는 2,000-2,500 m로 추정되었다(Li et al., 2015). 모의 경관에서 반경 50 m의 분지에 쌓이는 화분 중 관련 공급원 범위 안에서 오는 것은 전체의 30-45%이므로(Sugita, 1994), 화분 기록의 출현은 모델 유역 밖의 식생도 포함한다. 따라서 향후 연구에서는 유역 주변의 광역 식생을 함께 모의하고 화분 생산성과 확산을 고려한 경관 복원 방법(Sugita, 2007)을 통해 모델과 화분 기록을 비교할 필요가 있다.
+또한, 같은 크기의 분지에서도 화분의 관련 공급원 범위는 주로 경관 안에서 식생 요소가 배치된 형태에 따라 정해지며(Bunting et al., 2004), 모의 경관에서는 분지 크기에 따라 50-100 m에서 600-800 m까지 달라지고(Sugita, 1994), 중국 창바이산 온대림에서는 2,000-2,500 m로 추정되었다(Li et al., 2015). 모의 경관에서 반경 50 m의 분지에 쌓이는 화분 중 관련 공급원 범위 안에서 오는 것은 전체의 30-45%이므로(Sugita, 1994), 화분 기록의 출현은 모델 유역 밖의 식생도 포함한다. 따라서 향후 연구에서는 유역 주변의 광역 식생을 함께 모의하고 화분 생산성과 확산을 고려한 경관 복원 방법(Sugita, 2007)을 통해 모델과 화분 기록을 비교할 필요가 있다.
 
 모델의 입력과 구조에도 한계가 있다. 첫째, 기후 자료는 하나의 CHELSA-TraCE21k 격자 값을 고도 보정 없이 유역 전체에 적용하였으며, 지형 자료는 유역 남서쪽 경계 72개 격자가 자료의 끝과 겹친다. 둘째, AGB는 우점 PFT의 잎과 변재의 합으로 계산하였으므로, 동적 식생모델을 이용하면 식생의 생장과 고사에 따른 생체량 변화를 보다 직접적으로 반영할 수 있을 것이다. 마지막으로 연구 지역이 대암산 용늪의 소유역으로 한정되어 있으므로, 한반도 전체로 확장하기 위해서는 유역별 융기율과 지형 자료의 구축이 필요하다.
 
@@ -60,8 +60,6 @@ Jang et al.(2011)과 비교한 결과, 정적 지형 모델은 혼효림으로 �
 Abraham, V., Oušková, V. and Kuneš, P., 2014, Present-day vegetation helps quantifying past land cover in selected regions of the Czech Republic, PLoS ONE, 9(6), e100117.
 Bunting, M. J., Gaillard, M.-J., Sugita, S., Middleton, R. and Broström, A., 2004, Vegetation structure and pollen source area, The Holocene, 14(5), 651-660.
 Hahm, W. J., Rempe, D. M., Dralle, D. N., Dawson, T. E., Lovill, S. M., Bryk, A. B., Bish, D. L., Schieber, J. and Dietrich, W. E., 2019, Lithologically controlled subsurface critical zone thickness and water storage capacity determine regional plant community composition, Water Resources Research, 55(4), 3028-3055.
-Havinga, A. J., 1984, A 20-year experimental investigation into the differential corrosion susceptibility of pollen and spores in various soil types, Pollen et Spores, 26, 541-558.
-Hellman, S., Gaillard, M.-J., Bunting, M. J. and Mazier, F., 2009, Estimating the relevant source area of pollen in the past cultural landscapes of southern Sweden: a forward modelling approach, Review of Palaeobotany and Palynology, 153, 259-271.
 Li, F., Gaillard, M.-J., Xu, Q., Bunting, M. J., Li, Y., Li, J., Mu, H., Lu, J., Zhang, P., Zhang, S., Cui, Q., Zhang, Y. and Shen, W., 2018, A review of relative pollen productivity estimates from temperate China for pollen-based quantitative reconstruction of past plant cover, Frontiers in Plant Science, 9, 1214.
 Li, Y., Nielsen, A. B., Zhao, X., Shan, L., Wang, S., Wu, J. and Zhou, L., 2015, Pollen production estimates (PPEs) and fall speeds for major tree taxa and relevant source areas of pollen (RSAP) in Changbai Mountain, northeastern China, Review of Palaeobotany and Palynology, 216, 92-100.
 Lisitsyna, O. V., Giesecke, T. and Hicks, S., 2011, Exploring pollen percentage threshold values as an indication for the regional presence of major European trees, Review of Palaeobotany and Palynology, 166(3-4), 311-324, doi:10.1016/j.revpalbo.2011.06.004.
