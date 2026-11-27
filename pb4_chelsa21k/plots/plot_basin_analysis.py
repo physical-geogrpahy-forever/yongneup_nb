@@ -1,4 +1,4 @@
-"""용늪 최종 유역(FABDEM 30 m)의 유역도, D8 흐름방향도, 누적흐름도.
+"""용늪 유역(FABDEM 30 m)과 유출구, D8 기여면적.
 
 results/final_fab30_20261113/tools/build_fabdem_basin_grid.py와 같은 절차를 따른다.
   1. FABDEM V1-2(EPSG:5187, 27.4 m)를 최종 모델 격자에 맞춘 30 m 격자로 쌍선형 보간
@@ -13,18 +13,23 @@ import heapq
 import json
 import sys
 
-import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
 import numpy as np
 import rasterio
 from affine import Affine
-from matplotlib.colors import LightSource, LogNorm, LinearSegmentedColormap
+from matplotlib.colors import LightSource, LogNorm
+from matplotlib.ticker import FixedLocator, FuncFormatter
+
+import matplotlib.patheffects as pe
+
+import thesis_style as ts
 from rasterio.warp import Resampling, reproject
+from scipy.ndimage import distance_transform_edt
 
 _HERE = Path(__file__).resolve().parent
 DEM_PATH = Path(sys.argv[1]) if len(sys.argv) > 1 else _HERE.parent / "data" / "FABDEM_V1-2_yongneup_region_EPSG5187_27p4m.tif"
 OUT_DIR = Path(sys.argv[2]) if len(sys.argv) > 2 else _HERE
-STEM = "YONGNEUP_FINAL_basin_flowdir_flowacc"
+STEM = "fig_basin_analysis"
 
 # 최종 모델 격자(embedded_inputs/yongneup_exact20m/PB4STUDIO_EXACT_GRID.json)
 RES = 30.0
@@ -42,19 +47,6 @@ WIN_Y0 = GRID_Y0 + PAD * RES
 WIN_SHAPE = (GRID_SHAPE[0] + 2 * PAD, GRID_SHAPE[1] + 2 * PAD)
 
 N8 = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
-
-BLUE_SEQ = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
-
-
-def set_korean_font() -> None:
-    candidates = ["Noto Sans CJK KR", "Noto Sans KR", "NanumGothic", "Malgun Gothic"]
-    available = {f.name for f in fm.fontManager.ttflist}
-    for name in candidates:
-        if name in available:
-            plt.rcParams["font.family"] = name
-            break
-    plt.rcParams["axes.unicode_minus"] = False
-
 
 def load_dem() -> tuple[np.ndarray, Affine]:
     T = Affine(RES, 0, WIN_X0, 0, -RES, WIN_Y0)
@@ -140,18 +132,19 @@ def outline(ax, mask, extent, **kw):
     ax.contour(mask.astype(float), levels=[0.5], extent=extent, origin="upper", **kw)
 
 
-def scalebar(ax, x0, y0, length_m=200):
-    ax.plot([x0, x0 + length_m / 1000], [y0, y0], color="#1f1f1f", lw=2.5, solid_capstyle="butt")
-    ax.text(x0 + length_m / 2000, y0 + 0.03, f"{length_m} m", ha="center", va="bottom", fontsize=8, color="#1f1f1f")
+def scalebar(ax, x0, y0, length_km=0.2):
+    ax.plot([x0, x0 + length_km], [y0, y0], color=ts.INK, lw=1.6, solid_capstyle="butt")
+    ax.text(x0 + length_km / 2, y0 + 0.025, f"{int(length_km * 1000)} m", ha="center", va="bottom")
 
 
 def north(ax, x, y):
-    ax.annotate("N", xy=(x, y), xytext=(x, y - 0.12), ha="center", va="center", fontsize=9, color="#1f1f1f",
-                arrowprops=dict(arrowstyle="-|>", color="#1f1f1f", lw=1.2))
+    ax.annotate("", xy=(x, y), xytext=(x, y - 0.12),
+                arrowprops=dict(arrowstyle="-|>", color=ts.INK, lw=0.8, mutation_scale=9))
+    ax.text(x, y - 0.14, "N", ha="center", va="top")
 
 
 def main() -> None:
-    set_korean_font()
+    ts.setup()
     z, T = load_dem()
     F = priority_flood(z)
     d = d8(F)
@@ -159,89 +152,71 @@ def main() -> None:
     oi, oj = OUTLET_RC[0] + PAD, OUTLET_RC[1] + PAD
     basin = catchment(d, oi, oj)
     n = int(basin.sum())
-    print(f"유역 격자 {n}개, {n * RES * RES / 1e4:.2f} ha, 출구 누적 {acc[oi, oj]:.0f}개")
+    print(f"유역 격자 {n}개, {n * RES * RES / 1e4:.2f} ha")
     if n != N_CELLS_EXPECTED:
-        raise SystemExit(f"유역 격자 수가 최종 모델({N_CELLS_EXPECTED})과 다릅니다: {n}")
+        raise SystemExit(f"유역 격자 수가 모델 유역({N_CELLS_EXPECTED})과 다름: {n}")
 
-    # 그림 범위: 유역 주변 6격자
     rows = np.where(basin.any(1))[0]
     cols = np.where(basin.any(0))[0]
-    m = 6
-    r1, r2 = rows.min() - m, rows.max() + m + 1
-    c1, c2 = cols.min() - m, cols.max() + m + 1
-    sl = (slice(r1, r2), slice(c1, c2))
-    zc, bc, dc, ac = z[sl], basin[sl], d[sl], acc[sl]
+    m = 5
+    sl = (slice(rows.min() - m, rows.max() + m + 1), slice(cols.min() - m, cols.max() + m + 1))
+    r1, c1 = sl[0].start, sl[1].start
+    zc, bc, ac = z[sl], basin[sl], acc[sl]
     x0 = (T.c + c1 * RES) / 1000.0
     y1 = (T.f - r1 * RES) / 1000.0
     ext = [x0, x0 + zc.shape[1] * RES / 1000.0, y1 - zc.shape[0] * RES / 1000.0, y1]
     ox, oy = (T.c + (oj + 0.5) * RES) / 1000.0, (T.f - (oi + 0.5) * RES) / 1000.0
     cx, cy = CORE_XY[0] / 1000.0, CORE_XY[1] / 1000.0
 
-    ls = LightSource(azdeg=315, altdeg=45)
-    hs = ls.hillshade(np.nan_to_num(zc, nan=np.nanmean(zc)), vert_exag=2.0, dx=RES, dy=RES)
+    # 자료 범위 밖은 가장 가까운 격자 값으로 채워 음영 계산의 가장자리 효과를 없앤다
+    idx = distance_transform_edt(~np.isfinite(zc), return_distances=False, return_indices=True)
+    hs = LightSource(azdeg=315, altdeg=45).hillshade(zc[tuple(idx)], vert_exag=2.0, dx=RES, dy=RES)
+    hs = np.ma.masked_where(~np.isfinite(zc), hs)
+    veil = np.ma.masked_where(bc | ~np.isfinite(zc), np.ones_like(zc))
+    halo = [pe.withStroke(linewidth=2.2, foreground="white")]
 
-    fig, axes = plt.subplots(1, 3, figsize=(15.5, 6.2), constrained_layout=True)
-    ink, muted = "#1f1f1f", "#5f5e5a"
+    fig, axes = plt.subplots(1, 2, figsize=(ts.WIDTH, 0.5 * ts.WIDTH), constrained_layout=True)
 
-    # (a) 유역
     ax = axes[0]
-    ax.imshow(hs, cmap="gray", extent=ext, origin="upper", vmin=0, vmax=1, alpha=0.55)
-    elev = ax.imshow(np.where(bc, zc, np.nan), cmap=LinearSegmentedColormap.from_list("e", BLUE_SEQ[:5][::-1]),
-                     extent=ext, origin="upper", alpha=0.75)
+    ax.imshow(hs, cmap="gray", extent=ext, origin="upper", vmin=0, vmax=1)
+    ax.imshow(veil, cmap="gray", vmin=0, vmax=1, alpha=0.45, extent=ext, origin="upper")
     cs = ax.contour(zc, levels=np.arange(1100, 1320, 20), extent=ext, origin="upper",
-                    colors=muted, linewidths=0.5)
-    ax.clabel(cs, levels=cs.levels[::2], fontsize=7, fmt="%d", inline=True)
-    outline(ax, bc, ext, colors=ink, linewidths=1.6)
-    cb = fig.colorbar(elev, ax=ax, shrink=0.75, pad=0.02)
-    cb.set_label("고도 (m)", color=ink)
-    ax.set_title("(a) 유역 (656격자, 59.0 ha)", loc="left", fontsize=11, color=ink)
+                    colors=ts.INK, linewidths=0.35)
+    for t in ax.clabel(cs, levels=[l for l in cs.levels if l % 40 == 0], fontsize=6, fmt="%d", inline=True):
+        t.set_path_effects(halo)
+    outline(ax, bc, ext, colors=ts.INK, linewidths=1.0)
+    scalebar(ax, ext[0] + 0.05, ext[2] + 0.05)
+    north(ax, ext[1] - 0.06, ext[3] - 0.04)
 
-    # (b) D8 흐름방향
     ax = axes[1]
-    ax.imshow(hs, cmap="gray", extent=ext, origin="upper", vmin=0, vmax=1, alpha=0.45)
-    ii, jj = np.where(bc & (dc >= 0))
-    U = np.array([N8[k][1] for k in dc[ii, jj]], float)
-    V = np.array([-N8[k][0] for k in dc[ii, jj]], float)
-    L = np.hypot(U, V)
-    xs = ext[0] + (jj + 0.5) * RES / 1000.0
-    ys = ext[3] - (ii + 0.5) * RES / 1000.0
-    ax.quiver(xs, ys, U / L, V / L, color=BLUE_SEQ[5], scale=55, width=0.0032,
-              headwidth=3.5, headlength=4, headaxislength=3.5, pivot="middle")
-    outline(ax, bc, ext, colors=ink, linewidths=1.6)
-    ax.set_title("(b) D8 흐름방향", loc="left", fontsize=11, color=ink)
-
-    # (c) 누적흐름
-    ax = axes[2]
-    ax.imshow(hs, cmap="gray", extent=ext, origin="upper", vmin=0, vmax=1, alpha=0.45)
+    ax.imshow(hs, cmap="gray", extent=ext, origin="upper", vmin=0, vmax=1, alpha=0.35)
     area = np.where(bc, ac * RES * RES / 1e4, np.nan)
-    im = ax.imshow(area, cmap=LinearSegmentedColormap.from_list("acc", BLUE_SEQ),
-                   norm=LogNorm(vmin=RES * RES / 1e4, vmax=np.nanmax(area)), extent=ext, origin="upper")
-    outline(ax, bc, ext, colors=ink, linewidths=1.6)
-    cb = fig.colorbar(im, ax=ax, shrink=0.75, pad=0.02)
-    cb.set_label("기여면적 (ha, 로그)", color=ink)
-    ax.set_title("(c) 누적흐름(D8 기여면적)", loc="left", fontsize=11, color=ink)
+    im = ax.imshow(area, cmap="Blues", norm=LogNorm(vmin=0.09, vmax=60), extent=ext, origin="upper")
+    outline(ax, bc, ext, colors=ts.INK, linewidths=1.0)
+    cb = fig.colorbar(im, ax=ax, shrink=0.7, pad=0.02, aspect=25)
+    ticks = [0.1, 1, 10, 50]
+    cb.ax.yaxis.set_major_locator(FixedLocator(ticks))
+    cb.ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:g}"))
+    cb.ax.minorticks_off()
+    cb.outline.set_linewidth(0.6)
+    cb.set_label("기여면적 (ha)")
 
-    for ax in axes:
-        ax.plot(ox, oy, marker="v", ms=9, color="#ffffff", mec=ink, mew=1.2, zorder=5)
-        ax.plot(cx, cy, marker="*", ms=12, color="#ffffff", mec=ink, mew=1.0, zorder=5)
+    for ax, letter in zip(axes, "ab"):
+        ax.plot(ox, oy, marker="v", ms=6, color=ts.INK, ls="none", zorder=5)
+        ax.plot(cx, cy, marker="o", ms=5, mfc="white", mec=ts.INK, mew=0.9, ls="none", zorder=5)
+        ax.text(ox + 0.03, oy + 0.03, "유출구", ha="left", va="bottom", zorder=6, path_effects=halo)
+        ax.text(cx + 0.03, cy - 0.03, "용늪", ha="left", va="top", zorder=6, path_effects=halo)
         ax.set_xlim(ext[0], ext[1])
         ax.set_ylim(ext[2], ext[3])
         ax.set_aspect("equal")
-        ax.set_xlabel("X (km, EPSG:5187)", color=muted, fontsize=9)
-        ax.tick_params(colors=muted, labelsize=8)
-        for s in ax.spines.values():
-            s.set_color("#c3c2bd")
-        scalebar(ax, ext[0] + 0.06, ext[2] + 0.06)
-        north(ax, ext[1] - 0.08, ext[3] - 0.06)
-    axes[0].set_ylabel("Y (km, EPSG:5187)", color=muted, fontsize=9)
-    axes[0].plot([], [], marker="v", ls="none", ms=8, color="#ffffff", mec=ink, label="유역 출구")
-    axes[0].plot([], [], marker="*", ls="none", ms=10, color="#ffffff", mec=ink, label="용늪")
-    axes[0].legend(loc="lower right", fontsize=8, frameon=True, framealpha=0.9)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        for sp in ax.spines.values():
+            sp.set_visible(True)
+            sp.set_linewidth(0.6)
+        ts.panel(ax, letter)
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT_DIR / f"{STEM}.png", dpi=300)
-    fig.savefig(OUT_DIR / f"{STEM}.svg")
-    print(OUT_DIR / f"{STEM}.png")
+    ts.save(fig, OUT_DIR, STEM)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'pb4_chelsa21k/plots/plot_fao_soil_texture_triangle.py'
+      - 'pb4_chelsa21k/plots/thesis_style.py'
       - '.github/workflows/pb4-plot-fao-soil-texture.yml'
   workflow_dispatch:
 
@@ -32,15 +33,15 @@ jobs:
         run: |
           set -euo pipefail
           python pb4_chelsa21k/plots/plot_fao_soil_texture_triangle.py
-          test -s pb4_chelsa21k/plots/PB4_FAO_soil_texture_classes_1_2_3.png
-          test -s pb4_chelsa21k/plots/PB4_FAO_soil_texture_classes_1_2_3.svg
+          test -s pb4_chelsa21k/plots/fig_soil_texture_triangle.png
+          test -s pb4_chelsa21k/plots/fig_soil_texture_triangle.svg
       - name: Commit generated figures
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add pb4_chelsa21k/plots/PB4_FAO_soil_texture_classes_1_2_3.png
-          git add pb4_chelsa21k/plots/PB4_FAO_soil_texture_classes_1_2_3.svg
+          git add pb4_chelsa21k/plots/fig_soil_texture_triangle.png
+          git add pb4_chelsa21k/plots/fig_soil_texture_triangle.svg
           if git diff --cached --quiet; then
             echo "No plot updates."
             exit 0

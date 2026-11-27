@@ -1,11 +1,6 @@
-"""Reproduce the FAO–UNESCO (1974) 3-class soil texture triangle.
+"""FAO-UNESCO (1974)의 세 토성 구분(BIOME4 토성 등급 1, 2, 3).
 
-Classes 1–3 match BIOME4 v4.2b2 soildata.
-The Yongneup production raster uses class 2 in every valid cell.
-No unmeasured sand/silt/clay composition point is invented.
-
-Usage: python pb4_chelsa21k/plots/plot_fao_soil_texture_triangle.py
-Outputs: PB4_FAO_soil_texture_classes_1_2_3.{png,svg} beside the script.
+사용법: python plot_fao_soil_texture_triangle.py
 """
 
 from __future__ import annotations
@@ -13,14 +8,15 @@ from __future__ import annotations
 from math import sqrt
 from pathlib import Path
 
-import matplotlib.font_manager as fm
 import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon, Rectangle
+from matplotlib.patches import Polygon
+
+import thesis_style as ts
 
 OUT = Path(__file__).resolve().parent
-NAME = "PB4_FAO_soil_texture_classes_1_2_3"
+NAME = "fig_soil_texture_triangle"
 H = sqrt(3.0) / 2.0
-COLORS = {1: "#F3D6B4", 2: "#CAE2D5", 3: "#C6D2EE"}
+COLORS = {1: "#f2f2f2", 2: "#d9d9d9", 3: "#bfbfbf"}
 
 
 def fao_class(sand: float, silt: float, clay: float) -> int:
@@ -45,34 +41,17 @@ def point(sand: float, clay: float) -> tuple[float, float]:
     return xy(sand, 100.0 - sand - clay, clay)
 
 
-def set_korean_font() -> None:
-    names = {font.name for font in fm.fontManager.ttflist}
-    for name in ("Noto Sans CJK KR", "NanumGothic", "Noto Sans KR",
-                 "Malgun Gothic", "AppleGothic"):
-        if name in names:
-            plt.rcParams["font.family"] = name
-            break
-    plt.rcParams.update({
-        "axes.unicode_minus": False, "svg.fonttype": "none", "pdf.fonttype": 42
-    })
-
-
 def main() -> None:
     assert fao_class(80, 10, 10) == 1
     assert fao_class(40, 40, 20) == 2
     assert fao_class(15, 40, 45) == 3
     assert fao_class(82, 0, 18) == 2
 
-    set_korean_font()
-    fig = plt.figure(figsize=(12.8, 7.4), facecolor="white")
-    gs = fig.add_gridspec(
-        1, 2, width_ratios=[1.58, 0.91], wspace=0.06,
-        left=0.045, right=0.97, top=0.89, bottom=0.105
-    )
-    ax = fig.add_subplot(gs[0, 0])
+    ts.setup()
+    fig, ax = plt.subplots(figsize=(0.62 * ts.WIDTH, 0.56 * ts.WIDTH))
     ax.set_aspect("equal")
-    ax.set_xlim(-0.18, 1.15)
-    ax.set_ylim(-0.18, 0.98)
+    ax.set_xlim(-0.16, 1.16)
+    ax.set_ylim(-0.17, 0.92)
     ax.axis("off")
 
     polygons = {
@@ -96,7 +75,7 @@ def main() -> None:
             (x0, y0), (x1, y1) = endpoints
             ax.plot(
                 [x0, x1], [y0, y1], lw=0.46,
-                color="#FFFFFF", alpha=0.80, zorder=2
+                color="#ffffff", alpha=0.9, zorder=2
             )
 
     # FAO's exact class boundaries: clay 35, clay 18 (partial), sand 65 (partial).
@@ -106,82 +85,32 @@ def main() -> None:
         (point(65, 0), point(65, 18)),
     ):
         a, b = endpoints
-        ax.plot((a[0], b[0]), (a[1], b[1]), color="#181818", lw=2.2, zorder=4)
+        ax.plot((a[0], b[0]), (a[1], b[1]), color="#000000", lw=1.0, zorder=4)
 
     outline = [point(100, 0), point(0, 100), point(0, 0), point(100, 0)]
     ax.plot(
         [p[0] for p in outline], [p[1] for p in outline],
-        color="#141414", lw=1.75, zorder=5
+        color="#000000", lw=0.8, zorder=5
     )
 
     for k in range(0, 101, 20):
         px, py = point(100-k, k)
         ax.text(px-0.035, py+0.004, str(k), ha="right", va="center",
-                fontsize=9, color="#4E4E4E")
+                fontsize=7)
         px, py = point(k, 0)
         ax.text(px, py-0.043, str(k), ha="center", va="top",
-                fontsize=9, color="#4E4E4E")
+                fontsize=7)
         px, py = xy(0, k, 100-k)
         ax.text(px+0.035, py+0.004, str(k), ha="left", va="center",
-                fontsize=9, color="#4E4E4E")
+                fontsize=7)
 
-    ax.text(-0.135, 0.43, "점토 (Clay, %)", rotation=60,
-            ha="center", va="center", fontsize=12)
-    ax.text(0.50, -0.126, "모래 (Sand, %)",
-            ha="center", va="center", fontsize=12)
-    ax.text(1.107, 0.43, "미사 (Silt, %)", rotation=-60,
-            ha="center", va="center", fontsize=12)
-    ax.text(*point(79, 8), "1  조립질\nCoarse",
-            ha="center", va="center", fontsize=12, weight="bold", zorder=6)
-    ax.text(*point(39, 15), "2  중립질\nMedium",
-            ha="center", va="center", fontsize=14, weight="bold", zorder=6)
-    ax.text(*point(25, 57), "3  세립질\nFine",
-            ha="center", va="center", fontsize=14, weight="bold", zorder=6)
-
-    info = fig.add_subplot(gs[0, 1])
-    info.axis("off")
-    info.set_xlim(0, 1)
-    info.set_ylim(0, 1)
-    info.text(0.06, 0.92, "BIOME4 토성 구분",
-              size=17, weight="bold", va="top")
-    items = (
-        (1, 0.78, "조립질  /  Coarse", "모래 > 65%, 점토 < 18%", "Ksat = 5.0 mm/h"),
-        (2, 0.57, "중립질  /  Medium", "점토 < 35%, 1번 등급 제외", "Ksat = 4.0 mm/h"),
-        (3, 0.36, "세립질  /  Fine", "점토 > 35%", "Ksat = 3.0 mm/h"),
-    )
-    for cls, yy, heading, rule, hydraulic in items:
-        info.add_patch(Rectangle(
-            (0.06, yy-0.095), 0.058, 0.145,
-            facecolor=COLORS[cls], edgecolor="#555555", lw=0.7
-        ))
-        info.text(0.15, yy+0.025, heading, size=12.5, weight="bold", va="center")
-        info.text(0.15, yy-0.034, rule, size=10.7, va="center")
-        info.text(0.15, yy-0.078, hydraulic,
-                  size=10.3, color="#545454", va="center")
-    info.plot([0.06, 0.96], [0.175, 0.175], color="#A1A1A1", lw=0.8)
-    info.text(0.06, 0.143, "용늪 PB4 최종 입력: 유효 격자 모두 2번",
-              fontsize=10.8, weight="bold")
-    info.text(0.06, 0.083, "입도 관측값의 위치는 표시하지 않음",
-              fontsize=10.1, color="#555555")
-
-    fig.text(
-        0.5, 0.958, "FAO 토성 삼각도와 BIOME4 토성 등급 1, 2, 3",
-        ha="center", va="center", fontsize=18, weight="bold"
-    )
-    fig.text(
-        0.5, 0.035,
-        "자료: FAO–UNESCO (1974), Soil Map of the World, Vol. I, p. 5; "
-        "BIOME4 v4.2b2 soildata (Ksat).  |  경계선의 정확한 임계값은 중립질로 표기",
-        ha="center", fontsize=9.2, color="#555555"
-    )
-    for extension in ("png", "svg"):
-        dest = OUT / f"{NAME}.{extension}"
-        fig.savefig(
-            dest, dpi=250 if extension == "png" else None,
-            bbox_inches="tight", facecolor="white"
-        )
-        print(dest)
-    plt.close(fig)
+    ax.text(-0.12, 0.45, "점토 (%)", rotation=60, ha="center", va="center")
+    ax.text(0.50, -0.135, "모래 (%)", ha="center", va="center")
+    ax.text(1.12, 0.45, "미사 (%)", rotation=-60, ha="center", va="center")
+    ax.text(*point(80, 7), "조립질", ha="center", va="center", zorder=6)
+    ax.text(*point(38, 16), "중립질", ha="center", va="center", zorder=6)
+    ax.text(*point(25, 58), "세립질", ha="center", va="center", zorder=6)
+    ts.save(fig, OUT, NAME)
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
-name: Generate Yongneup elevation figure
+name: Plot mean elevation, soil depth and NPP
 
 on:
   push:
     branches: [main]
     paths:
-      - 'pb4_chelsa21k/plots/plot_mean_elevation.py'
+      - 'pb4_chelsa21k/plots/plot_mean_timeseries.py'
       - 'pb4_chelsa21k/results/final_integrated_20261006/FINAL_AGB_21KA_TIMESERIES.csv'
       - '.github/workflows/pb4-plot-mean-elevation.yml'
 
@@ -31,17 +31,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python pb4_chelsa21k/plots/plot_mean_elevation.py
-          test -f pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.png
-          test -f pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.svg
+          python pb4_chelsa21k/plots/plot_mean_timeseries.py
+          test -f pb4_chelsa21k/plots/fig_mean_timeseries.png
+          test -f pb4_chelsa21k/plots/fig_mean_timeseries.svg
       - name: Commit figure outputs
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'Physical Geography Forever!'
           git config user.email 'dntjdwo4990@snu.ac.kr'
-          git add pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.png
-          git add pb4_chelsa21k/plots/YONGNEUP_U008_mean_elevation_CHELSA_style.svg
+          git add pb4_chelsa21k/plots/fig_mean_timeseries.png
+          git add pb4_chelsa21k/plots/fig_mean_timeseries.svg
           if git diff --cached --quiet; then
             echo "No figure changes."
             exit 0
