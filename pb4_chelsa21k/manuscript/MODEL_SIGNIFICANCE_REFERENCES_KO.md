@@ -25,7 +25,7 @@
   - 화분 등 고식생 기록과의 비교 없음. 4장 결론의 향후 과제는 매개변수 제약, 사면 풍화와 물질이동 법칙, 수로와 사면 실험(125-126쪽).
 - Yetemen, O., Istanbulluoglu, E., Flores-Cervantes, J. H., Vivoni, E. R. and Bras, R. L., 2015, Ecohydrologic role of solar radiation on landscape evolution, Water Resources Research, 51(2), 1127-1157, doi:10.1002/2014WR016169.
   - 반건조 유역에서 일사, 토양수분, 식생 생물량, 유사 수지를 CHILD 안에서 결합. 식생은 단일 생물량 변수.
-  - 같은 해 같은 저널의 Yetemen, Istanbulluoglu and Duvall (2015), Solar radiation as a global driver of hillslope asymmetry, WRR 51(12)과 구별할 것. 원고의 "Yetemen et al., 2015"가 어느 논문인지 참고문헌 목록에서 확인 필요.
+  - 원고의 "Yetemen et al., 2015"는 이 논문으로 본다. 같은 해 WRR 51(12)의 Yetemen, Istanbulluoglu and Duvall (2015)도 같은 CHILD 생태지형 모델로 식생을 생물량 하나로 다룬다.
 - Pelletier et al. (2013): 식생, 토양, 지형의 공진화를 EEMT와 AGB로 연결. AGB는 경험식.
 
 ### Schmid (2020)과 VeSLEM의 차이 (원문 확인 사항만)
