@@ -37,7 +37,14 @@ GRID_X0, GRID_Y0 = 122623.3057, 625198.8839
 GRID_SHAPE = (41, 36)
 OUTLET_RC = (21, 29)
 N_CELLS_EXPECTED = 656
-CORE_XY = (123245.19, 624269.79)  # 용늪 지점(Jang et al., 2011의 좌표)
+from pyproj import Transformer
+_TR = Transformer.from_crs("EPSG:4326", "EPSG:5187", always_xy=True)
+# 코어 좌표: Jang et al.(2011) 38°12′57.4″N, 128°7′30.2″E(원문 경도 120°는 오기),
+# Park et al.(2021) YN-C 38°12′54.40″N, 128°7′25.1″E
+CORES = {
+    "A": _TR.transform(128 + 7 / 60 + 30.2 / 3600, 38 + 12 / 60 + 57.4 / 3600),
+    "B": _TR.transform(128 + 7 / 60 + 25.1 / 3600, 38 + 12 / 60 + 54.40 / 3600),
+}
 CRS = "EPSG:5187"
 
 # 계산 창: 최종 격자 원점에서 정수 격자만큼 넓힌 2.4 km 범위
@@ -166,7 +173,6 @@ def main() -> None:
     y1 = (T.f - r1 * RES) / 1000.0
     ext = [x0, x0 + zc.shape[1] * RES / 1000.0, y1 - zc.shape[0] * RES / 1000.0, y1]
     ox, oy = (T.c + (oj + 0.5) * RES) / 1000.0, (T.f - (oi + 0.5) * RES) / 1000.0
-    cx, cy = CORE_XY[0] / 1000.0, CORE_XY[1] / 1000.0
 
     # 자료 범위 밖은 가장 가까운 격자 값으로 채워 음영 계산의 가장자리 효과를 없앤다
     idx = distance_transform_edt(~np.isfinite(zc), return_distances=False, return_indices=True)
@@ -203,9 +209,12 @@ def main() -> None:
 
     for ax, letter in zip(axes, "ab"):
         ax.plot(ox, oy, marker="v", ms=6, color=ts.INK, ls="none", zorder=5)
-        ax.plot(cx, cy, marker="o", ms=5, mfc="white", mec=ts.INK, mew=0.9, ls="none", zorder=5)
         ax.text(ox + 0.03, oy + 0.03, "유출구", ha="left", va="bottom", zorder=6, path_effects=halo)
-        ax.text(cx + 0.03, cy - 0.03, "용늪", ha="left", va="top", zorder=6, path_effects=halo)
+        for lab, (x, y) in CORES.items():
+            cx, cy = x / 1000.0, y / 1000.0
+            ax.plot(cx, cy, marker="o", ms=5, mfc="white", mec=ts.INK, mew=0.9, ls="none", zorder=5)
+            dx, ha = (0.03, "left") if lab == "A" else (-0.03, "right")
+            ax.text(cx + dx, cy, lab, ha=ha, va="center", zorder=6, path_effects=halo)
         ax.set_xlim(ext[0], ext[1])
         ax.set_ylim(ext[2], ext[3])
         ax.set_aspect("equal")

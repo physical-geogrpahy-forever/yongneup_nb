@@ -10,9 +10,9 @@ BIOME4는 BIOME3(Haxeltine & Prentice, 1996)를 발전시킨 탄소와 수분 �
 
 ① 토양수분보유능력
 
-BIOME4는 토양을 상층(0-30 cm)과 하층으로 나누어 토양수분수지를 계산한다(Kaplan, 1999). 본 연구에서는 하층을 0.3-1.5 m로 두고, 각 층의 토양수분보유능력(WHC)을 매 시점의 토심(H)까지 적분하여 구하였다(식 1).
+BIOME4는 토양을 상층(0-30 cm)과 하층으로 나누어 토양수분수지를 계산한다(Kaplan, 1999). 본 연구에서는 하층을 0.3-1.5 m로 두고, 상층과 하층의 토양수분보유능력(WHCtop, WHCbottom)을 매 시점의 토심(H)까지 적분하여 구하였다(식 1).
 
-$$WHC(H) = 1000\int_{0}^{\min(H,\,0.3)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi + 1000\int_{0.3}^{\min(\max(H,\,0.3),\,1.5)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi \tag{1}$$
+$$WHC_{top} = 1000\int_{0}^{\min(H,\,0.3)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi, \qquad WHC_{bottom} = 1000\int_{0.3}^{\min(\max(H,\,0.3),\,1.5)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi \tag{1}$$
 
 식 (1)에서 ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이며, 두 값의 차이를 깊이에 대해 적분한 값을 토층의 이용 가능 수분량으로 보았다(McKenzie et al., 2003). 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점의 값을 사용하였고, 각 깊이 구간 안에서는 일정하다고 가정하였다(표 2). 또한, SoilGrids 2.0(Poggio et al., 2021)의 모래, 미사, 점토 함량에 따르면 유역 전체가 FAO-UNESCO(1974)의 중립질에 해당하므로(그림 ?), 투수 지수는 BIOME4의 중립질 값을 사용하였다(Kaplan, 1999).
 
