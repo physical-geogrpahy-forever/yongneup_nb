@@ -18,11 +18,11 @@
   - Landlab에서 식생피복(V)으로 사면확산계수(Kd = Kb exp(-aV))와 매닝 조도를 조절. 식생피복은 외부에서 주어진 값이며 토양생성 식은 없음.
 - Schmid, M., 2020, The effect of changing climate and vegetation on the topographic evolution of catchments in the Chilean Coastal Cordillera over millennial timescales, PhD dissertation, Eberhard Karls Universität Tübingen, doi:10.15496/publikation-39130.
   - 구두심사 2020-01-27, 온라인 공개 2020-07-01, 표제지 연도 2019. 지도교수 Todd Ehlers, 제2심사 Thomas Hickler.
-  - 3.2.2절(미출판 원고, 인쇄본 82-113쪽)에서 LPJ-GUESS와 Landlab을 100년 간격으로 결합하여 LGM부터 현재까지 4개 유역(Pan de Azúcar, Santa Gracia, La Campana, Nahuelbuta)을 모의.
+  - 3.2.2절(미출판 원고, 인쇄본 82-118쪽)에서 LPJ-GUESS와 Landlab을 100년 간격으로 결합하여 LGM부터 현재까지 4개 유역(Pan de Azúcar, Santa Gracia, La Campana, Nahuelbuta)을 모의.
   - LPJ-GUESS에서 Landlab으로: PFT별 LAI를 교목, 관목, 초본으로 묶어 피복률로 바꾸고 landform ID로 격자에 배정(88, 91쪽). 사면확산계수는 누적 식생피복의 함수(89쪽), 유수침식은 토양, 교목, 관목, 초본별 매닝 조도로 조절(90쪽 표 1, 91쪽).
   - Landlab에서 LPJ-GUESS로: landform별 평균 경사, 고도, 사면방향, 토심(91쪽). LPJ-GUESS 안에서 토심이 어떻게 쓰이는지는 기술되지 않음.
   - 토양생성: PR = PRmax exp(-H/H*) 형태(원문 식 (8)은 음의 부호 없이 인쇄), PRmax는 10Be 삭박률(Schaller et al., 2018)과 Stockmann et al.(2014)로 정함(90-91쪽). 식생 항 없음.
-  - 화분 등 고식생 기록과의 비교 없음. 4장 결론의 향후 과제는 매개변수 제약, 사면 풍화와 물질이동 법칙, 수로와 사면 실험(125-126쪽).
+  - 결합 모델 결과와 화분 등 고식생 기록의 비교 없음(비교 대상은 침식률, 삭박률, 현생 피복-강수 관계, 122-123쪽). 고식생 기록과의 정성 대조는 LPJ-GUESS 단독 모의인 Werner et al.(2018) 5.2절(44-45쪽)에만 있고, 결합 모델은 그 설정을 그대로 씀(88쪽). 4장 결론의 향후 과제는 매개변수 제약, 사면 풍화와 물질이동 법칙, 수로와 사면 실험(125-126쪽).
 - Yetemen, O., Istanbulluoglu, E., Flores-Cervantes, J. H., Vivoni, E. R. and Bras, R. L., 2015, Ecohydrologic role of solar radiation on landscape evolution, Water Resources Research, 51(2), 1127-1157, doi:10.1002/2014WR016169.
   - 반건조 유역에서 일사, 토양수분, 식생 생물량, 유사 수지를 CHILD 안에서 결합. 식생은 단일 생물량 변수.
   - 원고의 "Yetemen et al., 2015"는 이 논문으로 본다. 같은 해 WRR 51(12)의 Yetemen, Istanbulluoglu and Duvall (2015)도 같은 CHILD 생태지형 모델로 식생을 생물량 하나로 다룬다.
