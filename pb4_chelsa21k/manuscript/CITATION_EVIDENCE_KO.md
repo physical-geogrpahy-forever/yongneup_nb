@@ -74,6 +74,34 @@
 - 판정 근거 구절: "1,000 year time steps between 22,000 BP and the pre-industrial modern era"
 - 판정: **일치**
 
+## Blaauw & Christen, 2011
+
+- 출처: Bayesian Analysis 6(3), 457-474, doi:10.1214/11-BA618
+- 원문 링크: https://doi.org/10.1214/11-BA618
+- 열람: 원문 열람(Project Euclid 공개 본문, 2026-11-28)
+
+### 1. [방법 141행] Park et al.(2021)의 AMS 연대를 rbacon(Blaauw & Christen, 2011)으로 연대모델화
+
+- 원문 위치: 초록
+- 단락 맥락: 퇴적률을 감마 자기회귀 준모수 모델로 조절하는 연대-깊이 모델 "Bacon"을 제시한다. rbacon은 이 방법의 R 패키지이며 패키지 인용 문헌이 이 논문이다.
+- 판정 근거 구절: "We present a new approach for chronology building (called “Bacon”)"
+- 판정: **일치(간접 인용)**
+- 조치/비고: Park et al.(2021)이 rbacon 2.5.6을 썼다는 사실은 Park et al.(2021) 3.1절에서 확인.
+
+## Blöthe et al., 2015
+
+- 출처: Geology 43(6), 523-526, doi:10.1130/G36527.1
+- 원문 링크: https://doi.org/10.1130/G36527.1
+- 열람: 원문 열람(GeoScienceWorld 본문, 학교망, 2026-11-28)
+
+### 1. [방법 101행] 임계경사를 넘는 사면은 Blöthe et al.(2015)의 초과 지형 알고리즘을 수정한 Campforts et al.(2017)의 방법으로 낮춤
+
+- 원문 위치: 초록, 본문 방법 단락(그림 1)
+- 단락 맥락: 초과 지형 ZE를 지표면과, 경사가 임계 사면각 이하인 이상화 지형 사이의 암석 기둥 높이로 정의하고, 이상화 지형을 임계각과 거리로 계산한 오프셋을 갖는 이동창 최솟값 필터로 구한다.
+- 판정 근거 구절: "a sliding-window minimum filter with additional offsets calculated by the threshold hillslope angle"
+- 판정: **일치**
+- 조치/비고: 이를 수정해 사면 조정에 쓴 내용은 Campforts et al.(2017) 항목에서 확인.
+
 ## Bunting et al., 2004
 
 - 출처: The Holocene 14(5), 651-660, doi:10.1191/0959683604hl744rp
@@ -1017,6 +1045,20 @@
 - 판정 근거 구절: "LEAVES log(SLA) = 2.44 - 0.43 log(life-span)"
 - 판정: **일치**
 - 조치/비고: 모델 코드(pb4studio/climate.py 831-874행)의 주석과 계수도 같다.
+
+## Reimer et al., 2020
+
+- 출처: Radiocarbon 62(4), 725-757, doi:10.1017/RDC.2020.41 (CC BY 4.0)
+- 원문 링크: https://doi.org/10.1017/RDC.2020.41
+- 열람: 원문 열람(Cambridge Core 본문, 2026-11-28)
+
+### 1. [방법 141행] Park et al.(2021)의 AMS 연대를 IntCal20(Reimer et al., 2020)으로 보정
+
+- 원문 위치: 초록
+- 단락 맥락: 북반구 방사성탄소 보정 곡선 IntCal20을 55,000 cal BP까지 갱신하였으며, 약 13,900 cal BP까지는 나이테에 근거한 대기 기록이다.
+- 판정 근거 구절: "Based on tree rings, IntCal20 now extends as a fully atmospheric record to ca. 13,900 cal BP."
+- 판정: **일치(간접 인용)**
+- 조치/비고: Park et al.(2021)이 IntCal20으로 보정했다는 사실은 Park et al.(2021) 3.1절에서 확인.
 
 ## Riebe et al., 2004
 
