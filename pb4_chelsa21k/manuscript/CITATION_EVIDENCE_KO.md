@@ -1048,17 +1048,17 @@
 
 ## Schmid, 2020
 
-- 출처: Ph.D. dissertation, Universität Tübingen, doi:10.15496/publikation-39130 (CORE 공개 PDF)
+- 출처: Ph.D. dissertation, Universität Tübingen, doi:10.15496/publikation-39130
 - 원문 링크: https://doi.org/10.15496/publikation-39130
-- 열람: 원문 열람(이전 단계)
+- 열람: 원문 열람(학위논문 PDF 전문, 2026-11-28 재대조)
 
 ### 1. [논의 41행] LPJ-GUESS와 Landlab을 100년 간격으로 결합해 지형 단위별 평균 토심을 전달, 토양생성에 식생 영향 미반영, 고식생 기록 비교 없음
 
-- 원문 위치: 결합 모델 장(이전 단계 확인)
-- 단락 맥락: 이전 단계에서 원문을 읽고 비교표로 정리함.
-- 판정 근거 구절: ""
-- 판정: **일치(이전 확인)**
-- 조치/비고: 근거 쪽수는 MODEL_SIGNIFICANCE_REFERENCES_KO.md에 기록.
+- 원문 위치: 3.2장 서론(85쪽), 2.3절(88-90쪽), 2.4절(91쪽), 3.1절(93쪽)
+- 단락 맥락: 100년 간격 결합(85, 93쪽). 지형 단위 평균 경사, 고도, 사면방향, 토심을 매 간격 LPJ-GUESS에 전달(91쪽). 식생은 사면확산계수와 매닝 조도로만 들어가고 풍화식 (8), (9)에는 식생 항이 없음(88-90쪽). 3.2장 본문에 화분 등 고식생 기록 비교 없음(화분 비교는 3.1장 Werner et al., 2018에만 있음).
+- 판정 근거 구절: "calculated on a 100yr timestep"; "landform-mean topographic slope, elevation, aspect and soil depth"
+- 판정: **일치**
+- 조치/비고: 식 (8)은 원문에 지수의 음의 부호 없이 인쇄되어 있다. 쪽 번호는 학위논문 쪽 번호.
 
 ## Shangguan et al., 2017
 
