@@ -6,9 +6,9 @@
 
 고승연, 한상학, 이원희, 한심희, 신학섭, 윤충원, 2014, 계방산 가문비나무 및 전나무 임분의 산림식생유형분류와 정량적 분석, 한국환경생태학회지, 28(2), 182-196.
 
-변종민, 2011, 2차원 지질시간 규모 수치지형발달모형의 활용과 개발을 위한 이론적 토대, 대한지리학회지, 46(3), 331-350.
+김주용, 양동윤, 이동영, 1998, ※[국문 제목 확인 필요; 영문 제목 Natural environment of highmoor deposits at Yong-Neup, Dae-amsan], 한국제4기학회지, 12, 55-62.
 
-※양동윤, 1998, [서지사항 확인 필요: 용늪 형성 관련 문헌, ScienceON 문헌번호 JAKO199811920413051].
+변종민, 2011, 2차원 지질시간 규모 수치지형발달모형의 활용과 개발을 위한 이론적 토대, 대한지리학회지, 46(3), 331-350.
 
 이호영, 정보광, 전영문, 오충현, 2021, 설악산 분비나무군락의 식물사회학적 특성, 한국환경생태학회지, 35(1), 37-47.
 
@@ -38,7 +38,7 @@ Blöthe, J. H., Korup, O. and Schwanghart, W., 2015, Large landslides lie low: E
 
 Botkin, D. B., Janak, J. F. and Wallis, J. R., 1972, Some ecological consequences of a computer model of forest growth, Journal of Ecology, 60(3), 849-872.
 
-Box, E. O., 1981, Macroclimate and Plant Forms: An Introduction to Predictive Modeling in Phytogeography, Dr W. Junk, The Hague.
+Box, E. O., 1981, Macroclimate and Plant Forms: An Introduction to Predictive Modeling in Phytogeography, Tasks for Vegetation Science 1, Dr W. Junk, The Hague.
 
 Bradshaw, C. D. et al., 2025, MioVeg1: A global middle Miocene vegetation reconstruction for climate modeling, Paleoceanography and Paleoclimatology, 40(11), e2025PA005213.
 
@@ -108,7 +108,7 @@ Hickler, T., Smith, B., Sykes, M. T., Davis, M. B., Sugita, S. and Walker, K., 2
 
 Hobley, D. E. J., Adams, J. M., Nudurupati, S. S., Hutton, E. W. H., Gasparini, N. M., Istanbulluoglu, E. and Tucker, G. E., 2017, Creative computing with Landlab: an open-source toolkit for building, coupling, and exploring two-dimensional numerical models of Earth-surface dynamics, Earth Surface Dynamics, 5(1), 21-46.
 
-Holdridge, L. R., 1964, Life Zone Ecology, Tropical Science Center, San José.
+Holdridge, L. R., 1964, Life Zone Ecology, Tropical Science Center, San José, Costa Rica.
 
 Istanbulluoglu, E. and Bras, R. L., 2005, Vegetation-modulated landscape evolution: Effects of vegetation on landscape processes, drainage density, and topography, Journal of Geophysical Research: Earth Surface, 110(F2), F02012.
 
@@ -176,9 +176,9 @@ Pelletier, J. D. and Rasmussen, C., 2009, Quantifying the climatic and tectonic 
 
 Pelletier, J. D., Barron-Gafford, G. A., Breshears, D. D., Brooks, P. D., Chorover, J., Durcik, M., Harman, C. J., Huxman, T. E., Lohse, K. A., Lybrand, R., Meixner, T., McIntosh, J. C., Papuga, S. A., Rasmussen, C., Schaap, M., Swetnam, T. L. and Troch, P. A., 2013, Coevolution of nonlinear trends in vegetation, soils, and topography with elevation and slope aspect: A case study in the sky islands of southern Arizona, Journal of Geophysical Research: Earth Surface, 118(2), 741-758.
 
-Pelletier, J. D., Broxton, P. D., Hazenberg, P., Zeng, X., Troch, P. A., Niu, G.-Y., Williams, Z., Brunke, M. A. and Gochis, D., 2016, A gridded global data set of soil, intact regolith, and sedimentary deposit thicknesses for regional and global land surface modeling, Journal of Advances in Modeling Earth Systems, 8, 41-65.
+Pelletier, J. D., Broxton, P. D., Hazenberg, P., Zeng, X., Troch, P. A., Niu, G.-Y., Williams, Z., Brunke, M. A. and Gochis, D., 2016a, A gridded global data set of soil, intact regolith, and sedimentary deposit thicknesses for regional and global land surface modeling, Journal of Advances in Modeling Earth Systems, 8, 41-65.
 
-Pelletier, J. D., Nichols, M. H. and Nearing, M. A., 2016, The influence of Holocene vegetation changes on topography and erosion rates: a case study at Walnut Gulch Experimental Watershed, Arizona, Earth Surface Dynamics, 4(2), 471-488.
+Pelletier, J. D., Nichols, M. H. and Nearing, M. A., 2016b, The influence of Holocene vegetation changes on topography and erosion rates: a case study at Walnut Gulch Experimental Watershed, Arizona, Earth Surface Dynamics, 4(2), 471-488.
 
 Phillips, J. D., 2009, Soils as extended composite phenotypes, Geoderma, 149(1-2), 143-151.
 
@@ -238,7 +238,7 @@ Sugita, S., 2007, Theory of quantitative reconstruction of vegetation II: all yo
 
 Temme, A. J. A. M., Schoorl, J. M., Claessens, L. and Veldkamp, A., 2022, Quantitative modeling of landscape evolution, in Shroder, J. F. (ed.), Treatise on Geomorphology, 2nd edition, Elsevier, Amsterdam, 162-183.
 
-※Texier, D. et al., 2003, [서지사항 확인 필요].
+Texier, D., de Noblet, N., Harrison, S. P., Haxeltine, A., Jolly, D., Joussaume, S., Laarif, F., Prentice, I. C. and Tarasov, P., 1997, Quantifying the role of biosphere-atmosphere feedbacks in climate change: coupled model simulations for 6000 years BP and comparison with palaeodata for northern Eurasia and northern Africa, Climate Dynamics, 13(12), 865-882.
 
 Tucker, G. E. and Bras, R. L., 2000, A stochastic approach to modeling the role of rainfall variability in drainage basin evolution, Water Resources Research, 36(7), 1953-1964.
 

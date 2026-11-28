@@ -36,7 +36,7 @@ Jang et al.(2011)과 비교한 결과, 정적 지형 모델은 혼효림으로 �
 
 5) 모델의 의의
 
-그럼에도 불구하고 본 연구는 기존 고식생모델에서 고정된 입력으로 다루어지던 토심을 지형발달과 함께 변화하는 변수로 모의하고, 그 결과를 고식생 기록과 비교하였다는 점에서 의의가 있다. 지구시스템모델은 기반암 위 투수층의 두께를 전 지구에서 균일하게 근사하는 경우가 많으나 실제 두께는 지형, 기후, 지질에 따라 체계적으로 달라지며(Pelletier et al., 2016), 비슷한 기후 아래에서도 임계대의 두께와 저류능의 차이가 식물군집의 조성을 나눈다(Hahm et al., 2019). 본 연구의 결과는 이러한 토층 두께의 차이가 수천 년 동안의 지형발달을 통해 형성되며, 그 차이가 고식생 기록에 나타나는 국지적인 식생 신호를 설명할 수 있음을 보여준다.
+그럼에도 불구하고 본 연구는 기존 고식생모델에서 고정된 입력으로 다루어지던 토심을 지형발달과 함께 변화하는 변수로 모의하고, 그 결과를 고식생 기록과 비교하였다는 점에서 의의가 있다. 지구시스템모델은 기반암 위 투수층의 두께를 전 지구에서 균일하게 근사하는 경우가 많으나 실제 두께는 지형, 기후, 지질에 따라 체계적으로 달라지며(Pelletier et al., 2016a), 비슷한 기후 아래에서도 임계대의 두께와 저류능의 차이가 식물군집의 조성을 나눈다(Hahm et al., 2019). 본 연구의 결과는 이러한 토층 두께의 차이가 수천 년 동안의 지형발달을 통해 형성되며, 그 차이가 고식생 기록에 나타나는 국지적인 식생 신호를 설명할 수 있음을 보여준다.
 
 또한, Schmid(2020)는 동적 식생모델인 LPJ-GUESS와 Landlab을 100년 간격으로 결합하여 지형 단위(landform)별 평균 토심을 식생모델에 전달하였으나, 토양생성에는 식생의 영향을 반영하지 않았으며 결합 모델의 결과를 고식생 기록과 비교하지는 않았다. 반면, 본 연구에서는 식생 생산성을 EEMT를 통해 기반암 풍화와 사면 물질이동에 연결하고, 30 m 격자 단위의 토심을 BIOME4의 토양수분보유능력과 뿌리 분포에 반영하였으며, 그 결과를 두 고식생 기록의 식생유형과 PFT 출현과 비교하였다. 특히 지형 단위의 평균 토심을 사용할 경우 곡저 축의 얇은 토양에서 나타난 PFT7 격자와 같은 격자 단위의 차이는 평균에 묻히게 되므로, 격자 단위의 결합은 국지적인 식생 신호를 재현하는 데 중요한 역할을 한다.
 
@@ -66,6 +66,6 @@ Li, Y., Nielsen, A. B., Zhao, X., Shan, L., Wang, S., Wu, J. and Zhou, L., 2015,
 Lisitsyna, O. V., Giesecke, T. and Hicks, S., 2011, Exploring pollen percentage threshold values as an indication for the regional presence of major European trees, Review of Palaeobotany and Palynology, 166(3-4), 311-324, doi:10.1016/j.revpalbo.2011.06.004.
 Montgomery, D. R. and Dietrich, W. E., 1989, Source areas, drainage density, and channel initiation, Water Resources Research, 25(8), 1907-1918.
 Nakamura, Y., Shitara, T., Krestov, P., Ishida, Y. and Suzuki, S., 2015, Distribution of Betula species in Japan, Berichte der Reinhold-Tüxen-Gesellschaft, 27, 35-48.
-Pelletier, J. D., Broxton, P. D., Hazenberg, P., Zeng, X., Troch, P. A., Niu, G.-Y., Williams, Z., Brunke, M. A. and Gochis, D., 2016, A gridded global data set of soil, intact regolith, and sedimentary deposit thicknesses for regional and global land surface modeling, Journal of Advances in Modeling Earth Systems, 8, 41-65.
+Pelletier, J. D., Broxton, P. D., Hazenberg, P., Zeng, X., Troch, P. A., Niu, G.-Y., Williams, Z., Brunke, M. A. and Gochis, D., 2016a, A gridded global data set of soil, intact regolith, and sedimentary deposit thicknesses for regional and global land surface modeling, Journal of Advances in Modeling Earth Systems, 8, 41-65.
 Schmid, M., 2020, The effect of changing climate and vegetation on the topographic evolution of catchments in the Chilean Coastal Cordillera over millennial timescales, Ph.D. dissertation, Eberhard Karls Universität Tübingen, doi:10.15496/publikation-39130.
 Sugita, S., 2007, Theory of quantitative reconstruction of vegetation II: all you need is LOVE, The Holocene, 17(2), 243-257.
