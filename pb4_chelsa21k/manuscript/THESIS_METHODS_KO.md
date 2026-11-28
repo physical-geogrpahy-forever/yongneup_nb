@@ -14,7 +14,7 @@ BIOME4는 토양을 상층(0-30 cm)과 하층으로 나누어 토양수분수지
 
 $$WHC(H) = 1000\int_{0}^{\min(H,\,0.3)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi + 1000\int_{0.3}^{\min(\max(H,\,0.3),\,1.5)} \left[\theta_{-10}(\xi) - \theta_{-1500}(\xi)\right] d\xi \tag{1}$$
 
-식 (1)에서 ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이며, 둘의 차이를 식물이 이용할 수 있는 수분량으로 보았다(Turek et al., 2023). 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점의 값을 사용하였고, 각 깊이 구간 안에서는 일정하다고 가정하였다(표 2). 또한, SoilGrids 2.0(Poggio et al., 2021)의 모래, 미사, 점토 함량에 따르면 유역 전체가 FAO-UNESCO(1974)의 중립질에 해당하므로(그림 ?), 투수 지수는 BIOME4의 중립질 값을 사용하였다(Kaplan, 1999).
+식 (1)에서 ξ[m]는 깊이, θ−10과 θ−1500[m³/m³]은 −10 kPa와 −1500 kPa에서의 체적수분함량이며, 두 값의 차이를 깊이에 대해 적분한 값을 토층의 이용 가능 수분량으로 보았다(McKenzie et al., 2003). 깊이별 값은 SoilGrids의 수분보유 자료(Turek et al., 2023)에서 용늪 지점의 값을 사용하였고, 각 깊이 구간 안에서는 일정하다고 가정하였다(표 2). 또한, SoilGrids 2.0(Poggio et al., 2021)의 모래, 미사, 점토 함량에 따르면 유역 전체가 FAO-UNESCO(1974)의 중립질에 해당하므로(그림 ?), 투수 지수는 BIOME4의 중립질 값을 사용하였다(Kaplan, 1999).
 
 표 2. 연구 지역의 깊이별 식물 이용 가능 수분량(θ−10 − θ−1500)
 
@@ -66,7 +66,7 @@ $$\mathrm{EEMT} = E_{PPT} + E_{BIO} = \sum_{m=1}^{12} c_w\,\max(T_m,\,0)\,\max(P
 
 ② 사면 물질이동
 
-토양포행과 생물교란 같은 붕적 과정에 의한 침식과 퇴적은 물질 이동량(q)의 발산으로 나타낸다(Ec = ∇·q). 대부분의 지형발달모델은 이동량이 경사에 비례하는 선형 확산으로 사면의 물질 이동을 나타내지만, Roering et al.(1999)은 이동량이 임계경사에 가까워질수록 급격히 커지는 비선형 경사의존모델을 제시하였다. Pelletier et al.(2013)은 이 비선형 경사의존식의 이동량이 사면에 수직인 방향의 토심에 비례하도록 한 식을 사용하였다(식 10).
+토양포행과 생물교란 같은 붕적 과정에 의한 침식과 퇴적은 물질 이동량(q)의 발산으로 나타낸다(Ec = ∇·q). Culling(1960)은 열전도 이론에 빗대어 물질 이동량이 지표 경사에 비례하는 확산식을 제시하였으며, Roering et al.(1999)은 이동량이 임계경사에 가까워질수록 급격히 커지는 비선형 경사의존모델을 제시하였다. Pelletier et al.(2013)은 이 비선형 경사의존식의 이동량이 사면에 수직인 방향의 토심에 비례하도록 한 식을 사용하였다(식 10).
 
 $$\mathbf{q} = -\frac{k_d\,H\cos\theta\,\nabla z}{1 - \left(|\nabla z|/S_c\right)^2} \tag{10}$$
 
@@ -155,7 +155,7 @@ $$p = 101325\,(1 - 2.25577\times10^{-5}\,z)^{5.25588} \tag{18}$$
 
 각 모델 시점(t)의 그룹별 화분 비율은 [t − 0.05, t + 0.05) kyr에 속하는 시료의 계수를 합하여 구하였으며, 이에 따라 72개 시료는 28개 모델 시점(3.2-0.5 ka)에 한 번씩 배정된다. 화분 비율이 0.5% 이상인 그룹을 출현으로 보았는데, 이 값은 Prentice et al.(1996)이 생물군계 복원에 가장 잘 맞는 일괄 기준으로 선정한 값이며 Ni et al.(2010)도 같은 값을 사용하였다. 또한, 유럽의 표층 화분과 수목 분포를 비교한 연구에서도 0.5%는 수목의 지역적 출현을 판정하는 기준으로 제시되었다(Lisitsyna et al., 2011). 모델에서는 유역 식생 격자의 1% 이상에서 우점 PFT로 선택된 PFT를 출현으로 판정하였다. 상록 침엽수는 우점 여부 대신 생육 가능 여부(생물기후적 한계값을 만족하고 NPP가 0보다 큼)로 판정하였는데, 이는 BIOME4가 온대 낙엽활엽수(PFT4)가 우점하고 아한대 상록수(PFT6)가 생육 가능하면 냉량 혼효림으로 판정하기 때문이다(Kaplan, 1999). 정확도는 여섯 그룹과 28개 시점의 출현 여부 168건을 합산하여 구하였으며, 민감도, 특이도, TSS(민감도 + 특이도 − 1; Allouche et al., 2006)와 그룹별 결과를 함께 제시하였다.
 
-셋째, 판정 기준과 비교 범위에 따라 결과가 달라지는지 확인하기 위해 민감도 분석을 수행하였다. 모델의 출현 기준은 1개 격자와 유역의 1-5%로, 화분의 출현 기준은 모든 그룹 0.5-10%로 바꾸어 비교하였다. 또한, 화분의 공급원 범위는 유역 경계가 아니라 시료 위치로부터의 거리에 따라 정해지므로(Janssen, 1966; Sugita, 1994), 유역 전체 대신 각 코어로부터 반경 100-1,000 m 안의 격자만으로 출현을 판정한 경우와 코어로부터의 거리에 반비례(1/d, 1/d²)하는 가중치를 적용한 경우를 비교하였다. 이때 Jang et al.(2011)과의 비교에는 Jang 코어를, Park et al.(2021)과의 비교에는 YN-C 코어를 기준으로 하였다. 마지막으로, 유역의 크기에 따른 영향을 확인하기 위해 유출구를 하류로 옮겨 유역 면적이 처음 1 km²를 넘는 합류 지점(1,119개 격자, 100.7 ha, 고도 975-1,284 m)으로 설정한 경우를 같은 조건에서 모의하여 비교하였다.
+셋째, 판정 기준과 비교 범위에 따라 결과가 달라지는지 확인하기 위해 민감도 분석을 수행하였다. 모델의 출현 기준은 1개 격자와 유역의 1-5%로, 화분의 출현 기준은 모든 그룹 0.5-10%로 바꾸어 비교하였다. 또한, 화분의 공급원 범위는 유역 경계가 아니라 시료 위치로부터의 거리에 따라 정해지므로(Janssen, 1966; Jacobson & Bradshaw, 1981; Sugita, 1994), 유역 전체 대신 각 코어로부터 반경 100-1,000 m 안의 격자만으로 출현을 판정한 경우와 코어로부터의 거리에 반비례(1/d, 1/d²)하는 가중치를 적용한 경우를 비교하였다. 이때 Jang et al.(2011)과의 비교에는 Jang 코어를, Park et al.(2021)과의 비교에는 YN-C 코어를 기준으로 하였다. 마지막으로, 유역의 크기에 따른 영향을 확인하기 위해 유출구를 하류로 옮겨 유역 면적이 처음 1 km²를 넘는 합류 지점(1,119개 격자, 100.7 ha, 고도 975-1,284 m)으로 설정한 경우를 같은 조건에서 모의하여 비교하였다.
 
 코드(PB4Studio v6.6.3-CHELSA21K), 입력 자료, 실행 설정, 검증 스크립트는 GitHub 저장소(https://github.com/physical-geogrpahy-forever/yongneup_nb)에 공개하였다.
 
@@ -170,6 +170,7 @@ Beyer, R. M., Krapp, M. and Manica, A., 2020, High-resolution terrestrial climat
 Blaauw, M. and Christen, J. A., 2011, Flexible paleoclimate age-depth models using an autoregressive gamma process, Bayesian Analysis, 6(3), 457-474.
 Blöthe, J. H., Korup, O. and Schwanghart, W., 2015, Large landslides lie low: Excess topography in the Himalaya-Karakoram ranges, Geology, 43(6), 523-526.
 Campforts, B., Schwanghart, W. and Govers, G., 2017, Accurate simulation of transient landscape evolution by eliminating numerical diffusion: the TTLEM 1.0 model, Earth Surface Dynamics, 5(1), 47-66.
+Culling, W. E. H., 1960, Analytical theory of erosion, Journal of Geology, 68(3), 336-344.
 FAO-UNESCO, 1974, Soil Map of the World, 1:5 000 000, Volume I, Legend, UNESCO, Paris.
 Freeman, T. G., 1991, Calculating catchment area with divergent flow based on a regular grid, Computers & Geosciences, 17(3), 413-422.
 Hawker, L., Uhe, P., Paulo, L., Sosa, J., Savage, J., Sampson, C. and Neal, J., 2022, A 30 m global map of elevation with forests and buildings removed, Environmental Research Letters, 17(2), 024016.
@@ -178,6 +179,7 @@ Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 1997, The so
 Heimsath, A. M., Dietrich, W. E., Nishiizumi, K. and Finkel, R. C., 2001, Stochastic processes of soil production and transport: Erosion rates, topographic variation and cosmogenic nuclides in the Oregon Coast Range, Earth Surface Processes and Landforms, 26, 531-552.
 Hengl, T., Mendes de Jesus, J., Heuvelink, G. B. M., Ruiperez Gonzalez, M., Kilibarda, M., Blagotić, A., Shangguan, W., Wright, M. N., Geng, X., Bauer-Marschallinger, B., Guevara, M. A., Vargas, R., MacMillan, R. A., Batjes, N. H., Leenaars, J. G. B., Ribeiro, E., Wheeler, I., Mantel, S. and Kempen, B., 2017, SoilGrids250m: Global gridded soil information based on machine learning, PLoS ONE, 12(2), e0169748.
 Jackson, R. B., Canadell, J., Ehleringer, J. R., Mooney, H. A., Sala, O. E. and Schulze, E.-D., 1996, A global analysis of root distributions for terrestrial biomes, Oecologia, 108, 389-411.
+Jacobson, G. L. and Bradshaw, R. H. W., 1981, The selection of sites for paleovegetational studies, Quaternary Research, 16(1), 80-96.
 Jang, B.-O., Kang, S. J. and Choi, K. R., 2011, Vegetation history around Yongneup moor at Mt. Daeamsan, Korea, Journal of Ecology and Field Biology, 34(3), 259-267.
 Janssen, C. R., 1966, Recent pollen spectra from the deciduous and coniferous-deciduous forests of northeastern Minnesota: a study in pollen dispersal, Ecology, 47(5), 804-825.
 Kaplan, J. O., 1999, BIOME4 v4.2b2 source code (biome4.f), https://pmip2.lsce.ipsl.fr/synth/biome4.shtml.
@@ -188,6 +190,7 @@ Langbein, W. B. and Schumm, S. A., 1958, Yield of sediment in relation to mean a
 Lee, C.-H., Seong, Y. B., Weber, J., Ha, S., Kim, D.-E. and Yu, B. Y., 2024, Topographic metrics for unveiling fault segmentation and tectono-geomorphic evolution with insights into the impact of inherited topography, Ulsan Fault Zone, South Korea, Earth Surface Dynamics, 12(5), 1091-1120.
 Leopold, L. B. and Maddock, T. Jr., 1953, The hydraulic geometry of stream channels and some physiographic implications, U.S. Geological Survey Professional Paper 252.
 Lisitsyna, O. V., Giesecke, T. and Hicks, S., 2011, Exploring pollen percentage threshold values as an indication for the regional presence of major European trees, Review of Palaeobotany and Palynology, 166(3-4), 311-324, doi:10.1016/j.revpalbo.2011.06.004.
+McKenzie, N. J., Gallant, J. C. and Gregory, L. J., 2003, Estimating water storage capacities in soil at catchment scales, Technical Report 03/3, Cooperative Research Centre for Catchment Hydrology, Canberra.
 Ni, J., Yu, G., Harrison, S. P. and Prentice, I. C., 2010, Palaeovegetation in China during the late Quaternary: Biome reconstructions based on a global scheme of plant functional types, Palaeogeography, Palaeoclimatology, Palaeoecology, 289, 44-61.
 NOAA, NASA and USAF, 1976, U.S. Standard Atmosphere, 1976, U.S. Government Printing Office, Washington, D.C.
 Park, J., Jin, Q., Choi, J., Bahk, J. and Park, J., 2021, Late Holocene climate variability in central Korea indicated by vegetation, geochemistry, and fire records of the Yongneup moor, Palaeogeography, Palaeoclimatology, Palaeoecology, 584, 110705.
