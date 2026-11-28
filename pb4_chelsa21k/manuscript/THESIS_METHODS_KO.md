@@ -80,7 +80,7 @@ $$\log_{10}\mathrm{SLA} = 2.44 - 0.43\,\log_{10}L \tag{12}$$
 
 $$\mathrm{AGB} = \mathrm{LAI}\left(s + \frac{L^{0.43}}{0.1\times10^{2.44}}\right) \tag{13}$$
 
-식 (13)에서 0.1은 SLA[cm²/g]를 m²/kg으로 바꾸는 계수이고, L은 BIOME4의 PFT별 예상 잎 수명(PFT4 7개월, PFT5 30개월, PFT6과 PFT7 24개월, PFT8 8개월 등)이며, s는 변재 호흡이 있는 PFT에서 1, 없는 PFT(PFT8, 9, 12)에서 0이다(Kaplan, 1999, 2001).
+식 (13)에서 0.1은 SLA[cm²/g]를 m²/kg으로 바꾸는 계수이고, L은 BIOME4의 PFT별 예상 잎 수명(PFT4 7개월, PFT5 30개월, PFT6과 PFT7 24개월, PFT8 8개월 등)이며, s는 변재 호흡이 있는 PFT에서 1, 없는 PFT(PFT8, 9, 12)에서 0이다(Kaplan, 1999).
 
 ③ 유수침식
 
