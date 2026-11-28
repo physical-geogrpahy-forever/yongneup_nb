@@ -1,12 +1,13 @@
 # 인용 원문 근거집
 
-원고(방법, 결과, 논의/결론)의 인용마다 원문 위치, 단락 맥락 요약, 판정 근거 구절(15단어 미만), 판정을 기록한다. 근거는 원문 자체이며, 요약은 원문 단락을 찾아 대조하기 위한 안내이다. 전문을 직접 읽은 항목만 '원문 열람'으로 표시한다.
+원고(방법, 결과, 논의/결론)의 인용마다 원문 링크, 원문 위치(쪽, 절, 단락, 식, 표), 단락 맥락 요약, 판정 근거 구절(15단어 미만), 판정을 기록한다. 원문 단락 전문과 그 번역은 저작권 때문에 이 문서에 옮기지 않았으며, 근거는 링크된 원문 자체이다. 각 항목의 위치로 원문 단락을 바로 찾아 대조할 수 있다. 전문을 직접 읽은 항목만 '원문 열람'으로 표시한다.
 
 판정: 일치 / 표현 조정 / 귀속 조정 / 불일치 / 부분 확인 / 미열람
 
 ## Abraham et al., 2014
 
 - 출처: PLoS ONE 9(6), e100117, doi:10.1371/journal.pone.0100117 (CC BY)
+- 원문 링크: https://doi.org/10.1371/journal.pone.0100117
 - 열람: 원문 열람(표 1과 방법)
 
 ### 1. [논의 23행] 낙하 속도 자작나무속 0.024 m/s, 소나무속 0.031 m/s
@@ -20,6 +21,7 @@
 ## Allouche et al., 2006
 
 - 출처: J. Appl. Ecol. 43(6), 1223-1232, doi:10.1111/j.1365-2664.2006.01214.x
+- 원문 링크: https://doi.org/10.1111/j.1365-2664.2006.01214.x
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [방법 156행] TSS(민감도 + 특이도 − 1; Allouche et al., 2006)
@@ -33,6 +35,8 @@
 ## Barnes et al., 2014
 
 - 출처: Comput. Geosci. 62, 117-127, doi:10.1016/j.cageo.2013.04.024; 저자 공개본 arXiv:1511.04463
+- 원문 링크: https://doi.org/10.1016/j.cageo.2013.04.024
+- 원문 링크: https://arxiv.org/abs/1511.04463 (공개본)
 - 열람: 원문 열람(arXiv 공개본 3절)
 
 ### 1. [방법 93, 121행] 흐름 경로와 유역은 우선순위 채우기(Barnes et al., 2014)로 와지를 채운 지형에서 구함
@@ -45,6 +49,7 @@
 ## Bereiter et al., 2015
 
 - 출처: Geophys. Res. Lett. 42(2), 542-549, doi:10.1002/2014GL061957, Wiley(AGU) 전문
+- 원문 링크: https://doi.org/10.1002/2014GL061957
 - 열람: 원문 열람(본문)
 
 ### 1. [방법 117행] 대기 중 CO2 농도는 Bereiter et al.(2015)의 남극 빙하코어 종합 기록을 선형보간
@@ -58,6 +63,7 @@
 ## Beyer et al., 2020
 
 - 출처: Sci. Data 7, 236, doi:10.1038/s41597-020-0552-1
+- 원문 링크: https://doi.org/10.1038/s41597-020-0552-1
 - 열람: 원문 열람(Springer 공개 본문, 방법 절)
 
 ### 1. [방법 117행] 운량은 Beyer et al.(2020)의 0.5° 격자에서 1,000년 간격으로 제공되는 월별 운량
@@ -70,6 +76,7 @@
 ## Bunting et al., 2004
 
 - 출처: The Holocene 14(5), 651-660, doi:10.1191/0959683604hl744rp
+- 원문 링크: https://doi.org/10.1191/0959683604hl744rp
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [논의 33행] 같은 크기의 분지에서도 관련 화분 공급원 범위는 주로 경관 안 식생 요소의 배치 형태로 정해짐
@@ -83,6 +90,7 @@
 ## Campforts et al., 2017
 
 - 출처: Earth Surf. Dynam. 5, 47-66, doi:10.5194/esurf-5-47-2017, 전문 XML(CC BY 3.0) https://esurf.copernicus.org/articles/5/47/2017/
+- 원문 링크: https://doi.org/10.5194/esurf-5-47-2017
 - 열람: 원문 열람(본문 전체)
 
 ### 1. [방법 101행] 임계경사를 넘는 사면은 Campforts et al.(2017)의 방법으로 임계경사까지 낮추었다(식 15)
@@ -96,6 +104,8 @@
 ## Culling, 1960
 
 - 출처: J. Geol. 68(3), 336-344
+- 원문 링크: https://doi.org/10.1086/626663
+- 원문 링크: https://www.jstor.org/stable/30059222
 - 열람: 원문 열람(사용자 제공 PDF), JSTOR 판
 
 ### 1. [방법 69행] Culling(1960)은 열전도 이론에 빗대어 물질 이동량이 지표 경사에 비례하는 확산식을 제시
@@ -109,6 +119,7 @@
 ## FAO-UNESCO, 1974
 
 - 출처: FAO-UNESCO Soil Map of the World, Vol. 1 Legend, Paris: UNESCO
+- 원문 링크: https://fao.org/4/as360e/as360e.pdf
 - 열람: 범례 본문의 조직 등급 정의 확인(FAO 범례 사본). 원본 PDF(fao.org/4/as360e)는 존재 확인
 
 ### 1. [방법 17행] 중립질 토양 조직(FAO-UNESCO, 1974)
@@ -122,6 +133,7 @@
 ## Freeman, 1991
 
 - 출처: Computers & Geosciences 17(3), 413-422, doi:10.1016/0098-3004(91)90048-I
+- 원문 링크: https://doi.org/10.1016/0098-3004(91)90048-I
 - 열람: 원문 열람(ScienceDirect 학교망 PDF를 화면으로 판독)
 
 ### 1. [방법 93행] 기여면적은 다방향 흐름 알고리즘(Freeman, 1991)으로 구하고, 흐름은 하류 인접 격자에 경사의 1.1제곱에 비례하여 나눔
@@ -135,6 +147,7 @@
 ## Hahm et al., 2019
 
 - 출처: Water Resour. Res. 55(4), 3028-3055, doi:10.1029/2018WR023760
+- 원문 링크: https://doi.org/10.1029/2018WR023760
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [논의 39행] 비슷한 기후에서도 임계대 두께와 저류능의 차이가 식물군집 조성을 나눔
@@ -148,6 +161,7 @@
 ## Havinga, 1984
 
 - 출처: Pollen et Spores 26, 541-558
+- 원문 링크: 온라인판 없음(Pollen et Spores 26, 541-558). 도서관 소장본 또는 원문복사
 - 열람: 원문 미열람. 서지는 여러 참고문헌 목록으로 확인, 내용은 2차 문헌(Grana 2005 등)
 
 ### 1. [논의 23행] 자작나무속 화분은 토양에서 소나무속보다 분해에 약함
@@ -161,6 +175,7 @@
 ## Hawker et al., 2022
 
 - 출처: Environ. Res. Lett. 17, 024016, doi:10.1088/1748-9326/ac4d4f (CC BY)
+- 원문 링크: https://doi.org/10.1088/1748-9326/ac4d4f
 - 열람: 원문 열람(IOP 공개 본문)
 
 ### 1. [방법 121행] 지형은 FABDEM V1-2(Hawker et al., 2022)
@@ -173,6 +188,7 @@
 ## Haxeltine & Prentice, 1996
 
 - 출처: Global Biogeochem. Cycles 10(4), 693-709, doi:10.1029/96GB02344
+- 원문 링크: https://doi.org/10.1029/96GB02344
 - 열람: 원문 미열람(Wiley 페이지에 본문 HTML 없음, PDF 텍스트 추출 실패). 대신 BIOME4 코드로 계수 확인
 
 ### 1. [방법 77행] 변재 생체량은 LAI와 변재 탄소량의 비례 관계(Haxeltine & Prentice, 1996)에 BIOME4의 계수(LAI당 0.5 kgC/m²)
@@ -193,6 +209,7 @@
 ## Heimsath et al., 1997
 
 - 출처: Nature 388, 358-361, doi:10.1038/41056, Nature 전문(학교망) https://www.nature.com/articles/41056
+- 원문 링크: https://doi.org/10.1038/41056
 - 열람: 원문 열람(본문 전체)
 
 ### 1. [방법 55행] 기반암 풍화율은 덮인 토층 두께에 따라 지수적으로 감소한다(Heimsath et al., 1997, 2001); [방법 59행] H0 0.5 m는 Heimsath et al.(1997, 2001) 자료에 근거
@@ -206,6 +223,7 @@
 ## Heimsath et al., 2001
 
 - 출처: Earth Surf. Process. Landforms 26, 531-552, doi:10.1002/esp.209, Wiley
+- 원문 링크: https://doi.org/10.1002/esp.209
 - 열람: 원문 열람(Wiley 학교망, ePDF 뷰어의 OCR 텍스트층으로 전 22쪽 판독)
 
 ### 1. [방법 55행] 기반암 풍화율은 토층 두께에 따라 지수적으로 감소(Heimsath et al., 1997, 2001)
@@ -226,6 +244,7 @@
 ## Hellman et al., 2009
 
 - 출처: Rev. Palaeobot. Palynol. 153, 259-271, doi:10.1016/j.revpalbo.2008.08.008
+- 원문 링크: https://doi.org/10.1016/j.revpalbo.2008.08.008
 - 열람: 원문 열람(ScienceDirect 학교망 본문)
 
 ### 1. [논의 33행] 남부 스웨덴 과거 경관 모의에서 관련 공급원 범위가 식생 조각의 크기와 분포에 따라 시기별로 600-1,200 m 차이
@@ -239,6 +258,7 @@
 ## Hengl et al., 2017
 
 - 출처: PLoS ONE 12(2), e0169748, doi:10.1371/journal.pone.0169748
+- 원문 링크: https://doi.org/10.1371/journal.pone.0169748
 - 열람: 원문 열람(PLoS 본문 HTML)
 
 ### 1. [방법 121행] 초기 토심은 SoilGrids의 기반암(R층) 깊이 예측(Hengl et al., 2017; Shangguan et al., 2017)을 1 km로 집계한 ISRIC 배포 자료(BDRICM)
@@ -252,6 +272,7 @@
 ## Jackson et al., 1996
 
 - 출처: Oecologia 108, 389-411, doi:10.1007/BF00333714
+- 원문 링크: https://doi.org/10.1007/BF00333714
 - 열람: 원문 열람(Jackson 연구실 공개 PDF)
 
 ### 1. [방법 27행] 누적 뿌리분포식 Y = 1 − β^d; [논의 13행] 아한대림 β = 0.943
@@ -264,6 +285,7 @@
 ## Jacobson & Bradshaw, 1981
 
 - 출처: Quat. Res. 16(1), 80-96
+- 원문 링크: https://doi.org/10.1016/0033-5894(81)90129-0
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [방법 158행] 화분의 공급원 범위는 시료 위치로부터의 거리로 정해짐(Janssen, 1966; Jacobson & Bradshaw, 1981; Sugita, 1994)
@@ -277,6 +299,7 @@
 ## Jang et al., 2011
 
 - 출처: J. Ecol. Field Biol. 34(3), 259-267, doi:10.5141/JEFB.2011.028 (작업 공간 텍스트본 /home/claude/jang2011.txt)
+- 원문 링크: https://doi.org/10.5141/JEFB.2011.028
 - 열람: 원문 열람(본문 전체)
 
 ### 1. [방법 127행] 코어 위치 38°12′57.4″N, 128°7′30.2″E
@@ -327,6 +350,8 @@
 ## Janssen, 1966
 
 - 출처: Ecology 47(5), 804-825
+- 원문 링크: https://doi.org/10.2307/1934267
+- 원문 링크: https://repository.naturalis.nl/pub/535204/ (공개본)
 - 열람: 원문 열람(805쪽 정의 부분)
 
 ### 1. [방법 158행] 화분의 공급원 범위는 시료 위치로부터의 거리에 따라 정해짐(Janssen, 1966)
@@ -340,6 +365,7 @@
 ## Kaplan et al., 2003
 
 - 출처: J. Geophys. Res. 108(D19), 8171, doi:10.1029/2002JD002559, Wiley(AGU) 전문(학교망) https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2002JD002559
+- 원문 링크: https://doi.org/10.1029/2002JD002559
 - 열람: 원문 열람(본문 전체)
 
 ### 1. [방법 9행] BIOME4는 BIOME3를 발전시킨 탄소와 수분 플럭스 결합 모델로, 월평균 기온, 강수량, 운량, CO2, 토양 특성으로 평형 상태의 식생 분포와 구조, 생지화학적 특성을 계산
@@ -369,6 +395,7 @@
 ## Kaplan, 1999 (BIOME4 v4.2b2 소스 코드)
 
 - 출처: biome4.f v4.2b2 (작업 공간 사본: biomerun/PB4Studio_v6.6.3_CHELSA21K/fortran_src/biome4_original_4_2b2.f)
+- 원문 링크: 작업 공간 사본 biomerun/PB4Studio_v6.6.3_CHELSA21K/fortran_src/biome4_original_4_2b2.f (행 번호는 각 항목에 표기)
 - 열람: 원문(코드) 열람
 
 ### 1. [방법 13행] BIOME4는 토양을 상층(0-30 cm)과 하층으로 나누어 토양수분수지를 계산
@@ -419,6 +446,7 @@
 ## Kaplan, 2001
 
 - 출처: Ph.D. dissertation, Lund University, doi:10.5281/zenodo.1492908 (공개 PDF)
+- 원문 링크: https://doi.org/10.5281/zenodo.1492908
 - 열람: 원문 일부 열람(1-100쪽 분량 텍스트)
 
 ### 1. [방법 9행] BIOME4는 BIOME3를 발전시킨 탄소와 수분 플럭스 결합 모델(Kaplan, 2001; Kaplan et al., 2003)
@@ -440,6 +468,7 @@
 ## Karger et al., 2023
 
 - 출처: Clim. Past 19, 439-456, doi:10.5194/cp-19-439-2023 (CC BY 4.0) https://cp.copernicus.org/articles/19/439/2023/cp-19-439-2023.pdf
+- 원문 링크: https://doi.org/10.5194/cp-19-439-2023
 - 열람: 원문 열람(WebFetch 요약 경유, 해당 절 확인)
 
 ### 1. [방법 113행] CHELSA-TraCE21k의 100년 간격 월 최저기온, 월 최고기온, 월강수량; 월평균기온은 둘의 평균; 지형을 고려해 상세화된 자료이므로 고도 보정 없이 적용
@@ -453,6 +482,7 @@
 ## Langbein & Schumm, 1958
 
 - 출처: Trans. AGU 39(6), 1076-1084, doi:10.1029/TR039i006p01076, Wiley(AGU) 초록 페이지
+- 원문 링크: https://doi.org/10.1029/TR039i006p01076
 - 열람: 원문 열람(사용자 제공 PDF), 스캔본을 OCR로 판독
 
 ### 1. [방법 91행] Langbein & Schumm(1958)은 퇴적물 생산량이 연평균 유효강수량 약 12인치(약 0.3 m)에서 가장 크고, 유효강수량이 그보다 많으면 식생 밀도가 높아져 줄어든다고 보고
@@ -466,6 +496,7 @@
 ## Lee et al., 2024
 
 - 출처: Earth Surf. Dynam. 12, 1091-1120, HTML 전문 (CC BY 4.0), https://esurf.copernicus.org/articles/12/1091/2024/esurf-12-1091-2024.html
+- 원문 링크: https://esurf.copernicus.org/articles/12/1091/2024/esurf-12-1091-2024.html
 - 열람: 원문 열람
 
 ### 1. [방법 97행] 융기율(U)은 Lee et al.(2024)이 태백산맥의 장기 삭박률에 맞추어 제시한 0.08 m/kyr
@@ -479,6 +510,7 @@
 ## Leopold & Maddock, 1953
 
 - 출처: USGS Professional Paper 252
+- 원문 링크: https://doi.org/10.3133/pp252
 - 열람: 원문 열람(USGS 공개 PDF 텍스트, 16쪽과 25쪽)
 
 ### 1. [방법 93행] 곡저 폭 w = gA^(1/2) (Leopold & Maddock, 1953; Pelletier et al., 2013)
@@ -492,6 +524,7 @@
 ## Li et al., 2015 (Y. Li)
 
 - 출처: Rev. Palaeobot. Palynol. 216, 92-100
+- 원문 링크: https://doi.org/10.1016/j.revpalbo.2015.02.003
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [논의 33행] 창바이산 온대림의 관련 화분 공급원 범위 2,000-2,500 m
@@ -505,6 +538,7 @@
 ## Li et al., 2018 (F. Li)
 
 - 출처: Front. Plant Sci. 9, 1214, doi:10.3389/fpls.2018.01214 (CC BY), PMC6134201
+- 원문 링크: https://doi.org/10.3389/fpls.2018.01214
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [논의 23행] 자작나무속(12.42-16.99)은 소나무속(18.37)과 비슷한 수준으로 화분을 많이 생산
@@ -518,6 +552,7 @@
 ## Lisitsyna et al., 2011
 
 - 출처: Rev. Palaeobot. Palynol. 166(3-4), 311-324, doi:10.1016/j.revpalbo.2011.06.004, ScienceDirect 전문(학교망)
+- 원문 링크: https://doi.org/10.1016/j.revpalbo.2011.06.004
 - 열람: 원문 열람(본문)
 
 ### 1. [방법 156행, 논의 21행] 유럽 표층 화분과 수목 분포 비교에서 0.5%가 수목의 지역적 출현 기준으로 연속 화분 곡선보다 적합
@@ -531,6 +566,7 @@
 ## McKenzie et al., 2003
 
 - 출처: McKenzie, N. J., Gallant, J. C. and Gregory, L. J. 2003. Estimating water storage capacities in soil at catchment scales. CRC for Catchment Hydrology Technical Report 03/3
+- 원문 링크: https://www.ewater.org.au/archive/crcch/overview/archive/pubs/pdfs/technical200303.pdf
 - 열람: 원문 열람(사용자 제공 PDF)(CRC for Catchment Hydrology 공개본)
 
 ### 1. [방법 17행] θ−10과 θ−1500의 차이를 깊이에 대해 적분한 값을 토층의 이용 가능 수분량으로 봄(McKenzie et al., 2003)
@@ -544,6 +580,7 @@
 ## Montgomery & Dietrich, 1989
 
 - 출처: Water Resour. Res. 25(8), 1907-1918
+- 원문 링크: https://doi.org/10.1029/WR025i008p01907
 - 열람: 원문 첫 쪽 열람(공개 PDF 서론)
 
 ### 1. [논의 7행] 습윤 지역에서 유로는 흔히 사면 오목부 아래에서 시작
@@ -556,6 +593,7 @@
 ## Nakamura et al., 2015
 
 - 출처: Ber. Reinh.-Tüxen-Ges. 27, 35-48 (zobodat 공개 PDF)
+- 원문 링크: https://www.zobodat.at/pdf/Ber-Reinh-Tuexen-Ges_27_0035-0048.pdf
 - 열람: 원문 열람
 
 ### 1. [논의 15행] 자작나무속은 개척종이나 일부 종은 암벽과 능선에서 토양 조건으로 유지되는 극상림을 이루며, 사스래나무는 아고산대의 그러한 극상림에서 흔함
@@ -569,6 +607,8 @@
 ## Ni et al., 2010
 
 - 출처: Palaeogeogr. Palaeoclimatol. Palaeoecol. 289, 44-61, doi:10.1016/j.palaeo.2010.02.008, AWI 공개본 https://epic2-clone.awi.de/21633/1/Nix2010c.pdf
+- 원문 링크: https://doi.org/10.1016/j.palaeo.2010.02.008
+- 원문 링크: https://epic2-clone.awi.de/21633/1/Nix2010c.pdf (공개본)
 - 열람: 원문 열람(본문과 표 1)
 
 ### 1. [방법 143-145행, 표 4] 화분 분류군은 Ni et al.(2010)의 PFT 배정에 따라 PFT 그룹으로 묶음(표 4의 전체 분류군)
@@ -604,6 +644,7 @@
 ## NOAA et al., 1976
 
 - 출처: U.S. Standard Atmosphere, 1976. NOAA, NASA, USAF, Washington DC
+- 원문 링크: https://ntrs.nasa.gov/citations/19770009539
 - 열람: 표준대기 상수로 계수 재계산(원문 표 대조 대신)
 
 ### 1. [방법 117행, 식 18] 기압 = 101.325(1 − 2.25577×10⁻⁵ z)^5.25588
@@ -617,6 +658,7 @@
 ## Park et al., 2021
 
 - 출처: Palaeogeogr. Palaeoclimatol. Palaeoecol. 584, 110705 (작업 공간 텍스트본 /home/claude/park2021.txt)
+- 원문 링크: https://doi.org/10.1016/j.palaeo.2021.110705
 - 열람: 원문 열람(본문 전체)
 
 ### 1. [방법 127행] YN-C 코어 38°12′54.40″N, 128°7′25.1″E, 해발 1,189 m
@@ -651,6 +693,7 @@
 ## Pelletier & Rasmussen, 2009
 
 - 출처: Lithosphere 1(2), 73-80, doi:10.1130/L3.1, GeoScienceWorld 전문(공개) https://pubs.geoscienceworld.org/gsw/lithosphere/article/1/2/73/99497
+- 원문 링크: https://doi.org/10.1130/L3.1
 - 열람: 원문 열람(본문 전체)
 
 ### 1. [방법 55행] Pelletier & Rasmussen(2009)은 Rasmussen & Tabor(2007)를 바탕으로 토층이 없을 때의 풍화율도 EEMT에 따라 지수적으로 증가한다고 보았다(식 8)
@@ -680,6 +723,7 @@
 ## Pelletier et al., 2013
 
 - 출처: J. Geophys. Res. Earth Surf. 118(2), 741-758, doi:10.1002/jgrf.20046, Wiley 전문(학교망) https://agupubs.onlinelibrary.wiley.com/doi/full/10.1002/jgrf.20046
+- 원문 링크: https://doi.org/10.1002/jgrf.20046
 - 열람: 원문 열람(본문 단락 [1]-[58], 표 1). 식 (1)-(22)는 그림으로만 제공되어 식의 형태는 단락 설명으로 대조
 
 ### 1. [방법 43행] 토층이 덮인 산지 사면은 물리적 풍화에 의한 레골리스 생성과 사면 물질이동에 의한 제거로 발달하며, 레골리스 두께는 이 둘의 장기적 균형으로 정해진다
@@ -808,6 +852,7 @@
 ## Pelletier et al., 2016
 
 - 출처: J. Adv. Model. Earth Syst. 8, 41-65, doi:10.1002/2015MS000526
+- 원문 링크: https://doi.org/10.1002/2015MS000526
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [논의 39행] 지구시스템모델은 투수층 두께를 균일하게 근사하나 실제 두께는 지형, 기후, 지질에 따라 체계적으로 달라짐
@@ -821,6 +866,7 @@
 ## Pelletier, 2010
 
 - 출처: Geomorphology 122(1-2), 91-98, doi:10.1016/j.geomorph.2010.06.001, ScienceDirect 전문(학교망) https://www.sciencedirect.com/science/article/pii/S0169555X10002606
+- 원문 링크: https://doi.org/10.1016/j.geomorph.2010.06.001
 - 열람: 원문 열람(본문 전체)
 
 ### 1. [방법 93행] 사면과 곡저는 Pelletier(2010, 2013)의 방법에 따라, 30 m 격자의 기여면적과 쌍선형 보간한 15 m 격자에서 대응하는 네 격자 기여면적의 최댓값 사이의 비(f)가 1.2보다 작은 격자를 곡저로 구분
@@ -834,6 +880,7 @@
 ## Poggio et al., 2021
 
 - 출처: SOIL 7(1), 217-240, doi:10.5194/soil-7-217-2021
+- 원문 링크: https://doi.org/10.5194/soil-7-217-2021
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [방법 17행] SoilGrids 2.0(Poggio et al., 2021)의 모래, 미사, 점토 함량
@@ -847,6 +894,8 @@
 ## Prentice et al., 1992
 
 - 출처: J. Biogeogr. 19(2), 117-134, doi:10.2307/2845499, HAL 공개본 hal-01788308
+- 원문 링크: https://doi.org/10.2307/2845499
+- 원문 링크: https://hal.science/hal-01788308 (공개본)
 - 열람: 원문 열람(HAL 공개 PDF 텍스트)
 
 ### 1. [방법 113행, 식 17] 절대최저기온 = 0.006 Tc² + 1.316 Tc − 21.9 (Prentice et al., 1992)
@@ -860,6 +909,7 @@
 ## Prentice et al., 1996
 
 - 출처: Clim. Dyn. 12, 185-194, doi:10.1007/BF00211617, Springer PDF(학교망)
+- 원문 링크: https://doi.org/10.1007/BF00211617
 - 열람: 원문 열람(본문 전체, PDF 텍스트 추출)
 
 ### 1. [방법 156행, 논의 21행] 0.5%는 Prentice et al.(1996)이 생물군계 복원에 가장 잘 맞는 일괄 기준으로 선정한 값
@@ -880,6 +930,7 @@
 ## Rasmussen & Tabor, 2007
 
 - 출처: Soil Sci. Soc. Am. J. 71(6), 1719-1729, doi:10.2136/sssaj2007.0051, Wiley(ACSESS) 전문(학교망) https://acsess.onlinelibrary.wiley.com/doi/10.2136/sssaj2007.0051
+- 원문 링크: https://doi.org/10.2136/sssaj2007.0051
 - 열람: 원문 열람(본문 전체)
 
 ### 1. [방법 55행] Rasmussen & Tabor(2007)는 경사가 완만한 안정 사면에서 레골리스 두께가 EEMT에 따라 지수적으로 증가함을 보였다
@@ -908,6 +959,7 @@
 ## Reich et al., 1992
 
 - 출처: Ecol. Monogr. 62(3), 365-392, doi:10.2307/2937116
+- 원문 링크: https://doi.org/10.2307/2937116
 - 열람: 원문 스캔본(UMN 공개 PDF, JBIG2 이미지라 텍스트 추출 불가). 해당 회귀식은 CORE에 올라온 같은 논문의 OCR 텍스트(검색 결과 본문 조각)로 확인
 
 ### 1. [방법 77행, 식 12] log10 SLA = 2.44 − 0.43 log10 L (Reich et al., 1992)
@@ -921,6 +973,7 @@
 ## Riebe et al., 2004
 
 - 출처: Earth Planet. Sci. Lett. 224(3-4), 547-562
+- 원문 링크: https://czo-archive.criticalzone.org/luquillo/publications/pub/riebe-et-al-2004-erosional-and-climatic-effects-on-long-term-chemical-weath/ (서지, 초록; DOI 미확인, ScienceDirect에서 제목 검색)
 - 열람: 원고에서의 용도 확인만(Pelletier & Rasmussen 2009 원문에서 Riebe 자료 사용 확인). Riebe 원문 미열람
 
 ### 1. [방법 59행] Pelletier & Rasmussen(2009)이 Riebe et al.(2004)의 화강암 유역 자료로 a, b를 구함
@@ -934,6 +987,7 @@
 ## Roering et al., 1999
 
 - 출처: Water Resour. Res. 35(3), 853-870, doi:10.1029/1998WR900090, Wiley(AGU) 초록 페이지(학교망)
+- 원문 링크: https://doi.org/10.1029/1998WR900090
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [방법 69행] Roering et al.(1999)은 이동량이 임계경사에 가까워질수록 급격히 커지는 비선형 경사의존모델을 제시
@@ -946,6 +1000,7 @@
 ## Schmid, 2020
 
 - 출처: Ph.D. dissertation, Universität Tübingen, doi:10.15496/publikation-39130 (CORE 공개 PDF)
+- 원문 링크: https://doi.org/10.15496/publikation-39130
 - 열람: 원문 열람(이전 단계)
 
 ### 1. [논의 41행] LPJ-GUESS와 Landlab을 100년 간격으로 결합해 지형 단위별 평균 토심을 전달, 토양생성에 식생 영향 미반영, 고식생 기록 비교 없음
@@ -959,6 +1014,7 @@
 ## Shangguan et al., 2017
 
 - 출처: J. Adv. Model. Earth Syst. 9(1), 65-88, doi:10.1002/2016MS000686
+- 원문 링크: https://doi.org/10.1002/2016MS000686
 - 열람: 원문 열람(본문)
 
 ### 1. [방법 121행] 초기 토심은 SoilGrids의 기반암(R층) 깊이 예측(Hengl et al., 2017; Shangguan et al., 2017)을 1 km로 집계한 ISRIC 배포 자료(BDRICM)
@@ -972,6 +1028,8 @@
 ## Sugita, 1994
 
 - 출처: J. Ecol. 82, 881-897, doi:10.2307/2261452
+- 원문 링크: https://doi.org/10.2307/2261452
+- 원문 링크: https://www.jstor.org/stable/2261452
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [방법 127행, 논의 33행] 반경 약 50 m 분지의 관련 화분 공급원 범위 300-400 m, 이 안에서 오는 화분 30-45%; [논의 33행] 모의 경관에서 분지 크기에 따라 50-100 m에서 600-800 m; [방법 158행] 공급원 범위는 시료 위치로부터의 거리로 정해짐
@@ -985,11 +1043,12 @@
 ## Sugita, 2007
 
 - 출처: The Holocene 17(2), 243-257
+- 원문 링크: https://doi.org/10.1177/0959683607075838
 - 열람: 원문 열람(사용자 제공 PDF)
 
 ### 1. [논의 33행] 화분 생산성과 확산을 고려한 경관 복원 방법(Sugita, 2007)
 
-- 원문 위치: 초록
+- 원문 위치: 243쪽 초록, 244쪽 그림 1(LRA 구성)과 서론
 - 단락 맥락: 화분 생산성과 확산, 퇴적 모델로 국지 식생 피복을 정량 복원하는 경관 복원 알고리즘의 두 번째 단계(LOVE)를 제시한다.
 - 판정 근거 구절: ""
 - 판정: **일치**
@@ -998,6 +1057,8 @@
 ## Turek et al., 2023
 
 - 출처: Int. Soil Water Conserv. Res. 11(2), 225-239, doi:10.1016/j.iswcr.2022.08.001, WUR 공개본 edepot.wur.nl/577887
+- 원문 링크: https://doi.org/10.1016/j.iswcr.2022.08.001
+- 원문 링크: https://edepot.wur.nl/577887 (공개본)
 - 열람: 원문 열람(WUR 공개 PDF, 서론과 2절)
 
 ### 1. [방법 17행] θ−10과 θ−1500의 차이를 식물이 이용할 수 있는 수분량으로 봄(Turek et al., 2023)
@@ -1018,6 +1079,7 @@
 ## 고승연 등, 2014
 
 - 출처: 한국환경생태학회지 28(2), 182-196, doi:10.13047/KJEE.2014.28.2.182 (KoreaScience PDF)
+- 원문 링크: https://doi.org/10.13047/KJEE.2014.28.2.182
 - 열람: 원문 열람
 
 ### 1. [논의 15행] 계방산 암석노출도 60.0% 계곡부 식생단위에서 거제수나무 교목층 중요치 15.25%; 사스래나무는 계곡부보다 사면 상부에서 더 높은 중요치
@@ -1031,6 +1093,7 @@
 ## 이호영 등, 2021
 
 - 출처: 한국환경생태학회지 35(1), 37-47, doi:10.13047/KJEE.2021.35.1.37 (KoreaScience PDF)
+- 원문 링크: https://doi.org/10.13047/KJEE.2021.35.1.37
 - 열람: 원문 열람
 
 ### 1. [논의 15행] 설악산 암석비율 60.0% 계곡 상류부에 분비나무-거제수나무군락; 사스래나무는 능선 쪽 군락에서 높은 상재도
