@@ -383,3 +383,115 @@
   > 표 2와 표 4: 기체상수 R* = 8.31432×10³ N×m/(kmol×K), g0' = 9.80665, 해면 기압 101325 Pa, 해면 기온 288.15 K, 최하층(b = 0)의 기준 고도 0 km', 기온감률 −6.5 K/km'.
 - 계산: b = 0에서 T_M,b = 288.15 K, L_M,b = −0.0065 K/m, H_b = 0, P_b = 101325 Pa이다. 괄호 안은 288.15/(288.15 − 0.0065H) = (1 − 2.25577×10⁻⁵ H)⁻¹이고, 지수는 g0'M0/(R*L) = 9.80665 × 28.9644 / (8.31432 × (−6.5)) = −5.25588이다. 따라서 P = 101325(1 − 2.25577×10⁻⁵ H)^5.25588로 원고 식 18과 같다. M0는 표 3의 기체별 분자량과 부피비로 계산하면 28.9645 kg/kmol로 원문 정의값 28.9644와 맞는다.
 - 판정: 일치. 다만 원문 식의 H는 지오퍼텐셜 고도이고 원고의 z는 해발고도로 썼다. 용늪 고도(약 1,280 m)에서 둘의 차이는 0.3 m 안팎이라 결과에 영향이 없다.
+
+---
+
+## Kaplan, J. O., 1999, BIOME4 v4.2b2 소스 코드(biome4.f)
+
+- 원문 출처: 작업 공간 사본 `biome4_original_4_2b2.f`(머리말: "The BIOME4-system: biome4.f 4.2b2 02.11.99, Copyright (c) 1999 by Jed O. Kaplan"). 이용 조건: GNU General Public License 2판. 원문은 소스 코드의 주석과 문장을 행 번호와 함께 그대로 옮겼다.
+
+### 1. [방법 9행] BIOME4는 BIOME3를 바탕으로 함
+
+- 원문 위치: 23행
+- 원문:
+  > c      This is BIOME4, based on BIOME3 (Haxeltine and Prentice 1996).
+- 번역:
+  > 이것은 BIOME3(Haxeltine and Prentice 1996)를 바탕으로 한 BIOME4이다.
+- 판정: 일치.
+
+### 2. [방법 13행] 토양을 상층(0-30 cm)과 하층으로 나누어 토양수분수지를 계산
+
+- 원문 위치: 35-38행(입력 설명 주석), 2836-2846행(soildata 서브루틴)
+- 원문:
+  > 35: c      Monthly mean- temperature, precipitation, %cloudiness (or sunshine)
+  > 36: c      Absolute minimum temperature
+  > 37: c      Water holding capacity (mm) in the top 30cm of the soil
+  > 38: c      Water holding capacity (mm) in the rest of the soil
+  > parameter(d1=300.,d2=1200.)
+  > k(5) = whc*d1   !call this the top 30cm of a 1.5m deep soil
+  > k(6) = whc*d2   !and this the rest
+- 번역:
+  > 35: 월평균 기온, 강수량, 운량 백분율(또는 일조)
+  > 36: 절대최저기온
+  > 37: 토양 상부 30 cm의 보수력(mm)
+  > 38: 나머지 토양의 보수력(mm)
+  > d1 = 300, d2 = 1200(mm)으로 두고, k(5) = 보수력 × d1은 깊이 1.5 m 토양의 상부 30 cm, k(6) = 보수력 × d2는 그 나머지로 본다.
+- 판정: 일치.
+
+### 3. [방법 27행] PFT별 상층 뿌리 비율로 상층과 하층 상대 토양수분을 가중평균해 근권 토양수분을 구함
+
+- 원문 위치: 2361-2362행(hydrology), 2742행(pftdata 매개변수 설명)
+- 원문:
+  > 2361: c      Calculate effective soil moisture in rooting zone
+  > 2362:        wr =  root*w(1) + (1.-root)*w(2)
+  > 2742: c          6  = fraction of roots in top soil layer, 30 cm from Jackson et al.
+- 번역:
+  > 2361: 근권의 유효 토양수분을 계산한다.
+  > 2362: wr = root × w(1) + (1 − root) × w(2)
+  > 2742: 6번 매개변수 = 상층 토양(30 cm)에 있는 뿌리의 비율, Jackson et al.에서 가져옴.
+- 판정: 일치.
+
+### 4. [방법 83행] 잎 수명 PFT4 7개월, PFT5 30, PFT6과 7 24, PFT8 8개월, 변재 호흡이 없는 PFT 8, 9, 12
+
+- 원문 위치: pftdata 서브루틴의 매개변수 설명(2743, 2746행)과 자료문
+- 원문:
+  > c          7  = Expected leaf longevity in months
+  > c         10  = presence of sapwood respiration
+  > (자료문, 행 순서는 PFT 1-13, 7번째 값이 잎 수명, 10번째 값이 변재 호흡 유무)
+  > PFT4: 2., 0.8, 10.0, -99.,-99. ,0.65 , 7. , 200.,-99., 1., 0.,
+  > PFT5: 1., 0.2,  4.8, -99.,-99. ,0.52 ,30. , -99.,-99., 1., 0.,
+  > PFT6: 1., 0.5,  4.5, -99.,-99. ,0.83 ,24. , -99.,-99., 1., 0.,
+  > PFT7: 2., 0.8, 10.0, -99.,-99. ,0.83 ,24. , 200.,-99., 1., 0.,
+  > PFT8: 3., 0.8,  6.5,  0.2, 0.3 ,0.83 , 8. , -99.,100., 2., 1.,
+  > PFT9: 3., 0.8,  8.0,  0.2, 0.3 ,0.57 ,10. , -99.,-99., 2., 1.,
+  > PFT12: 2., 0.8,  1.0, -99.,-99. ,0.93 , 8. , -99., 25., 2., 0.,
+- 번역:
+  > 7번 매개변수 = 예상 잎 수명(월), 10번 매개변수 = 변재 호흡 유무.
+  > 잎 수명은 PFT4 7개월, PFT5 30개월, PFT6과 PFT7 24개월, PFT8 8개월이다. 10번째 값은 PFT 8, 9, 12에서 2이고 나머지 PFT에서 1이다.
+- 판정: 일치. 10번째 값 2가 변재 호흡이 없는 경우에 해당한다는 해석은 hydrology와 호흡 계산 부분의 사용 방식에 근거한다.
+
+### 5. [방법 113행] 절대최저기온은 Prentice et al.(1992)의 회귀식(식 17)
+
+- 원문 위치: 2719행
+- 원문:
+  > 2719:        alttmin=(0.006*cold**2)+(1.316*cold)-21.9
+- 번역:
+  > 절대최저기온 = 0.006 × (최한월 평균기온)² + 1.316 × (최한월 평균기온) − 21.9
+- 판정: 일치.
+
+### 6. [방법 156행, 결과 39행] PFT4 우점과 PFT6 생육 가능이면 혼효림, 우점 PFT7과 부우점 PFT4면 온대 낙엽활엽림
+
+- 원문 위치: newassignbiome 서브루틴(1027행부터), 1042-1047행 생물군계 목록, 1151-1163행, 1185-1203행
+- 원문:
+  > c     list of the 28 biomes assigned, including land ice
+  > c     4  Temperate deciduous forest
+  > c     7  Cool mixed forest
+  > c     9  Cold mixed forest
+  > 1151:       if (optpft.eq.7) then
+  > 1152:        if (subpft.eq.4) then
+  > 1153:         biome=4
+  > ...
+  > 1185:      if (optpft.eq.4) then
+  > 1186:       if (present(6)) then
+  > 1187:        if (tcm.lt.-15.) then
+  > 1188:        biome=9 !cold mixed
+  > 1189:       else
+  > 1190:        biome=7 !cool mixed
+- 번역:
+  > 육지 얼음을 포함해 배정되는 28개 생물군계 목록: 4 온대 낙엽활엽림, 7 냉량 혼효림, 9 한랭 혼효림.
+  > 우점 PFT가 7이고 부우점 PFT가 4이면 생물군계 4(온대 낙엽활엽림)로 판정한다.
+  > 우점 PFT가 4이고 PFT6이 생육 가능하면, 최한월 평균기온이 −15 °C 미만일 때 생물군계 9(한랭 혼효림), 그렇지 않으면 생물군계 7(냉량 혼효림)로 판정한다.
+- 판정: 일치. PFT4 우점과 PFT6 생육 가능의 결과는 최한월 평균기온 −15 °C를 경계로 냉량 혼효림과 한랭 혼효림으로 나뉘며, 원고의 생물군계 결과는 이 코드의 출력이다.
+
+### 7. [논의 25행] 교목 PFT의 NPP나 LAI가 일정 값보다 낮을 때에만 초본이 우점 PFT로 선택
+
+- 원문 위치: 564-600행(초본 우점 조건)
+- 원문:
+  > 564: c     Under certain conditions grass will be the dominant or co-dominant PFT:
+  > if (wdom.eq.2) then / if (woodylai.lt.2.0) then / optpft=grasspft ...
+  > if (wdom.eq.3) then / if (optnpp(wdom).lt.140.0) then / optpft=grasspft / else if (woodylai.lt.1.0) then / optpft=grasspft ...
+  > if (wdom.eq.4) then / if (woodylai.lt.2.0) then / optpft=grasspft ...
+- 번역:
+  > 564: 특정 조건에서는 초본이 우점 또는 공우점 PFT가 된다.
+  > 우점 목본 PFT가 2이면 목본 LAI가 2.0 미만일 때 초본을 우점 PFT로 한다. 우점 목본 PFT가 3이면 그 NPP가 140 미만이거나 목본 LAI가 1.0 미만일 때 초본을 우점 PFT로 한다. 우점 목본 PFT가 4이면 목본 LAI가 2.0 미만일 때 초본을 우점 PFT로 한다.
+- 판정: 일치.
