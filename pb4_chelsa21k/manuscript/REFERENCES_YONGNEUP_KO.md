@@ -158,7 +158,7 @@ Montgomery, D. R. and Dietrich, W. E., 1989, Source areas, drainage density, and
 
 Nakamura, Y., Shitara, T., Krestov, P., Ishida, Y. and Suzuki, S., 2015, Distribution of Betula species in Japan, Berichte der Reinhold-Tüxen-Gesellschaft, 27, 35-48.
 
-※Ni, J., 2002, [서지사항 확인 필요].
+Ni, J., 2002, BIOME models: main principles and applications, Acta Phytoecologica Sinica, 26(4), 481-488 (in Chinese).
 
 Ni, J. and Herzschuh, U., 2011, Simulating biome distribution on the Tibetan Plateau using a modified global vegetation model, Arctic, Antarctic, and Alpine Research, 43(3), 429-441.
 
